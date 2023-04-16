@@ -22,7 +22,7 @@
                   <Image url="@icon/setting.png" />
                </image>
             </ImageView>
-            <Button layoutX="347.0" layoutY="76.0" mnemonicParsing="false" style="-fx-background-color: #4169E1;" text="TURN EDITING ON" textFill="WHITE" AnchorPane.bottomAnchor="20.800000000000004" AnchorPane.rightAnchor="31.0" />
+            <Button fx:id="btnTurnEditingOn" layoutX="347.0" layoutY="76.0" mnemonicParsing="false" style="-fx-background-color: #4169E1;" text="TURN EDITING ON" textFill="WHITE" AnchorPane.bottomAnchor="20.800000000000004" AnchorPane.rightAnchor="31.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="54.0" layoutY="196.0" prefHeight="289.0" prefWidth="494.0" style="-fx-background-color: #F8F8FF;" AnchorPane.bottomAnchor="8.399999999999977" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="53.60000000000002" AnchorPane.topAnchor="196.0" />

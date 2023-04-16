@@ -3,14 +3,21 @@ package com.example.baitaplonoop.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.example.baitaplonoop.Controller.GUI11Controller.dialog;
+
 
 public class GUI11PopUpController implements Initializable{
     @FXML
@@ -33,7 +40,7 @@ public class GUI11PopUpController implements Initializable{
             this.result = "Category";
         });
         lbImport.setOnMouseClicked(mouseEvent -> {
-            this.result = "Import";
+                this.result = "Import";
         });
         lbExport.setOnMouseClicked(mouseEvent -> {
             this.result = "Export";
