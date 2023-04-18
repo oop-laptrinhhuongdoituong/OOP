@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.Controller.GUI34Controller">
+   <children>
+      <Label layoutX="40.0" layoutY="30.0" prefHeight="36.0" prefWidth="297.0" text="Import questions form file" textFill="FIREBRICK" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font size="25.0" />
+         </font></Label>
+      <Label layoutX="68.0" layoutY="75.0" prefHeight="30.0" prefWidth="96.0" text="File format" textFill="FIREBRICK" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="442.0" AnchorPane.topAnchor="75.0">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Separator layoutY="93.0" prefHeight="18.0" prefWidth="606.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0" />
+      <Label layoutX="354.0" layoutY="75.0" prefHeight="26.0" prefWidth="102.0" text="Aiken format" textFill="FIREBRICK" AnchorPane.leftAnchor="354.0" AnchorPane.topAnchor="75.0">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Label layoutX="68.0" layoutY="121.0" prefHeight="26.0" prefWidth="64.0" text="General" textFill="FIREBRICK" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="474.0" AnchorPane.topAnchor="121.0">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Separator layoutY="139.0" prefHeight="18.0" prefWidth="606.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="139.0" />
+      <Label layoutX="68.0" layoutY="170.0" prefHeight="26.0" prefWidth="205.0" text="Import questions from file" textFill="FIREBRICK" AnchorPane.leftAnchor="68.0" AnchorPane.topAnchor="170.0">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Label layoutX="41.0" layoutY="215.0" text="Import to category:" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="215.0" />
+      <Button layoutX="277.0" layoutY="211.0" mnemonicParsing="false" style="-fx-background-color: #1E90FF;" text="Choose a file" textFill="WHITE" AnchorPane.rightAnchor="244.2" AnchorPane.topAnchor="211.0" />
+      <AnchorPane layoutX="277.0" layoutY="250.0" prefHeight="136.0" prefWidth="311.0" style="-fx-background-color: #FFFFFF;" AnchorPane.rightAnchor="17.80000000000001" AnchorPane.topAnchor="250.0">
+         <children>
+            <ImageView fitHeight="46.0" fitWidth="54.0" layoutX="133.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/dropfile.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button layoutX="277.0" layoutY="414.0" mnemonicParsing="false" style="-fx-background-color: #b22222;" text="Import" textFill="WHITE" AnchorPane.rightAnchor="277.0" AnchorPane.topAnchor="414.0" />
+      <Label fx:id="lbChooseImportCategory" layoutX="175.0" layoutY="215.0" prefHeight="18.0" prefWidth="109.0" text="Default" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="215.0" />
+      <TreeView fx:id="treeViewImport" layoutX="171.0" layoutY="237.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="171.0" AnchorPane.topAnchor="237.0" />
+   </children>
+</AnchorPane>
