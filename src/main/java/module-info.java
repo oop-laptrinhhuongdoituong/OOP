@@ -1,6 +1,9 @@
 module com.example.baitaplonoop {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.microsoft.sqlserver.jdbc;
+    requires java.naming;
+    requires java.sql;
             
                             
     opens com.example.baitaplonoop to javafx.fxml;
