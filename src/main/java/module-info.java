@@ -4,6 +4,11 @@ module com.example.baitaplonoop {
     requires com.microsoft.sqlserver.jdbc;
     requires java.naming;
     requires java.sql;
+    requires org.apache.poi.ooxml.schemas;
+    requires org.apache.xmlbeans;
+    requires org.apache.poi.ooxml;
+    requires org.apache.poi.poi;
+    requires org.apache.logging.log4j;
             
                             
     opens com.example.baitaplonoop to javafx.fxml;

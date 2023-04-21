@@ -34,18 +34,21 @@
             <Font size="17.0" />
          </font></Label>
       <Label layoutX="41.0" layoutY="215.0" text="Import to category:" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="215.0" />
-      <Button layoutX="277.0" layoutY="211.0" mnemonicParsing="false" style="-fx-background-color: #1E90FF;" text="Choose a file" textFill="WHITE" AnchorPane.rightAnchor="244.2" AnchorPane.topAnchor="211.0" />
-      <AnchorPane layoutX="277.0" layoutY="250.0" prefHeight="136.0" prefWidth="311.0" style="-fx-background-color: #FFFFFF;" AnchorPane.rightAnchor="17.80000000000001" AnchorPane.topAnchor="250.0">
+      <Button fx:id="btnChooseAFile" layoutX="277.0" layoutY="211.0" mnemonicParsing="false" style="-fx-background-color: #1E90FF;" text="Choose a file" textFill="WHITE" AnchorPane.rightAnchor="244.2" AnchorPane.topAnchor="211.0" />
+      <AnchorPane fx:id="apDropFile" layoutX="277.0" layoutY="250.0" prefHeight="136.0" prefWidth="311.0" style="-fx-background-color: #FFFFFF;" AnchorPane.rightAnchor="17.80000000000001" AnchorPane.topAnchor="250.0">
          <children>
             <ImageView fitHeight="46.0" fitWidth="54.0" layoutX="133.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icon/dropfile.png" />
                </image>
             </ImageView>
+            <Label layoutX="35.0" layoutY="90.0" text="You can drag and drop files here to add them" />
          </children>
       </AnchorPane>
-      <Button layoutX="277.0" layoutY="414.0" mnemonicParsing="false" style="-fx-background-color: #b22222;" text="Import" textFill="WHITE" AnchorPane.rightAnchor="277.0" AnchorPane.topAnchor="414.0" />
+      <Button fx:id="btnImport" layoutX="277.0" layoutY="414.0" mnemonicParsing="false" style="-fx-background-color: #b22222;" text="Import" textFill="WHITE" AnchorPane.rightAnchor="277.0" AnchorPane.topAnchor="414.0" />
       <Label fx:id="lbChooseImportCategory" layoutX="175.0" layoutY="215.0" prefHeight="18.0" prefWidth="109.0" text="Default" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="215.0" />
-      <TreeView fx:id="treeViewImport" layoutX="171.0" layoutY="237.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="171.0" AnchorPane.topAnchor="237.0" />
+      <TreeView fx:id="treeViewImport" layoutX="171.0" layoutY="237.0" prefHeight="226.0" prefWidth="226.0" AnchorPane.leftAnchor="171.0" AnchorPane.topAnchor="237.0" />
+      <Label fx:id="lbFilePath" layoutX="576.0" layoutY="216.0" prefHeight="18.0" prefWidth="206.0" AnchorPane.rightAnchor="17.599999999999994" AnchorPane.topAnchor="216.0" />
+      <Label fx:id="lbAlert" layoutX="534.0" layoutY="418.0" prefHeight="18.0" prefWidth="250.0" AnchorPane.bottomAnchor="63.6" AnchorPane.rightAnchor="15.599999999999994" />
    </children>
 </AnchorPane>

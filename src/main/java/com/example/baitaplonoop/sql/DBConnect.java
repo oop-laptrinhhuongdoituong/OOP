@@ -32,15 +32,39 @@ public class DBConnect {
         }
         return rs;
     }
-
-    public ResultSet getCard(String stringSQL){
-        ResultSet rs = null;
-        try {
-            Statement state = con.createStatement();
-            rs = state.executeQuery(stringSQL);
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+    public int InsertQuestion(String[] stringSQL){
+        int rowInserted = 0;
+        String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionImage, questionMark) values(?,?,?,?,?)";
+        PreparedStatement statement;
+        try{
+            statement = con.prepareStatement(sql);
+            statement.setString(1, stringSQL[0]);
+            statement.setString(2, stringSQL[1]);
+            statement.setString(3, stringSQL[2]);
+            statement.setString(4, stringSQL[3]);
+            statement.setString(5, stringSQL[4]);
+            rowInserted = statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return rs;
+        return rowInserted;
+    }
+
+    public int InsertChoice(String[] stringSQL){
+        int rowInserted = 0;
+        String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected) values(?,?,?,?,?)";
+        PreparedStatement statement;
+        try{
+            statement = con.prepareStatement(sql);
+            statement.setString(1, stringSQL[0]);
+            statement.setString(2, stringSQL[1]);
+            statement.setString(3, stringSQL[2]);
+            statement.setString(4, stringSQL[3]);
+            statement.setString(5, stringSQL[4]);
+            rowInserted = statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rowInserted;
     }
 }
