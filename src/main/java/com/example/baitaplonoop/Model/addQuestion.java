@@ -1,4 +1,4 @@
-package com.example.baitaplonoop;
+package com.example.baitaplonoop.Model;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
