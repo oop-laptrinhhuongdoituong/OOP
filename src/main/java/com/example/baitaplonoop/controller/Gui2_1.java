@@ -71,7 +71,7 @@ public class Gui2_1 implements Initializable {
         ResultSet rs1=db.getData(questionView);
         try {
             while (rs1.next()){
-                addQuestion question1=new addQuestion(rs1.getString("questionID"),rs1.getString("questionText"),new Button("Edit"));
+                addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
                 questionsList.add(question1);
             }
         }catch (Exception e){
@@ -146,7 +146,7 @@ public class Gui2_1 implements Initializable {
                 ResultSet rs1=db.getData(questionView);
                 try {
                     while (rs1.next()){
-                        addQuestion question1=new addQuestion(rs1.getString("questionID"),rs1.getString("questionText"),new Button("Edit"));
+                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
                         questionsList.add(question1);
                     }
                     question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));
@@ -169,7 +169,7 @@ public class Gui2_1 implements Initializable {
                 Default.setText(findCategoryName(item.getValue()));
                 try {
                     while (rs1.next()){
-                        addQuestion question1=new addQuestion(rs1.getString("questionID"),rs1.getString("questionText"),new Button("Edit"));
+                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
                         questionsList.add(question1);
                     }
                     question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));

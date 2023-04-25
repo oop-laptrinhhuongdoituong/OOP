@@ -108,7 +108,7 @@ public class Gui6_5 implements Initializable {
         ResultSet rs1=db.getData(questionView);
         try {
             while (rs1.next()){
-                addQuestion question1=new addQuestion(rs1.getString("questionID"),rs1.getString("questionText"),new Button("Edit"));
+                addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
                 questionsList.add(question1.getQuestionID()+": " +question1.getQuestionText());
             }
         }catch (Exception e){
@@ -174,7 +174,7 @@ public class Gui6_5 implements Initializable {
                 ResultSet rs1=db.getData(questionView);
                 try {
                     while (rs1.next()){
-                        addQuestion question1=new addQuestion(rs1.getString("questionID"),rs1.getString("questionText"),new Button("Edit"));
+                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
                         questionsList.add((question1.getQuestionID()+": "+question1.getQuestionText()));
                     }
                     questionsListView.setItems(questionsList);
@@ -203,7 +203,7 @@ public class Gui6_5 implements Initializable {
                 ResultSet rs1=db.getData(questionView);
                 try {
                     while (rs1.next()){
-                        addQuestion question1=new addQuestion(rs1.getString("questionID"),rs1.getString("questionText"),new Button("Edit"));
+                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
                         questionsList.add((question1.getQuestionID()+": "+question1.getQuestionText()));
                     }
                     questionsListView.setItems(questionsList);

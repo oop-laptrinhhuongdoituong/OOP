@@ -6,14 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="dfcc5a80-08cf-47cf-995b-60d386573511" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/Gui/Gui2_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/gui/Gui2_1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/Gui/Gui6_5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/gui/Gui6_5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/Model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/model/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/Model/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/model/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/Model/addQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/model/addQuestion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Gui2_1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Gui2_1.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Gui6_5.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Gui6_5.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/Gui2_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/Gui2_1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/Gui6_5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/Gui6_5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/model/addQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/model/addQuestion.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +117,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="Hung" />
+                        <option value="Phuc" />
                       </list>
                     </value>
                   </entry>
