@@ -7,8 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
-    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GUI11.fxml"));
+public class Main extends Application {
+    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("GUI11.fxml"));
     @Override
     public void start(Stage stage) throws IOException {
         Scene scene = new Scene(fxmlLoader.load());
