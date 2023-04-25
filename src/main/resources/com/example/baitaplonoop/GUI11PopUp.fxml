@@ -2,9 +2,10 @@
 
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<DialogPane prefHeight="176.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.Controller.GUI11PopUpController">
+<DialogPane prefHeight="176.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11PopUpController">
    <content>
       <AnchorPane prefHeight="190.0" prefWidth="313.0">
          <children>
@@ -13,6 +14,8 @@
             <Label fx:id="lbCategory" layoutX="216.0" layoutY="68.0" text="Category" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="68.0" />
             <Label fx:id="lbImport" layoutX="216.0" layoutY="95.0" text="Import" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="95.0" />
             <Label fx:id="lbExport" layoutX="216.0" layoutY="123.0" text="Export" AnchorPane.rightAnchor="62.6" AnchorPane.topAnchor="123.0" />
+            <Label layoutX="14.0" layoutY="133.0" text="Switch to:" />
+            <TextField fx:id="txtGUI" layoutX="66.0" layoutY="128.0" prefHeight="26.0" prefWidth="101.0" />
          </children>
       </AnchorPane>
    </content>

@@ -1,29 +1,24 @@
-package com.example.baitaplonoop.Controller;
+package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.ImportFile;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.xmlbeans.impl.xb.xsdschema.ImportDocument;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static com.example.baitaplonoop.util.ImportFile.ErrorLine;
+import static com.example.baitaplonoop.util.ImportFile.numberOfQuestion;
 
 public class GUI34Controller implements Initializable {
     @FXML
@@ -66,29 +61,61 @@ public class GUI34Controller implements Initializable {
                 lbFilePath.setText(file.getName());
         });
         btnImport.setOnAction(event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Import information");
+            ButtonType btnContinue = new ButtonType("Continue", ButtonBar.ButtonData.YES);
+            ButtonType btnBack = new ButtonType("Home page", ButtonBar.ButtonData.NO);
+            alert.getButtonTypes().setAll(btnContinue, btnBack);
+            String contentText = "";
             if(files.size() == 0){
+                contentText = "There are no files imported";
                 lbAlert.setText("There are no files imported");
             }
             String path = files.get(0).getName();
             if(path.substring(path.length()-4, path.length()).equals("docx")){
-                lbAlert.setText("Correct format");
-                ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
-                String categoryID = "";
-                try{
-                    while(rs.next()){
-                        categoryID = rs.getString("categoryID");
+                if(ImportFile.checkFileDOCX(files.get(0))){
+                    lbAlert.setText("Correct format");
+                    ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
+                    String categoryID = "";
+                    try{
+                        while(rs.next()){
+                            categoryID = rs.getString("categoryID");
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
                     }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    ImportFile.importQuestionFromDocxFile(files.get(0), categoryID);
+                    contentText = "Success: " + numberOfQuestion + " question(s) imported";
+                }else{
+                    lbAlert.setText("Error at: " + ErrorLine);
+                    contentText = "Error at: " + ErrorLine;
                 }
-                ImportFile.importQuestionFromDocxFile(files.get(0), categoryID);
             }
             else if(path.substring(path.length()-3, path.length()).equals("txt")){
-                lbAlert.setText("Correct format");
+                if(ImportFile.checkFileTXT(files.get(0))){
+                    lbAlert.setText("Correct format");
+                    ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
+                    String categoryID = "";
+                    try{
+                        while(rs.next()){
+                            categoryID = rs.getString("categoryID");
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    ImportFile.importQuestionFromTXTFile(files.get(0), categoryID);
+                    contentText = "Success: " + numberOfQuestion + " question(s) imported";
+                }else{
+                    lbAlert.setText("Error at: " + ErrorLine);
+                    contentText = "Error at: " + ErrorLine;
+                }
             }
             else{
                 lbAlert.setText("Wrong format");
+                contentText = "Wrong format";
             }
+            alert.setContentText(contentText);
+            Optional<ButtonType> result = alert.showAndWait();
         });
     }
 

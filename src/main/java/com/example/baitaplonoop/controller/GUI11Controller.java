@@ -1,6 +1,5 @@
-package com.example.baitaplonoop.Controller;
+package com.example.baitaplonoop.controller;
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -33,24 +31,7 @@ public class GUI11Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI11PopUp.fxml"));
-                    DialogPane pane = fxmlLoader.load();
-                    controller = fxmlLoader.getController();
 
-                    dialog = new Dialog<>();
-                    dialog.setDialogPane(pane);
-                    dialog.show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-        btnTurnEditingOn.setOnMouseClicked(eventHandler);
         imgSetting.setOnMouseClicked(event -> {
             try {
                 fxmlLoader = new FXMLLoader();
@@ -72,8 +53,7 @@ public class GUI11Controller implements Initializable {
                     }
                 });
                 Optional<String>  result = dialog.showAndWait();
-                result.ifPresent(gui ->{
-
+                if (result.get().equals("Import")){
                     try {
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -85,7 +65,7 @@ public class GUI11Controller implements Initializable {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                });
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

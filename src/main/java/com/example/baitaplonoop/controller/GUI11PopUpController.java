@@ -1,22 +1,12 @@
-package com.example.baitaplonoop.Controller;
+package com.example.baitaplonoop.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static com.example.baitaplonoop.Controller.GUI11Controller.dialog;
 
 
 public class GUI11PopUpController implements Initializable{
@@ -28,6 +18,8 @@ public class GUI11PopUpController implements Initializable{
     Label lbImport;
     @FXML
     Label lbExport;
+    @FXML
+    TextField txtGUI;
 
     String result;
 
@@ -35,15 +27,19 @@ public class GUI11PopUpController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lbQuestion.setOnMouseClicked(mouseEvent -> {
             this.result = "Question";
+            txtGUI.setText(result);
         });
         lbCategory.setOnMouseClicked(mouseEvent -> {
             this.result = "Category";
+            txtGUI.setText(result);
         });
         lbImport.setOnMouseClicked(mouseEvent -> {
                 this.result = "Import";
+                txtGUI.setText(result);
         });
         lbExport.setOnMouseClicked(mouseEvent -> {
             this.result = "Export";
+            txtGUI.setText(result);
         });
     }
 }

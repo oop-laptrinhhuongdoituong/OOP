@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="499.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.Controller.GUI11Controller">
+<AnchorPane prefHeight="499.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11Controller">
    <children>
       <Label layoutX="36.0" layoutY="33.0" prefHeight="30.0" prefWidth="526.0" style="-fx-background-color: #4169E1;" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="33.0" />
       <AnchorPane layoutX="54.0" layoutY="63.0" prefHeight="122.0" prefWidth="496.0" style="-fx-background-color: #F8F8FF;" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="63.0">

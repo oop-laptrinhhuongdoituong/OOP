@@ -1,4 +1,4 @@
-package com.example.baitaplonoop.Controller;
+package com.example.baitaplonoop.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

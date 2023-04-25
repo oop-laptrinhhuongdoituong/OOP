@@ -9,10 +9,11 @@ module com.example.baitaplonoop {
     requires org.apache.poi.ooxml;
     requires org.apache.poi.poi;
     requires org.apache.logging.log4j;
+    requires java.desktop;
             
                             
     opens com.example.baitaplonoop to javafx.fxml;
     exports com.example.baitaplonoop;
-    opens com.example.baitaplonoop.Controller to javafx.fxml;
-    exports com.example.baitaplonoop.Controller;
+    opens com.example.baitaplonoop.controller to javafx.fxml;
+    exports com.example.baitaplonoop.controller;
 }
