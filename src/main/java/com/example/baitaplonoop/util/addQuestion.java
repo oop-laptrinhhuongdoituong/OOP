@@ -1,5 +1,6 @@
-package com.example.baitaplonoop.model;
+package com.example.baitaplonoop.util;
 
+import com.example.baitaplonoop.model.Question;
 import javafx.scene.control.Button;
 
 public class addQuestion  extends Question {
