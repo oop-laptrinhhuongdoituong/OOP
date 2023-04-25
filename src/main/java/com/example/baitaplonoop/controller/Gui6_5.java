@@ -1,18 +1,16 @@
-package com.example.baitaplonoop.Gui;
+package com.example.baitaplonoop.controller;
 
-import com.example.baitaplonoop.DBConnect;
-import com.example.baitaplonoop.Model.addQuestion;
+import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.model.addQuestion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import org.apache.poi.xssf.usermodel.helpers.XSSFXmlColumnPr;
 
 import java.net.URL;
 import java.sql.ResultSet;

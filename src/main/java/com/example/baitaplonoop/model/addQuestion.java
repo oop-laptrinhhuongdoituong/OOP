@@ -1,7 +1,6 @@
-package com.example.baitaplonoop.Model;
+package com.example.baitaplonoop.model;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 
 public class addQuestion {
     private String questionID;

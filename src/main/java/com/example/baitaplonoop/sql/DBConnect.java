@@ -1,4 +1,4 @@
-package com.example.baitaplonoop;
+package com.example.baitaplonoop.sql;
 
 import java.sql.*;
 import java.util.logging.Level;

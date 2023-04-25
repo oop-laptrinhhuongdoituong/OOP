@@ -12,8 +12,10 @@ module com.example.baitaplonoop {
                             
     opens com.example.baitaplonoop to javafx.fxml;
     exports com.example.baitaplonoop;
-    exports com.example.baitaplonoop.Gui;
-    opens com.example.baitaplonoop.Gui to javafx.fxml;
-    exports com.example.baitaplonoop.Model;
-    opens com.example.baitaplonoop.Model to javafx.fxml;
+    exports com.example.baitaplonoop.controller;
+    opens com.example.baitaplonoop.controller to javafx.fxml;
+    exports com.example.baitaplonoop.model;
+    opens com.example.baitaplonoop.model to javafx.fxml;
+    exports com.example.baitaplonoop.sql;
+    opens com.example.baitaplonoop.sql to javafx.fxml;
 }

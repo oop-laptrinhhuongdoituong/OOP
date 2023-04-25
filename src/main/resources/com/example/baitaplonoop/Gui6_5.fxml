@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="gui6_5" prefHeight="687.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.Gui.Gui6_5">
+<AnchorPane fx:id="gui6_5" prefHeight="687.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.Gui6_5">
    <children>
       <Label layoutX="3.0" layoutY="2.0" prefHeight="51.0" prefWidth="248.0" text="Add a random question to page 1" textAlignment="CENTER" textFill="#b50e0e">
          <font>
@@ -19,7 +19,7 @@
       <Label layoutX="14.0" layoutY="94.0" prefHeight="40.0" prefWidth="104.0" text="Category" textAlignment="CENTER" />
       <Label fx:id="Default" layoutX="110.0" layoutY="95.0" prefHeight="40.0" prefWidth="104.0" />
       <TreeView fx:id="category" layoutX="94.0" layoutY="104.0" prefHeight="142.0" prefWidth="267.0" showRoot="false" />
-      <Label layoutX="31.0" layoutY="291.0" prefHeight="58.0" prefWidth="221.0" text="Number of random questions" />
+      <Label layoutX="17.0" layoutY="283.0" prefHeight="58.0" prefWidth="221.0" text="Number of random questions" />
       <Label layoutX="260.0" layoutY="299.0" prefHeight="51.0" prefWidth="68.0" text="label" />
       <ComboBox fx:id="numberOfQuestions" layoutX="245.0" layoutY="312.0" prefHeight="31.0" prefWidth="228.0" />
       <ScrollBar layoutX="31.0" layoutY="383.0" prefHeight="58.0" prefWidth="516.0" />

@@ -1,4 +1,4 @@
-package com.example.baitaplonoop.Model;
+package com.example.baitaplonoop.model;
 
 public class Question {
     private String categoryID;
