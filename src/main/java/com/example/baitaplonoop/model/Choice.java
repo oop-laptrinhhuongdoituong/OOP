@@ -18,6 +18,12 @@ public class Choice {
         this.isSelected = isSelected;
     }
 
+    public Choice(String choiceText, double choiceGrade) {
+        this.choiceText = choiceText;
+        this.choiceGrade = choiceGrade;
+    }
+
+
     public String getChoiceText() {
         return choiceText;
     }

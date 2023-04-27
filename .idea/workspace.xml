@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dfcc5a80-08cf-47cf-995b-60d386573511" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_2023_5_54_PM_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_2023_5_54_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_2023_5_54_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_2023_5_54_PM__Changes_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI21Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI21Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI21.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI21.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/model/Choice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/model/Choice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/sql/DBConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/sql/DBConnect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/main.drawio" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI32AddQuestion.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI32AddQuestion.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI33AddCategory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI33AddCategory.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI35AddingQuiz.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI35AddingQuiz.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +28,7 @@
         <option value="FxmlFile" />
         <option value="JavaFXApplication" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -45,18 +54,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Phuc&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/HOANGPHUC/IdeaProjects/OOP/src/main/java/com/example/baitaplonoop/model&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Phuc",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "F:/Project/CNPM_20221",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\HOANGPHUC\IdeaProjects\OOP\src\main\java\com\example\baitaplonoop\model" />
@@ -147,8 +165,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681480416050</updated>
+      <workItem from="1682428100538" duration="16000" />
+      <workItem from="1682433897811" duration="157000" />
+      <workItem from="1682434089300" duration="18000" />
+      <workItem from="1682434171658" duration="731000" />
+      <workItem from="1682435054703" duration="43000" />
+      <workItem from="1682435827318" duration="878000" />
+      <workItem from="1682436730927" duration="165000" />
+      <workItem from="1682491374370" duration="2672000" />
+      <workItem from="1682505339699" duration="41000" />
+      <workItem from="1682507562370" duration="21000" />
+      <workItem from="1682512927283" duration="2775000" />
+      <workItem from="1682567025420" duration="49000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -160,5 +193,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

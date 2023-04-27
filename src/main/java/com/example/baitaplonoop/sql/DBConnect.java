@@ -67,4 +67,20 @@ public class DBConnect {
         }
         return rowInserted;
     }
+
+    public int InsertCategory(String[] stringSQL){
+        int rowInserted = 0;
+        String sql = "INSERT INTO Category(parentID, categoryName, categoryNumber, categoryinfo) values (?, ?, ?, ?)";
+        PreparedStatement statement;
+        try{
+            statement = con.prepareStatement(sql);
+            statement.setString(1, stringSQL[0]);
+            statement.setString(2, stringSQL[1]);
+            statement.setString(3, stringSQL[2]);
+            statement.setString(4, stringSQL[3]);
+            rowInserted = statement.executeUpdate();
+        } catch (SQLException e){throw new RuntimeException(e);}
+        return rowInserted;
+    }
+
 }
