@@ -4,12 +4,11 @@ package com.example.baitaplonoop.util;
 import com.example.baitaplonoop.model.Question;
 import com.example.baitaplonoop.sql.DBConnect;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -222,6 +221,7 @@ public class ImportFile {
             XWPFWordExtractor extractor = new XWPFWordExtractor(doc);
             String paragraph = extractor.getText();
             String[] part = paragraph.split("\n");
+            List<XWPFParagraph> paragraphs = doc.getParagraphs();
             ArrayList<Line> start = new ArrayList<>();
             ArrayList<Line> end = new ArrayList<>();
             int i = 0;
@@ -243,9 +243,20 @@ public class ImportFile {
                 i++;
             }
             for (int j = 0; j < start.size(); j++) {
+                List<XWPFRun> runs = paragraphs.get(start.get(j).LineNumber).getRuns();
+                byte[] bytepic = null;
+                if(runs != null){
+                    for(XWPFRun r : runs){
+                        List<XWPFPicture> listPic = r.getEmbeddedPictures();
+                        if(listPic != null && listPic.size() != 0){
+                            bytepic = listPic.get(0).getPictureData().getData();
+                        }
+                    }
+                }
                 String[] questionPart = part[start.get(j).LineNumber].split(": ", 2);
-                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "NULL", "1.00"};
-                int questionRowInserted = db.InsertQuestion(insertQuestion);
+                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00"};
+                int questionRowInserted = db.InsertQuestion(insertQuestion, bytepic);
+
                 String[] answer = part[end.get(j).LineNumber].split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);
@@ -292,8 +303,8 @@ public class ImportFile {
             }
             for (int j = 0; j < start.size(); j++) {
                 String[] questionPart = part.get(start.get(j).LineNumber).split(": ", 2);
-                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "NULL", "1.00"};
-                int questionRowInserted = db.InsertQuestion(insertQuestion);
+                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00"};
+                int questionRowInserted = db.InsertQuestion(insertQuestion, null);
                 String[] answer = part.get(end.get(j).LineNumber).split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);
@@ -312,3 +323,4 @@ public class ImportFile {
         }
     }
 }
+//

@@ -3,12 +3,19 @@ package com.example.baitaplonoop.controller;
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.ImportFile;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,55 +74,82 @@ public class GUI34Controller implements Initializable {
             ButtonType btnBack = new ButtonType("Home page", ButtonBar.ButtonData.NO);
             alert.getButtonTypes().setAll(btnContinue, btnBack);
             String contentText = "";
-            if(files.size() == 0){
+            if (files == null){
                 contentText = "There are no files imported";
                 lbAlert.setText("There are no files imported");
-            }
-            String path = files.get(0).getName();
-            if(path.substring(path.length()-4, path.length()).equals("docx")){
-                if(ImportFile.checkFileDOCX(files.get(0))){
-                    lbAlert.setText("Correct format");
-                    ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
-                    String categoryID = "";
-                    try{
-                        while(rs.next()){
-                            categoryID = rs.getString("categoryID");
+            }else{
+                String path = files.get(0).getName();
+                if(path.substring(path.length()-4, path.length()).equals("docx")){
+                    if(ImportFile.checkFileDOCX(files.get(0))){
+                        lbAlert.setText("Correct format");
+                        ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
+                        String categoryID = "";
+                        try{
+                            while(rs.next()){
+                                categoryID = rs.getString("categoryID");
+                            }
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
                         }
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
+                        ImportFile.importQuestionFromDocxFile(files.get(0), categoryID);
+                        contentText = "Success: " + numberOfQuestion + " question(s) imported";
+                    }else{
+                        lbAlert.setText("Error at: " + ErrorLine);
+                        contentText = "Error at: " + ErrorLine;
                     }
-                    ImportFile.importQuestionFromDocxFile(files.get(0), categoryID);
-                    contentText = "Success: " + numberOfQuestion + " question(s) imported";
-                }else{
-                    lbAlert.setText("Error at: " + ErrorLine);
-                    contentText = "Error at: " + ErrorLine;
                 }
-            }
-            else if(path.substring(path.length()-3, path.length()).equals("txt")){
-                if(ImportFile.checkFileTXT(files.get(0))){
-                    lbAlert.setText("Correct format");
-                    ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
-                    String categoryID = "";
-                    try{
-                        while(rs.next()){
-                            categoryID = rs.getString("categoryID");
+                else if(path.substring(path.length()-3, path.length()).equals("txt")){
+                    if(ImportFile.checkFileTXT(files.get(0))){
+                        lbAlert.setText("Correct format");
+                        ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
+                        String categoryID = "";
+                        try{
+                            while(rs.next()){
+                                categoryID = rs.getString("categoryID");
+                            }
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
                         }
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
+                        ImportFile.importQuestionFromTXTFile(files.get(0), categoryID);
+                        contentText = "Success: " + numberOfQuestion + " question(s) imported";
+                    }else{
+                        lbAlert.setText("Error at: " + ErrorLine);
+                        contentText = "Error at: " + ErrorLine;
                     }
-                    ImportFile.importQuestionFromTXTFile(files.get(0), categoryID);
-                    contentText = "Success: " + numberOfQuestion + " question(s) imported";
-                }else{
-                    lbAlert.setText("Error at: " + ErrorLine);
-                    contentText = "Error at: " + ErrorLine;
                 }
-            }
-            else{
-                lbAlert.setText("Wrong format");
-                contentText = "Wrong format";
+                else{
+                    lbAlert.setText("Wrong format");
+                    contentText = "Wrong format";
+                }
             }
             alert.setContentText(contentText);
             Optional<ButtonType> result = alert.showAndWait();
+            if(result.get().equals(btnBack)){
+                try {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI11.fxml"));
+                    Parent gui11 = null;
+                    gui11 = fxmlLoader.load();
+                    Scene scene = new Scene(gui11);
+                    stage.setScene(scene);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        btnChooseAFile.setOnAction(event -> {
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Choose a file");
+            FileChooser.ExtensionFilter fileFilter = new FileChooser.ExtensionFilter("Files", "*.txt", "*.docx");
+            fc.getExtensionFilters().add(fileFilter);
+            File file = fc.showOpenDialog(null);
+            if(files == null){
+                files = new ArrayList<>();
+            }
+            files.clear();
+            files.add(file);
+            lbFilePath.setText(file.getName());
         });
     }
 
@@ -140,3 +174,4 @@ public class GUI34Controller implements Initializable {
         }
     }
 }
+//
