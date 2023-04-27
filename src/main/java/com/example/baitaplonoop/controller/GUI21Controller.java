@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 
 public class GUI21Controller implements Initializable {
     @FXML
+     private Button createQuestionButton;
+    @FXML
     private ToolBar toolBar;
 
     @FXML
@@ -251,6 +253,19 @@ public class GUI21Controller implements Initializable {
             Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI34.fxml"));
+            try {
+                Parent GUI33AddCategory=loader.load();
+                Scene scene=new Scene(GUI33AddCategory);
+                stage.setScene(scene);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        });
+        createQuestionButton.setOnAction(e -> {
+            Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
             try {
                 Parent GUI33AddCategory=loader.load();
                 Scene scene=new Scene(GUI33AddCategory);
