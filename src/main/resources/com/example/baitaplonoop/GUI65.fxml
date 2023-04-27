@@ -22,9 +22,8 @@
       <Label layoutX="17.0" layoutY="283.0" prefHeight="58.0" prefWidth="221.0" text="Number of random questions" />
       <Label layoutX="260.0" layoutY="299.0" prefHeight="51.0" prefWidth="68.0" text="label" />
       <ComboBox fx:id="numberOfQuestions" layoutX="245.0" layoutY="312.0" prefHeight="31.0" prefWidth="228.0" />
-      <ScrollBar layoutX="31.0" layoutY="383.0" prefHeight="58.0" prefWidth="516.0" />
       <CheckBox fx:id="gui6_5CheckBox" layoutX="95.0" layoutY="154.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="318.0" text="Include questions form subcategories too" />
       <Label layoutX="31.0" layoutY="339.0" prefHeight="40.0" prefWidth="205.0" text="Questions matching this filter" />
-      <ListView fx:id="questionsListView" layoutX="42.0" layoutY="471.0" prefHeight="200.0" prefWidth="525.0" />
+      <Pagination fx:id="pagination" layoutX="45.0" layoutY="378.0" prefHeight="263.0" prefWidth="502.0" />
    </children>
 </AnchorPane>
