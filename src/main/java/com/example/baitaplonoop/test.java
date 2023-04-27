@@ -1,20 +1,11 @@
 package com.example.baitaplonoop;
 
-import com.example.baitaplonoop.util.ImportFile;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFPictureData;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
-public class main {
+public class test {
     public static void main(String[] args) {
         try{
             FileInputStream fis = new FileInputStream("C:/Users/HOANGPHUC/Desktop/thuPOI.docx");
