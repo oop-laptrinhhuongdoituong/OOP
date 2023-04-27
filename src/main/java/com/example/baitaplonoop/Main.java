@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    FXMLLoader loader = new FXMLLoader(Main.class.getResource("GUI21.fxml"));
+    FXMLLoader loader = new FXMLLoader(Main.class.getResource("GUI11.fxml"));
 
     public static void main(String[] args) {
         launch(args);
@@ -17,7 +17,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Scene scene = new Scene(loader.load());
-        primaryStage.setTitle("Hello!");
+        primaryStage.setTitle("The Quiz");
         primaryStage.setScene(scene);
         primaryStage.show();
 

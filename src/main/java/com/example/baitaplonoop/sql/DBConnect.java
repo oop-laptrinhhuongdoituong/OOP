@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBConnect {
-    Connection con;
+    public Connection con;
 
     public DBConnect() {
         try {
@@ -32,9 +32,9 @@ public class DBConnect {
         }
         return rs;
     }
-    public int InsertQuestion(String[] stringSQL){
+    public int InsertQuestion(String[] stringSQL, byte[] pic){
         int rowInserted = 0;
-        String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionImage, questionMark) values(?,?,?,?,?)";
+        String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMark, questionImage) values(?,?,?,?,?)";
         PreparedStatement statement;
         try{
             statement = con.prepareStatement(sql);
@@ -42,7 +42,7 @@ public class DBConnect {
             statement.setString(2, stringSQL[1]);
             statement.setString(3, stringSQL[2]);
             statement.setString(4, stringSQL[3]);
-            statement.setString(5, stringSQL[4]);
+            statement.setBytes(5, pic);
             rowInserted = statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -84,3 +84,4 @@ public class DBConnect {
     }
 
 }
+//

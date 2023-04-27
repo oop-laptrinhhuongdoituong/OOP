@@ -66,9 +66,35 @@ public class GUI11Controller implements Initializable {
                         throw new RuntimeException(e);
                     }
                 }
+                else if(result.get().equals("Category")){
+                    try {
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI33AddCategory.fxml"));
+                        Parent gui33 = null;
+                        gui33 = fxmlLoader.load();
+                        Scene scene = new Scene(gui33);
+                        stage.setScene(scene);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else if (result.get().equals("Question")) {
+                    try {
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI21.fxml"));
+                        Parent gui21 = null;
+                        gui21 = fxmlLoader.load();
+                        Scene scene = new Scene(gui21);
+                        stage.setScene(scene);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 }
+//
