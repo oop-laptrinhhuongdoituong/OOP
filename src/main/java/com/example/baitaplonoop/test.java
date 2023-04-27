@@ -1,56 +1,75 @@
 package com.example.baitaplonoop;
 
+import com.example.baitaplonoop.sql.DBConnect;
+import org.apache.poi.ss.usermodel.Picture;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Iterator;
+import java.util.List;
 
 public class test {
     public static void main(String[] args) {
-        try{
-            FileInputStream fis = new FileInputStream("C:/Users/HOANGPHUC/Desktop/thuPOI.docx");
-            XWPFDocument doc = new XWPFDocument(fis);
-            XWPFWordExtractor extractor = new XWPFWordExtractor(doc);
-            String paragraph = extractor.getText();
-            String[] part = paragraph.split("\n");
-            for(int i = 0; i<part.length; i++){
-                System.out.println(part[i]);
+//        try{
+//            FileInputStream fis = new FileInputStream("C:/Users/HOANGPHUC/Desktop/thuPOI.docx");
+//            XWPFDocument doc = new XWPFDocument(fis);
+//            List<XWPFParagraph> paragraphs = doc.getParagraphs();
+////            XWPFWordExtractor extractor = new XWPFWordExtractor(doc);
+////            String paragraph = extractor.getText();
+////            String part[] = paragraph.split("\n");
+////            for(int i = 0; i< part.length; i++){
+////                System.out.println(part[i] + " " + paragraphs.get(i).getText());
+////            }
+//            for(XWPFParagraph p : paragraphs){
+//                List<XWPFRun> runs = p.getRuns();
+//                if(runs != null){
+//                    for(XWPFRun r : runs){
+//                        List<XWPFPicture> listPic = r.getEmbeddedPictures();
+//                        if(listPic != null && listPic.size() != 0){
+//                            for(XWPFPicture pic : listPic){
+//                                XWPFPictureData data = pic.getPictureData();
+//                                byte[] bytepic = data.getData();
+//                                BufferedImage imag = ImageIO.read(new ByteArrayInputStream(bytepic));
+//                                ImageIO.write(imag, "png", new File("D:/Image/" + data.getFileName()));
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        DBConnect db = new DBConnect();
+        try {
+            ResultSet rs = db.getData("Select questionImage from Question");
+            while(rs.next()){
+                InputStream is = rs.getBinaryStream(1);
+                if(is == null){
+                    continue;
+                }
+                FileOutputStream os = new FileOutputStream(new File("D:/Image/photo.png"));
+                byte[] contents = new byte[1024];
+                int size = 0;
+                while((size = is.read(contents)) != -1){
+                    os.write(contents,0, size);
+                }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-//        ImportFile.importQuestionFromDocxFile(file);
-//        String s = "Phuc";
-//        System.out.println(s);
-//        s = "Huyen";
-//        System.out.println(s);
-//        s += "yeu Phuc";
-//        System.out.println(s);
-//        String s = "C4K: Theo em phát biểu nào đúng";
-//        String part[] = s.split(": ", 2);
-//        System.out.println(part[1]);
-//        String s = "";
-//        s = "Phuc";
-//        System.out.println(s);
-//        s = "Huyen";
-//        System.out.println(s);
-//        String s = "Phuc";
-//        System.out.println(s.indexOf("hu"));
-//        String s = "A";
-//        String t = "A. adafdfgf";
-//        String part[] = t.split(". ", 2);
-//        System.out.println(part[0]);
-//        System.out.println(part[1]);
-//        ArrayList<String> s = new ArrayList<>();
-//        s.add("A");
-//        s.add("B");
-//        System.out.println(s.get(1));
-//        System.out.println(s.get(0));
-//        s.clear();
-//        System.out.println(s.size());
 //        try {
 //            FileInputStream fis = new FileInputStream("C:/Users/HOANGPHUC/Desktop/thuPOI.docx");
 //            XWPFDocument doc = new XWPFDocument(fis);
