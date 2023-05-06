@@ -14,10 +14,13 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
-
 public class GUI65Controller implements Initializable {
+    final int numberQuestionsInAPage=9;
     @FXML
     private CheckBox gui6_5CheckBox;
     @FXML
@@ -25,16 +28,18 @@ public class GUI65Controller implements Initializable {
     @FXML
     private Label Default;
     @FXML
-    private ListView<String> questionsListView;
+    private Pagination pagination;
     @FXML
     private TreeView<String> category;
     @FXML
     private ComboBox<String> numberOfQuestions;
+    private ListView<String> questionsListView=new ListView<>();
     private ObservableList<String> numberOfComboBox= FXCollections.observableArrayList();
     private ObservableList<String> questionsList= FXCollections.observableArrayList();
     DBConnect db=new DBConnect();
+
     //insert category into the TreeView
-    void insertCategory(String query1,TreeItem<String> root) throws Exception {
+    private void insertCategory(String query1,TreeItem<String> root) throws Exception {
 
         ResultSet rs1 = db.getData(query1);
         try {
@@ -103,7 +108,7 @@ public class GUI65Controller implements Initializable {
         }
     }
     //Add questions to the table if you also add questions of subcategories
-    public void insertQuestionIntoListViewWithSubcategory(TreeItem<String> item){
+    public void insertQuestionIntoQuestionsListTotalWithSubcategory(TreeItem<String> item){
         String questionView="select *from dbo.Question as q,dbo.Category as c where q.categoryID = c.categoryID and c.categoryName = N'"+findCategoryName(item.getValue())+"'";
         ResultSet rs1=db.getData(questionView);
         try {
@@ -116,111 +121,101 @@ public class GUI65Controller implements Initializable {
         }
         if(item.isLeaf()==false){
             for(TreeItem<String> subItem : item.getChildren()){
-                insertQuestionIntoListViewWithSubcategory(subItem);
+                insertQuestionIntoQuestionsListTotalWithSubcategory(subItem);
             }
         }
+    }
+    private void eventShowQuestionOfOnlyCategory(){
+        questionsList.clear();
+        numberOfComboBox.clear();
+        numberOfQuestions.getSelectionModel().clearSelection();
+        questionsListView.setItems(questionsList);
+        TreeItem<String> item=category.getSelectionModel().getSelectedItem();
+        category.setVisible(false);
+        Default.setText(findCategoryName(item.getValue()));
+        String categoryName=findCategoryName(item.getValue());
+        String questionView="select *from dbo.Question as q,dbo.Category as c where q.categoryID = c.categoryID and c.categoryName = N'"+categoryName+"'";
+        ResultSet rs1=db.getData(questionView);
+        try {
+            while (rs1.next()){
+                addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
+                questionsList.add((question1.getQuestionID()+": "+question1.getQuestionText()));
+            }
+            int page=0;
+            if(Integer.parseInt(numberQuestionsOfACategory(item))%numberQuestionsInAPage==0)page=Integer.parseInt(numberQuestionsOfACategory(item))/numberQuestionsInAPage;
+            else page=Integer.parseInt(numberQuestionsOfACategory(item))/numberQuestionsInAPage+1;
+            pagination.setPageCount(page);
+            pagination.setPageFactory(pageIndex->{
+                int fromIndex = pageIndex * numberQuestionsInAPage;
+                int toIndex = Math.min(fromIndex + numberQuestionsInAPage, questionsList.size());
+                questionsListView.setItems(FXCollections.observableArrayList(questionsList.subList(fromIndex, toIndex)));
+                return questionsListView;
+            });
+            pagination.setVisible(true);
+            for(int i=1;i<=Integer.parseInt(numberQuestionsOfACategory(item));i++){
+                numberOfComboBox.add(Integer.toString(i));
+            }
+            numberOfQuestions.setItems(numberOfComboBox);
+            questionsListView.setVisible(true);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+    private void eventShowQuestionOfSubcategories(){
+        questionsList.clear();
+        numberOfComboBox.clear();
+        numberOfQuestions.getSelectionModel().clearSelection();
+        questionsListView.setItems(questionsList);
+        TreeItem<String> item=category.getSelectionModel().getSelectedItem();
+        insertQuestionIntoQuestionsListTotalWithSubcategory(item);
+        category.setVisible(false);
+        Default.setText(findCategoryName(item.getValue()));
+        int page=0;
+        if(Integer.parseInt(numberQuestionOfCategoryAndSubCategories(item))%numberQuestionsInAPage==0)page=Integer.parseInt(numberQuestionOfCategoryAndSubCategories(item))/numberQuestionsInAPage;
+        else page=Integer.parseInt(numberQuestionOfCategoryAndSubCategories(item))/numberQuestionsInAPage+1;
+        pagination.setPageCount(page);
+        pagination.setPageFactory(pageIndex->{
+            int fromIndex = pageIndex * numberQuestionsInAPage;
+            int toIndex = Math.min(fromIndex + numberQuestionsInAPage, questionsList.size());
+            questionsListView.setItems(FXCollections.observableArrayList(questionsList.subList(fromIndex, toIndex)));
+            return questionsListView;
+        });
+        pagination.setVisible(true);
+        for(int i=1;i<=Integer.parseInt(numberQuestionOfCategoryAndSubCategories(item));i++){
+            numberOfComboBox.add(Integer.toString(i));
+        }
+        numberOfQuestions.setItems(numberOfComboBox);
+        questionsListView.setVisible(true);
     }
     private void showQuestionInCaseShowQuestionOfSubcategories(){
         category.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getClickCount()==3){
-                questionsList.clear();
-                numberOfComboBox.clear();
-                numberOfQuestions.getSelectionModel().clearSelection();
-                questionsListView.setItems(questionsList);
-                TreeItem<String> item=category.getSelectionModel().getSelectedItem();
-                insertQuestionIntoListViewWithSubcategory(item);
-                category.setVisible(false);
-                Default.setText(findCategoryName(item.getValue()));
-                questionsListView.setItems(questionsList);
-                for(int i=1;i<=Integer.parseInt(numberQuestionOfCategoryAndSubCategories(item));i++){
-                    numberOfComboBox.add(Integer.toString(i));
-                }
-                numberOfQuestions.setItems(numberOfComboBox);
-                questionsListView.setVisible(true);
+                eventShowQuestionOfSubcategories();
             }
         });
         category.setOnKeyPressed(keyEvent -> {
 
             if(keyEvent.getCode()==KeyCode.ENTER){
-                questionsList.clear();
-                numberOfComboBox.clear();
-                numberOfQuestions.getSelectionModel().clearSelection();
-                questionsListView.setItems(questionsList);
-                TreeItem<String> item=category.getSelectionModel().getSelectedItem();
-                insertQuestionIntoListViewWithSubcategory(item);
-                category.setVisible(false);
-                Default.setText(findCategoryName(item.getValue()));
-                questionsListView.setItems(questionsList);
-                for(int i=1;i<=Integer.parseInt(numberQuestionOfCategoryAndSubCategories(item));i++){
-                    numberOfComboBox.add(Integer.toString(i));
-                }
-                numberOfQuestions.setItems(numberOfComboBox);
-                questionsListView.setVisible(true);
+               eventShowQuestionOfSubcategories();
             }
         });
     }
     private void showQuestionsOfCategoryWithoutSubcategories(){
         category.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getClickCount()==3){
-                questionsList.clear();
-                numberOfComboBox.clear();
-                numberOfQuestions.getSelectionModel().clearSelection();
-                questionsListView.setItems(questionsList);
-                TreeItem<String> item=category.getSelectionModel().getSelectedItem();
-                category.setVisible(false);
-                Default.setText(findCategoryName(item.getValue()));
-                String categoryName=findCategoryName(item.getValue());
-                String questionView="select *from dbo.Question as q,dbo.Category as c where q.categoryID = c.categoryID and c.categoryName = N'"+categoryName+"'";
-                ResultSet rs1=db.getData(questionView);
-                try {
-                    while (rs1.next()){
-                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
-                        questionsList.add((question1.getQuestionID()+": "+question1.getQuestionText()));
-                    }
-                    questionsListView.setItems(questionsList);
-                    for(int i=1;i<=Integer.parseInt(numberQuestionsOfACategory(item));i++){
-                        numberOfComboBox.add(Integer.toString(i));
-                    }
-                    numberOfQuestions.setItems(numberOfComboBox);
-                   questionsListView.setVisible(true);
-                }catch (Exception e){
-                    throw new RuntimeException(e);
-                }
+                eventShowQuestionOfOnlyCategory();
             }
         });
         category.setOnKeyPressed(keyEvent -> {
 
             if(keyEvent.getCode()== KeyCode.ENTER){
-                questionsList.clear();
-                numberOfComboBox.clear();
-                numberOfQuestions.getSelectionModel().clearSelection();
-                questionsListView.setItems(questionsList);
-                TreeItem<String> item=category.getSelectionModel().getSelectedItem();
-                category.setVisible(false);
-                Default.setText(findCategoryName(item.getValue()));
-                String categoryName=findCategoryName(item.getValue());
-                String questionView="select *from dbo.Question as q,dbo.Category as c where q.categoryID = c.categoryID and c.categoryName = N'"+categoryName+"'";
-                ResultSet rs1=db.getData(questionView);
-                try {
-                    while (rs1.next()){
-                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
-                        questionsList.add((question1.getQuestionID()+": "+question1.getQuestionText()));
-                    }
-                    questionsListView.setItems(questionsList);
-                    for(int i=1;i<=Integer.parseInt(numberQuestionsOfACategory(item));i++){
-                        numberOfComboBox.add(Integer.toString(i));
-                    }
-                    numberOfQuestions.setItems(numberOfComboBox);
-                    questionsListView.setVisible(true);
-                }catch (Exception e){
-                    throw new RuntimeException(e);
-                }
+                eventShowQuestionOfOnlyCategory();
             }
         });
     }
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle){
-        questionsListView.setVisible(false);
+        pagination.setVisible(false);
         category.setVisible(false);
         Default.setText("Default");
         Default.setOnMouseClicked(mouseEvent -> {

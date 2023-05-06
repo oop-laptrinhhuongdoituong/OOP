@@ -74,7 +74,7 @@ public class GUI34Controller implements Initializable {
             ButtonType btnBack = new ButtonType("Home page", ButtonBar.ButtonData.NO);
             alert.getButtonTypes().setAll(btnContinue, btnBack);
             String contentText = "";
-            if (files == null){
+            if (files == null || files.size() == 0){
                 contentText = "There are no files imported";
                 lbAlert.setText("There are no files imported");
             }else{
@@ -148,8 +148,10 @@ public class GUI34Controller implements Initializable {
                 files = new ArrayList<>();
             }
             files.clear();
-            files.add(file);
-            lbFilePath.setText(file.getName());
+            if(file != null) {
+                files.add(file);
+                lbFilePath.setText(file.getName());
+            }
         });
     }
 

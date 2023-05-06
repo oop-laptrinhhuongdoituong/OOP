@@ -5,19 +5,36 @@ import com.example.baitaplonoop.util.addQuestion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class GUI21Controller implements Initializable {
+    @FXML
+    private ToolBar toolBar;
+
+    @FXML
+    private ToggleButton exportButton;
+    @FXML
+    private ToggleButton importButton;
+    @FXML
+    private ToggleButton questionsButton;
+    @FXML
+    private ToggleButton categoriesButton;
     @FXML
     private AnchorPane gui2_1;
     @FXML
@@ -216,6 +233,32 @@ public class GUI21Controller implements Initializable {
         });
         gui2_1.setOnMouseClicked(mouseEvent -> {
             if(category.isVisible()&& isMouseOnLabel(Default,mouseEvent)==false)category.setVisible(false);
+        });
+        categoriesButton.setOnAction(e -> {
+            Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI33AddCategory.fxml"));
+            try {
+                Parent GUI33AddCategory=loader.load();
+                Scene scene=new Scene(GUI33AddCategory);
+                stage.setScene(scene);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        });
+      importButton.setOnAction(e -> {
+            Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI34.fxml"));
+            try {
+                Parent GUI33AddCategory=loader.load();
+                Scene scene=new Scene(GUI33AddCategory);
+                stage.setScene(scene);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
         });
     }
 }
