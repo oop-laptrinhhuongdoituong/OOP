@@ -2,6 +2,7 @@ package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.ImportFile;
+import com.example.baitaplonoop.util.showTreeViewCategory;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +27,7 @@ import java.util.ResourceBundle;
 
 import static com.example.baitaplonoop.util.ImportFile.ErrorLine;
 import static com.example.baitaplonoop.util.ImportFile.numberOfQuestion;
+import static com.example.baitaplonoop.util.showTreeViewCategory.setTreeViewImport;
 
 public class GUI34Controller implements Initializable {
     @FXML
@@ -45,27 +47,28 @@ public class GUI34Controller implements Initializable {
     List<File> files;
 
     DBConnect db = new DBConnect();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         treeViewImport.setVisible(false);
         lbChooseImportCategory.setOnMouseClicked(mouseEvent -> {
             treeViewImport.setVisible(true);
-            TreeItem<String>  root = new TreeItem<>("Course IT:");
-            setTreeViewImport("Select * from Category where parentID IS NULL", root);
+            TreeItem<String> root = new TreeItem<>("Course IT:");
+            showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
             treeViewImport.setRoot(root);
             treeViewImport.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
                 lbChooseImportCategory.setText(newValue.getValue());
             });
         });
         apDropFile.setOnDragOver(dragEvent -> {
-            if(dragEvent.getDragboard().hasFiles()){
+            if (dragEvent.getDragboard().hasFiles()) {
                 dragEvent.acceptTransferModes(TransferMode.ANY);
             }
         });
         apDropFile.setOnDragDropped(dragEvent -> {
-                files = dragEvent.getDragboard().getFiles();
-                File file = files.get(0);
-                lbFilePath.setText(file.getName());
+            files = dragEvent.getDragboard().getFiles();
+            File file = files.get(0);
+            lbFilePath.setText(file.getName());
         });
         btnImport.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -74,18 +77,18 @@ public class GUI34Controller implements Initializable {
             ButtonType btnBack = new ButtonType("Home page", ButtonBar.ButtonData.NO);
             alert.getButtonTypes().setAll(btnContinue, btnBack);
             String contentText = "";
-            if (files == null || files.size() == 0){
+            if (files == null || files.size() == 0) {
                 contentText = "There are no files imported";
                 lbAlert.setText("There are no files imported");
-            }else{
+            } else {
                 String path = files.get(0).getName();
-                if(path.substring(path.length()-4, path.length()).equals("docx")){
-                    if(ImportFile.checkFileDOCX(files.get(0))){
+                if (path.substring(path.length() - 4, path.length()).equals("docx")) {
+                    if (ImportFile.checkFileDOCX(files.get(0))) {
                         lbAlert.setText("Correct format");
                         ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
                         String categoryID = "";
-                        try{
-                            while(rs.next()){
+                        try {
+                            while (rs.next()) {
                                 categoryID = rs.getString("categoryID");
                             }
                         } catch (SQLException e) {
@@ -93,18 +96,17 @@ public class GUI34Controller implements Initializable {
                         }
                         ImportFile.importQuestionFromDocxFile(files.get(0), categoryID);
                         contentText = "Success: " + numberOfQuestion + " question(s) imported";
-                    }else{
+                    } else {
                         lbAlert.setText("Error at: " + ErrorLine);
                         contentText = "Error at: " + ErrorLine;
                     }
-                }
-                else if(path.substring(path.length()-3, path.length()).equals("txt")){
-                    if(ImportFile.checkFileTXT(files.get(0))){
+                } else if (path.substring(path.length() - 3, path.length()).equals("txt")) {
+                    if (ImportFile.checkFileTXT(files.get(0))) {
                         lbAlert.setText("Correct format");
                         ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
                         String categoryID = "";
-                        try{
-                            while(rs.next()){
+                        try {
+                            while (rs.next()) {
                                 categoryID = rs.getString("categoryID");
                             }
                         } catch (SQLException e) {
@@ -112,19 +114,18 @@ public class GUI34Controller implements Initializable {
                         }
                         ImportFile.importQuestionFromTXTFile(files.get(0), categoryID);
                         contentText = "Success: " + numberOfQuestion + " question(s) imported";
-                    }else{
+                    } else {
                         lbAlert.setText("Error at: " + ErrorLine);
                         contentText = "Error at: " + ErrorLine;
                     }
-                }
-                else{
+                } else {
                     lbAlert.setText("Wrong format");
                     contentText = "Wrong format";
                 }
             }
             alert.setContentText(contentText);
             Optional<ButtonType> result = alert.showAndWait();
-            if(result.get().equals(btnBack)){
+            if (result.get().equals(btnBack)) {
                 try {
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     FXMLLoader fxmlLoader = new FXMLLoader();
@@ -144,36 +145,36 @@ public class GUI34Controller implements Initializable {
             FileChooser.ExtensionFilter fileFilter = new FileChooser.ExtensionFilter("Files", "*.txt", "*.docx");
             fc.getExtensionFilters().add(fileFilter);
             File file = fc.showOpenDialog(null);
-            if(files == null){
+            if (files == null) {
                 files = new ArrayList<>();
             }
             files.clear();
-            if(file != null) {
+            if (file != null) {
                 files.add(file);
                 lbFilePath.setText(file.getName());
             }
         });
     }
-
-    public void setTreeViewImport(String sql, TreeItem<String> root){
-        ResultSet rs = db.getData(sql);
-        ArrayList<String> categoryName = new ArrayList<>();
-        ArrayList<String> categoryID = new ArrayList<>();
-        try{
-            while(rs.next()){
-                categoryID.add(rs.getString("categoryID"));
-                categoryName.add(rs.getString("categoryName"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        int len = categoryID.size();
-        for(int i = 0; i<len; i++){
-            TreeItem<String> item = new TreeItem<>(categoryName.get(i));
-            root.getChildren().add(item);
-            String s = "Select * from Category where parentID = '" + categoryID.get(i) + "'";
-            setTreeViewImport(s, item);
-        }
-    }
 }
+//    public void setTreeViewImport(String sql, TreeItem<String> root){
+//        ResultSet rs = db.getData(sql);
+//        ArrayList<String> categoryName = new ArrayList<>();
+//        ArrayList<String> categoryID = new ArrayList<>();
+//        try{
+//            while(rs.next()){
+//                categoryID.add(rs.getString("categoryID"));
+//                categoryName.add(rs.getString("categoryName"));
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        int len = categoryID.size();
+//        for(int i = 0; i<len; i++){
+//            TreeItem<String> item = new TreeItem<>(categoryName.get(i));
+//            root.getChildren().add(item);
+//            String s = "Select * from Category where parentID = '" + categoryID.get(i) + "'";
+//            setTreeViewImport(s, item);
+//        }
+//    }
+
 //

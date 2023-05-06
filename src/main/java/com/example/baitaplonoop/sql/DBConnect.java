@@ -10,14 +10,12 @@ public class DBConnect {
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://DESKTOP-AP629KT\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
+            String url = "jdbc:sqlserver://Dat\\MSSQLSERVER01:1433;databaseName=Exam_Management2;"
                     + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
             String username = "sa";
-            String password = "hoangphuc0703";
+            String password = "123";
             con = DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -67,6 +65,21 @@ public class DBConnect {
         }
         return rowInserted;
     }
+
+    public ResultSet FindCategoryID(String categoryName){
+        ResultSet rs = null;
+        String sql = "SELECT categoryID FROM Category WHERE categoryName = N'" + categoryName +"'";
+        Statement state;
+        try{
+            state = con.createStatement();
+
+            rs = state.executeQuery(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rs;
+    }
+
 
     public int InsertCategory(String[] stringSQL){
         int rowInserted = 0;
