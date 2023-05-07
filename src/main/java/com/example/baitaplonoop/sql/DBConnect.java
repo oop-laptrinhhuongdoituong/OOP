@@ -30,6 +30,7 @@ public class DBConnect {
         }
         return rs;
     }
+
     public int InsertQuestion(String[] stringSQL, byte[] pic){
         int rowInserted = 0;
         String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMark, questionImage) values(?,?,?,?,?)";
@@ -66,24 +67,27 @@ public class DBConnect {
         return rowInserted;
     }
 
-    public ResultSet FindCategoryID(String categoryName){
-        ResultSet rs = null;
-        String sql = "SELECT categoryID FROM Category WHERE categoryName = N'" + categoryName +"'";
-        Statement state;
-        try{
-            state = con.createStatement();
+    public String FindCategoryID(String categoryName) throws SQLException {
+        String categoryID = null;
+        String sql = "SELECT categoryID FROM Category WHERE categoryName = ?";
+        PreparedStatement statement = con.prepareStatement(sql);
+        statement.setString(1, categoryName);
+        ResultSet result = statement.executeQuery();
 
-            rs = state.executeQuery(sql);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        // Nếu tìm thấy categoryName, lấy categoryID từ kết quả truy vấn
+        if (result.next()) {
+            categoryID = result.getString("categoryID");
         }
-        return rs;
+
+        // Đóng kết nối và trả về categoryID
+
+        return categoryID;
     }
 
 
     public int InsertCategory(String[] stringSQL){
         int rowInserted = 0;
-        String sql = "INSERT INTO Category(parentID, categoryName, categoryNumber, categoryinfo) values (?, ?, ?, ?)";
+        String sql = "INSERT INTO Category(parentID, categoryName, categoryID, categoryinfo) values (?, ?, ?, ?)";
         PreparedStatement statement;
         try{
             statement = con.prepareStatement(sql);
