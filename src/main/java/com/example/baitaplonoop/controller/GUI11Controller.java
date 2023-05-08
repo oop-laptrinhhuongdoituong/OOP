@@ -18,8 +18,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class GUI11Controller implements Initializable {
-    @FXML
-    ImageView imgSetting;
+
+    public Button popup_btn;
     @FXML
     Button btnTurnEditingOn;
     FXMLLoader fxmlLoader;
@@ -32,7 +32,7 @@ public class GUI11Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
-        imgSetting.setOnMouseClicked(event -> {
+        popup_btn.setOnMouseClicked(event -> {
             try {
                 fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI11PopUp.fxml"));

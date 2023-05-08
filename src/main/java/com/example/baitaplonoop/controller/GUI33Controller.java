@@ -36,8 +36,6 @@ public class GUI33Controller implements Initializable {
             TreeItem<String> root = new TreeItem<>("Course IT:");
             showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
             parentCategory_tv.setRoot(root);
-//            TreeItem<String> selectedItem = (TreeItem<String>) parentCategory_tv.getSelectionModel().getSelectedItems();
-//            parentCategoryName = selectedItem.getValue();
             parentCategory_tv.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
                 addParentCategory_lb.setText(newValue.getValue());
                 parentCategoryName = newValue.getValue();
@@ -68,6 +66,9 @@ public class GUI33Controller implements Initializable {
                 String addCategory[] = {IDParentCategory, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
                 int categoryRowInsert = db.InsertCategory(addCategory);
 
+                alertAddCategory.setContentText("Add Category Successfull");
+                alertAddCategory.setHeaderText(null);
+                alertAddCategory.showAndWait();
             }
         });
     }

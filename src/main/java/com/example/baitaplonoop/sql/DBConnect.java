@@ -49,6 +49,22 @@ public class DBConnect {
         return rowInserted;
     }
 
+    public int InsertQuestion(String[] stringSQL){
+        int rowInserted = 0;
+        String sql = "INSERT INTO Question(categoryID, questionID, questionText) values(?,?,?)";
+        PreparedStatement statement;
+        try{
+            statement = con.prepareStatement(sql);
+            statement.setString(1, stringSQL[0]);
+            statement.setString(2, stringSQL[1]);
+            statement.setString(3, stringSQL[2]);
+            rowInserted = statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rowInserted;
+    }
+
     public int InsertChoice(String[] stringSQL){
         int rowInserted = 0;
         String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected) values(?,?,?,?,?)";
@@ -69,10 +85,10 @@ public class DBConnect {
 
     public String FindCategoryID(String categoryName) throws SQLException {
         String categoryID = null;
-        String sql = "SELECT categoryID FROM Category WHERE categoryName = ?";
-        PreparedStatement statement = con.prepareStatement(sql);
-        statement.setString(1, categoryName);
-        ResultSet result = statement.executeQuery();
+        String sql = "SELECT categoryID FROM Category WHERE categoryName = N'" + categoryName + "'";
+//        PreparedStatement statement = con.prepareStatement(sql);
+//        statement.setString(1, categoryName);
+        ResultSet result = getData(sql);
 
         // Nếu tìm thấy categoryName, lấy categoryID từ kết quả truy vấn
         if (result.next()) {
