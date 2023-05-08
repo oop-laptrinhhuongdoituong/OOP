@@ -39,11 +39,13 @@ public class GUI32Controller implements Initializable {
     public AnchorPane paneInScrollPane_ap;
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion;
-
+    Double gradeChoice1, gradeChoice2, gradeChoice3, gradeChoice4, gradeChoice5, gradeChoice6;
 
     DBConnect db = new DBConnect();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
         addValueComboBox.addValue(gradeChoice1_cb);
         addValueComboBox.addValue(gradeChoice2_cb);
         addValueComboBox.addValue(gradeChoice3_cb);
@@ -51,7 +53,24 @@ public class GUI32Controller implements Initializable {
         addValueComboBox.addValue(gradeChoice5_cb);
         addValueComboBox.addValue(gradeChoice6_cb);
 
-
+        gradeChoice1_cb.setOnAction(gradeChoice1Event ->{
+            gradeChoice1 = addValueComboBox.convertStringToDouble(gradeChoice1_cb);
+        });
+        gradeChoice2_cb.setOnAction(gradeChoice2Event ->{
+            gradeChoice2 = addValueComboBox.convertStringToDouble(gradeChoice2_cb);
+        });
+        gradeChoice3_cb.setOnAction(gradeChoice3Event ->{
+            gradeChoice3 = addValueComboBox.convertStringToDouble(gradeChoice3_cb);
+        });
+        gradeChoice4_cb.setOnAction(gradeChoice4Event ->{
+            gradeChoice4 = addValueComboBox.convertStringToDouble(gradeChoice4_cb);
+        });
+        gradeChoice5_cb.setOnAction(gradeChoice5Event ->{
+            gradeChoice5 = addValueComboBox.convertStringToDouble(gradeChoice5_cb);
+        });
+        gradeChoice6_cb.setOnAction(gradeChoice6Event ->{
+            gradeChoice6 = addValueComboBox.convertStringToDouble(gradeChoice6_cb);
+        });
 
         // Event to show treeview
         categoryName_lb.setOnMouseClicked(mouseEvent -> {
