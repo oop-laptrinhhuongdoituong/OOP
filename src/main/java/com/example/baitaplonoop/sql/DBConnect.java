@@ -72,7 +72,7 @@ public class DBConnect {
         try{
             statement = con.prepareStatement(sql);
             statement.setString(1, stringSQL[0]);
-            statement.setString(2, stringSQL[1]);
+            statement.setFloat(2, Float.parseFloat(stringSQL[1]));
             statement.setString(3, stringSQL[2]);
             statement.setString(4, stringSQL[3]);
             statement.setString(5, stringSQL[4]);
@@ -82,6 +82,25 @@ public class DBConnect {
         }
         return rowInserted;
     }
+
+//    public int InsertChoiceDat(String[] stringSQL){
+//        int rowInserted = 0;
+//        String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected) values(?,?,?,?,?)";
+//        PreparedStatement statement;
+//        try{
+//            statement = con.prepareStatement(sql);
+//            statement.setString(1, stringSQL[0]);
+//            statement.setString(2, stringSQL[1]);
+//            statement.setString(3, stringSQL[2]);
+//            statement.setString(4, stringSQL[3]);
+//            statement.setString(5, stringSQL[4]);
+//            rowInserted = statement.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return rowInserted;
+//    }
+
 
     public String FindCategoryID(String categoryName) throws SQLException {
         String categoryID = null;
