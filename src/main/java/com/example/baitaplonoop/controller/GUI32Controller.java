@@ -2,13 +2,21 @@ package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.showTreeViewCategory;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+<<<<<<< HEAD
 import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
+=======
+import javafx.scene.image.PixelFormat;
+import javafx.scene.layout.AnchorPane;
+
+import java.io.*;
+>>>>>>> 334c7fc5302aa539d2877876039af33637f252ea
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -38,8 +46,13 @@ public class GUI32Controller implements Initializable {
     public AnchorPane paneChoice2_ap;
     public AnchorPane buttonPane_ap;
     public AnchorPane paneInScrollPane_ap;
+<<<<<<< HEAD
     public Button addPictureQuestion_btn;
     public ImageView imageQuestion_iv;
+=======
+    public ImageView imageQuestion_iv;
+    public Button imageQuestion_btn;
+>>>>>>> 334c7fc5302aa539d2877876039af33637f252ea
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion;
     Double gradeChoice1, gradeChoice2, gradeChoice3, gradeChoice4, gradeChoice5, gradeChoice6;
@@ -97,8 +110,13 @@ public class GUI32Controller implements Initializable {
                     throw new RuntimeException(e);
                 }
                 // To add Question into database
-                String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText()};
-                db.InsertQuestion(addQuestion);
+                Image image = imageQuestion_iv.getImage();
+                int image_width = (int) image.getWidth();
+                int image_height = (int) image.getHeight();
+                byte[] buffer = new byte[image_height*image_width*4];
+                image.getPixelReader().getPixels(0, 0, image_width, image_height, PixelFormat.getByteBgraInstance(), buffer, 0, image_width*4);
+                String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText(), "1"};
+                db.InsertQuestion(addQuestion, buffer);
                 // To add Choice into Database
                 if(!choice1_tf.getText().equals("")){
                     String[] addChoice1 = {choice1_tf.getText(), String.valueOf(gradeChoice1), questionName_tf.getText() + "1", questionName_tf.getText(), null};
@@ -137,6 +155,7 @@ public class GUI32Controller implements Initializable {
             buttonPane_ap.setTranslateY(239);
         });
 
+<<<<<<< HEAD
         imageQuestion_iv = new ImageView();
         fileChooser = new FileChooser();
         addPictureQuestion_btn.setOnMouseClicked(addPictureQuestionEvent ->{
@@ -150,6 +169,91 @@ public class GUI32Controller implements Initializable {
         });
 
 
+=======
+//        imageQuestion_btn.setOnMouseClicked(addImageQuestionEvent ->{
+//
+//        });
+    }
+
+    public void loadImageQuestion(ActionEvent event){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Chọn ảnh");
+
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+        // Show open file dialog
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            try {
+                // Tạo đường dẫn tới thư mục "anh"
+                String imagePath = "F:/Project/OOP/src/main/resources/com/example/baitaplonoop/Image/Question/" + file.getName();
+
+                // Đọc dữ liệu ảnh vào File
+                FileInputStream fis = new FileInputStream(file);
+                FileOutputStream fos = new FileOutputStream(imagePath);
+
+                // Đọc và ghi dữ liệu ảnh vào file ảnh trong thư mục "anh"
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = fis.read(buffer)) > 0) {
+                    fos.write(buffer, 0, length);
+                }
+
+                // Đóng input/output stream
+                fis.close();
+                fos.close();
+
+                // Hiển thị ảnh trong ImageView
+                Image image = new Image(new File(imagePath).toURI().toString());
+                imageQuestion_iv.setImage(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void loadImageChoice(ActionEvent event){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Chọn ảnh");
+
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+        // Show open file dialog
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            try {
+                // Tạo đường dẫn tới thư mục "anh"
+                String imagePath = "F:/Project/OOP/src/main/resources/com/example/baitaplonoop/Image/Choice/" + file.getName();
+
+                // Đọc dữ liệu ảnh vào File
+                FileInputStream fis = new FileInputStream(file);
+                FileOutputStream fos = new FileOutputStream(imagePath);
+
+                // Đọc và ghi dữ liệu ảnh vào file ảnh trong thư mục "anh"
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = fis.read(buffer)) > 0) {
+                    fos.write(buffer, 0, length);
+                }
+
+                // Đóng input/output stream
+                fis.close();
+                fos.close();
+
+                // Hiển thị ảnh trong ImageView
+                Image image = new Image(new File(imagePath).toURI().toString());
+                imageQuestion_iv.setImage(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+>>>>>>> 334c7fc5302aa539d2877876039af33637f252ea
     }
 
 }
