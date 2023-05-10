@@ -7,16 +7,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-<<<<<<< HEAD
 import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
-=======
 import javafx.scene.image.PixelFormat;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.*;
->>>>>>> 334c7fc5302aa539d2877876039af33637f252ea
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -46,13 +43,9 @@ public class GUI32Controller implements Initializable {
     public AnchorPane paneChoice2_ap;
     public AnchorPane buttonPane_ap;
     public AnchorPane paneInScrollPane_ap;
-<<<<<<< HEAD
     public Button addPictureQuestion_btn;
     public ImageView imageQuestion_iv;
-=======
-    public ImageView imageQuestion_iv;
     public Button imageQuestion_btn;
->>>>>>> 334c7fc5302aa539d2877876039af33637f252ea
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion;
     Double gradeChoice1, gradeChoice2, gradeChoice3, gradeChoice4, gradeChoice5, gradeChoice6;
@@ -155,13 +148,11 @@ public class GUI32Controller implements Initializable {
             buttonPane_ap.setTranslateY(239);
         });
 
-<<<<<<< HEAD
         imageQuestion_iv = new ImageView();
         fileChooser = new FileChooser();
         addPictureQuestion_btn.setOnMouseClicked(addPictureQuestionEvent ->{
 
             File file = fileChooser.showOpenDialog(null);
-            file.getSelected
             if(file != null){
                 Image image = new Image(file.toURI().toString());
                 imageQuestion_iv.setImage(image);
@@ -169,7 +160,7 @@ public class GUI32Controller implements Initializable {
         });
 
 
-=======
+
 //        imageQuestion_btn.setOnMouseClicked(addImageQuestionEvent ->{
 //
 //        });
@@ -253,7 +244,6 @@ public class GUI32Controller implements Initializable {
                 e.printStackTrace();
             }
         }
->>>>>>> 334c7fc5302aa539d2877876039af33637f252ea
     }
 
 }

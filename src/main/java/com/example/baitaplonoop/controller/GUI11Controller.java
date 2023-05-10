@@ -1,5 +1,7 @@
 package com.example.baitaplonoop.controller;
 
+import com.example.baitaplonoop.sql.DBConnect;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,25 +16,56 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class GUI11Controller implements Initializable {
-
-    public Button popup_btn;
+    @FXML
+    ImageView imgSetting;
+    @FXML
+    ListView<String> lvQuiz = new ListView<>();
     @FXML
     Button btnTurnEditingOn;
     FXMLLoader fxmlLoader;
     GUI11PopUpController controller;
     static Dialog<String> dialog;
+    DBConnect db = new DBConnect();
     static EventHandler eventHandler;
 //    static Stage GUI11Stage = (Stage) btnTurnEditingOn.getScene().getWindow();
 
+    public static String quizChosen = "";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+        ArrayList<String> listQuiz = new ArrayList<>();
+        ResultSet rs = db.getData("Select * from Quiz");
+        try{
+            while (rs.next()){
+                listQuiz.add(rs.getString("quizName"));
+            }
+            lvQuiz.setItems(FXCollections.observableArrayList(listQuiz));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        lvQuiz.setOnMouseClicked(mouseEvent -> {
+            quizChosen = lvQuiz.getSelectionModel().getSelectedItem();
+            try {
+                Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+                fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI61.fxml"));
+                Parent gui61 = null;
+                gui61 = fxmlLoader.load();
+                Scene scene = new Scene(gui61);
+                stage.setScene(scene);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
-        popup_btn.setOnMouseClicked(event -> {
+        imgSetting.setOnMouseClicked(event -> {
             try {
                 fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI11PopUp.fxml"));
