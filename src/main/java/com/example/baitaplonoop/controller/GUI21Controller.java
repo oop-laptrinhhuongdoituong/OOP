@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -188,7 +190,11 @@ public class GUI21Controller implements Initializable {
                 Default.setText(findCategoryName(item.getValue()));
                 try {
                     while (rs1.next()){
-                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
+                        Button button=new Button();
+                        Image image = new Image("C:\\Users\\ASUS\\Desktop\\Github\\OOP\\src\\main\\resources\\com\\example\\baitaplonoop\\icon\\setting.png");
+                        ImageView imageView = new ImageView(image);
+                        button.setGraphic(imageView);
+                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),button);
                         questionsList.add(question1);
                     }
                     question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));

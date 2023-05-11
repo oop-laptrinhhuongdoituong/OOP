@@ -55,6 +55,13 @@
       <artifactId>poi</artifactId>
       <version>5.2.3</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/de.jensd/fontawesomefx -->
+    <dependency>
+      <groupId>de.jensd</groupId>
+      <artifactId>fontawesomefx-fontawesome</artifactId>
+      <version>4.7.0-9.1.2</version>
+    </dependency>
+
 
 
 
