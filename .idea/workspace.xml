@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dfcc5a80-08cf-47cf-995b-60d386573511" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI21Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI21Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI62Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI62Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI62.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI62.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +54,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -164,5 +160,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
