@@ -191,9 +191,6 @@ public class GUI21Controller implements Initializable {
                 try {
                     while (rs1.next()){
                         Button button=new Button();
-                        Image image = new Image("C:\\Users\\ASUS\\Desktop\\Github\\OOP\\src\\main\\resources\\com\\example\\baitaplonoop\\icon\\setting.png");
-                        ImageView imageView = new ImageView(image);
-                        button.setGraphic(imageView);
                         addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),button);
                         questionsList.add(question1);
                     }
