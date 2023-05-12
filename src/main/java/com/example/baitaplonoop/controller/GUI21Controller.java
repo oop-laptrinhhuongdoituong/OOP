@@ -7,22 +7,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class GUI21Controller implements Initializable {
@@ -68,10 +63,10 @@ public class GUI21Controller implements Initializable {
                 table.setItems(questionsList);
                 TreeItem<String> item = category.getSelectionModel().getSelectedItem();
                 if (gui2_1CheckBox.isSelected())
-                    insertQuestionIntoTableView.insertQuestionIntoTableViewWithSubcategory(item, questionsList);
-                else insertQuestionIntoTableView.ínsertQuestionIntoTableViewWithoutSubcategory(item, questionsList);
+                    insertQuestionInto.insertQuestionIntoTableViewWithSubcategory(item, questionsList);
+                else insertQuestionInto.ínsertQuestionIntoTableViewWithoutSubcategory(item, questionsList);
                 category.setVisible(false);
-                Default.setText(FindCategoryName.findCategoryName(item.getValue()));
+                Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
                 question.setCellValueFactory(new PropertyValueFactory<addQuestion, String>("questionText"));
                 action.setCellValueFactory(new PropertyValueFactory<addQuestion, Button>("button"));
                 table.setItems(questionsList);
