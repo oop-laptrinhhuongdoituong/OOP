@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.controller;
 
 
+import com.example.baitaplonoop.util.tableQuestionsOfGui62;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,6 +30,7 @@ public class GUI62Controller implements Initializable {
     @FXML
     private ListView<Label> listModeAdd;
     private ObservableList<Label> addMode= FXCollections.observableArrayList();
+    private ObservableList<tableQuestionsOfGui62> listRandomQuestion=FXCollections.observableArrayList();
     private void addQuestionMode(){
         listModeAdd.setVisible(false);
         Label label1=new Label("a new question");

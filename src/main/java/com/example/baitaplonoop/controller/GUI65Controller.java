@@ -5,13 +5,20 @@ import com.example.baitaplonoop.util.addQuestion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.util.Pair;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,6 +27,8 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class GUI65Controller implements Initializable {
+    @FXML
+    private ToggleButton add;
     final int numberQuestionsInAPage=9;
     @FXML
     private CheckBox gui6_5CheckBox;
@@ -36,6 +45,7 @@ public class GUI65Controller implements Initializable {
     private ListView<String> questionsListView=new ListView<>();
     private ObservableList<String> numberOfComboBox= FXCollections.observableArrayList();
     private ObservableList<String> questionsList= FXCollections.observableArrayList();
+    private ObservableList<Pair<String,String>> questionRandom=FXCollections.observableArrayList();
     DBConnect db=new DBConnect();
 
     //insert category into the TreeView
@@ -115,6 +125,7 @@ public class GUI65Controller implements Initializable {
             while (rs1.next()){
                 addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
                 questionsList.add(question1.getQuestionID()+": " +question1.getQuestionText());
+                questionRandom.add(new Pair<>(question1.getQuestionID(),question1.getQuestionID()+": " +question1.getQuestionText()));
             }
         }catch (Exception e){
             throw new RuntimeException(e);
@@ -140,6 +151,7 @@ public class GUI65Controller implements Initializable {
             while (rs1.next()){
                 addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
                 questionsList.add((question1.getQuestionID()+": "+question1.getQuestionText()));
+                questionRandom.add(new Pair<>(question1.getQuestionID(),question1.getQuestionID()+": " +question1.getQuestionText()));
             }
             int page=0;
             if(Integer.parseInt(numberQuestionsOfACategory(item))%numberQuestionsInAPage==0)page=Integer.parseInt(numberQuestionsOfACategory(item))/numberQuestionsInAPage;
@@ -213,6 +225,12 @@ public class GUI65Controller implements Initializable {
             }
         });
     }
+    private ObservableList<Pair<String,String>> randomQuestionFromCategory(){
+       String numberofQuestions=numberOfQuestions.getValue();
+       ObservableList<Pair<String,String>> questionRandom1=questionRandom;
+       Collections.shuffle(questionRandom1);
+       return (ObservableList<Pair<String, String>>) questionRandom1.subList(0,0+Integer.parseInt(numberofQuestions));
+    }
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle){
         pagination.setVisible(false);
@@ -244,6 +262,19 @@ public class GUI65Controller implements Initializable {
             }
             else {
                 showQuestionsOfCategoryWithoutSubcategories();
+            }
+        });
+        add.setOnAction(event -> {
+            if(numberOfQuestions.getValue()!=null){
+                Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI62.fxml"));
+                try {
+                    Parent gui62 = loader.load();
+                    Scene scene = new Scene(gui62);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         gui6_5.setOnMouseClicked(mouseEvent -> {
