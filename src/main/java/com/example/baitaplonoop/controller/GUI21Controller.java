@@ -1,8 +1,10 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.FindCategoryName;
 import com.example.baitaplonoop.util.addQuestion;
 import com.example.baitaplonoop.util.insertCategoryIntoTreeView;
+import com.example.baitaplonoop.util.insertQuestionIntoTableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -70,29 +72,14 @@ public class GUI21Controller implements Initializable {
 
     //create click event for treeView
     private void showQuestionInCaseShowQuestionOfSubcategories(){
-        category.setOnMouseClicked(mouseEvent -> {
-
-            if(mouseEvent.getClickCount()==3){
-                questionsList.clear();
-                table.setItems(questionsList);
-                TreeItem<String> item=category.getSelectionModel().getSelectedItem();
-                insertQuestionIntoTableViewWithSubcategory(item);
-                category.setVisible(false);
-                Default.setText(findCategoryName(item.getValue()));
-                question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));
-                action.setCellValueFactory(new PropertyValueFactory<addQuestion,Button>("button"));
-                table.setItems(questionsList);
-                table.setVisible(true);
-            }
-        });
         category.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode()== KeyCode.ENTER ){
                 questionsList.clear();
                 table.setItems(questionsList);
                 TreeItem<String> item=category.getSelectionModel().getSelectedItem();
-                insertQuestionIntoTableViewWithSubcategory(item);
+                insertQuestionIntoTableView.insertQuestionIntoTableViewWithSubcategory(item,questionsList);
                 category.setVisible(false);
-                Default.setText(findCategoryName(item.getValue()));
+                Default.setText(FindCategoryName.findCategoryName(item.getValue()));
                 question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));
                 action.setCellValueFactory(new PropertyValueFactory<addQuestion,Button>("button"));
                 table.setItems(questionsList);
@@ -101,52 +88,18 @@ public class GUI21Controller implements Initializable {
         });
     }
     private void showQuestionsOfCategoryWithoutSubcategories(){
-        category.setOnMouseClicked(mouseEvent -> {
-            if(mouseEvent.getClickCount()==3){
-                questionsList.clear();
-                table.setItems(questionsList);
-                TreeItem<String> item=category.getSelectionModel().getSelectedItem();
-                category.setVisible(false);
-                Default.setText(findCategoryName(item.getValue()));
-                String categoryName=findCategoryName(item.getValue());
-                String questionView="select *from dbo.Question as q,dbo.Category as c where q.categoryID = c.categoryID and c.categoryName = N'"+categoryName+"'";
-                ResultSet rs1=db.getData(questionView);
-                try {
-                    while (rs1.next()){
-                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),new Button("Edit"));
-                        questionsList.add(question1);
-                    }
-                    question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));
-                    action.setCellValueFactory(new PropertyValueFactory<addQuestion,Button>("button"));
-                    table.setItems(questionsList);
-                    table.setVisible(true);
-                }catch (Exception e){
-                    throw new RuntimeException(e);
-                }
-            }
-        });
         category.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode()== KeyCode.ENTER){
                 questionsList.clear();
                 table.setItems(questionsList);
                 TreeItem<String> item=category.getSelectionModel().getSelectedItem();
                 category.setVisible(false);
-                String questionView="select *from dbo.Question as q,dbo.Category as c where q.categoryID = c.categoryID and c.categoryName = N'"+findCategoryName(item.getValue())+"'";
-                ResultSet rs1=db.getData(questionView);
-                Default.setText(findCategoryName(item.getValue()));
-                try {
-                    while (rs1.next()){
-                        Button button=new Button();
-                        addQuestion question1=new addQuestion(rs1.getString("categoryID"),rs1.getString("questionID"),rs1.getString("questionText"),rs1.getString("questionImage"),rs1.getDouble("questionMark"),button);
-                        questionsList.add(question1);
-                    }
-                    question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));
-                    action.setCellValueFactory(new PropertyValueFactory<addQuestion,Button>("button"));
-                    table.setItems(questionsList);
-                    table.setVisible(true);
-                }catch (Exception e){
-                    throw new RuntimeException(e);
-                }
+                Default.setText(FindCategoryName.findCategoryName(item.getValue()));
+                insertQuestionIntoTableView.ínsertQuestionIntoTableViewWithoutSubcategory(item,questionsList);
+                question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));
+                action.setCellValueFactory(new PropertyValueFactory<addQuestion,Button>("button"));
+                table.setItems(questionsList);
+                table.setVisible(true);
             }
         });
     }

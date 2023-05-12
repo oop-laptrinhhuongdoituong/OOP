@@ -1,6 +1,6 @@
 package com.example.baitaplonoop.util;
 
-public class FinCategoryName {
+public class FindCategoryName {
     //find Name of category from treeView
     public static String findCategoryName(String a){
         int n=a.length()-1;
