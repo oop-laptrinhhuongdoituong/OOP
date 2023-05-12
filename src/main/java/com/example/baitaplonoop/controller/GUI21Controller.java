@@ -71,31 +71,16 @@ public class GUI21Controller implements Initializable {
     }
 
     //create click event for treeView
-    private void showQuestionInCaseShowQuestionOfSubcategories(){
+    private void showQuestionInCategory(){
         category.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode()== KeyCode.ENTER ){
                 questionsList.clear();
                 table.setItems(questionsList);
                 TreeItem<String> item=category.getSelectionModel().getSelectedItem();
-                insertQuestionIntoTableView.insertQuestionIntoTableViewWithSubcategory(item,questionsList);
+                if(gui2_1CheckBox.isSelected())insertQuestionIntoTableView.insertQuestionIntoTableViewWithSubcategory(item,questionsList);
+                else insertQuestionIntoTableView.ínsertQuestionIntoTableViewWithoutSubcategory(item,questionsList);
                 category.setVisible(false);
                 Default.setText(FindCategoryName.findCategoryName(item.getValue()));
-                question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));
-                action.setCellValueFactory(new PropertyValueFactory<addQuestion,Button>("button"));
-                table.setItems(questionsList);
-                table.setVisible(true);
-            }
-        });
-    }
-    private void showQuestionsOfCategoryWithoutSubcategories(){
-        category.setOnKeyPressed(keyEvent -> {
-            if(keyEvent.getCode()== KeyCode.ENTER){
-                questionsList.clear();
-                table.setItems(questionsList);
-                TreeItem<String> item=category.getSelectionModel().getSelectedItem();
-                category.setVisible(false);
-                Default.setText(FindCategoryName.findCategoryName(item.getValue()));
-                insertQuestionIntoTableView.ínsertQuestionIntoTableViewWithoutSubcategory(item,questionsList);
                 question.setCellValueFactory(new PropertyValueFactory<addQuestion,String>("questionText"));
                 action.setCellValueFactory(new PropertyValueFactory<addQuestion,Button>("button"));
                 table.setItems(questionsList);
@@ -121,19 +106,9 @@ public class GUI21Controller implements Initializable {
             category.setVisible(true);
         });
         gui2_1CheckBox.setSelected(false);
-        if (gui2_1CheckBox.isSelected()) {
-            showQuestionInCaseShowQuestionOfSubcategories();
-        }
-        else {
-            showQuestionsOfCategoryWithoutSubcategories();
-        }
+        showQuestionInCategory();
         gui2_1CheckBox.setOnAction(event -> {
-            if (gui2_1CheckBox.isSelected()) {
-              showQuestionInCaseShowQuestionOfSubcategories();
-            }
-            else {
-                showQuestionsOfCategoryWithoutSubcategories();
-            }
+            showQuestionInCategory();
         });
         gui2_1.setOnMouseClicked(mouseEvent -> {
             if(category.isVisible()&& isMouseOnLabel(Default,mouseEvent)==false)category.setVisible(false);
