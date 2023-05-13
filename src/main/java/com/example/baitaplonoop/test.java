@@ -51,9 +51,9 @@ public class test {
         DBConnect db = new DBConnect();
         try {
             ResultSet rs = db.getData("Select questionImage from Question");
-            while(rs.next()){
+            while (rs.next()) {
                 InputStream is = rs.getBinaryStream(1);
-                if(is == null){
+                if (is == null) {
                     continue;
                 }
                 FileOutputStream os = new FileOutputStream(new File("D:/Image/photo.png"));

@@ -83,6 +83,8 @@ public class DBConnect {
         return rowInserted;
     }
 
+
+
     public String FindCategoryID(String categoryName) throws SQLException {
         String categoryID = null;
         String sql = "SELECT categoryID FROM Category WHERE categoryName = N'" + categoryName + "'";
