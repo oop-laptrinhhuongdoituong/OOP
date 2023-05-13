@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.ChangeScene;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,13 +34,9 @@ public class GUI11Controller implements Initializable {
     GUI11PopUpController controller;
     static Dialog<String> dialog;
     DBConnect db = new DBConnect();
-    static EventHandler eventHandler;
-//    static Stage GUI11Stage = (Stage) btnTurnEditingOn.getScene().getWindow();
 
     public static String quizChosen = "";
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void setListViewQuiz(){
         ArrayList<String> listQuiz = new ArrayList<>();
         ResultSet rs = db.getData("Select * from Quiz");
         try{
@@ -50,21 +47,16 @@ public class GUI11Controller implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void setEvent(){
         lvQuiz.setOnMouseClicked(mouseEvent -> {
             quizChosen = lvQuiz.getSelectionModel().getSelectedItem();
-            try {
-                Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-                fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI61.fxml"));
-                Parent gui61 = null;
-                gui61 = fxmlLoader.load();
-                Scene scene = new Scene(gui61);
-                stage.setScene(scene);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI61.fxml", mouseEvent);
         });
 
+        btnTurnEditingOn.setOnAction(event -> {
+            ChangeScene.changeSceneUsingActionEvent((Initializable) this, "/com/example/baitaplonoop/GUI35AddingQuiz.fxml", event);
+        });
         imgSetting.setOnMouseClicked(event -> {
             try {
                 fxmlLoader = new FXMLLoader();
@@ -87,47 +79,22 @@ public class GUI11Controller implements Initializable {
                 });
                 Optional<String>  result = dialog.showAndWait();
                 if (result.get().equals("Import")){
-                    try {
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader fxmlLoader = new FXMLLoader();
-                        fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI34.fxml"));
-                        Parent gui34 = null;
-                        gui34 = fxmlLoader.load();
-                        Scene scene = new Scene(gui34);
-                        stage.setScene(scene);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                else if(result.get().equals("Category")){
-                    try {
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader fxmlLoader = new FXMLLoader();
-                        fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI33AddCategory.fxml"));
-                        Parent gui33 = null;
-                        gui33 = fxmlLoader.load();
-                        Scene scene = new Scene(gui33);
-                        stage.setScene(scene);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI34.fxml", event);
+                } else if(result.get().equals("Category")){
+                    ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI33AddCategory.fxml", event);
                 } else if (result.get().equals("Question")) {
-                    try {
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader fxmlLoader = new FXMLLoader();
-                        fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI21.fxml"));
-                        Parent gui21 = null;
-                        gui21 = fxmlLoader.load();
-                        Scene scene = new Scene(gui21);
-                        stage.setScene(scene);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI21.fxml", event);
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle){
+        setListViewQuiz();
+        setEvent();
     }
 }
 //

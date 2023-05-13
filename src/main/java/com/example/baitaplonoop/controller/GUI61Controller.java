@@ -15,16 +15,16 @@ import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
 public class GUI61Controller implements Initializable {
     @FXML
     public Label lbQuiz;
-
+    @FXML
+    public Label lbQuizTree;
     @FXML
     public Label lbTimeLimit;
 
     DBConnect db = new DBConnect();
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void setUpScene(){
         lbQuiz.setText(quizChosen);
+        lbQuizTree.setText(quizChosen);
         ResultSet rs = db.getData("Select * from Quiz where quizName = N'" + quizChosen + "'");
         try {
             while (rs.next()) {
@@ -33,5 +33,10 @@ public class GUI61Controller implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setUpScene();
     }
 }

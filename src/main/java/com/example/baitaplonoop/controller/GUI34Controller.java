@@ -45,12 +45,9 @@ public class GUI34Controller implements Initializable {
     @FXML
     Label lbAlert;
     List<File> files;
-
     DBConnect db = new DBConnect();
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        treeViewImport.setVisible(false);
+    public void setEvent(){
         lbChooseImportCategory.setOnMouseClicked(mouseEvent -> {
             treeViewImport.setVisible(true);
             TreeItem<String> root = new TreeItem<>("Course IT:");
@@ -155,26 +152,10 @@ public class GUI34Controller implements Initializable {
             }
         });
     }
-}
-//    public void setTreeViewImport(String sql, TreeItem<String> root){
-//        ResultSet rs = db.getData(sql);
-//        ArrayList<String> categoryName = new ArrayList<>();
-//        ArrayList<String> categoryID = new ArrayList<>();
-//        try{
-//            while(rs.next()){
-//                categoryID.add(rs.getString("categoryID"));
-//                categoryName.add(rs.getString("categoryName"));
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        int len = categoryID.size();
-//        for(int i = 0; i<len; i++){
-//            TreeItem<String> item = new TreeItem<>(categoryName.get(i));
-//            root.getChildren().add(item);
-//            String s = "Select * from Category where parentID = '" + categoryID.get(i) + "'";
-//            setTreeViewImport(s, item);
-//        }
-//    }
 
-//
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        treeViewImport.setVisible(false);
+        setEvent();
+    }
+}
