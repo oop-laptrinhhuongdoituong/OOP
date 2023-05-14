@@ -19,6 +19,7 @@ import javafx.util.Pair;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class GUI65Controller implements Initializable {
@@ -41,6 +42,7 @@ public class GUI65Controller implements Initializable {
     private ObservableList<String> numberOfComboBox = FXCollections.observableArrayList();
     private ObservableList<String> questionsList = FXCollections.observableArrayList();
     private ObservableList<Pair<String, String>> questionRandom = FXCollections.observableArrayList();
+    private ObservableList<Pair<String, String>> subQuestionRandom = FXCollections.observableArrayList();
     DBConnect db = new DBConnect();
 
     private void showQuestion() {
@@ -83,18 +85,21 @@ public class GUI65Controller implements Initializable {
                     return questionsListView;
                 });
                 pagination.setVisible(true);
-
                 numberOfQuestions.setItems(numberOfComboBox);
                 questionsListView.setVisible(true);
             }
         });
     }
 
-    private ObservableList<Pair<String, String>> randomQuestionFromCategory() {
+    private void randomQuestionFromCategory() {
         String numberofQuestions = numberOfQuestions.getValue();
-        ObservableList<Pair<String, String>> questionRandom1 = questionRandom;
-        Collections.shuffle(questionRandom1);
-        return (ObservableList<Pair<String, String>>) questionRandom1.subList(0, 0 + Integer.parseInt(numberofQuestions));
+        Random random=new Random();
+        while (subQuestionRandom.size()<Integer.parseInt(numberofQuestions)){
+            int randomIndex=random.nextInt(questionRandom.size());
+            if(!subQuestionRandom.contains(questionRandom.get(randomIndex))){
+                subQuestionRandom.add(questionRandom.get(randomIndex));
+            }
+        }
     }
 
     @Override
@@ -129,7 +134,9 @@ public class GUI65Controller implements Initializable {
                     Parent gui62 = loader.load();
                     Scene scene = new Scene(gui62);
                     GUI62Controller gui62Controller=loader.getController();
-                    //code ở đây
+                    randomQuestionFromCategory();
+                    gui62Controller.setChosenQuestions(subQuestionRandom);
+                    stage.setScene(scene);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

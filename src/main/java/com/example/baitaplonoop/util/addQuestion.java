@@ -3,47 +3,62 @@ package com.example.baitaplonoop.util;
 import com.example.baitaplonoop.model.Question;
 import javafx.scene.control.Button;
 
-public class addQuestion  extends Question {
+public class addQuestion extends Question {
     private Button button;
+    public addQuestion(){
+
+    }
 
     public addQuestion(String categoryID, String questionID, String questionText, String questionImage, double questionMark, Button button) {
         super(categoryID, questionID, questionText, questionImage, questionMark);
         this.button = button;
     }
-    public void setCategoryID(String categoryID){
+
+    public void setCategoryID(String categoryID) {
         super.setCategoryID(categoryID);
     }
-    public String getCategoryID(){
+
+    public String getCategoryID() {
         return super.getCategoryID();
     }
-    public void setQuestionID(String questionID){
+
+    public void setQuestionID(String questionID) {
         super.setQuestionID(questionID);
     }
-    public String getQuestionID(){
+
+    public String getQuestionID() {
         return super.getQuestionID();
     }
-    public void setQuestionText(String questionText){
+
+    public void setQuestionText(String questionText) {
         super.setQuestionText(questionText);
     }
-    public String getQuestionText(){
+
+    public String getQuestionText() {
         return super.getQuestionText();
     }
-    public void setQuestionImage(String questionImage){
+
+    public void setQuestionImage(String questionImage) {
         super.setQuestionImage(questionImage);
     }
-    public String getQuestionImage(){
+
+    public String getQuestionImage() {
         return super.getQuestionImage();
     }
-    public void setQuestionMark(double questionMark){
+
+    public void setQuestionMark(double questionMark) {
         super.setQuestionMark(questionMark);
     }
-    public double getQuestionMark(){
+
+    public double getQuestionMark() {
         return super.getQuestionMark();
     }
-    public void setButton(Button button){
-        this.button=button;
+
+    public void setButton(Button button) {
+        this.button = button;
     }
-    public Button getButton(){
+
+    public Button getButton() {
         return button;
     }
 }

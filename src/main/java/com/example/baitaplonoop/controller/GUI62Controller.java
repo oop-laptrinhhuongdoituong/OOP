@@ -1,8 +1,12 @@
 package com.example.baitaplonoop.controller;
 
 
+import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.FindCategoryInfo;
 import com.example.baitaplonoop.util.IsMouseOnLabel;
-import com.example.baitaplonoop.util.tableQuestionsOfGui62;
+import com.example.baitaplonoop.util.TableQuestionsOfGui62;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,16 +15,27 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Pair;
+
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
+import static com.sun.javafx.css.StyleClassSet.getStyleClass;
+import static javafx.scene.control.TableView.UNCONSTRAINED_RESIZE_POLICY;
+
 public class GUI62Controller implements Initializable {
+    DBConnect db = new DBConnect();
     @FXML
     private Label addLabel;
     @FXML
@@ -28,7 +43,30 @@ public class GUI62Controller implements Initializable {
     @FXML
     private ListView<Label> listModeAdd;
     private ObservableList<Label> addMode = FXCollections.observableArrayList();
-    private ObservableList<tableQuestionsOfGui62> listRandomQuestion = FXCollections.observableArrayList();
+    private ObservableList<TableQuestionsOfGui62> chosenQuestions = FXCollections.observableArrayList();
+    @FXML
+    private TableView<TableQuestionsOfGui62> tableQuestions;
+
+    @FXML
+    private TableColumn<TableQuestionsOfGui62, Label> DeleteIcon;
+
+    @FXML
+    private TableColumn<TableQuestionsOfGui62, CheckBox> MultiQuestionsChoice;
+
+    @FXML
+    private TableColumn<TableQuestionsOfGui62, Text> Order;
+
+    @FXML
+    private TableColumn<TableQuestionsOfGui62, Label> PlusIcon;
+
+    @FXML
+    private TableColumn<TableQuestionsOfGui62, TextField> QuestionMark;
+
+    @FXML
+    private TableColumn<TableQuestionsOfGui62, String> QuestionText;
+
+    @FXML
+    private TableColumn<TableQuestionsOfGui62, Label> Setting;
 
     private void addQuestionMode() {
         listModeAdd.setVisible(false);
@@ -39,8 +77,68 @@ public class GUI62Controller implements Initializable {
         listModeAdd.getItems().addAll(addMode);
     }
 
+    public void setChosenQuestions(ObservableList<Pair<String, String>> randomQuestion) {
+        int stt = 0;
+        for (Pair<String, String> a : randomQuestion) {
+            stt++;
+            TableQuestionsOfGui62 tableQuestionsOfGui62;
+
+            //Tạo checkbox
+            CheckBox multiQuestionsChoice = new CheckBox();
+            //Tạo oder
+            Text order = new Text();
+            order.setText(Integer.toString(stt));
+            //Tạo questionText
+            String questionText = a.getValue();
+            //Tạo questionID
+            String questionID = a.getKey();
+            //tạo biểu tượng setting
+            Label setting = new Label();
+            FontAwesomeIconView iconView = new FontAwesomeIconView(FontAwesomeIcon.GEAR);
+            iconView.setSize("22px");
+            iconView.setFill(Paint.valueOf("#000000"));
+            setting.setGraphic(iconView);
+            //Tạo biểu tượng plusIcon
+            Label plushIcon = new Label();
+            FontAwesomeIconView iconView1 = new FontAwesomeIconView(FontAwesomeIcon.SEARCH_PLUS);
+            iconView1.setSize("22px");
+            iconView1.setFill(Paint.valueOf("#000000"));
+            plushIcon.setGraphic(iconView1);
+            //tạo biểu tượng deleteIcon
+            Label deleteIcon = new Label();
+            FontAwesomeIconView iconView2 = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            iconView2.setSize("22px");
+            iconView2.setFill(Paint.valueOf("#000000"));
+            deleteIcon.setGraphic(iconView2);
+            deleteIcon.setOnMouseClicked(mouseEvent -> {
+            });
+            //tạo textField questionMark
+            TextField questionMark = new TextField("1.00");
+            questionMark.setDisable(true);
+            tableQuestionsOfGui62 = new TableQuestionsOfGui62(multiQuestionsChoice, order, setting, questionText, questionID, plushIcon, deleteIcon, questionMark);
+            chosenQuestions.add(tableQuestionsOfGui62);
+        }
+    }
+
+    private void addQuestionIntoTable() {
+        tableQuestions.setVisible(false);
+        tableQuestions.setTableMenuButtonVisible(false);
+        tableQuestions.setStyle("-fx-table-cell-border-color: transparent;");
+        MultiQuestionsChoice.setVisible(false);
+        MultiQuestionsChoice.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, CheckBox>("multiQuestionsChoice"));
+        Order.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Text>("order"));
+        Setting.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("setting"));
+        QuestionText.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, String>("questionText"));
+        PlusIcon.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("plusIcon"));
+        DeleteIcon.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("deleteIcon"));
+        QuestionMark.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, TextField>("questionMark"));
+        tableQuestions.setItems(chosenQuestions);
+        tableQuestions.setVisible(true);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tableQuestions.setVisible(false);
         addQuestionMode();
         addLabel.setOnMouseClicked(mouseEvent -> {
             if (!listModeAdd.isVisible()) listModeAdd.setVisible(true);

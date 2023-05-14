@@ -1,12 +1,11 @@
 package com.example.baitaplonoop.util;
 
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class tableQuestionsOfGui62 {
+public class TableQuestionsOfGui62 {
     CheckBox multiQuestionsChoice;
     Text order;
     Label setting;
@@ -14,6 +13,19 @@ public class tableQuestionsOfGui62 {
     String questionID;
     Label plusIcon;
     Label deleteIcon;
+    TextField questionMark;
+
+    public TableQuestionsOfGui62(){}
+    public TableQuestionsOfGui62(CheckBox multiQuestionsChoice, Text order, Label setting, String questionText, String questionID, Label plusIcon, Label deleteIcon, TextField questionMark) {
+        this.multiQuestionsChoice = multiQuestionsChoice;
+        this.order = order;
+        this.setting = setting;
+        this.questionText = questionText;
+        this.questionID = questionID;
+        this.plusIcon = plusIcon;
+        this.deleteIcon = deleteIcon;
+        this.questionMark = questionMark;
+    }
 
     public CheckBox getMultiQuestionsChoice() {
         return multiQuestionsChoice;
@@ -79,6 +91,5 @@ public class tableQuestionsOfGui62 {
         this.questionMark = questionMark;
     }
 
-    TextField questionMark;
 
 }
