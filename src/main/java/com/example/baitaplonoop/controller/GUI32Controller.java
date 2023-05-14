@@ -98,13 +98,20 @@ public class GUI32Controller implements Initializable {
                     throw new RuntimeException(e);
                 }
                 // To add Question into database
-                Image image = imageQuestion_iv.getImage();
-                int image_width = (int) image.getWidth();
-                int image_height = (int) image.getHeight();
-                byte[] buffer = new byte[image_height*image_width*4];
-                image.getPixelReader().getPixels(0, 0, image_width, image_height, PixelFormat.getByteBgraInstance(), buffer, 0, image_width*4);
-                String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText(), "1"};
-                db.InsertQuestion(addQuestion, buffer);
+
+                if(imageQuestion_iv.getImage() == null){
+                    String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText(), "1"};
+                    db.InsertQuestion(addQuestion);
+                } else{
+                    Image image = imageQuestion_iv.getImage();
+                    int image_width = (int) image.getWidth();
+                    int image_height = (int) image.getHeight();
+                    byte[] buffer = new byte[image_height*image_width*4];
+                    image.getPixelReader().getPixels(0, 0, image_width, image_height, PixelFormat.getByteBgraInstance(), buffer, 0, image_width*4);
+                    String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText(), "1"};
+                    db.InsertQuestion(addQuestion, buffer);
+                }
+
                 // To add Choice into Database
                 if(!choice1_tf.getText().equals("")){
                     String[] addChoice1 = {choice1_tf.getText(), String.valueOf(gradeChoice1), questionName_tf.getText() + "1", questionName_tf.getText(), null};
@@ -147,6 +154,7 @@ public class GUI32Controller implements Initializable {
 //
 //        });
     }
+
 
     public void loadImageQuestion(ActionEvent event){
         FileChooser fileChooser = new FileChooser();
