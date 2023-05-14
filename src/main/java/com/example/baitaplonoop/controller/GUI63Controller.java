@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GUI63Controller implements Initializable {
+    public Button addSelectedQuestionToQuiz_btn;
     @FXML
     private Button createQuestionButton;
     @FXML
@@ -63,8 +64,8 @@ public class GUI63Controller implements Initializable {
                 table.setItems(questionsList);
                 TreeItem<String> item = category.getSelectionModel().getSelectedItem();
                 if (gui2_1CheckBox.isSelected())
-                    insertQuestionInto.insertQuestionIntoTableViewWithSubcategory(item, questionsList);
-                else insertQuestionInto.ínsertQuestionIntoTableViewWithoutSubcategory(item, questionsList);
+                    insertQuestionInto.insertQuestionIntoTableViewWithSubcategoryInNewQuiz(item, questionsList);
+                else insertQuestionInto.ínsertQuestionIntoTableViewWithoutSubcategoryInNewQuiz(item, questionsList);
                 category.setVisible(false);
                 Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
                 question.setCellValueFactory(new PropertyValueFactory<addQuestion, String>("questionText"));
@@ -99,6 +100,9 @@ public class GUI63Controller implements Initializable {
         gui2_1.setOnMouseClicked(mouseEvent -> {
             if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent) == false)
                 category.setVisible(false);
+        });
+        addSelectedQuestionToQuiz_btn.setOnMouseClicked(addSelectedQuestionToQuizEvent -> {
+            System.out.println(insertQuestionInto.insertQuesionToQuiz());
         });
     }
 }
