@@ -122,11 +122,12 @@
             </AnchorPane>
          </AnchorPane>
          <ImageView fx:id="imageQuestion_iv" fitHeight="99.0" fitWidth="75.0" layoutX="117.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
-         <Button fx:id="imageQuestion_btn" layoutX="32.0" layoutY="181.0" mnemonicParsing="false" onAction="#loadVideo" text="Add Image" />
+         <Button fx:id="videoQuestion_btn" layoutX="32.0" layoutY="181.0" mnemonicParsing="false" onAction="#loadVideo" text="Add Video" />
          <MediaView fx:id="mediaQuestion_mv" fitHeight="100.0" fitWidth="200.0" layoutX="5.0" layoutY="244.0" />
          <Slider fx:id="timeSlider" layoutX="37.0" layoutY="344.0" />
          <Button fx:id="playVideo" layoutX="50.0" layoutY="360.0" mnemonicParsing="false" text="Play" />
          <Button fx:id="pause_btn" layoutX="105.0" layoutY="360.0" mnemonicParsing="false" text="Pause" />
+         <Button fx:id="imageQuestion_btn" layoutX="37.0" layoutY="207.0" mnemonicParsing="false" onAction="#loadImageQuestion" text="Add  Image" />
       </AnchorPane>
    </ScrollPane>
 </AnchorPane>

@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.example.baitaplonoop.util.addValueComboBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -25,6 +26,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 
 public class GUI32Controller implements Initializable {
@@ -54,6 +56,7 @@ public class GUI32Controller implements Initializable {
     public Slider timeSlider;
     public Button playVideo;
     public Button pause_btn;
+    public Button videoQuestion_btn;
     boolean checkAddCategoryQuestion;
 
 
@@ -123,19 +126,18 @@ public class GUI32Controller implements Initializable {
                     var ref = new Object() {
                         byte[] buffer = new byte[1000000000];
                     };
-                    mediaPlayer.setOnReady(()->{
+                    mediaPlayer.setOnReady(() -> {
                         Duration duration = mediaPlayer.getMedia().getDuration();
                         // Chuyển đổi đối tượng MediaPlayer thành mảng byte[]
                         ref.buffer = convertMediaPlayerToByteArray(mediaPlayer);
-
 
 
                     });
                     String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText(), "1"};
 
                     db.InsertQuestion(addQuestion, ref.buffer);
-                    saveBytesToFile(ref.buffer, "./src/main/resources/com/example/baitaplonoop/media/ShortVideo/Choice/output.mp4");
-
+                    //saveBytesToFile(ref.buffer, "./src/main/resources/com/example/baitaplonoop/media/ShortVideo/Choice/output.mp4");
+                    CheckDuration(mediaQuestion_mv);
 
                 } else {
                     Image image = imageQuestion_iv.getImage();
@@ -176,7 +178,8 @@ public class GUI32Controller implements Initializable {
 
                 alertAddCategory.setContentText("Add Question Done!");
                 alertAddCategory.setHeaderText(null);
-            } alertAddCategory.showAndWait();
+            }
+            alertAddCategory.showAndWait();
         });
         // Event to creat new 3 choice
         createChoice_btn.setOnMouseClicked(createChoiceEvent -> {
@@ -184,9 +187,6 @@ public class GUI32Controller implements Initializable {
             buttonPane_ap.setTranslateY(239);
         });
 
-//        imageQuestion_btn.setOnMouseClicked(addImageQuestionEvent ->{
-//
-//        });
     }
 
     private byte[] convertMediaPlayerToByteArray(MediaPlayer mediaPlayer) {
@@ -221,7 +221,6 @@ public class GUI32Controller implements Initializable {
         }
     }
 
-
     public void loadImageQuestion(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Chọn ảnh");
@@ -235,28 +234,25 @@ public class GUI32Controller implements Initializable {
 
         if (file != null) {
             try {
-                // Tạo đường dẫn tới thư mục "anh"
-                String imagePath = "./src/main/resources/com/example/baitaplonoop/media/Image/Question" + file.getName();
-
-                // Đọc dữ liệu ảnh vào File
-                FileInputStream fis = new FileInputStream(file);
-                FileOutputStream fos = new FileOutputStream(imagePath);
-
-                // Đọc và ghi dữ liệu ảnh vào file ảnh trong thư mục "anh"
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = fis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, length);
-                }
-
-                // Đóng input/output stream
-                fis.close();
-                fos.close();
-
-                // Hiển thị ảnh trong ImageView
-                Image image = new Image(new File(imagePath).toURI().toString());
-                imageQuestion_iv.setImage(image);
-            } catch (IOException e) {
+                // Tạo đối tượng Image từ file được chọn
+                Image image = new Image(file.toURI().toString());
+                // Tạo một đối tượng ImageView mới
+                ImageView imageChoice_iv = new ImageView(image);
+                // Đặt kích thước và tỉ lệ cho ImageView
+                imageChoice_iv.setFitWidth(75);
+                imageChoice_iv.setFitHeight(100);
+                imageChoice_iv.setPreserveRatio(true);
+                // Lấy đối tượng Button từ tham số event
+                Button button = (Button) event.getSource();
+                // Đặt ImageView bên cạnh button gọi hàm
+                imageChoice_iv.setLayoutX(button.getLayoutX() + button.getWidth() + 10);
+                imageChoice_iv.setLayoutY(button.getLayoutY());
+                // Hiển thị ImageView
+                imageChoice_iv.setVisible(true);
+                // Thêm ImageView vào cùng pane với button
+                Pane pane = (Pane) button.getParent();
+                pane.getChildren().add(imageChoice_iv);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -275,34 +271,67 @@ public class GUI32Controller implements Initializable {
 
         if (file != null) {
             try {
-                // Tạo đường dẫn tới thư mục "anh"
-                String imagePath = "./src/main/resources/com/example/baitaplonoop/media/Image/Choice" + file.getName();
-
-                // Đọc dữ liệu ảnh vào File
-                FileInputStream fis = new FileInputStream(file);
-                FileOutputStream fos = new FileOutputStream(imagePath);
-
-                // Đọc và ghi dữ liệu ảnh vào file ảnh trong thư mục "anh"
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = fis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, length);
-                }
-
-                // Đóng input/output stream
-                fis.close();
-                fos.close();
-
+                // Tạo đối tượng Image từ file được chọn
+                Image image = new Image(file.toURI().toString());
                 // Hiển thị ảnh trong ImageView
-                Image image = new Image(new File(imagePath).toURI().toString());
-                imageQuestion_iv.setImage(image);
-            } catch (IOException e) {
+                ImageView imageChoice_iv = new ImageView();
+                imageChoice_iv.setImage(image);
+                // Đặt ImageView bên cạnh button chọn sự kiện
+                Button button = (Button) event.getSource();
+                // Đặt ImageView bên cạnh button gọi hàm
+                imageChoice_iv.setFitWidth(75);
+                imageChoice_iv.setFitHeight(100);
+                imageChoice_iv.setPreserveRatio(true);
+                imageChoice_iv.setLayoutX(85);
+                imageChoice_iv.setLayoutY(100);
+                imageChoice_iv.setVisible(true);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void loadImageGif(ActionEvent event) {
+//    public void loadImageChoice(ActionEvent event) {
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Chọn ảnh");
+//
+//        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+//        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+//        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+//
+//        // Show open file dialog
+//        File file = fileChooser.showOpenDialog(null);
+//
+//        if (file != null) {
+//            try {
+//                // Tạo đường dẫn tới thư mục "anh"
+//                String imagePath = "./src/main/resources/com/example/baitaplonoop/media/Image/Choice" + file.getName();
+//
+//                // Đọc dữ liệu ảnh vào File
+//                FileInputStream fis = new FileInputStream(file);
+//                FileOutputStream fos = new FileOutputStream(imagePath);
+//
+//                // Đọc và ghi dữ liệu ảnh vào file ảnh trong thư mục "anh"
+//                byte[] buffer = new byte[1024];
+//                int length;
+//                while ((length = fis.read(buffer)) > 0) {
+//                    fos.write(buffer, 0, length);
+//                }
+//
+//                // Đóng input/output stream
+//                fis.close();
+//                fos.close();
+//
+//                // Hiển thị ảnh trong ImageView
+//                Image image = new Image(new File(imagePath).toURI().toString());
+//                imageQuestion_iv.setImage(image);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
+    public void loadGifQuestion(ActionEvent event) {
         // Tạo đối tượng FileChooser để chọn file ảnh
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Chọn file gif");
@@ -316,23 +345,17 @@ public class GUI32Controller implements Initializable {
 
         if (file != null) {
             try {
-                // Tạo đường dẫn tới thư mục "anh"
-                String imagePath = "./src/main/resources/com/example/baitaplonoop/media/GIF/Question/" + file.getName();
-
-                // Đọc dữ liệu ảnh từ file vào đối tượng BufferedImage
-                BufferedImage bufferedImage = ImageIO.read(file);
-
-                // Ghi dữ liệu ảnh vào file ảnh trong thư mục "anh"
-                ImageIO.write(bufferedImage, "gif", new File(imagePath));
-
+                // Tạo đối tượng Image từ file được chọn
+                Image image = new Image(file.toURI().toString());
                 // Hiển thị ảnh trong ImageView
-                Image image = new Image(new File(imagePath).toURI().toString());
                 imageQuestion_iv.setImage(image);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
+
+
 
     public void loadVideo(ActionEvent event) {
         // Tạo đối tượng FileChooser để chọn file video
@@ -348,26 +371,11 @@ public class GUI32Controller implements Initializable {
 
         if (file != null) {
             try {
-                // Tạo đường dẫn tới thư mục "video"
-                String videoPath = "./src/main/resources/com/example/baitaplonoop/media/ShortVideo/Question/" + file.getName();
-                // Đọc dữ liệu video từ file vào đối tượng FileInputStream
-                FileInputStream fis = new FileInputStream(file);
-
-                // Ghi dữ liệu video vào file video trong thư mục "video"
-                FileOutputStream fos = new FileOutputStream(videoPath);
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = fis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, length);
-                }
-
-                // Đóng input/output stream
-                fis.close();
-                fos.close();
-
-                // Hiển thị video trong MediaView
-                javafx.scene.media.Media media = new javafx.scene.media.Media(new File(videoPath).toURI().toString());
+                // Tạo đối tượng Media từ file được chọn
+                javafx.scene.media.Media media = new javafx.scene.media.Media(file.toURI().toString());
+                // Tạo đối tượng MediaPlayer từ đối tượng Media
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
+                // Hiển thị video trong MediaView
                 mediaQuestion_mv.setMediaPlayer(mediaPlayer);
 
                 // Điều chỉnh kích thước và vị trí của MediaView
@@ -402,20 +410,92 @@ public class GUI32Controller implements Initializable {
                     mediaPlayer.seek(Duration.ZERO); // Quay lại từ đầu
                     mediaPlayer.pause();
                 });
-
-                // Kiểm tra độ dài của video
-                double duration = mediaPlayer.getMedia().getDuration().toSeconds(); // Lấy độ dài của video theo giây
-                if (duration >= 1 && duration <= 10) { // Nếu độ dài từ 1s đến 10s
-                    mediaPlayer.play(); // Phát video
-                } else { // Nếu không
-                    System.out.println("Video dài hơn 10s"); // In ra màn hình thông báo
-                }
-
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
+//    public void loadVideo(ActionEvent event) {
+//        // Tạo đối tượng FileChooser để chọn file video
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Chọn file video");
+//
+//        // Thiết lập bộ lọc cho các loại file video mp4
+//        FileChooser.ExtensionFilter extFilterMP4 = new FileChooser.ExtensionFilter("MP4 files (*.mp4)", "*.MP4");
+//        fileChooser.getExtensionFilters().add(extFilterMP4);
+//
+//        // Hiển thị hộp thoại mở file video
+//        File file = fileChooser.showOpenDialog(null);
+//
+//        if (file != null) {
+//            try {
+//                // Tạo đường dẫn tới thư mục "video"
+//                String videoPath = "./src/main/resources/com/example/baitaplonoop/media/ShortVideo/Question/" + file.getName();
+//                // Đọc dữ liệu video từ file vào đối tượng FileInputStream
+//                FileInputStream fis = new FileInputStream(file);
+//
+//                // Ghi dữ liệu video vào file video trong thư mục "video"
+//                FileOutputStream fos = new FileOutputStream(videoPath);
+//                byte[] buffer = new byte[1024];
+//                int length;
+//                while ((length = fis.read(buffer)) > 0) {
+//                    fos.write(buffer, 0, length);
+//                }
+//
+//                // Đóng input/output stream
+//                fis.close();
+//                fos.close();
+//
+//                // Hiển thị video trong MediaView
+//                javafx.scene.media.Media media = new javafx.scene.media.Media(new File(videoPath).toURI().toString());
+//                MediaPlayer mediaPlayer = new MediaPlayer(media);
+//                mediaQuestion_mv.setMediaPlayer(mediaPlayer);
+//
+//                // Điều chỉnh kích thước và vị trí của MediaView
+//                mediaQuestion_mv.setFitWidth(200); // Thiết lập chiều rộng của MediaView là 400 pixel
+//                mediaQuestion_mv.setFitHeight(100); // Thiết lập chiều cao của MediaView là 300 pixel
+//                mediaQuestion_mv.setPreserveRatio(true); // Giữ nguyên tỷ lệ khung hình của video
+//
+//                // Bind the time slider to the media player's current time
+//                timeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+//                    if (timeSlider.isValueChanging()) {
+//                        mediaPlayer.seek(Duration.seconds(newValue.doubleValue()));
+//                    }
+//                });
+//                mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+//                    if (!timeSlider.isValueChanging()) {
+//                        timeSlider.setValue(newValue.toSeconds());
+//                    }
+//                });
+//                mediaPlayer.setOnReady(() -> timeSlider.setMax(mediaPlayer.getMedia().getDuration().toSeconds()));
+//
+//                // Sử dụng phương thức setOnAction của nút playVideo để gọi phương thức play của MediaPlayer
+//                playVideo.setOnAction(e -> {
+//                    mediaPlayer.play();
+//                });
+//
+//                pause_btn.setOnAction(event1 -> {
+//                    mediaPlayer.pause();
+//                });
+//
+//                // Sử dụng phương thức setOnEndOfMedia của MediaPlayer để thiết lập hành động khi video kết thúc
+//                mediaPlayer.setOnEndOfMedia(() -> {
+//                    mediaPlayer.seek(Duration.ZERO); // Quay lại từ đầu
+//                    mediaPlayer.pause();
+//                });
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
+    public void CheckDuration(MediaView mediaView) {
+        MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
+        // Lấy độ dài của media tính bằng Duration
+        Duration duration = mediaPlayer.getTotalDuration();
+        // Chuyển đổi Duration sang giây
+        double seconds = duration.toSeconds();
+        System.out.println(seconds);
+    }
 }
