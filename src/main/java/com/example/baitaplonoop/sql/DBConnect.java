@@ -118,5 +118,21 @@ public class DBConnect {
         return rowInserted;
     }
 
+    public int AddNewQuiz(String[] stringSQL){
+        int rowInserted = 0;
+        String sql = "INSERT INTO Quiz(quizName, Descript, openTime, closeTime, timeLimit) values (?, ?, ?, ?, ?)";
+        PreparedStatement statement;
+        try{
+            statement = con.prepareStatement(sql);
+            statement.setString(1, stringSQL[0]);
+            statement.setString(2, stringSQL[1]);
+            statement.setString(3, stringSQL[2]);
+            statement.setString(4, stringSQL[3]);
+            statement.setString(5, stringSQL[4]);
+            rowInserted = statement.executeUpdate();
+        } catch (SQLException e){throw new RuntimeException(e);}
+        return rowInserted;
+    }
+
 }
 //
