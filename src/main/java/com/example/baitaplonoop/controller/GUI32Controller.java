@@ -306,6 +306,20 @@ public class GUI32Controller implements Initializable {
         }
         return questionMediaPath;
     }
+    public void saveGif(ImageView imageView, String pathGIF, String questionID) {
+        String questionGifPah = null;
+        try {
+            File target = new File(pathGIF + File.separator + questionID +"gif");
+            BufferedImage toWrite = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+            ImageIO.write(toWrite, "gif", target);
+            questionGifPah = target.getAbsolutePath();
+        } catch (Exception x) {
+            System.err.println("Failed to save gif");
+            x.printStackTrace();
+        }
+    }
+
+
 }
 
 
