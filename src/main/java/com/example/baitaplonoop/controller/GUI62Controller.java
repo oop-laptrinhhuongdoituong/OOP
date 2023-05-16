@@ -56,6 +56,8 @@ public class GUI62Controller implements Initializable {
 
     @FXML
     private TableColumn<TableQuestionsOfGui62, CheckBox> MultiQuestionsChoice;
+    @FXML
+    private Label numberQuestionInTable;
 
     @FXML
     private TableColumn<TableQuestionsOfGui62, Text> Order;
@@ -71,6 +73,8 @@ public class GUI62Controller implements Initializable {
 
     @FXML
     private TableColumn<TableQuestionsOfGui62, Label> Setting;
+    @FXML
+    private Label totalOfMark;
 
     private void addQuestionMode() {
         listModeAdd.setVisible(false);
@@ -80,7 +84,12 @@ public class GUI62Controller implements Initializable {
         addMode.addAll(label1, label2, label3);
         listModeAdd.getItems().addAll(addMode);
     }
-
+    private void numberQuestionAndMarkInTable(){
+        String a="Question: "+Integer.toString(chosenQuestions.size())+"| This quiz is open";
+        numberQuestionInTable.setText(a);
+        String b="Total of mark: "+Integer.toString(chosenQuestions.size())+".00";
+        totalOfMark.setText(b);
+    }
     public void setChosenQuestions(ObservableList<Pair<String, String>> randomQuestion) {
         tableQuestions.setVisible(false);
         int stt = 0;
@@ -124,6 +133,7 @@ public class GUI62Controller implements Initializable {
             chosenQuestions.add(tableQuestionsOfGui62);
         }
         deleteEvent();
+        numberQuestionAndMarkInTable();
         tableQuestions.setVisible(true);
     }
 
@@ -139,6 +149,7 @@ public class GUI62Controller implements Initializable {
         PlusIcon.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("plusIcon"));
         DeleteIcon.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("deleteIcon"));
         QuestionMark.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, TextField>("questionMark"));
+        numberQuestionAndMarkInTable();
         tableQuestions.setItems(chosenQuestions);
     }
     private void deleteEvent(){
@@ -150,6 +161,7 @@ public class GUI62Controller implements Initializable {
                         i++;
                         b.getOrder().setText(Integer.toString(i));
                     }
+                    numberQuestionAndMarkInTable();
             });
         }
     }
@@ -207,6 +219,7 @@ public class GUI62Controller implements Initializable {
             i++;
             b.getOrder().setText(Integer.toString(i));
         }
+        numberQuestionAndMarkInTable();
     });
     }
 }
