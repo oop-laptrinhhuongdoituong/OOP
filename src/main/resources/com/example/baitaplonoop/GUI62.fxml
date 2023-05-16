@@ -24,7 +24,7 @@
       <Label layoutX="171.0" layoutY="68.0" text="/ THI CUÔI KỲ" textFill="#ee0707" />
       <Label layoutX="291.0" layoutY="68.0" text="/ General" textFill="#d70606" />
       <Label fx:id="quizNameLink" layoutX="369.0" layoutY="68.0" prefHeight="21.0" prefWidth="198.0" />
-      <Label fx:id="quizName" alignment="CENTER" layoutX="23.0" layoutY="101.0" prefHeight="33.0" prefWidth="250.0" textFill="#e10a0a">
+      <Label fx:id="quizName" alignment="CENTER" layoutX="23.0" layoutY="101.0" prefHeight="46.0" prefWidth="482.0" textFill="#e10a0a">
          <font>
             <Font size="31.0" />
          </font>

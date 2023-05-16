@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e99e4343-1934-4a34-858d-155e3f4e1670" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI61Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI61Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI61.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI61.fxml" afterDir="false" />
-    <list default="true" id="dfcc5a80-08cf-47cf-995b-60d386573511" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI62Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI62Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI62.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI62.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,11 +51,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "Phuc"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;git-widget-placeholder&quot;: &quot;Phuc&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Project\Java\OOP\src\main\resources\com\example\baitaplonoop\Image\Question" />

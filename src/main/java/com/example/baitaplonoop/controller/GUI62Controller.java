@@ -31,6 +31,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
+import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
 import static javafx.scene.control.TableView.UNCONSTRAINED_RESIZE_POLICY;
 
 public class GUI62Controller implements Initializable {
@@ -74,6 +75,10 @@ public class GUI62Controller implements Initializable {
     private TableColumn<TableQuestionsOfGui62, Label> Setting;
     @FXML
     private Label totalOfMark;
+    @FXML
+    private Label quizNameLink;
+    @FXML
+    private Label quizName;
 
     private void addQuestionMode() {
         listModeAdd.setVisible(false);
@@ -166,6 +171,8 @@ public class GUI62Controller implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        quizNameLink.setText("/" + quizChosen + "/ Edit quiz");
+        quizName.setText("Editing quiz: " + quizChosen);
         deleteMultipleItems.setVisible(false);
         tableQuestions.setVisible(false);
         addQuestionIntoTable();
