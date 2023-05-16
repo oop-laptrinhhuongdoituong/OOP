@@ -89,7 +89,7 @@ public class DBConnect {
         statement=con.prepareStatement(sql);
           statement.setString(1,stringSQL[0]);
           statement.setString(2,stringSQL[1]);
-          statement.setDouble(3, Double.parseDouble(stringSQL[2]));
+          statement.setString(3,stringSQL[2]);
         return rowInserted;
     }
     public String FindCategoryID(String categoryName) throws SQLException {

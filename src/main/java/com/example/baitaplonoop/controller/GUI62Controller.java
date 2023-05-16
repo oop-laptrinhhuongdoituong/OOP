@@ -233,7 +233,7 @@ public class GUI62Controller implements Initializable {
     });
     save.setOnAction(event -> {
       for(int i=0;i<chosenQuestions.size();i++){
-          String[] addQuestionInQuiz={chosenQuestions.get(i).getQuestionID(),chosenQuestions.get(i).getQuestionText(),null};
+          String[] addQuestionInQuiz={chosenQuestions.get(i).getQuestionID(),quizChosen,null};
           try {
               db.InsertQuestionInQuiz(addQuestionInQuiz);
           } catch (SQLException e) {

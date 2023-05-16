@@ -28,8 +28,8 @@
     <Label fx:id="Default" layoutX="192.0" layoutY="76.0" prefHeight="21.0" prefWidth="120.0" text="Default" textAlignment="CENTER" />
     <TableView fx:id="table" layoutX="36.0" layoutY="271.0" prefHeight="273.0" prefWidth="646.0">
         <columns>
-            <TableColumn fx:id="question" prefWidth="603.3332824707031" text="Question" />
-            <TableColumn fx:id="action" prefWidth="42.00006103515625" text="Action" />
+            <TableColumn fx:id="question" prefWidth="569.6000900268555" text="Question" />
+            <TableColumn fx:id="action" prefWidth="76.79998779296875" text="Choice" />
         </columns>
     </TableView>
    <Button fx:id="addSelectedQuestionToQuiz_btn" layoutX="46.0" layoutY="572.0" mnemonicParsing="false" text="Add Selected Question to the quiz" />
