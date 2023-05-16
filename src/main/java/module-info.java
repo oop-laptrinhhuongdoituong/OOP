@@ -11,8 +11,15 @@ module com.example.baitaplonoop {
     requires org.apache.logging.log4j;
     requires java.desktop;
     requires itextpdf;
-
     requires de.jensd.fx.glyphs.fontawesome;
+    requires javafx.media;
+    requires de.jensd.fx.glyphs.commons;
+    requires org.apache.commons.codec;
+    requires org.apache.commons.lang3;
+    requires org.apache.commons.io;
+    requires org.apache.commons.compress;
+    requires org.apache.commons.collections4;
+
     opens com.example.baitaplonoop to javafx.fxml;
     exports com.example.baitaplonoop;
     exports com.example.baitaplonoop.controller;
@@ -23,6 +30,5 @@ module com.example.baitaplonoop {
     opens com.example.baitaplonoop.sql to javafx.fxml;
     exports com.example.baitaplonoop.util;
     opens com.example.baitaplonoop.util to javafx.fxml;
-
 
 }

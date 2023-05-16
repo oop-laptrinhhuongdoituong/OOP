@@ -4,12 +4,14 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="578.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI32Controller">
@@ -119,13 +121,13 @@
                <ComboBox fx:id="gradeChoice3_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="44.0" />
             </AnchorPane>
          </AnchorPane>
-<<<<<<< HEAD
-         <Button fx:id="addPictureQuestion_btn" layoutX="32.0" layoutY="168.0" mnemonicParsing="false" text="Thêm ảnh" />
-         <ImageView fx:id="imageQuestion_iv" fitHeight="89.0" fitWidth="67.0" layoutX="125.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" />
-=======
          <ImageView fx:id="imageQuestion_iv" fitHeight="99.0" fitWidth="75.0" layoutX="117.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
-         <Button fx:id="imageQuestion_btn" layoutX="32.0" layoutY="181.0" mnemonicParsing="false" onAction="#loadImageQuestion" text="Add Image" />
->>>>>>> 334c7fc5302aa539d2877876039af33637f252ea
+         <Button fx:id="videoQuestion_btn" layoutX="32.0" layoutY="181.0" mnemonicParsing="false" onAction="#loadVideo" text="Add Video" />
+         <MediaView fx:id="mediaQuestion_mv" fitHeight="100.0" fitWidth="200.0" layoutX="5.0" layoutY="244.0" />
+         <Slider fx:id="timeSlider" layoutX="37.0" layoutY="344.0" />
+         <Button fx:id="playVideo" layoutX="50.0" layoutY="360.0" mnemonicParsing="false" text="Play" />
+         <Button fx:id="pause_btn" layoutX="105.0" layoutY="360.0" mnemonicParsing="false" text="Pause" />
+         <Button fx:id="imageQuestion_btn" layoutX="37.0" layoutY="207.0" mnemonicParsing="false" onAction="#loadImageQuestion" text="Add  Image" />
       </AnchorPane>
    </ScrollPane>
 </AnchorPane>

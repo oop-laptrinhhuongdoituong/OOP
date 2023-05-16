@@ -13,9 +13,7 @@ public class TableQuestionsOfGui62 {
     String questionID;
     Label plusIcon;
     Label deleteIcon;
-    TextField questionMark;
 
-    public TableQuestionsOfGui62(){}
     public TableQuestionsOfGui62(CheckBox multiQuestionsChoice, Text order, Label setting, String questionText, String questionID, Label plusIcon, Label deleteIcon, TextField questionMark) {
         this.multiQuestionsChoice = multiQuestionsChoice;
         this.order = order;
@@ -25,6 +23,9 @@ public class TableQuestionsOfGui62 {
         this.plusIcon = plusIcon;
         this.deleteIcon = deleteIcon;
         this.questionMark = questionMark;
+    }
+
+    public TableQuestionsOfGui62() {
     }
 
     public CheckBox getMultiQuestionsChoice() {
@@ -91,5 +92,6 @@ public class TableQuestionsOfGui62 {
         this.questionMark = questionMark;
     }
 
+    TextField questionMark;
 
 }

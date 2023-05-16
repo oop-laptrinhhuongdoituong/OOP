@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.ChangeScene;
 import com.example.baitaplonoop.util.showTreeViewCategory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.control.*;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -45,6 +47,7 @@ public class GUI33Controller implements Initializable {
 
         // Event to press the Button Add Category
         addCategory_Btn.setOnMouseClicked(buttonAddCategoryEvent -> {
+            String content = "";
             Alert alertAddCategory = new Alert(Alert.AlertType.INFORMATION);
             alertAddCategory.setTitle("Add Category Information");
             ButtonType btnContinue = new ButtonType("Oke", ButtonBar.ButtonData.YES);
@@ -52,10 +55,8 @@ public class GUI33Controller implements Initializable {
             alertAddCategory.getButtonTypes().setAll(btnContinue, btnBack);
 
             // To check fill the field in Category if fill all the field then add data Category into Database
-            if(checkAddParent == false || nameCategory_tf.getText() == null || infoCategory_tf.getText() == null || categoryID_tf == null){
-                alertAddCategory.setContentText("Please fill the blank field");
-                alertAddCategory.setHeaderText("You must fill all field!");
-                alertAddCategory.showAndWait();
+            if(checkAddParent == false || nameCategory_tf.getText().trim().equals("") || categoryID_tf.getText().trim().equals("")){
+                content = "You must fill all the field!";
             } else {
                 String IDParentCategory = null;
                 try {
@@ -65,10 +66,12 @@ public class GUI33Controller implements Initializable {
                 }
                 String addCategory[] = {IDParentCategory, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
                 int categoryRowInsert = db.InsertCategory(addCategory);
-
-                alertAddCategory.setContentText("Add Category Successfull");
-                alertAddCategory.setHeaderText(null);
-                alertAddCategory.showAndWait();
+                content = "Insert successfully!";
+            }
+            alertAddCategory.setContentText(content);
+            Optional<ButtonType> result = alertAddCategory.showAndWait();
+            if(result.get().equals(btnBack)){
+                ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", buttonAddCategoryEvent);
             }
         });
     }
