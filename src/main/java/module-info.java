@@ -12,6 +12,7 @@ module com.example.baitaplonoop {
     requires java.desktop;
     requires itextpdf;
 
+    requires de.jensd.fx.glyphs.fontawesome;
     opens com.example.baitaplonoop to javafx.fxml;
     exports com.example.baitaplonoop;
     exports com.example.baitaplonoop.controller;
@@ -22,5 +23,6 @@ module com.example.baitaplonoop {
     opens com.example.baitaplonoop.sql to javafx.fxml;
     exports com.example.baitaplonoop.util;
     opens com.example.baitaplonoop.util to javafx.fxml;
+
 
 }

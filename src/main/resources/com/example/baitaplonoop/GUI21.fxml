@@ -30,7 +30,7 @@
             </font>
         </Label>
         <Label layoutX="24.0" layoutY="269.0" text="The default category for questions shared in context" />
-        <Button layoutX="35.0" layoutY="362.0" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="CREATE A NEW QUESTION..." />
+        <Button fx:id="createQuestionButton" layoutX="35.0" layoutY="362.0" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="CREATE A NEW QUESTION..." />
         <CheckBox fx:id="gui2_1CheckBox" layoutX="23.0" layoutY="304.0" mnemonicParsing="false" text="Also show questions from subcategories" />
         <CheckBox layoutX="23.0" layoutY="333.0" mnemonicParsing="false" text="Also show old questions" />
         <TreeView fx:id="category" layoutX="376.0" layoutY="218.0" prefHeight="178.0" prefWidth="217.0" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="7.0" />
