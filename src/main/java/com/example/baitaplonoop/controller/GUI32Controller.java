@@ -3,24 +3,21 @@ package com.example.baitaplonoop.controller;
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.AlertOOP;
 import com.example.baitaplonoop.util.showTreeViewCategory;
-import javafx.event.ActionEvent;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelFormat;
 import javafx.scene.layout.AnchorPane;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.example.baitaplonoop.util.addValueComboBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -28,7 +25,6 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 
 
 public class GUI32Controller implements Initializable {
@@ -62,14 +58,17 @@ public class GUI32Controller implements Initializable {
     public Label questionLabel_lb;
     public ComboBox<String> selectMedia_cb;
     public Button gifQuestion_btn;
+    public AnchorPane videoPane_ap;
     @FXML
     private MediaView mediaQuestion_mv;
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion;
     Double gradeChoice1, gradeChoice2, gradeChoice3, gradeChoice4, gradeChoice5, gradeChoice6;
     DBConnect db = new DBConnect();
+    private MediaPlayer mediaPlayer;
 
     public void editingQuestionChoice(String categoryName, String questionID, String questionText, String choiceText1, String choiceGrade1, String choiceText2, String choiceGrade2, String choiceText3, String choiceGrade3, String choiceText4, String choiceGrade4, String choiceText5, String choiceGrade5, String choiceText6, String choiceGrade6) {
+        videoPane_ap.setVisible(false);
         paneChoice2_ap.setVisible(false);
         questionLabel_lb.setText("Editing a Multilple choice question");
         categoryName_lb.setText(categoryName);
@@ -83,27 +82,27 @@ public class GUI32Controller implements Initializable {
         choice6_tf.setText(choiceText6);
         if (!choiceText1.trim().equals("")) {
             gradeChoice1_cb.setEditable(true);
-            gradeChoice1_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade1) * 100) + "%");
+            gradeChoice1_cb.getEditor().setText(Float.parseFloat(choiceGrade1) * 100 + "%");
         }
         if (!choiceText2.trim().equals("")) {
             gradeChoice2_cb.setEditable(true);
-            gradeChoice2_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade2) * 100) + "%");
+            gradeChoice2_cb.getEditor().setText(Float.parseFloat(choiceGrade2) * 100 + "%");
         }
         if (!choiceText3.trim().equals("")) {
             gradeChoice3_cb.setEditable(true);
-            gradeChoice3_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade3) * 100) + "%");
+            gradeChoice3_cb.getEditor().setText(Float.parseFloat(choiceGrade3) * 100 + "%");
         }
         if (!choiceText4.trim().equals("")) {
             gradeChoice4_cb.setEditable(true);
-            gradeChoice4_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade4) * 100) + "%");
+            gradeChoice4_cb.getEditor().setText(Float.parseFloat(choiceGrade4) * 100 + "%");
         }
         if (!choiceText5.trim().equals("")) {
             gradeChoice5_cb.setEditable(true);
-            gradeChoice5_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade5) * 100) + "%");
+            gradeChoice5_cb.getEditor().setText(Float.parseFloat(choiceGrade5) * 100 + "%");
         }
         if (!choiceText6.trim().equals("")) {
             gradeChoice6_cb.setEditable(true);
-            gradeChoice6_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade6) * 100) + "%");
+            gradeChoice6_cb.getEditor().setText(Float.parseFloat(choiceGrade6) * 100 + "%");
         }
         if (choiceText4.trim().equals("") || !choiceText5.trim().equals("") || !choiceText6.trim().equals("")) {
             paneChoice2_ap.setTranslateY(239);
@@ -115,6 +114,8 @@ public class GUI32Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        videoPane_ap.setVisible(false);
         paneChoice2_ap.setVisible(false);
         addValueComboBox.addValue(gradeChoice1_cb);
         addValueComboBox.addValue(gradeChoice2_cb);
@@ -128,24 +129,24 @@ public class GUI32Controller implements Initializable {
         gradeChoice4_cb.setOnAction(gradeChoice4Event -> gradeChoice4 = addValueComboBox.convertStringToDouble(gradeChoice4_cb));
         gradeChoice5_cb.setOnAction(gradeChoice5Event -> gradeChoice5 = addValueComboBox.convertStringToDouble(gradeChoice5_cb));
         gradeChoice6_cb.setOnAction(gradeChoice6Event -> gradeChoice6 = addValueComboBox.convertStringToDouble(gradeChoice6_cb));
-        selectMedia_cb.getItems().addAll("Video", "Image", "Gif");
+        selectMedia_cb.getItems().addAll("Add Video", "Add Image", "Add Gif");
         //Chọn hiện button thêm ảnh, video, gif vào question
         selectMedia_cb.setOnAction(event -> {
             // Get the selected item
-            String selectedItem = (String) selectMedia_cb.getSelectionModel().getSelectedItem();
+            String selectedItem = selectMedia_cb.getSelectionModel().getSelectedItem();
             // Show the corresponding button and hide the others
             switch (selectedItem) {
-                case "Video":
+                case "Add Video":
                     videoQuestion_btn.setVisible(true);
                     imageQuestion_btn.setVisible(false);
                     gifQuestion_btn.setVisible(false);
                     break;
-                case "Image":
+                case "Add Image":
                     videoQuestion_btn.setVisible(false);
                     imageQuestion_btn.setVisible(true);
                     gifQuestion_btn.setVisible(false);
                     break;
-                case "Gif":
+                case "Add Gif":
                     videoQuestion_btn.setVisible(false);
                     imageQuestion_btn.setVisible(false);
                     gifQuestion_btn.setVisible(true);
@@ -164,8 +165,75 @@ public class GUI32Controller implements Initializable {
                 categoryName_lb.setText(newValue.getValue());
                 nameCategoryQuestion = newValue.getValue();
             });
+
         });
-        // Event to add Question into Database
+        // Event to creat new 3 choice
+        createChoice_btn.setOnMouseClicked(createChoiceEvent -> {
+            paneChoice2_ap.setTranslateY(239);
+            buttonPane_ap.setTranslateY(239);
+            paneChoice2_ap.setVisible(true);
+        });
+        imageQuestion_btn.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.jpg"),
+                    new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png")
+            );
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                String url1 = file.toURI().toString();
+                Image image = new Image(url1);
+                imageQuestion_iv.setImage(image);
+            }
+        });
+        gifQuestion_btn.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
+            );
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                String urlGif = file.toURI().toString();
+                Image image = new Image(urlGif);
+                imageQuestion_iv.setImage(image);
+            }
+        });
+
+        videoQuestion_btn.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("MP4 files (*.mp4)", "*.mp4"),
+                    new FileChooser.ExtensionFilter("AVI files (*.avi)", "*.avi")
+            );
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                String urlVideoQuestion = file.toURI().toString();
+                Media media = new Media(urlVideoQuestion);
+                mediaPlayer = new MediaPlayer(media);
+                mediaQuestion_mv.setMediaPlayer(mediaPlayer);
+                videoPane_ap.setVisible(true);
+                mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+                    if (!timeSlider.isValueChanging()) {
+                        timeSlider.setValue(newTime.toSeconds() / mediaPlayer.getTotalDuration().toSeconds() * 100);
+                    }
+                });
+                timeSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+                    if (timeSlider.isValueChanging()) {
+                        mediaPlayer.seek(mediaPlayer.getTotalDuration().multiply(newValue.doubleValue() / 100));
+                    }
+                });
+            }
+        });
+        playVideo.setOnAction(e -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.play();
+            }
+        });
+        pause_btn.setOnAction(e -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.pause();
+            }
+        });
         addQuestion_btn.setOnMouseClicked(saveChangeEvent -> {
             if (!checkAddCategoryQuestion || questionName_tf.getText() == null || questionText_tf.getText() == null) {
                 AlertOOP.mustFill("Add question status", "Add Question field", "You must fill in questionID, questionText");
@@ -180,35 +248,11 @@ public class GUI32Controller implements Initializable {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                if (imageQuestion_iv.getImage() == null & mediaQuestion_mv.getMediaPlayer() == null) {
-                    String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText(), "1"};
-                    db.InsertQuestion(addQuestion);
-                } else if (mediaQuestion_mv.getMediaPlayer() != null) {
-                    MediaPlayer mediaPlayer = mediaQuestion_mv.getMediaPlayer();
-                    var ref = new Object() {
-                        byte[] buffer = new byte[1000000000];
-                    };
-                    mediaPlayer.setOnReady(() -> {
-                        Duration duration = mediaPlayer.getMedia().getDuration();
-                        // Chuyển đổi đối tượng MediaPlayer thành mảng byte[]
-                        ref.buffer = convertMediaPlayerToByteArray(mediaPlayer);
+                if(imageQuestion_iv != null){
+                    String questionMediaPath = saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
+                    String[] questionInfo = {IDCategoryQuestion, questionName_tf.getText(), questionName_tf.getText(),"1"};
+                    db.InsertQuestionMedia(questionInfo, questionMediaPath);
 
-
-                    });
-                    String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText(), "1"};
-
-                    db.InsertQuestion(addQuestion, ref.buffer);
-                    //saveBytesToFile(ref.buffer, "./src/main/resources/com/example/baitaplonoop/media/ShortVideo/Choice/output.mp4");
-                    CheckDuration(mediaQuestion_mv);
-
-                } else {
-                    Image image = imageQuestion_iv.getImage();
-                    int image_width = (int) image.getWidth();
-                    int image_height = (int) image.getHeight();
-                    byte[] buffer = new byte[image_height * image_width * 4];
-                    image.getPixelReader().getPixels(0, 0, image_width, image_height, PixelFormat.getByteBgraInstance(), buffer, 0, image_width * 4);
-                    String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText(), "1"};
-                    db.InsertQuestion(addQuestion, buffer);
                 }
 
                 // To add Choice into Database
@@ -239,315 +283,7 @@ public class GUI32Controller implements Initializable {
                 AlertOOP.AddDone("Add Question Status", "Add question Done", "");
             }
         });
-        // Event to creat new 3 choice
-        createChoice_btn.setOnMouseClicked(createChoiceEvent -> {
-            paneChoice2_ap.setTranslateY(239);
-            buttonPane_ap.setTranslateY(239);
-            paneChoice2_ap.setVisible(true);
-        });
-
     }
-
-    private byte[] convertMediaPlayerToByteArray(MediaPlayer mediaPlayer) {
-        try {
-            // Tạo đối tượng ByteArrayOutputStream để ghi dữ liệu video vào
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-            // Đọc dữ liệu từ MediaPlayer và ghi vào ByteArrayOutputStream
-            FileInputStream inputStream = new FileInputStream(mediaPlayer.getMedia().getSource());
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-
-            // Trả về mảng byte[] của video
-            return outputStream.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private void saveBytesToFile(byte[] videoBytes, String outputPath) {
-        try {
-            // Tạo đối tượng FileOutputStream để ghi mảng byte[] vào file
-            FileOutputStream outputStream = new FileOutputStream(outputPath);
-            outputStream.write(videoBytes);
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loadImageQuestion(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Chọn ảnh");
-
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-
-        // Show open file dialog
-        File file = fileChooser.showOpenDialog(null);
-
-        if (file != null) {
-            try {
-                // Tạo đối tượng Image từ file được chọn
-                Image image = new Image(file.toURI().toString());
-                // Tạo một đối tượng ImageView mới
-                ImageView imageChoice_iv = new ImageView(image);
-                // Đặt kích thước và tỉ lệ cho ImageView
-                imageChoice_iv.setFitWidth(75);
-                imageChoice_iv.setFitHeight(100);
-                imageChoice_iv.setPreserveRatio(true);
-                // Lấy đối tượng Button từ tham số event
-                Button button = (Button) event.getSource();
-                // Đặt ImageView bên cạnh button gọi hàm
-                imageChoice_iv.setLayoutX(button.getLayoutX() + button.getWidth() + 10);
-                imageChoice_iv.setLayoutY(button.getLayoutY());
-                // Hiển thị ImageView
-                imageChoice_iv.setVisible(true);
-                // Thêm ImageView vào cùng pane với button
-                Pane pane = (Pane) button.getParent();
-                pane.getChildren().add(imageChoice_iv);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void loadImageChoice(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Chọn ảnh");
-
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-
-        // Show open file dialog
-        File file = fileChooser.showOpenDialog(null);
-
-        if (file != null) {
-            try {
-                // Tạo đối tượng Image từ file được chọn
-                Image image = new Image(file.toURI().toString());
-                // Hiển thị ảnh trong ImageView
-                ImageView imageChoice_iv = new ImageView();
-                imageChoice_iv.setImage(image);
-                // Đặt ImageView bên cạnh button chọn sự kiện
-                Button button = (Button) event.getSource();
-                // Đặt ImageView bên cạnh button gọi hàm
-                imageChoice_iv.setFitWidth(75);
-                imageChoice_iv.setFitHeight(100);
-                imageChoice_iv.setPreserveRatio(true);
-                imageChoice_iv.setLayoutX(85);
-                imageChoice_iv.setLayoutY(100);
-                imageChoice_iv.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-//    public void loadImageChoice(ActionEvent event) {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Chọn ảnh");
-//
-//        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-//        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-//        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-//
-//        // Show open file dialog
-//        File file = fileChooser.showOpenDialog(null);
-//
-//        if (file != null) {
-//            try {
-//                // Tạo đường dẫn tới thư mục "anh"
-//                String imagePath = "./src/main/resources/com/example/baitaplonoop/media/Image/Choice" + file.getName();
-//
-//                // Đọc dữ liệu ảnh vào File
-//                FileInputStream fis = new FileInputStream(file);
-//                FileOutputStream fos = new FileOutputStream(imagePath);
-//
-//                // Đọc và ghi dữ liệu ảnh vào file ảnh trong thư mục "anh"
-//                byte[] buffer = new byte[1024];
-//                int length;
-//                while ((length = fis.read(buffer)) > 0) {
-//                    fos.write(buffer, 0, length);
-//                }
-//
-//                // Đóng input/output stream
-//                fis.close();
-//                fos.close();
-//
-//                // Hiển thị ảnh trong ImageView
-//                Image image = new Image(new File(imagePath).toURI().toString());
-//                imageQuestion_iv.setImage(image);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
-    public void loadGifQuestion(ActionEvent event) {
-        // Tạo đối tượng FileChooser để chọn file ảnh
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Chọn file gif");
-
-        // Thiết lập bộ lọc cho các loại file ảnh gif
-        FileChooser.ExtensionFilter extFilterGIF = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.GIF");
-        fileChooser.getExtensionFilters().add(extFilterGIF);
-
-        // Hiển thị hộp thoại mở file ảnh
-        File file = fileChooser.showOpenDialog(null);
-
-        if (file != null) {
-            try {
-                // Tạo đối tượng Image từ file được chọn
-                Image image = new Image(file.toURI().toString());
-                // Hiển thị ảnh trong ImageView
-                imageQuestion_iv.setImage(image);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    public void loadVideo(ActionEvent event) {
-        // Tạo đối tượng FileChooser để chọn file video
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Chọn file video");
-
-        // Thiết lập bộ lọc cho các loại file video mp4
-        FileChooser.ExtensionFilter extFilterMP4 = new FileChooser.ExtensionFilter("MP4 files (*.mp4)", "*.MP4");
-        fileChooser.getExtensionFilters().add(extFilterMP4);
-
-        // Hiển thị hộp thoại mở file video
-        File file = fileChooser.showOpenDialog(null);
-
-        if (file != null) {
-            try {
-                // Tạo đối tượng Media từ file được chọn
-                javafx.scene.media.Media media = new javafx.scene.media.Media(file.toURI().toString());
-                // Tạo đối tượng MediaPlayer từ đối tượng Media
-                MediaPlayer mediaPlayer = new MediaPlayer(media);
-                // Hiển thị video trong MediaView
-                mediaQuestion_mv.setMediaPlayer(mediaPlayer);
-
-                // Điều chỉnh kích thước và vị trí của MediaView
-                mediaQuestion_mv.setFitWidth(200); // Thiết lập chiều rộng của MediaView là 400 pixel
-                mediaQuestion_mv.setFitHeight(100); // Thiết lập chiều cao của MediaView là 300 pixel
-                mediaQuestion_mv.setPreserveRatio(true); // Giữ nguyên tỷ lệ khung hình của video
-
-                // Bind the time slider to the media player's current time
-                timeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-                    if (timeSlider.isValueChanging()) {
-                        mediaPlayer.seek(Duration.seconds(newValue.doubleValue()));
-                    }
-                });
-                mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-                    if (!timeSlider.isValueChanging()) {
-                        timeSlider.setValue(newValue.toSeconds());
-                    }
-                });
-                mediaPlayer.setOnReady(() -> timeSlider.setMax(mediaPlayer.getMedia().getDuration().toSeconds()));
-
-                // Sử dụng phương thức setOnAction của nút playVideo để gọi phương thức play của MediaPlayer
-                playVideo.setOnAction(e -> {
-                    mediaPlayer.play();
-                });
-
-                pause_btn.setOnAction(event1 -> {
-                    mediaPlayer.pause();
-                });
-
-                // Sử dụng phương thức setOnEndOfMedia của MediaPlayer để thiết lập hành động khi video kết thúc
-                mediaPlayer.setOnEndOfMedia(() -> {
-                    mediaPlayer.seek(Duration.ZERO); // Quay lại từ đầu
-                    mediaPlayer.pause();
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-//    public void loadVideo(ActionEvent event) {
-//        // Tạo đối tượng FileChooser để chọn file video
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Chọn file video");
-//
-//        // Thiết lập bộ lọc cho các loại file video mp4
-//        FileChooser.ExtensionFilter extFilterMP4 = new FileChooser.ExtensionFilter("MP4 files (*.mp4)", "*.MP4");
-//        fileChooser.getExtensionFilters().add(extFilterMP4);
-//
-//        // Hiển thị hộp thoại mở file video
-//        File file = fileChooser.showOpenDialog(null);
-//
-//        if (file != null) {
-//            try {
-//                // Tạo đường dẫn tới thư mục "video"
-//                String videoPath = "./src/main/resources/com/example/baitaplonoop/media/ShortVideo/Question/" + file.getName();
-//                // Đọc dữ liệu video từ file vào đối tượng FileInputStream
-//                FileInputStream fis = new FileInputStream(file);
-//
-//                // Ghi dữ liệu video vào file video trong thư mục "video"
-//                FileOutputStream fos = new FileOutputStream(videoPath);
-//                byte[] buffer = new byte[1024];
-//                int length;
-//                while ((length = fis.read(buffer)) > 0) {
-//                    fos.write(buffer, 0, length);
-//                }
-//
-//                // Đóng input/output stream
-//                fis.close();
-//                fos.close();
-//
-//                // Hiển thị video trong MediaView
-//                javafx.scene.media.Media media = new javafx.scene.media.Media(new File(videoPath).toURI().toString());
-//                MediaPlayer mediaPlayer = new MediaPlayer(media);
-//                mediaQuestion_mv.setMediaPlayer(mediaPlayer);
-//
-//                // Điều chỉnh kích thước và vị trí của MediaView
-//                mediaQuestion_mv.setFitWidth(200); // Thiết lập chiều rộng của MediaView là 400 pixel
-//                mediaQuestion_mv.setFitHeight(100); // Thiết lập chiều cao của MediaView là 300 pixel
-//                mediaQuestion_mv.setPreserveRatio(true); // Giữ nguyên tỷ lệ khung hình của video
-//
-//                // Bind the time slider to the media player's current time
-//                timeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-//                    if (timeSlider.isValueChanging()) {
-//                        mediaPlayer.seek(Duration.seconds(newValue.doubleValue()));
-//                    }
-//                });
-//                mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-//                    if (!timeSlider.isValueChanging()) {
-//                        timeSlider.setValue(newValue.toSeconds());
-//                    }
-//                });
-//                mediaPlayer.setOnReady(() -> timeSlider.setMax(mediaPlayer.getMedia().getDuration().toSeconds()));
-//
-//                // Sử dụng phương thức setOnAction của nút playVideo để gọi phương thức play của MediaPlayer
-//                playVideo.setOnAction(e -> {
-//                    mediaPlayer.play();
-//                });
-//
-//                pause_btn.setOnAction(event1 -> {
-//                    mediaPlayer.pause();
-//                });
-//
-//                // Sử dụng phương thức setOnEndOfMedia của MediaPlayer để thiết lập hành động khi video kết thúc
-//                mediaPlayer.setOnEndOfMedia(() -> {
-//                    mediaPlayer.seek(Duration.ZERO); // Quay lại từ đầu
-//                    mediaPlayer.pause();
-//                });
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
     public void CheckDuration(MediaView mediaView) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
         // Lấy độ dài của media tính bằng Duration
@@ -556,4 +292,20 @@ public class GUI32Controller implements Initializable {
         double seconds = duration.toSeconds();
         System.out.println(seconds);
     }
+
+    public String saveImage(ImageView imageView, String pathImage, String questionID) {
+        String questionMediaPath = null;
+        try {
+            File target = new File(pathImage + File.separator + questionID +".jpg");
+            BufferedImage toWrite = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+            ImageIO.write(toWrite, "jpg", target);
+            questionMediaPath = target.getAbsolutePath();
+        } catch (Exception x) {
+            System.err.println("Failed to save image");
+            x.printStackTrace();
+        }
+        return questionMediaPath;
+    }
 }
+
+

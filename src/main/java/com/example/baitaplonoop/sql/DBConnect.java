@@ -67,6 +67,23 @@ public class DBConnect {
         return rowInserted;
     }
 
+    public int InsertQuestionMedia(String[] stringSQL, String questionMediaPath) {
+        int rowInserted = 0;
+        String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMedia) values(?,?,?, ?)";
+        PreparedStatement statement;
+        try {
+            statement = con.prepareStatement(sql);
+            statement.setString(1, stringSQL[0]);
+            statement.setString(2, stringSQL[1]);
+            statement.setString(3, stringSQL[2]);
+            statement.setString(4, questionMediaPath);
+            rowInserted = statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rowInserted;
+    }
+
     public int InsertChoice(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected) values(?,?,?,?,?)";
@@ -97,20 +114,14 @@ public class DBConnect {
         return rowInserted;
     }
 
+
     public String FindCategoryID(String categoryName) throws SQLException {
         String categoryID = null;
         String sql = "SELECT categoryID FROM Category WHERE categoryName = N'" + categoryName + "'";
-//        PreparedStatement statement = con.prepareStatement(sql);
-//        statement.setString(1, categoryName);
         ResultSet result = getData(sql);
-
-        // Nếu tìm thấy categoryName, lấy categoryID từ kết quả truy vấn
         if (result.next()) {
             categoryID = result.getString("categoryID");
         }
-
-        // Đóng kết nối và trả về categoryID
-
         return categoryID;
     }
 
@@ -160,7 +171,7 @@ public class DBConnect {
 
             ResultSet rs = statement.executeQuery();
             if (rs.next()) questionText = rs.getNString("questionText");
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             // Xử lý các ngoại lệ SQL
             e.printStackTrace();
         }
@@ -180,11 +191,11 @@ public class DBConnect {
                 Float choiceGrade = rs.getFloat("choiceGrade");
                 choiceInfo = new String[]{choiceText, String.valueOf(choiceGrade)};
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return choiceInfo;
     }
-
-
 }
+
+

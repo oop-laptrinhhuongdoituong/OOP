@@ -17,26 +17,6 @@
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI32Controller">
    <ScrollPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <AnchorPane fx:id="paneInScrollPane_ap" prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: #E0FFFF;">
-         <AnchorPane fx:id="paneChoice2_ap" layoutX="50.0" layoutY="240.0" prefHeight="240.0" prefWidth="302.0" visible="false" AnchorPane.leftAnchor="201.0" AnchorPane.topAnchor="240.0">
-            <AnchorPane layoutX="12.0" prefHeight="80.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <Label layoutX="12.0" layoutY="14.0" text="Choice 4" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="14.0" />
-               <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="48.0" />
-               <TextField fx:id="choice4_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="0.3333333333333144" AnchorPane.topAnchor="10.0" />
-               <ComboBox fx:id="gradeChoice4_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="44.0" />
-            </AnchorPane>
-            <AnchorPane layoutY="80.0" prefHeight="80.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="80.0">
-               <Label layoutX="14.0" layoutY="14.0" text="Choice 5" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="14.0" />
-               <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="48.0" />
-               <TextField fx:id="choice5_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="0.3333333333333144" AnchorPane.topAnchor="10.0" />
-               <ComboBox fx:id="gradeChoice5_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="44.0" />
-            </AnchorPane>
-            <AnchorPane layoutX="12.0" layoutY="158.0" prefHeight="80.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="160.0">
-               <Label layoutX="12.0" layoutY="14.0" text="Choice 6" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="14.0" />
-               <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="48.0" />
-               <TextField fx:id="choice6_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="0.3333333333333144" AnchorPane.topAnchor="10.0" />
-               <ComboBox fx:id="gradeChoice6_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="44.0" />
-            </AnchorPane>
-         </AnchorPane>
          <Label fx:id="questionLabel_lb" layoutX="34.0" layoutY="14.0" text="Adding a Multilple choice question" textFill="RED" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="14.0">
             <font>
                <Font size="24.0" />
@@ -93,7 +73,7 @@
                </AnchorPane>
             </VBox>
          </ScrollPane>
-         <TreeView fx:id="showCategory_tv" layoutX="203.0" layoutY="63.0" prefHeight="25.0" prefWidth="302.0" visible="false" AnchorPane.leftAnchor="203.0" AnchorPane.topAnchor="60.0" />
+         <TreeView fx:id="showCategory_tv" layoutX="203.0" layoutY="63.0" prefHeight="29.0" prefWidth="302.0" visible="false" AnchorPane.leftAnchor="203.0" AnchorPane.topAnchor="60.0" />
          <Label fx:id="categoryName_lb" layoutX="205.0" layoutY="66.0" style="-fx-cursor: hand;" text="Choose Category Name" />
          <AnchorPane fx:id="buttonPane_ap" layoutX="201.0" layoutY="455.0" prefHeight="171.0" prefWidth="302.0" AnchorPane.leftAnchor="201.0" AnchorPane.topAnchor="455.0">
             <Button fx:id="addQuestion_btn" layoutX="164.0" layoutY="132.0" mnemonicParsing="false" style="-fx-background-color: #ff1e1e;" text="Save Change" />
@@ -101,21 +81,18 @@
             <Button layoutX="89.0" layoutY="132.0" mnemonicParsing="false" style="-fx-background-color: #31c6d4;" text="Cancel" />
             <Button fx:id="createChoice_btn" layoutX="97.0" layoutY="40.0" mnemonicParsing="false" style="-fx-background-color: #31c6d4;" text="Blanks more 3 choices" />
          </AnchorPane>
+         <ImageView fx:id="imageQuestion_iv" fitHeight="99.0" fitWidth="75.0" layoutX="117.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
+         <Button fx:id="videoQuestion_btn" layoutX="31.0" layoutY="217.0" mnemonicParsing="false" text="Add Video" visible="false" />
+         <Button fx:id="imageQuestion_btn" layoutX="31.0" layoutY="217.0" mnemonicParsing="false" text="Add  Image" visible="false" />
+         <Button fx:id="gifQuestion_btn" layoutX="36.0" layoutY="217.0" mnemonicParsing="false" text="Add  GIF" visible="false" />
+         <ComboBox fx:id="selectMedia_cb" layoutX="27.0" layoutY="168.0" prefHeight="25.0" prefWidth="167.0" promptText="Add Media in Question" style="-fx-background-color: TRANSPARENT;" />
          <AnchorPane layoutX="201.0" layoutY="240.0" prefHeight="240.0" prefWidth="653.0" AnchorPane.leftAnchor="201.0" AnchorPane.topAnchor="240.0">
-            <AnchorPane layoutY="80.0" prefHeight="80.0" prefWidth="360.0" style="-fx-background-color: TRANSPARENT;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
-               <Label layoutX="14.0" layoutY="14.0" text="Choice 2" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="14.0" />
-               <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="48.0" />
-               <TextField fx:id="choice2_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="10.0" />
-               <ComboBox fx:id="gradeChoice2_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="44.0" />
-               <Button fx:id="addImageChoice2" layoutX="230.0" layoutY="44.0" mnemonicParsing="false" text="Add Image" />
-               <ImageView fx:id="imageQuestion_iv2" fitHeight="80.0" fitWidth="80.0" layoutX="336.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.topAnchor="3.0" />
-            </AnchorPane>
             <AnchorPane layoutX="12.0" layoutY="158.0" prefHeight="80.0" prefWidth="360.0" style="-fx-background-color: TRANSPARENT;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0">
                <Label layoutX="12.0" layoutY="14.0" text="Choice 3" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="14.0" />
                <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="48.0" />
                <TextField fx:id="choice3_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="10.0" />
                <ComboBox fx:id="gradeChoice3_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="44.0" />
-               <Button fx:id="addImageChoice3" layoutX="229.0" layoutY="44.0" mnemonicParsing="false" text="Add Image" />
+               <Button fx:id="addImageChoice3_btn" layoutX="229.0" layoutY="44.0" mnemonicParsing="false" text="Add Image" />
                <ImageView fx:id="imageQuestion_iv3" fitHeight="80.0" fitWidth="80.0" layoutX="340.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.topAnchor="3.0" />
             </AnchorPane>
             <AnchorPane layoutX="12.0" prefHeight="80.0" prefWidth="360.0" style="-fx-background-color: TRANSPARENT;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -123,19 +100,44 @@
                <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="48.0" />
                <TextField fx:id="choice1_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="10.0" />
                <ComboBox fx:id="gradeChoice1_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="44.0" />
-               <Button fx:id="addImageChoice1" layoutX="230.0" layoutY="44.0" mnemonicParsing="false" text="Add Image" />
+               <Button fx:id="addImageChoice1_btn" layoutX="230.0" layoutY="44.0" mnemonicParsing="false" text="Add Image" />
                <ImageView fx:id="imageQuestion_iv1" fitHeight="80.0" fitWidth="80.0" layoutX="338.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.topAnchor="3.0" />
             </AnchorPane>
+            <AnchorPane layoutY="80.0" prefHeight="80.0" prefWidth="360.0" style="-fx-background-color: TRANSPARENT;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+               <Label layoutX="14.0" layoutY="14.0" text="Choice 2" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="14.0" />
+               <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="48.0" />
+               <TextField fx:id="choice2_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="10.0" />
+               <ComboBox fx:id="gradeChoice2_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="44.0" />
+               <Button fx:id="addImageChoice2_btn" layoutX="230.0" layoutY="44.0" mnemonicParsing="false" text="Add Image" />
+               <ImageView fx:id="imageQuestion_iv2" fitHeight="80.0" fitWidth="80.0" layoutX="336.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.topAnchor="3.0" />
+            </AnchorPane>
          </AnchorPane>
-         <ImageView fx:id="imageQuestion_iv" fitHeight="99.0" fitWidth="75.0" layoutX="117.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
-         <MediaView fx:id="mediaQuestion_mv" fitHeight="100.0" fitWidth="200.0" layoutX="5.0" layoutY="244.0" />
-         <Slider fx:id="timeSlider" layoutX="37.0" layoutY="344.0" />
-         <Button fx:id="playVideo" layoutX="50.0" layoutY="360.0" mnemonicParsing="false" text="Play" />
-         <Button fx:id="pause_btn" layoutX="105.0" layoutY="360.0" mnemonicParsing="false" text="Pause" />
-         <Button fx:id="videoQuestion_btn" layoutX="31.0" layoutY="217.0" mnemonicParsing="false" onAction="#loadVideo" text="Add Video" visible="false" />
-         <Button fx:id="imageQuestion_btn" layoutX="31.0" layoutY="217.0" mnemonicParsing="false" onAction="#loadImageQuestion" text="Add  Image" visible="false" />
-         <Button fx:id="gifQuestion_btn" layoutX="36.0" layoutY="217.0" mnemonicParsing="false" onAction="#loadImageQuestion" text="Add  GIF" visible="false" />
-         <ComboBox fx:id="selectMedia_cb" layoutX="27.0" layoutY="168.0" prefHeight="25.0" prefWidth="167.0" promptText="Add Media in Question" style="-fx-background-color: TRANSPARENT;" />
+         <AnchorPane fx:id="paneChoice2_ap" layoutX="50.0" layoutY="240.0" prefHeight="240.0" prefWidth="605.0" visible="false" AnchorPane.leftAnchor="201.0" AnchorPane.topAnchor="240.0">
+            <AnchorPane layoutX="12.0" prefHeight="80.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <Label layoutX="12.0" layoutY="14.0" text="Choice 4" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="14.0" />
+               <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="48.0" />
+               <TextField fx:id="choice4_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="10.0" />
+               <ComboBox fx:id="gradeChoice4_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="44.0" />
+            </AnchorPane>
+            <AnchorPane layoutY="80.0" prefHeight="80.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+               <Label layoutX="14.0" layoutY="14.0" text="Choice 5" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="14.0" />
+               <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="48.0" />
+               <TextField fx:id="choice5_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="10.0" />
+               <ComboBox fx:id="gradeChoice5_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="44.0" />
+            </AnchorPane>
+            <AnchorPane layoutX="12.0" layoutY="158.0" prefHeight="80.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0">
+               <Label layoutX="12.0" layoutY="14.0" text="Choice 6" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="14.0" />
+               <Label layoutX="14.0" layoutY="48.0" text="Grade" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="48.0" />
+               <TextField fx:id="choice6_tf" layoutX="67.0" layoutY="10.0" prefHeight="25.0" prefWidth="238.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="10.0" />
+               <ComboBox fx:id="gradeChoice6_cb" layoutX="67.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="44.0" />
+            </AnchorPane>
+         </AnchorPane>
+         <AnchorPane fx:id="videoPane_ap" layoutX="9.0" layoutY="244.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;">
+            <MediaView fx:id="mediaQuestion_mv" fitHeight="100.0" fitWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Slider fx:id="timeSlider" layoutX="16.0" layoutY="115.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="105.0" />
+            <Button fx:id="playVideo" layoutX="34.0" layoutY="125.0" mnemonicParsing="false" text="Play" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="120.0" />
+            <Button fx:id="pause_btn" layoutX="120.0" layoutY="125.0" mnemonicParsing="false" text="Pause" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="120.0" />
+         </AnchorPane>
       </AnchorPane>
    </ScrollPane>
 </AnchorPane>
