@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.AlertOOP;
 import com.example.baitaplonoop.util.showTreeViewCategory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,16 +69,53 @@ public class GUI32Controller implements Initializable {
     Double gradeChoice1, gradeChoice2, gradeChoice3, gradeChoice4, gradeChoice5, gradeChoice6;
     DBConnect db = new DBConnect();
 
-    public void editingQuestionChoice( String categoryName, String questionID, String questionText) {
+    public void editingQuestionChoice(String categoryName, String questionID, String questionText, String choiceText1, String choiceGrade1, String choiceText2, String choiceGrade2, String choiceText3, String choiceGrade3, String choiceText4, String choiceGrade4, String choiceText5, String choiceGrade5, String choiceText6, String choiceGrade6) {
+        paneChoice2_ap.setVisible(false);
         questionLabel_lb.setText("Editing a Multilple choice question");
         categoryName_lb.setText(categoryName);
         questionName_tf.setText(questionID);
         questionText_tf.setText(questionText);
+        choice1_tf.setText(choiceText1);
+        choice2_tf.setText(choiceText2);
+        choice3_tf.setText(choiceText3);
+        choice4_tf.setText(choiceText4);
+        choice5_tf.setText(choiceText5);
+        choice6_tf.setText(choiceText6);
+        if (!choiceText1.trim().equals("")) {
+            gradeChoice1_cb.setEditable(true);
+            gradeChoice1_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade1) * 100) + "%");
+        }
+        if (!choiceText2.trim().equals("")) {
+            gradeChoice2_cb.setEditable(true);
+            gradeChoice2_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade2) * 100) + "%");
+        }
+        if (!choiceText3.trim().equals("")) {
+            gradeChoice3_cb.setEditable(true);
+            gradeChoice3_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade3) * 100) + "%");
+        }
+        if (!choiceText4.trim().equals("")) {
+            gradeChoice4_cb.setEditable(true);
+            gradeChoice4_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade4) * 100) + "%");
+        }
+        if (!choiceText5.trim().equals("")) {
+            gradeChoice5_cb.setEditable(true);
+            gradeChoice5_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade5) * 100) + "%");
+        }
+        if (!choiceText6.trim().equals("")) {
+            gradeChoice6_cb.setEditable(true);
+            gradeChoice6_cb.getEditor().setText(String.valueOf(Float.parseFloat(choiceGrade6) * 100) + "%");
+        }
+        if (choiceText4.trim().equals("") || !choiceText5.trim().equals("") || !choiceText6.trim().equals("")) {
+            paneChoice2_ap.setTranslateY(239);
+            buttonPane_ap.setTranslateY(239);
+            paneChoice2_ap.setVisible(true);
 
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        paneChoice2_ap.setVisible(false);
         addValueComboBox.addValue(gradeChoice1_cb);
         addValueComboBox.addValue(gradeChoice2_cb);
         addValueComboBox.addValue(gradeChoice3_cb);
@@ -91,11 +129,10 @@ public class GUI32Controller implements Initializable {
         gradeChoice5_cb.setOnAction(gradeChoice5Event -> gradeChoice5 = addValueComboBox.convertStringToDouble(gradeChoice5_cb));
         gradeChoice6_cb.setOnAction(gradeChoice6Event -> gradeChoice6 = addValueComboBox.convertStringToDouble(gradeChoice6_cb));
         selectMedia_cb.getItems().addAll("Video", "Image", "Gif");
+        //Chọn hiện button thêm ảnh, video, gif vào question
         selectMedia_cb.setOnAction(event -> {
-
             // Get the selected item
             String selectedItem = (String) selectMedia_cb.getSelectionModel().getSelectedItem();
-
             // Show the corresponding button and hide the others
             switch (selectedItem) {
                 case "Video":
@@ -130,15 +167,12 @@ public class GUI32Controller implements Initializable {
         });
         // Event to add Question into Database
         addQuestion_btn.setOnMouseClicked(saveChangeEvent -> {
-            Alert alertAddCategory = new Alert(Alert.AlertType.INFORMATION);
-            alertAddCategory.setTitle("Add Category Information");
-            ButtonType btnContinue = new ButtonType("Oke", ButtonBar.ButtonData.YES);
-            ButtonType btnBack = new ButtonType("Home page", ButtonBar.ButtonData.NO);
-            alertAddCategory.getButtonTypes().setAll(btnContinue, btnBack);
-
             if (!checkAddCategoryQuestion || questionName_tf.getText() == null || questionText_tf.getText() == null) {
-                alertAddCategory.setContentText("Please fill the blank field");
-                alertAddCategory.setHeaderText("You must fill all field!");
+                AlertOOP.mustFill("Add question status", "Add Question field", "You must fill in questionID, questionText");
+            } else if (!checkAddCategoryQuestion) {
+                // Chưa xét sự kiện add video khi mà cái categoryID parent của nó trống
+                String[] addQuestion = {null, questionName_tf.getText(), questionText_tf.getText(), "1"};
+                AlertOOP.AddDone("Add question status", "Add Question Done", "Add question successfully!");
             } else {
                 String IDCategoryQuestion;
                 try {
@@ -146,8 +180,6 @@ public class GUI32Controller implements Initializable {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                // To add Question into database
-
                 if (imageQuestion_iv.getImage() == null & mediaQuestion_mv.getMediaPlayer() == null) {
                     String[] addQuestion = {IDCategoryQuestion, questionName_tf.getText(), questionText_tf.getText(), "1"};
                     db.InsertQuestion(addQuestion);
@@ -180,41 +212,38 @@ public class GUI32Controller implements Initializable {
                 }
 
                 // To add Choice into Database
-                if (!choice1_tf.getText().equals("")) {
+                if (!choice1_tf.getText().trim().equals("")) {
                     String[] addChoice1 = {choice1_tf.getText(), String.valueOf(gradeChoice1), questionName_tf.getText() + "1", questionName_tf.getText(), null};
                     db.InsertChoice(addChoice1);
                 }
-                if (!choice2_tf.getText().equals("")) {
+                if (!choice2_tf.getText().trim().equals("")) {
                     String[] addChoice2 = {choice2_tf.getText(), String.valueOf(gradeChoice2), questionName_tf.getText() + "2", questionName_tf.getText(), null};
                     db.InsertChoice(addChoice2);
                 }
-                if (!choice3_tf.getText().equals("")) {
+                if (!choice3_tf.getText().trim().equals("")) {
                     String[] addChoice3 = {choice3_tf.getText(), String.valueOf(gradeChoice3), questionName_tf.getText() + "3", questionName_tf.getText(), null};
                     db.InsertChoice(addChoice3);
                 }
-                if (!choice4_tf.getText().equals("")) {
+                if (!choice4_tf.getText().trim().equals("")) {
                     String[] addChoice4 = {choice4_tf.getText(), String.valueOf(gradeChoice4), questionName_tf.getText() + "4", questionName_tf.getText(), null};
                     db.InsertChoice(addChoice4);
                 }
-                if (!choice5_tf.getText().equals("")) {
+                if (!choice5_tf.getText().trim().equals("")) {
                     String[] addChoice5 = {choice5_tf.getText(), String.valueOf(gradeChoice5), questionName_tf.getText() + "5", questionName_tf.getText(), null};
                     db.InsertChoice(addChoice5);
                 }
-                if (!choice6_tf.getText().equals("")) {
+                if (!choice6_tf.getText().trim().equals("")) {
                     String[] addChoice6 = {choice1_tf.getText(), String.valueOf(gradeChoice1), questionName_tf.getText() + "6", questionName_tf.getText(), null};
                     db.InsertChoice(addChoice6);
                 }
-
-
-                alertAddCategory.setContentText("Add Question Done!");
-                alertAddCategory.setHeaderText(null);
+                AlertOOP.AddDone("Add Question Status", "Add question Done", "");
             }
-            alertAddCategory.showAndWait();
         });
         // Event to creat new 3 choice
         createChoice_btn.setOnMouseClicked(createChoiceEvent -> {
             paneChoice2_ap.setTranslateY(239);
             buttonPane_ap.setTranslateY(239);
+            paneChoice2_ap.setVisible(true);
         });
 
     }

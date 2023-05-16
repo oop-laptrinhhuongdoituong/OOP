@@ -1,8 +1,10 @@
 package com.example.baitaplonoop.sql;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.example.baitaplonoop.model.Choice;
 
 public class DBConnect {
     public Connection con;
@@ -164,4 +166,25 @@ public class DBConnect {
         }
         return questionText;
     }
+
+    public String[] FindChoiceInfo(String choiceID) {
+        String[] choiceInfo = null;
+        String sql = "SELECT choiceText, choiceGrade FROM choice WHERE choiceID = ?";
+        try (
+                PreparedStatement statement = con.prepareStatement(sql);
+        ) {
+            statement.setString(1, choiceID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                String choiceText = rs.getNString("choiceText");
+                Float choiceGrade = rs.getFloat("choiceGrade");
+                choiceInfo = new String[]{choiceText, String.valueOf(choiceGrade)};
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return choiceInfo;
+    }
+
+
 }

@@ -99,7 +99,13 @@ public class GUI21Controller implements Initializable {
                             Scene scene = new Scene(gui32);
                             GUI32Controller gui32Controller = loader.getController();
                             String editQuestionText = db.FindQuestionText(questionsList.get(k).getQuestionID());
-                            gui32Controller.editingQuestionChoice(Default.getText(), questionsList.get(k).getQuestionID(), editQuestionText);
+                            String[] choiceInfo1 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"1");if(choiceInfo1==null) choiceInfo1 = new String[]{" ", ""};
+                            String[] choiceInfo2 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"2"); if(choiceInfo2==null) choiceInfo2 = new String[]{" ", ""};
+                            String[] choiceInfo3 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"3");if(choiceInfo3==null) choiceInfo3 = new String[]{" ", ""};
+                            String[] choiceInfo4 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"4");if(choiceInfo4==null) choiceInfo4 = new String[]{" ", ""};
+                            String[] choiceInfo5 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"5");if(choiceInfo5==null) choiceInfo5 = new String[]{" ", ""};
+                            String[] choiceInfo6 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"6");if(choiceInfo6==null) choiceInfo6 = new String[]{" ", ""};
+                            gui32Controller.editingQuestionChoice(Default.getText(), questionsList.get(k).getQuestionID(), editQuestionText, choiceInfo1[0], choiceInfo1[1],choiceInfo2[0], choiceInfo2[1],choiceInfo3[0], choiceInfo3[1],choiceInfo4[0], choiceInfo4[1],choiceInfo5[0], choiceInfo5[1],choiceInfo6[0], choiceInfo6[1] );
                             stage.setScene(scene);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -134,7 +140,13 @@ public class GUI21Controller implements Initializable {
                                 Scene scene = new Scene(gui32);
                                 GUI32Controller gui32Controller = loader.getController();
                                 String editQuestionText = db.FindQuestionText(questionsList.get(k).getQuestionID());
-                                gui32Controller.editingQuestionChoice(Default.getText(), questionsList.get(k).getQuestionID(), editQuestionText);
+                                String[] choiceInfo1 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"1");if(choiceInfo1==null) choiceInfo1 = new String[]{" ", ""};
+                                String[] choiceInfo2 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"2"); if(choiceInfo2==null) choiceInfo2 = new String[]{" ", ""};
+                                String[] choiceInfo3 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"3");if(choiceInfo3==null) choiceInfo3 = new String[]{" ", ""};
+                                String[] choiceInfo4 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"4");if(choiceInfo4==null) choiceInfo4 = new String[]{" ", ""};
+                                String[] choiceInfo5 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"5");if(choiceInfo5==null) choiceInfo5 = new String[]{" ", ""};
+                                String[] choiceInfo6 = db.FindChoiceInfo(questionsList.get(k).getQuestionID()+"6");if(choiceInfo6==null) choiceInfo6 = new String[]{" ", ""};
+                                gui32Controller.editingQuestionChoice(Default.getText(), questionsList.get(k).getQuestionID(), editQuestionText, choiceInfo1[0], choiceInfo1[1],choiceInfo2[0], choiceInfo2[1],choiceInfo3[0], choiceInfo3[1],choiceInfo4[0], choiceInfo4[1],choiceInfo5[0], choiceInfo5[1],choiceInfo6[0], choiceInfo6[1] );
                                 stage.setScene(scene);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
