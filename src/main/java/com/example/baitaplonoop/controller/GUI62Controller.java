@@ -31,7 +31,6 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-import static com.sun.javafx.css.StyleClassSet.getStyleClass;
 import static javafx.scene.control.TableView.UNCONSTRAINED_RESIZE_POLICY;
 
 public class GUI62Controller implements Initializable {
