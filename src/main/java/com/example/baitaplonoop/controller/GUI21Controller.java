@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class GUI21Controller implements Initializable {
@@ -87,17 +88,18 @@ public class GUI21Controller implements Initializable {
                 Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
                 question.setCellValueFactory(new PropertyValueFactory<addQuestion, String>("questionText"));
                 action.setCellValueFactory(new PropertyValueFactory<addQuestion, Button>("button"));
-                for(int i=0;i<questionsList.size();i++){
-                    int k=i;
+                for (int i = 0; i < questionsList.size(); i++) {
+                    int k = i;
                     questionsList.get(i).getButton().setOnAction(event1 -> {
                         Stage stage = (Stage) ((Node) event1.getSource()).getScene().getWindow();
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
                         try {
-                            Parent gui32= loader.load();
+                            Parent gui32 = loader.load();
                             Scene scene = new Scene(gui32);
-                            GUI32Controller gui32Controller=loader.getController();
-                            gui32Controller.editingQuestionChoice(questionsList.get(k).getQuestionID(),Default.getText());
+                            GUI32Controller gui32Controller = loader.getController();
+                            String editQuestionText = db.FindQuestionText(questionsList.get(k).getQuestionID());
+                            gui32Controller.editingQuestionChoice(Default.getText(), questionsList.get(k).getQuestionID(), editQuestionText);
                             stage.setScene(scene);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -121,17 +123,18 @@ public class GUI21Controller implements Initializable {
                     Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
                     question.setCellValueFactory(new PropertyValueFactory<addQuestion, String>("questionText"));
                     action.setCellValueFactory(new PropertyValueFactory<addQuestion, Button>("button"));
-                    for(int i=0;i<questionsList.size();i++){
-                        int k=i;
+                    for (int i = 0; i < questionsList.size(); i++) {
+                        int k = i;
                         questionsList.get(i).getButton().setOnAction(event1 -> {
                             Stage stage = (Stage) ((Node) event1.getSource()).getScene().getWindow();
                             FXMLLoader loader = new FXMLLoader();
                             loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
                             try {
-                                Parent gui32= loader.load();
+                                Parent gui32 = loader.load();
                                 Scene scene = new Scene(gui32);
-                                GUI32Controller gui32Controller=loader.getController();
-                                gui32Controller.editingQuestionChoice(questionsList.get(k).getQuestionID(),Default.getText());
+                                GUI32Controller gui32Controller = loader.getController();
+                                String editQuestionText = db.FindQuestionText(questionsList.get(k).getQuestionID());
+                                gui32Controller.editingQuestionChoice(Default.getText(), questionsList.get(k).getQuestionID(), editQuestionText);
                                 stage.setScene(scene);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
@@ -189,3 +192,4 @@ public class GUI21Controller implements Initializable {
 
     }
 }
+

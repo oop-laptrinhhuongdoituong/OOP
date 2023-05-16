@@ -20,7 +20,7 @@ public class DBConnect {
         }
     }
 
-    public ResultSet getData(String stringSQL){
+    public ResultSet getData(String stringSQL) {
         ResultSet rs = null;
         try {
             Statement state = con.createStatement();
@@ -31,11 +31,11 @@ public class DBConnect {
         return rs;
     }
 
-    public int InsertQuestion(String[] stringSQL, byte[] pic){
+    public int InsertQuestion(String[] stringSQL, byte[] pic) {
         int rowInserted;
         String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMark, questionImage) values(?,?,?,?,?)";
         PreparedStatement statement;
-        try{
+        try {
             statement = con.prepareStatement(sql);
             statement.setString(1, stringSQL[0]);
             statement.setString(2, stringSQL[1]);
@@ -49,11 +49,11 @@ public class DBConnect {
         return rowInserted;
     }
 
-    public int InsertQuestion(String[] stringSQL){
+    public int InsertQuestion(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Question(categoryID, questionID, questionText) values(?,?,?)";
         PreparedStatement statement;
-        try{
+        try {
             statement = con.prepareStatement(sql);
             statement.setString(1, stringSQL[0]);
             statement.setString(2, stringSQL[1]);
@@ -65,11 +65,11 @@ public class DBConnect {
         return rowInserted;
     }
 
-    public int InsertChoice(String[] stringSQL){
+    public int InsertChoice(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected) values(?,?,?,?,?)";
         PreparedStatement statement;
-        try{
+        try {
             statement = con.prepareStatement(sql);
             statement.setString(1, stringSQL[0]);
             statement.setFloat(2, Float.parseFloat(stringSQL[1]));
@@ -82,17 +82,19 @@ public class DBConnect {
         }
         return rowInserted;
     }
+
     public int InsertQuestionInQuiz(String[] stringSQL) throws SQLException {
-        int rowInserted=0;
-        String sql ="insert into QuestionInQuiz(questionID,quizName,yourMark) values(?,?,?)";
+        int rowInserted = 0;
+        String sql = "insert into QuestionInQuiz(questionID,quizName,yourMark) values(?,?,?)";
         PreparedStatement statement;
-        statement=con.prepareStatement(sql);
-          statement.setString(1,stringSQL[0]);
-          statement.setString(2,stringSQL[1]);
-          statement.setString(3,stringSQL[2]);
-          rowInserted = statement.executeUpdate();
+        statement = con.prepareStatement(sql);
+        statement.setString(1, stringSQL[0]);
+        statement.setString(2, stringSQL[1]);
+        statement.setString(3, stringSQL[2]);
+        rowInserted = statement.executeUpdate();
         return rowInserted;
     }
+
     public String FindCategoryID(String categoryName) throws SQLException {
         String categoryID = null;
         String sql = "SELECT categoryID FROM Category WHERE categoryName = N'" + categoryName + "'";
@@ -111,26 +113,28 @@ public class DBConnect {
     }
 
 
-    public int InsertCategory(String[] stringSQL){
+    public int InsertCategory(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Category(parentID, categoryName, categoryID, categoryinfo) values (?, ?, ?, ?)";
         PreparedStatement statement;
-        try{
+        try {
             statement = con.prepareStatement(sql);
             statement.setString(1, stringSQL[0]);
             statement.setString(2, stringSQL[1]);
             statement.setString(3, stringSQL[2]);
             statement.setString(4, stringSQL[3]);
             rowInserted = statement.executeUpdate();
-        } catch (SQLException e){throw new RuntimeException(e);}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return rowInserted;
     }
 
-    public int AddNewQuiz(String[] stringSQL){
+    public int AddNewQuiz(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Quiz(quizName, Descript, openTime, closeTime, timeLimit) values (?, ?, ?, ?, ?)";
         PreparedStatement statement;
-        try{
+        try {
             statement = con.prepareStatement(sql);
             statement.setString(1, stringSQL[0]);
             statement.setString(2, stringSQL[1]);
@@ -138,29 +142,26 @@ public class DBConnect {
             statement.setString(4, stringSQL[3]);
             statement.setString(5, stringSQL[4]);
             rowInserted = statement.executeUpdate();
-        } catch (SQLException e){throw new RuntimeException(e);}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return rowInserted;
     }
 
-    public String FindInfoQuestion(String questionID, String categoryName) throws SQLException {
-//        List<String> EditQuestion
-//        String sql = "SELECT questionText, questionImage, choiceText, choiceGrade  FROM Question, Choice WHERE questionID = N'" + questionID + "' AND Choice.questionID = '" +questionID+"'";
-////        PreparedStatement statement = con.prepareStatement(sql);
-////        statement.setString(1, categoryName);
-//        ResultSet result = getData(sql);
-//
-//
-//        // Nếu tìm thấy categoryName, lấy categoryID từ kết quả truy vấn
-//        if (result.next()) {
-//            EditQuestion = result.getString("questionText")};
-//
-//        }
+    public String FindQuestionText(String questionID) {
+        String questionText = null;
+        String sql = "SELECT questionText FROM Question WHERE questionID = ?";
+        try (
+                PreparedStatement statement = con.prepareStatement(sql);
+        ) {
+            statement.setString(1, questionID);
 
-        // Đóng kết nối và trả về categoryID
-
-        return questionID;
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) questionText = rs.getNString("questionText");
+        }catch (SQLException e) {
+            // Xử lý các ngoại lệ SQL
+            e.printStackTrace();
+        }
+        return questionText;
     }
-
-
 }
-//

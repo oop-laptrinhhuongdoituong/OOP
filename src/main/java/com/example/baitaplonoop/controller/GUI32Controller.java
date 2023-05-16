@@ -59,37 +59,62 @@ public class GUI32Controller implements Initializable {
     public Button pause_btn;
     public Button videoQuestion_btn;
     public Label questionLabel_lb;
+    public ComboBox<String> selectMedia_cb;
+    public Button gifQuestion_btn;
+    @FXML
+    private MediaView mediaQuestion_mv;
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion;
     Double gradeChoice1, gradeChoice2, gradeChoice3, gradeChoice4, gradeChoice5, gradeChoice6;
     DBConnect db = new DBConnect();
-    @FXML
-    private MediaView mediaQuestion_mv;
 
-    public void editingQuestionChoice(String questionID, String categoryName) {
+    public void editingQuestionChoice( String categoryName, String questionID, String questionText) {
         questionLabel_lb.setText("Editing a Multilple choice question");
         categoryName_lb.setText(categoryName);
         questionName_tf.setText(questionID);
+        questionText_tf.setText(questionText);
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
         addValueComboBox.addValue(gradeChoice1_cb);
         addValueComboBox.addValue(gradeChoice2_cb);
         addValueComboBox.addValue(gradeChoice3_cb);
         addValueComboBox.addValue(gradeChoice4_cb);
         addValueComboBox.addValue(gradeChoice5_cb);
         addValueComboBox.addValue(gradeChoice6_cb);
-
         gradeChoice1_cb.setOnAction(gradeChoice1Event -> gradeChoice1 = addValueComboBox.convertStringToDouble(gradeChoice1_cb));
         gradeChoice2_cb.setOnAction(gradeChoice2Event -> gradeChoice2 = addValueComboBox.convertStringToDouble(gradeChoice2_cb));
         gradeChoice3_cb.setOnAction(gradeChoice3Event -> gradeChoice3 = addValueComboBox.convertStringToDouble(gradeChoice3_cb));
         gradeChoice4_cb.setOnAction(gradeChoice4Event -> gradeChoice4 = addValueComboBox.convertStringToDouble(gradeChoice4_cb));
         gradeChoice5_cb.setOnAction(gradeChoice5Event -> gradeChoice5 = addValueComboBox.convertStringToDouble(gradeChoice5_cb));
         gradeChoice6_cb.setOnAction(gradeChoice6Event -> gradeChoice6 = addValueComboBox.convertStringToDouble(gradeChoice6_cb));
+        selectMedia_cb.getItems().addAll("Video", "Image", "Gif");
+        selectMedia_cb.setOnAction(event -> {
 
+            // Get the selected item
+            String selectedItem = (String) selectMedia_cb.getSelectionModel().getSelectedItem();
+
+            // Show the corresponding button and hide the others
+            switch (selectedItem) {
+                case "Video":
+                    videoQuestion_btn.setVisible(true);
+                    imageQuestion_btn.setVisible(false);
+                    gifQuestion_btn.setVisible(false);
+                    break;
+                case "Image":
+                    videoQuestion_btn.setVisible(false);
+                    imageQuestion_btn.setVisible(true);
+                    gifQuestion_btn.setVisible(false);
+                    break;
+                case "Gif":
+                    videoQuestion_btn.setVisible(false);
+                    imageQuestion_btn.setVisible(false);
+                    gifQuestion_btn.setVisible(true);
+                    break;
+            }
+        });
         // Event to show treeView
         categoryName_lb.setOnMouseClicked(mouseEvent -> {
             showCategory_tv.setVisible(true);
