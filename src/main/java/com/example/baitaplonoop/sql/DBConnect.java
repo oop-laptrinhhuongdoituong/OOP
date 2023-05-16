@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.sql;
 
 import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -141,6 +142,26 @@ public class DBConnect {
         } catch (SQLException e){throw new RuntimeException(e);}
         return rowInserted;
     }
+
+    public String FindInfoQuestion(String questionID, String categoryName) throws SQLException {
+//        List<String> EditQuestion
+//        String sql = "SELECT questionText, questionImage, choiceText, choiceGrade  FROM Question, Choice WHERE questionID = N'" + questionID + "' AND Choice.questionID = '" +questionID+"'";
+////        PreparedStatement statement = con.prepareStatement(sql);
+////        statement.setString(1, categoryName);
+//        ResultSet result = getData(sql);
+//
+//
+//        // Nếu tìm thấy categoryName, lấy categoryID từ kết quả truy vấn
+//        if (result.next()) {
+//            EditQuestion = result.getString("questionText")};
+//
+//        }
+
+        // Đóng kết nối và trả về categoryID
+
+        return questionID;
+    }
+
 
 }
 //
