@@ -227,5 +227,6 @@ public class GUI62Controller implements Initializable {
         }
         numberQuestionAndMarkInTable();
     });
+
     }
 }
