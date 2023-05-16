@@ -90,6 +90,7 @@ public class DBConnect {
           statement.setString(1,stringSQL[0]);
           statement.setString(2,stringSQL[1]);
           statement.setString(3,stringSQL[2]);
+          rowInserted = statement.executeUpdate();
         return rowInserted;
     }
     public String FindCategoryID(String categoryName) throws SQLException {

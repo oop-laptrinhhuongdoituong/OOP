@@ -205,6 +205,20 @@ public class GUI62Controller implements Initializable {
                     }
                 });
             }
+            if(label.getText()=="from question bank"){
+                label.setOnMouseClicked(mouseEvent1 -> {
+                    Stage stage = (Stage) ((Node) mouseEvent1.getSource()).getScene().getWindow();
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI63.fxml"));
+                    try {
+                        Parent GUI63 = loader.load();
+                        Scene scene = new Scene(GUI63);
+                        stage.setScene(scene);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
         });
     selectMultipleItems.setOnAction(event -> {
         if(selectMultipleItems.isSelected()){
@@ -235,7 +249,7 @@ public class GUI62Controller implements Initializable {
       for(int i=0;i<chosenQuestions.size();i++){
           String[] addQuestionInQuiz={chosenQuestions.get(i).getQuestionID(),quizChosen,null};
           try {
-              db.InsertQuestionInQuiz(addQuestionInQuiz);
+              int row = db.InsertQuestionInQuiz(addQuestionInQuiz);
           } catch (SQLException e) {
               throw new RuntimeException(e);
           }

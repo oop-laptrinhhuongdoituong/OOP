@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,15 +39,15 @@ public class GUI63Controller implements Initializable {
     @FXML
     private AnchorPane gui2_1;
     @FXML
-    private TableView<addQuestion> table;
+    private TableView<QuestionCheckBoxInTable> table;
 
     @FXML
-    private TableColumn<addQuestion, String> question;
+    private TableColumn<QuestionCheckBoxInTable, String> question;
 
     @FXML
-    private TableColumn<addQuestion, Button> action;
-    private ObservableList<addQuestion> questionsList = FXCollections.observableArrayList();
-    ;
+    private TableColumn<QuestionCheckBoxInTable, CheckBox> action;
+    private ObservableList<QuestionCheckBoxInTable> questionsList =FXCollections.observableArrayList();
+    private ObservableList<Pair<String,String>> choiceQuestion=FXCollections.observableArrayList();
     @FXML
     private Label Default;
     @FXML
@@ -65,11 +66,11 @@ public class GUI63Controller implements Initializable {
                 TreeItem<String> item = category.getSelectionModel().getSelectedItem();
                 if (gui2_1CheckBox.isSelected())
                     insertQuestionInto.insertQuestionIntoTableViewWithSubcategoryInNewQuiz(item, questionsList);
-                else insertQuestionInto.ínsertQuestionIntoTableViewWithoutSubcategoryInNewQuiz(item, questionsList);
+                else insertQuestionInto.insertQuestionIntoTableViewWithoutSubcategoryInNewQuiz(item, questionsList);
                 category.setVisible(false);
                 Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
-                question.setCellValueFactory(new PropertyValueFactory<addQuestion, String>("questionText"));
-                action.setCellValueFactory(new PropertyValueFactory<addQuestion, Button>("button"));
+                question.setCellValueFactory(new PropertyValueFactory<QuestionCheckBoxInTable, String>("questionText"));
+                action.setCellValueFactory(new PropertyValueFactory<QuestionCheckBoxInTable, CheckBox>("checkBox"));
                 table.setItems(questionsList);
                 table.setVisible(true);
             }
@@ -103,6 +104,25 @@ public class GUI63Controller implements Initializable {
         });
         addSelectedQuestionToQuiz_btn.setOnMouseClicked(addSelectedQuestionToQuizEvent -> {
             System.out.println(insertQuestionInto.insertQuesionToQuiz());
+        });
+        addSelectedQuestionToQuiz_btn.setOnAction(event -> {
+            for(QuestionCheckBoxInTable a: questionsList){
+                if(a.getCheckBox().isSelected()){
+                    choiceQuestion.add(new Pair<>(a.getQuestionID(),a.getQuestionText()));
+                }
+            }
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI62.fxml"));
+            try {
+                Parent gui62 = loader.load();
+                Scene scene = new Scene(gui62);
+                GUI62Controller gui62Controller=loader.getController();
+                gui62Controller.setChosenQuestions(choiceQuestion);
+                stage.setScene(scene);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }

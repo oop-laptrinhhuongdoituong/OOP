@@ -56,24 +56,6 @@ public class GUI21Controller implements Initializable {
     DBConnect db = new DBConnect();
 
     //create click event for treeView
-    private void showQuestionInCategory() {
-        category.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.ENTER) {
-                questionsList.clear();
-                table.setItems(questionsList);
-                TreeItem<String> item = category.getSelectionModel().getSelectedItem();
-                if (gui2_1CheckBox.isSelected())
-                    insertQuestionInto.insertQuestionIntoTableViewWithSubcategory(item, questionsList);
-                else insertQuestionInto.ínsertQuestionIntoTableViewWithoutSubcategory(item, questionsList);
-                category.setVisible(false);
-                Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
-                question.setCellValueFactory(new PropertyValueFactory<addQuestion, String>("questionText"));
-                action.setCellValueFactory(new PropertyValueFactory<addQuestion, Button>("button"));
-                table.setItems(questionsList);
-                table.setVisible(true);
-            }
-        });
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
@@ -81,7 +63,6 @@ public class GUI21Controller implements Initializable {
         table.setVisible(false);
         Default.setOnMouseClicked(mouseEvent -> {
             Default.setText("Default");
-
             TreeItem<String> root = new TreeItem<>("For IT");
             try {
                 insertCategoryIntoTreeView.insertCategory("select * from dbo.Category where parentID is NULL", root);
@@ -92,9 +73,67 @@ public class GUI21Controller implements Initializable {
             category.setVisible(true);
         });
         gui2_1CheckBox.setSelected(false);
-        showQuestionInCategory();
+        category.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                questionsList.clear();
+                table.setItems(questionsList);
+                TreeItem<String> item = category.getSelectionModel().getSelectedItem();
+                if (gui2_1CheckBox.isSelected())
+                    insertQuestionInto.insertQuestionIntoTableViewWithSubcategory(item, questionsList);
+                else insertQuestionInto.insertQuestionIntoTableViewWithoutSubcategory(item, questionsList);
+                category.setVisible(false);
+                Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
+                question.setCellValueFactory(new PropertyValueFactory<addQuestion, String>("questionText"));
+                action.setCellValueFactory(new PropertyValueFactory<addQuestion, Button>("button"));
+                for(int i=0;i<questionsList.size();i++){
+                    questionsList.get(i).getButton().setOnAction(event -> {
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
+                        try {
+                            Parent GUI21 = loader.load();
+                            Scene scene = new Scene(GUI21);
+                            stage.setScene(scene);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    });
+                }
+                table.setItems(questionsList);
+                table.setVisible(true);
+            }
+        });
         gui2_1CheckBox.setOnAction(event -> {
-            showQuestionInCategory();
+            category.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    questionsList.clear();
+                    table.setItems(questionsList);
+                    TreeItem<String> item = category.getSelectionModel().getSelectedItem();
+                    if (gui2_1CheckBox.isSelected())
+                        insertQuestionInto.insertQuestionIntoTableViewWithSubcategory(item, questionsList);
+                    else insertQuestionInto.insertQuestionIntoTableViewWithoutSubcategory(item, questionsList);
+                    category.setVisible(false);
+                    Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
+                    question.setCellValueFactory(new PropertyValueFactory<addQuestion, String>("questionText"));
+                    action.setCellValueFactory(new PropertyValueFactory<addQuestion, Button>("button"));
+                    for(int i=0;i<questionsList.size();i++){
+                        questionsList.get(i).getButton().setOnAction(event1 -> {
+                            Stage stage = (Stage) ((Node) event1.getSource()).getScene().getWindow();
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
+                            try {
+                                Parent GUI21 = loader.load();
+                                Scene scene = new Scene(GUI21);
+                                stage.setScene(scene);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        });
+                    }
+                    table.setItems(questionsList);
+                    table.setVisible(true);
+                }
+            });
         });
         gui2_1.setOnMouseClicked(mouseEvent -> {
             if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent) == false)
@@ -139,5 +178,6 @@ public class GUI21Controller implements Initializable {
             }
 
         });
+
     }
 }
