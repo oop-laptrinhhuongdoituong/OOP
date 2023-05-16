@@ -23,11 +23,6 @@
       </AnchorPane>
       <AnchorPane layoutX="57.0" layoutY="156.0" prefHeight="335.0" prefWidth="498.0" style="-fx-background-color: #F8F8FF;" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="156.0">
          <children>
-            <ImageView fx:id="imgSetting" fitHeight="26.0" fitWidth="25.0" layoutX="446.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="23.0">
-               <image>
-                  <Image url="@icon/setting.png" />
-               </image>
-            </ImageView>
             <Label fx:id="lbQuiz" layoutX="31.0" layoutY="23.0" prefHeight="27.0" prefWidth="313.0" text="Label" textFill="FIREBRICK" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="23.0">
                <font>
                   <Font size="18.0" />
@@ -48,6 +43,11 @@
               </columns>
             </TableView>
             <Button fx:id="btnPreviewQuiz" layoutX="312.0" layoutY="322.0" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="PREVIEW QUIZ NOW" textFill="WHITE" AnchorPane.leftAnchor="312.0" AnchorPane.topAnchor="322.0" />
+            <ImageView fx:id="imgAddQuestionToQuiz" fitHeight="30.0" fitWidth="34.0" layoutX="390.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="22.0">
+               <image>
+                  <Image url="@icon/setting.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

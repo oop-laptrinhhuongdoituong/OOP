@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.ChangeScene;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +28,8 @@ public class GUI61Controller implements Initializable {
     Button btnPreviewQuiz;
     @FXML
     public Label lbTimeLimit;
+    @FXML
+    public ImageView imgAddQuestionToQuiz;
 
     DBConnect db = new DBConnect();
     public static String timeLimit = "";
@@ -55,6 +59,9 @@ public class GUI61Controller implements Initializable {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        });
+        imgAddQuestionToQuiz.setOnMouseClicked(mouseEvent -> {
+            ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI62.fxml", mouseEvent);
         });
     }
 
