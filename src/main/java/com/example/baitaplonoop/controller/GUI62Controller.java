@@ -35,6 +35,10 @@ import static com.sun.javafx.css.StyleClassSet.getStyleClass;
 import static javafx.scene.control.TableView.UNCONSTRAINED_RESIZE_POLICY;
 
 public class GUI62Controller implements Initializable {
+    @FXML
+    private ToggleButton selectMultipleItems;
+    @FXML
+            private Button deleteMultipleItems;
     DBConnect db = new DBConnect();
     @FXML
     private Label addLabel;
@@ -78,6 +82,7 @@ public class GUI62Controller implements Initializable {
     }
 
     public void setChosenQuestions(ObservableList<Pair<String, String>> randomQuestion) {
+        tableQuestions.setVisible(false);
         int stt = 0;
         for (Pair<String, String> a : randomQuestion) {
             stt++;
@@ -118,6 +123,8 @@ public class GUI62Controller implements Initializable {
             tableQuestionsOfGui62 = new TableQuestionsOfGui62(multiQuestionsChoice, order, setting, questionText, questionID, plushIcon, deleteIcon, questionMark);
             chosenQuestions.add(tableQuestionsOfGui62);
         }
+        deleteEvent();
+        tableQuestions.setVisible(true);
     }
 
     private void addQuestionIntoTable() {
@@ -133,12 +140,24 @@ public class GUI62Controller implements Initializable {
         DeleteIcon.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("deleteIcon"));
         QuestionMark.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, TextField>("questionMark"));
         tableQuestions.setItems(chosenQuestions);
-        tableQuestions.setVisible(true);
     }
-
+    private void deleteEvent(){
+        for(TableQuestionsOfGui62 a: chosenQuestions){
+            a.getDeleteIcon().setOnMouseClicked(mouseEvent -> {
+                    chosenQuestions.remove(a);
+                    int i=0;
+                    for(TableQuestionsOfGui62 b :chosenQuestions){
+                        i++;
+                        b.getOrder().setText(Integer.toString(i));
+                    }
+            });
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        deleteMultipleItems.setVisible(false);
         tableQuestions.setVisible(false);
+        addQuestionIntoTable();
         addQuestionMode();
         addLabel.setOnMouseClicked(mouseEvent -> {
             if (!listModeAdd.isVisible()) listModeAdd.setVisible(true);
@@ -165,6 +184,29 @@ public class GUI62Controller implements Initializable {
                 });
             }
         });
-        //code ở đây
+    selectMultipleItems.setOnAction(event -> {
+        if(selectMultipleItems.isSelected()){
+            MultiQuestionsChoice.setVisible(true);
+            deleteMultipleItems.setVisible(true);
+        }
+        else {
+            MultiQuestionsChoice.setVisible(false);
+            deleteMultipleItems.setVisible(false);
+        }
+    });
+    deleteMultipleItems.setOnAction(event -> {
+        for(int i=0;i<chosenQuestions.size();i++){
+            if(chosenQuestions.get(i).getMultiQuestionsChoice().isSelected()){
+                deleteMultipleItems.setVisible(true);
+                chosenQuestions.remove(chosenQuestions.get(i));
+                i--;
+            }
+        }
+        int i=0;
+        for(TableQuestionsOfGui62 b :chosenQuestions){
+            i++;
+            b.getOrder().setText(Integer.toString(i));
+        }
+    });
     }
 }

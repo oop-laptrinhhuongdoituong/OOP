@@ -52,5 +52,6 @@
       </TableView>
       <Text layoutX="209.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <ToggleButton fx:id="selectMultipleItems" layoutX="127.0" layoutY="194.0" mnemonicParsing="false" text="SELECT MULTIPLEITEMS" />
+      <Button fx:id="deleteMultipleItems" layoutX="265.0" layoutY="690.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="307.0" text="DELETE MULTIPLEITEMS" />
    </children>
 </AnchorPane>
