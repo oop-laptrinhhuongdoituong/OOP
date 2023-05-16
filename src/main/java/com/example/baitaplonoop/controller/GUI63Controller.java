@@ -20,7 +20,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GUI21Controller implements Initializable {
+public class GUI63Controller implements Initializable {
+    public Button addSelectedQuestionToQuiz_btn;
     @FXML
     private Button createQuestionButton;
     @FXML
@@ -63,8 +64,8 @@ public class GUI21Controller implements Initializable {
                 table.setItems(questionsList);
                 TreeItem<String> item = category.getSelectionModel().getSelectedItem();
                 if (gui2_1CheckBox.isSelected())
-                    insertQuestionInto.insertQuestionIntoTableViewWithSubcategory(item, questionsList);
-                else insertQuestionInto.ínsertQuestionIntoTableViewWithoutSubcategory(item, questionsList);
+                    insertQuestionInto.insertQuestionIntoTableViewWithSubcategoryInNewQuiz(item, questionsList);
+                else insertQuestionInto.ínsertQuestionIntoTableViewWithoutSubcategoryInNewQuiz(item, questionsList);
                 category.setVisible(false);
                 Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
                 question.setCellValueFactory(new PropertyValueFactory<addQuestion, String>("questionText"));
@@ -100,44 +101,8 @@ public class GUI21Controller implements Initializable {
             if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent) == false)
                 category.setVisible(false);
         });
-        categoriesButton.setOnAction(e -> {
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI33AddCategory.fxml"));
-            try {
-                Parent GUI33AddCategory = loader.load();
-                Scene scene = new Scene(GUI33AddCategory);
-                stage.setScene(scene);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-        });
-        importButton.setOnAction(e -> {
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI34.fxml"));
-            try {
-                Parent GUI33AddCategory = loader.load();
-                Scene scene = new Scene(GUI33AddCategory);
-                stage.setScene(scene);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-        });
-        createQuestionButton.setOnAction(e -> {
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
-            try {
-                Parent GUI33AddCategory = loader.load();
-                Scene scene = new Scene(GUI33AddCategory);
-                stage.setScene(scene);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
+        addSelectedQuestionToQuiz_btn.setOnMouseClicked(addSelectedQuestionToQuizEvent -> {
+            System.out.println(insertQuestionInto.insertQuesionToQuiz());
         });
     }
 }
