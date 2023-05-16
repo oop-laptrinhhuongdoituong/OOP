@@ -24,7 +24,6 @@ public class ChangeScene {
         }
         Scene scene = new Scene(parent);
         stage.setScene(scene);
-        stage.setMaximized(true);
     }
     public static void changeSceneUsingActionEvent(Initializable controller, String path, ActionEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -38,6 +37,5 @@ public class ChangeScene {
         }
         Scene scene = new Scene(parent);
         stage.setScene(scene);
-        stage.setMaximized(true);
     }
 }

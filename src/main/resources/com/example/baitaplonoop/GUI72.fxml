@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="381.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI72Controller">
+   <children>
+      <Label layoutX="35.0" layoutY="22.0" text="Start attempt">
+         <font>
+            <Font size="25.0" />
+         </font></Label>
+      <Separator layoutY="70.0" prefHeight="15.0" prefWidth="608.0" />
+      <Label layoutX="70.0" layoutY="85.0" text="Time limit">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbWarning" alignment="TOP_LEFT" layoutX="70.0" layoutY="117.0" prefHeight="155.0" prefWidth="506.0" wrapText="true" />
+      <Button fx:id="btnStart" layoutX="70.0" layoutY="325.0" mnemonicParsing="false" style="-fx-background-color: #DC143C;" text="START ATTEMPT" textFill="WHITE" />
+      <Separator layoutX="-1.0" layoutY="286.0" prefHeight="15.0" prefWidth="608.0" />
+      <Button fx:id="btnCancel" layoutX="191.0" layoutY="325.0" mnemonicParsing="false" text="CANCEL" />
+      <Button fx:id="btnExport" layoutX="271.0" layoutY="325.0" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="EXPORT" textFill="WHITE" />
+   </children>
+</AnchorPane>

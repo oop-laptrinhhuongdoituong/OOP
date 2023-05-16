@@ -10,6 +10,7 @@ module com.example.baitaplonoop {
     requires org.apache.poi.poi;
     requires org.apache.logging.log4j;
     requires java.desktop;
+    requires itextpdf;
 
     opens com.example.baitaplonoop to javafx.fxml;
     exports com.example.baitaplonoop;
