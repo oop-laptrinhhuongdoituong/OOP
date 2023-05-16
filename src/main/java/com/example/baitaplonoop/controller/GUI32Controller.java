@@ -60,18 +60,16 @@ public class GUI32Controller implements Initializable {
     public Button videoQuestion_btn;
     public Label questionLabel_lb;
     boolean checkAddCategoryQuestion;
-
-
     String nameCategoryQuestion;
     Double gradeChoice1, gradeChoice2, gradeChoice3, gradeChoice4, gradeChoice5, gradeChoice6;
-
     DBConnect db = new DBConnect();
     @FXML
     private MediaView mediaQuestion_mv;
-    public  void editingQuestionChoice(String questionID,String categoryName){
+
+    public void editingQuestionChoice(String questionID, String categoryName) {
         questionLabel_lb.setText("Editing a Multilple choice question");
-    categoryName_lb.setText(categoryName);
-    questionName_tf.setText(questionID);
+        categoryName_lb.setText(categoryName);
+        questionName_tf.setText(questionID);
     }
 
     @Override
@@ -361,7 +359,6 @@ public class GUI32Controller implements Initializable {
             }
         }
     }
-
 
 
     public void loadVideo(ActionEvent event) {

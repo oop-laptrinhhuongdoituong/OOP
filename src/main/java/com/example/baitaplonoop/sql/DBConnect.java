@@ -1,7 +1,6 @@
 package com.example.baitaplonoop.sql;
 
 import java.sql.*;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,7 +10,7 @@ public class DBConnect {
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://LAPTOP-5RN02RRR\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
+            String url = "jdbc:sqlserver://DAT\\MSSQLSERVER01:1433;databaseName=Exam_Management2;"
                     + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
             String username = "sa";
             String password = "123";
@@ -33,7 +32,7 @@ public class DBConnect {
     }
 
     public int InsertQuestion(String[] stringSQL, byte[] pic){
-        int rowInserted = 0;
+        int rowInserted;
         String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMark, questionImage) values(?,?,?,?,?)";
         PreparedStatement statement;
         try{
