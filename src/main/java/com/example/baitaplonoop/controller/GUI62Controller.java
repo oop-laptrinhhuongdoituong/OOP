@@ -29,17 +29,18 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
 import static javafx.scene.control.TableView.UNCONSTRAINED_RESIZE_POLICY;
 
 public class GUI62Controller implements Initializable {
+    DBConnect db=new DBConnect();
     @FXML
     private ToggleButton selectMultipleItems;
     @FXML
-            private Button deleteMultipleItems;
-    DBConnect db = new DBConnect();
+    private Button deleteMultipleItems;
     @FXML
     private Label addLabel;
     @FXML
@@ -79,6 +80,8 @@ public class GUI62Controller implements Initializable {
     private Label quizNameLink;
     @FXML
     private Label quizName;
+    @FXML
+    private ToggleButton save;
 
     private void addQuestionMode() {
         listModeAdd.setVisible(false);
@@ -169,6 +172,7 @@ public class GUI62Controller implements Initializable {
             });
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         quizNameLink.setText("/" + quizChosen + "/ Edit quiz");
@@ -226,6 +230,26 @@ public class GUI62Controller implements Initializable {
             b.getOrder().setText(Integer.toString(i));
         }
         numberQuestionAndMarkInTable();
+    });
+    save.setOnAction(event -> {
+      for(int i=0;i<chosenQuestions.size();i++){
+          String[] addQuestionInQuiz={chosenQuestions.get(i).getQuestionID(),chosenQuestions.get(i).getQuestionText(),null};
+          try {
+              db.InsertQuestionInQuiz(addQuestionInQuiz);
+          } catch (SQLException e) {
+              throw new RuntimeException(e);
+          }
+      }
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI61.fxml"));
+        try {
+            Parent gui61 = loader.load();
+            Scene scene = new Scene(gui61);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     });
     }
 }
