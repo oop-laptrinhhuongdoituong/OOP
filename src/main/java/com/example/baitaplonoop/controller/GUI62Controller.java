@@ -81,7 +81,7 @@ public class GUI62Controller implements Initializable {
     @FXML
     private Label quizName;
     @FXML
-    private ToggleButton save;
+    private Button save;
 
     private void addQuestionMode() {
         listModeAdd.setVisible(false);
