@@ -1,10 +1,7 @@
 package com.example.baitaplonoop.util;
 
 import com.example.baitaplonoop.sql.DBConnect;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,7 +26,7 @@ public class ExportFilePDF {
     static DBConnect db = new DBConnect();
     public static void exportPDFFile(){
         Document doc = new Document();
-        String path = "C:/Users/HOANGPHUC/Desktop/" + quizChosen + ".pdf";
+        String path = "./src/main/resources/com/example/baitaplonoop/pdf/" + quizChosen + ".pdf";
         ResultSet rs = db.getData("Select questionID from QuestionInQuiz where quizName = N'" + quizChosen + "'");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Import information");
@@ -45,50 +42,56 @@ public class ExportFilePDF {
                 doc.open();
                 ResultSet rs1 = db.getData("Select * from Question where questionID = '" + rs.getString("questionID") + "'");
                 ResultSet rs2 = db.getData("Select * from Choice where questionID = '" + rs.getString("questionID") + "'");
+                Phrase p = new Phrase();
                 if (rs1.next()) {
-                    Paragraph p = new Paragraph(rs1.getString("questionID") + ": " + rs1.getString("questionText"));
+                    p.add(rs1.getString("questionID") + ": " + rs1.getString("questionText") + "\n\n");
                     InputStream is = rs1.getBinaryStream(4);
                     if (is != null) {
-                        FileOutputStream os = new FileOutputStream(new File("D:/Image/photo.png"));
+                        FileOutputStream os = new FileOutputStream(new File("./src/main/resources/com/example/baitaplonoop/media/GIF/Question/image.png"));
                         byte[] contents = new byte[1024];
                         int size = 0;
                         while ((size = is.read(contents)) != -1) {
                             os.write(contents, 0, size);
                         }
-                        Image image = Image.getInstance("D:/Image/photo.png");
-                        p.add(image);
-                        doc.add(p);
+                        Image image = Image.getInstance("./src/main/resources/com/example/baitaplonoop/media/GIF/Question/image.png");
+                        image.scaleToFit(150,200);
+                        p.add(new Chunk(image, 0, 0, true));
+                        p.add("\n");
                     }
                 }
                 char c = 'A';
                 while (rs2.next()) {
-                    doc.add(new Paragraph(String.valueOf(c) + ". " + rs2.getString("choiceText")));
+                    p.add(String.valueOf(c) + ". " + rs2.getString("choiceText") + "\n");
                     c++;
                 }
+                p.add("\n");
                 while (rs.next()) {
                     ResultSet rs3 = db.getData("Select * from Question where questionID = '" + rs.getString("questionID") + "'");
                     ResultSet rs4 = db.getData("Select * from Choice where questionID = '" + rs.getString("questionID") + "'");
                     if (rs3.next()) {
-                        Paragraph P = new Paragraph(rs3.getString("questionID") + ": " + rs3.getString("questionText"));
+                        p.add(rs3.getString("questionID") + ": " + rs3.getString("questionText") + "\n\n");
                         InputStream is = rs3.getBinaryStream(4);
                         if (is != null) {
-                            FileOutputStream os = new FileOutputStream(new File("D:/Image/photo.png"));
+                            FileOutputStream os = new FileOutputStream(new File("./src/main/resources/com/example/baitaplonoop/media/GIF/Question/image.png"));
                             byte[] contents = new byte[1024];
                             int size = 0;
                             while ((size = is.read(contents)) != -1) {
                                 os.write(contents, 0, size);
                             }
-                            Image image = Image.getInstance("D:/Image/photo.png");
-                            P.add(image);
-                            doc.add(P);
+                            Image image = Image.getInstance("./src/main/resources/com/example/baitaplonoop/media/GIF/Question/image.png");
+                            image.scaleToFit(150,200);
+                            p.add(new Chunk(image, 0, 0, true));
+                            p.add("\n");
                         }
                     }
                     char C = 'A';
                     while (rs4.next()) {
-                        doc.add(new Paragraph(String.valueOf(C) + ". " + rs4.getString("choiceText")));
+                        p.add(String.valueOf(C) + ". " + rs4.getString("choiceText") + "\n");
                         C++;
                     }
+                    p.add("\n");
                 }
+                doc.add(p);
                 doc.close();
                 writer.close();
                 content = "Export sucessfully!";
