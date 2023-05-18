@@ -24,7 +24,7 @@
       <Label layoutX="171.0" layoutY="68.0" text="/ THI CUÔI KỲ" textFill="#ee0707" />
       <Label layoutX="291.0" layoutY="68.0" text="/ General" textFill="#d70606" />
       <Label fx:id="quizNameLink" layoutX="369.0" layoutY="68.0" prefHeight="21.0" prefWidth="198.0" />
-      <Label fx:id="quizName" alignment="CENTER" layoutX="23.0" layoutY="101.0" prefHeight="33.0" prefWidth="250.0" textFill="#e10a0a">
+      <Label fx:id="quizName" alignment="CENTER" layoutX="23.0" layoutY="101.0" prefHeight="46.0" prefWidth="482.0" textFill="#e10a0a">
          <font>
             <Font size="31.0" />
          </font>
@@ -32,6 +32,7 @@
       <Button layoutX="19.0" layoutY="194.0" mnemonicParsing="false" text="REPAGINATE" />
       <Label layoutX="509.0" layoutY="136.0" prefHeight="21.0" prefWidth="116.0" text="Maximun grade:" />
       <TextField alignment="CENTER" editable="false" layoutX="623.0" layoutY="131.0" prefHeight="31.0" prefWidth="51.0" text="10.00" />
+      <Button fx:id="save" layoutX="698.0" layoutY="131.0" mnemonicParsing="false" text="SAVE" />
       <Label fx:id="totalOfMark" layoutX="634.0" layoutY="184.0" prefHeight="21.0" prefWidth="129.0" text="Total of mark: 0.00" />
       <ListView fx:id="listModeAdd" layoutX="555.0" layoutY="296.0" prefHeight="78.0" prefWidth="198.0" />
       <Label fx:id="numberQuestionInTable" layoutX="39.0" layoutY="162.0" prefHeight="21.0" prefWidth="210.0" text="Questions: 0 | This quiz is open" />
@@ -52,6 +53,5 @@
       <Text layoutX="209.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <ToggleButton fx:id="selectMultipleItems" layoutX="127.0" layoutY="194.0" mnemonicParsing="false" text="SELECT MULTIPLEITEMS" />
       <Button fx:id="deleteMultipleItems" layoutX="265.0" layoutY="690.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="307.0" text="DELETE MULTIPLEITEMS" />
-      <ToggleButton fx:id="save" layoutX="681.0" layoutY="131.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="SAVE" />
    </children>
 </AnchorPane>

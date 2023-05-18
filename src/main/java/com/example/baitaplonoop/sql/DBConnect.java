@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.sql;
 
 import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,10 +11,10 @@ public class DBConnect {
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://LAPTOP-5RN02RRR\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
+            String url = "jdbc:sqlserver://DESKTOP-AP629KT\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
                     + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
             String username = "sa";
-            String password = "123";
+            String password = "hoangphuc0703";
             con = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,6 +142,26 @@ public class DBConnect {
         } catch (SQLException e){throw new RuntimeException(e);}
         return rowInserted;
     }
+
+    public String FindInfoQuestion(String questionID, String categoryName) throws SQLException {
+//        List<String> EditQuestion
+//        String sql = "SELECT questionText, questionImage, choiceText, choiceGrade  FROM Question, Choice WHERE questionID = N'" + questionID + "' AND Choice.questionID = '" +questionID+"'";
+////        PreparedStatement statement = con.prepareStatement(sql);
+////        statement.setString(1, categoryName);
+//        ResultSet result = getData(sql);
+//
+//
+//        // Nếu tìm thấy categoryName, lấy categoryID từ kết quả truy vấn
+//        if (result.next()) {
+//            EditQuestion = result.getString("questionText")};
+//
+//        }
+
+        // Đóng kết nối và trả về categoryID
+
+        return questionID;
+    }
+
 
 }
 //

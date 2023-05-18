@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -57,6 +58,7 @@ public class GUI32Controller implements Initializable {
     public Button playVideo;
     public Button pause_btn;
     public Button videoQuestion_btn;
+    public Label questionLabel_lb;
     boolean checkAddCategoryQuestion;
 
 
@@ -66,6 +68,11 @@ public class GUI32Controller implements Initializable {
     DBConnect db = new DBConnect();
     @FXML
     private MediaView mediaQuestion_mv;
+    public  void editingQuestionChoice(String questionID,String categoryName){
+        questionLabel_lb.setText("Editing a Multilple choice question");
+    categoryName_lb.setText(categoryName);
+    questionName_tf.setText(questionID);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
