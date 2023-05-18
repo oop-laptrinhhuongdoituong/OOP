@@ -59,6 +59,7 @@ public class GUI32Controller implements Initializable {
     public ComboBox<String> selectMedia_cb;
     public Button gifQuestion_btn;
     public AnchorPane videoPane_ap;
+    public ImageView gifQuestion_iv;
     @FXML
     private MediaView mediaQuestion_mv;
     boolean checkAddCategoryQuestion;
@@ -108,13 +109,11 @@ public class GUI32Controller implements Initializable {
             paneChoice2_ap.setTranslateY(239);
             buttonPane_ap.setTranslateY(239);
             paneChoice2_ap.setVisible(true);
-
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         videoPane_ap.setVisible(false);
         paneChoice2_ap.setVisible(false);
         addValueComboBox.addValue(gradeChoice1_cb);
@@ -235,12 +234,29 @@ public class GUI32Controller implements Initializable {
             }
         });
         addQuestion_btn.setOnMouseClicked(saveChangeEvent -> {
-            if (!checkAddCategoryQuestion || questionName_tf.getText() == null || questionText_tf.getText() == null) {
+            if ( questionName_tf.getText() == null || questionText_tf.getText() == null) {
                 AlertOOP.mustFill("Add question status", "Add Question field", "You must fill in questionID, questionText");
             } else if (!checkAddCategoryQuestion) {
-                // Chưa xét sự kiện add video khi mà cái categoryID parent của nó trống
-                String[] addQuestion = {null, questionName_tf.getText(), questionText_tf.getText(), "1"};
-                AlertOOP.AddDone("Add question status", "Add Question Done", "Add question successfully!");
+                if (imageQuestion_iv != null) {
+                    String questionMediaPath = saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
+                    String[] questionInfo = {null, questionName_tf.getText(), questionText_tf.getText(), "1", questionMediaPath};
+                    try {
+                        int addQuestion = db.UpdateQuestion(questionInfo);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    AlertOOP.AddDone("Add question status", "Add Question Done", "Add question successfully!");
+                } else if (gifQuestion_iv != null) {
+                    String questionMediaPath = saveGif(gifQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Gif", questionName_tf.getText());
+                    String[] questionInfo = {null, questionName_tf.getText(), questionName_tf.getText(), "1", questionMediaPath};
+                    try {
+                        int addQuestion = db.UpdateQuestion(questionInfo);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+
+                }
             } else {
                 String IDCategoryQuestion;
                 try {
@@ -248,9 +264,9 @@ public class GUI32Controller implements Initializable {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                if(imageQuestion_iv != null){
+                if (imageQuestion_iv != null) {
                     String questionMediaPath = saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
-                    String[] questionInfo = {IDCategoryQuestion, questionName_tf.getText(), questionName_tf.getText(),"1"};
+                    String[] questionInfo = {IDCategoryQuestion, questionName_tf.getText(), questionName_tf.getText(), "1"};
                     db.InsertQuestionMedia(questionInfo, questionMediaPath);
 
                 }
@@ -292,11 +308,10 @@ public class GUI32Controller implements Initializable {
         double seconds = duration.toSeconds();
         System.out.println(seconds);
     }
-
     public String saveImage(ImageView imageView, String pathImage, String questionID) {
         String questionMediaPath = null;
         try {
-            File target = new File(pathImage + File.separator + questionID +".jpg");
+            File target = new File(pathImage + File.separator + questionID + ".jpg");
             BufferedImage toWrite = SwingFXUtils.fromFXImage(imageView.getImage(), null);
             ImageIO.write(toWrite, "jpg", target);
             questionMediaPath = target.getAbsolutePath();
@@ -306,10 +321,10 @@ public class GUI32Controller implements Initializable {
         }
         return questionMediaPath;
     }
-    public void saveGif(ImageView imageView, String pathGIF, String questionID) {
+    public String saveGif(ImageView imageView, String pathGIF, String questionID) {
         String questionGifPah = null;
         try {
-            File target = new File(pathGIF + File.separator + questionID +"gif");
+            File target = new File(pathGIF + File.separator + questionID + "gif");
             BufferedImage toWrite = SwingFXUtils.fromFXImage(imageView.getImage(), null);
             ImageIO.write(toWrite, "gif", target);
             questionGifPah = target.getAbsolutePath();
@@ -317,6 +332,7 @@ public class GUI32Controller implements Initializable {
             System.err.println("Failed to save gif");
             x.printStackTrace();
         }
+        return questionGifPah;
     }
 
 

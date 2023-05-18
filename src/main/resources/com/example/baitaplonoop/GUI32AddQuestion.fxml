@@ -138,6 +138,7 @@
             <Button fx:id="playVideo" layoutX="34.0" layoutY="125.0" mnemonicParsing="false" text="Play" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="120.0" />
             <Button fx:id="pause_btn" layoutX="120.0" layoutY="125.0" mnemonicParsing="false" text="Pause" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="120.0" />
          </AnchorPane>
+         <ImageView fx:id="gifQuestion_iv" fitHeight="99.0" fitWidth="75.0" layoutX="127.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" />
       </AnchorPane>
    </ScrollPane>
 </AnchorPane>

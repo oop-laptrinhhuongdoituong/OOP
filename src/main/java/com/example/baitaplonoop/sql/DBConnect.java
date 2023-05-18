@@ -197,6 +197,20 @@ public class DBConnect {
         return choiceInfo;
     }
 
+    public int UpdateQuestion(String[] questionInfo) throws SQLException {
+        int rowInserted = 0;
+        String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) AS source (categoryID, questionID, questionText, questionMark, questionMedia)  ON target.questionID = source.questionID  WHEN MATCHED THEN  UPDATE SET questionText = source.questionText,  categoryID = source.categoryID  WHEN NOT MATCHED THEN  INSERT (questionID, questionText, categoryID)  VALUES (source.questionID, source.questionText, source.categoryID);";
+        PreparedStatement statement;
+        statement = con.prepareStatement(sql);
+        statement.setString(1, questionInfo[0]);
+        statement.setString(2, questionInfo[1]);
+        statement.setString(3, questionInfo[2]);
+        statement.setString(4, questionInfo[3]);
+        statement.setString(5,questionInfo[4]);
+        rowInserted = statement.executeUpdate();
+        return rowInserted;
+    }
+
 
 }
 

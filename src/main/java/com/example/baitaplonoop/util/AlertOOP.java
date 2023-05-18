@@ -23,5 +23,4 @@ public class AlertOOP {
         contentLabel.setStyle("-fx-text-fill: blue");
         alert.showAndWait();
     }
-
 }
