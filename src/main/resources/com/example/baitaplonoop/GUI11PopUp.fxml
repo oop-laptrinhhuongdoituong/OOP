@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<DialogPane prefHeight="176.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11PopUpController">
-   <content>
-      <AnchorPane prefHeight="190.0" prefWidth="313.0">
-         <children>
-            <Label layoutX="36.0" layoutY="38.0" text="Question bank" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="38.0" />
-            <Label fx:id="lbQuestion" layoutX="216.0" layoutY="38.0" text="Question" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="38.0" />
-            <Label fx:id="lbCategory" layoutX="216.0" layoutY="68.0" text="Category" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="68.0" />
-            <Label fx:id="lbImport" layoutX="216.0" layoutY="95.0" text="Import" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="95.0" />
-            <Label fx:id="lbExport" layoutX="216.0" layoutY="123.0" text="Export" AnchorPane.rightAnchor="62.6" AnchorPane.topAnchor="123.0" />
-            <Label layoutX="14.0" layoutY="133.0" text="Switch to:" />
-            <TextField fx:id="txtGUI" layoutX="66.0" layoutY="128.0" prefHeight="26.0" prefWidth="101.0" />
-         </children>
-      </AnchorPane>
-   </content>
-</DialogPane>
+
+<AnchorPane prefHeight="190.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11PopUpController">
+   <children>
+      <Label layoutX="36.0" layoutY="38.0" text="Question bank" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="38.0" />
+      <Hyperlink fx:id="hlQuestion" layoutX="205.0" layoutY="35.0" text="Question" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="38.0" />
+      <Hyperlink fx:id="hlCategory" layoutX="205.0" layoutY="59.0" text="Category" AnchorPane.topAnchor="70.0" />
+      <Hyperlink fx:id="hlImport" layoutX="205.0" layoutY="95.0" text="Import" AnchorPane.topAnchor="102.0" />
+      <Hyperlink fx:id="hlExport" layoutX="205.0" layoutY="127.0" text="Export" AnchorPane.topAnchor="134.0" />
+   </children>
+</AnchorPane>

@@ -1,45 +1,79 @@
 package com.example.baitaplonoop.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
+import javafx.stage.Stage;
 
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.example.baitaplonoop.controller.GUI11Controller.settingEvent;
+import static com.example.baitaplonoop.controller.GUI61Controller.StartEvent;
 
 
 public class GUI11PopUpController implements Initializable{
     @FXML
-    Label lbQuestion;
+    private Hyperlink hlQuestion;
     @FXML
-    Label lbCategory;
+    private Hyperlink hlCategory;
     @FXML
-    Label lbImport;
+    private Hyperlink hlImport;
     @FXML
-    Label lbExport;
-    @FXML
-    TextField txtGUI;
-
-    String result;
+    private Hyperlink hlExport;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lbQuestion.setOnMouseClicked(mouseEvent -> {
-            this.result = "Question";
-            txtGUI.setText(result);
+        hlQuestion.setOnMouseClicked(mouseEvent -> {
+            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+            stage.close();
+            Stage oldstage = (Stage) ((Node) settingEvent.getSource()).getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI21.fxml"));
+            Parent parent = null;
+            try {
+                parent = fxmlLoader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Scene scene = new Scene(parent);
+            oldstage.setScene(scene);
         });
-        lbCategory.setOnMouseClicked(mouseEvent -> {
-            this.result = "Category";
-            txtGUI.setText(result);
+        hlCategory.setOnMouseClicked(mouseEvent -> {
+            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+            stage.close();
+            Stage oldstage = (Stage) ((Node) settingEvent.getSource()).getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI33AddCategory.fxml"));
+            Parent parent = null;
+            try {
+                parent = fxmlLoader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Scene scene = new Scene(parent);
+            oldstage.setScene(scene);
         });
-        lbImport.setOnMouseClicked(mouseEvent -> {
-                this.result = "Import";
-                txtGUI.setText(result);
-        });
-        lbExport.setOnMouseClicked(mouseEvent -> {
-            this.result = "Export";
-            txtGUI.setText(result);
+        hlImport.setOnMouseClicked(mouseEvent -> {
+            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+            stage.close();
+            Stage oldstage = (Stage) ((Node) settingEvent.getSource()).getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI34.fxml"));
+            Parent parent = null;
+            try {
+                parent = fxmlLoader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Scene scene = new Scene(parent);
+            oldstage.setScene(scene);
         });
     }
 }
