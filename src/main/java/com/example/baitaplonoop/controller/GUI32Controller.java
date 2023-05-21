@@ -87,7 +87,6 @@ public class GUI32Controller implements Initializable {
     Double gradeChoice1 = 0.0, gradeChoice2 = 0.0, gradeChoice3 = 0.0, gradeChoice4 = 0.0, gradeChoice5 = 0.0, gradeChoice6 = 0.0;
     DBConnect db = new DBConnect();
     private MediaPlayer mediaPlayer;
-
     public Integer ChoiceNumberInQuestion() {
         int choiceNumber = 0;
         for (TextField textField : Arrays.asList(choice1_tf, choice2_tf, choice3_tf, choice4_tf, choice5_tf, choice6_tf)) {
@@ -97,7 +96,6 @@ public class GUI32Controller implements Initializable {
         }
         return choiceNumber;
     } // Return Number of TextField Choice is Edited
-
     // View in Editing Question From GUI21
     public void editingQuestionChoice(String categoryName, String questionID, String questionText, String questionMedia, String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, String choiceText4, String choiceGrade4, String choiceMedia4, String choiceText5, String choiceGrade5, String choiceMedia5, String choiceText6, String choiceGrade6, String choiceMedia6) throws FileNotFoundException {
         videoPane_ap.setVisible(false);
@@ -151,8 +149,6 @@ public class GUI32Controller implements Initializable {
             paneChoice2_ap.setVisible(true);
         }
     }
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         videoPane_ap.setVisible(false);
@@ -208,7 +204,7 @@ public class GUI32Controller implements Initializable {
                     showCategory_tv.setVisible(false);
                     categoryName_lb.setVisible(true);
                 });
-            } else return;
+            }
         });
         // Event to creat new 3 choice
         createChoice_btn.setOnMouseClicked(createChoiceEvent -> {// Event to creat new 3 choice
@@ -217,27 +213,13 @@ public class GUI32Controller implements Initializable {
             paneChoice2_ap.setVisible(true);
         });
         // Add image in Question Text (upload in ImageView not to save in Database)
-        imageQuestion_btn.setOnAction(e -> {
-            AddImageToImageView(imageQuestion_iv);
-        });
-        addImageChoice1_btn.setOnAction(e -> {
-            AddImageToImageView(imageChoice1_iv);
-        });
-        addImageChoice2_btn.setOnAction(e -> {
-            AddImageToImageView(imageChoice2_iv);
-        });
-        addImageChoice3_btn.setOnAction(e -> {
-            AddImageToImageView(imageChoice3_iv);
-        });
-        addImageChoice4_btn.setOnAction(e -> {
-            AddImageToImageView(imageChoice4_iv);
-        });
-        addImageChoice5_btn.setOnAction(e -> {
-            AddImageToImageView(imageChoice5_iv);
-        });
-        addImageChoice6_btn.setOnAction(e -> {
-            AddImageToImageView(imageChoice6_iv);
-        });
+        imageQuestion_btn.setOnAction(e -> AddImageToImageView(imageQuestion_iv));
+        addImageChoice1_btn.setOnAction(e -> AddImageToImageView(imageChoice1_iv));
+        addImageChoice2_btn.setOnAction(e -> AddImageToImageView(imageChoice2_iv));
+        addImageChoice3_btn.setOnAction(e -> AddImageToImageView(imageChoice3_iv));
+        addImageChoice4_btn.setOnAction(e -> AddImageToImageView(imageChoice4_iv));
+        addImageChoice5_btn.setOnAction(e -> AddImageToImageView(imageChoice5_iv));
+        addImageChoice6_btn.setOnAction(e -> AddImageToImageView(imageChoice6_iv));
         // Add gif in Question Text (upload in ImageView not to save in Database)
         gifQuestion_btn.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -265,31 +247,19 @@ public class GUI32Controller implements Initializable {
                 mediaPlayer = new MediaPlayer(media);
                 mediaQuestion_mv.setMediaPlayer(mediaPlayer);
                 videoPane_ap.setVisible(true);
-                mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
-                    if (!timeSlider.isValueChanging()) {
-                        timeSlider.setValue(newTime.toSeconds() / mediaPlayer.getTotalDuration().toSeconds() * 100);
-                    }
-                });
-                timeSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
-                    if (timeSlider.isValueChanging()) {
-                        mediaPlayer.seek(mediaPlayer.getTotalDuration().multiply(newValue.doubleValue() / 100));
-                    }
-                });
+                setVideoPlay(mediaPlayer);
             }
         });
-        // Play video in MediaView
         playVideo.setOnAction(e -> {
             if (mediaPlayer != null) {
                 mediaPlayer.play();
             }
         });
-        // Pause video in MediaView
         pause_btn.setOnAction(e -> {
             if (mediaPlayer != null) {
                 mediaPlayer.pause();
             }
         });
-        // Event for Save Changes button.x
         addQuestion_btn.setOnMouseClicked(saveChangeEvent -> {
             try {
                 AddQuestionIntoSQL();
@@ -298,9 +268,7 @@ public class GUI32Controller implements Initializable {
             }
             ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", saveChangeEvent);
         });
-        cancel_btn.setOnMouseClicked(cancelEvent -> {
-            ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", cancelEvent);
-        });
+        cancel_btn.setOnMouseClicked(cancelEvent -> ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", cancelEvent));
         editing_btn.setOnMouseClicked(saveChangeContinueEditEvent -> {
             try {
                 AddQuestionIntoSQL();
@@ -309,7 +277,18 @@ public class GUI32Controller implements Initializable {
             }
         });
     }
-
+    private void setVideoPlay(MediaPlayer mediaPlayer) {
+        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            if (!timeSlider.isValueChanging()) {
+                timeSlider.setValue(newTime.toSeconds() / mediaPlayer.getTotalDuration().toSeconds() * 100);
+            }
+        });
+        timeSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+            if (timeSlider.isValueChanging()) {
+                mediaPlayer.seek(mediaPlayer.getTotalDuration().multiply(newValue.doubleValue() / 100));
+            }
+        });
+    }
     public boolean CheckDuration(MediaView mediaView) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
         Duration duration = mediaPlayer.getTotalDuration();
@@ -317,7 +296,6 @@ public class GUI32Controller implements Initializable {
         double seconds = duration.toSeconds();
         return 1 <= seconds & seconds <= 10;
     } // Check Duration Video in Question between 1s and 10s
-
     public String saveImage(ImageView imageView, String pathImage, String imageID) {
         String questionMediaPath = null;
         try {
@@ -331,7 +309,6 @@ public class GUI32Controller implements Initializable {
         }
         return questionMediaPath;
     } // Save Image in the local memory
-
     public String questionMediaPath() {
         if (imageQuestion_iv.getImage() != null)
             return saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
@@ -341,7 +318,6 @@ public class GUI32Controller implements Initializable {
             return saveVideo(mediaQuestion_mv, "./src/main/resources/com/example/baitaplonoop/Media/Video", questionName_tf.getText().trim());
         else return null;
     }   // To return path to Media in Question, this prepare for save in the database
-
     public String saveVideo(MediaView mediaView, String pathVideo, String questionID) {
         String questionVideoPath = null;
         if (CheckDuration(mediaView)) {
@@ -374,7 +350,6 @@ public class GUI32Controller implements Initializable {
         }
         return questionGifPah;
     }   // Save GIF in the local memory
-
     public String getCategoryIDQuestion() {
         if (nameCategoryQuestion != null) {
             try {
@@ -384,7 +359,6 @@ public class GUI32Controller implements Initializable {
             }
         } else return null;
     } // Return categoryID in question
-
     public void AddQuestionIntoSQL() throws SQLException {
         if (questionName_tf.getText().trim().equals("") || questionText_tf.getText().trim().equals("") || ChoiceNumberInQuestion() < 2) {
             AlertOOP.mustFill("Add Question Status", "Add Question Fail", "You must fill in Question Name, Question Text and minimum 2 Choice");
@@ -473,7 +447,6 @@ public class GUI32Controller implements Initializable {
             }
         }
     }   // Add new Question into SQL
-
     public void AddImageToImageView(ImageView imageView) {
 
         FileChooser fileChooser = new FileChooser();
@@ -488,7 +461,6 @@ public class GUI32Controller implements Initializable {
             imageView.setImage(image);
         }
     }
-
     public void loadImage(String path, ImageView imageView) {
         if (path == null || path.isEmpty()) {
             return;
@@ -500,7 +472,7 @@ public class GUI32Controller implements Initializable {
             e.printStackTrace();
         }
     }
-
+    // Load MediaQuestion from database path in the file local
     public void loadFile(String path, ImageView imageViewImage, ImageView imageViewGif, MediaView mediaViewVideo) {
         if (path == null || path.isEmpty()) return;
         int dotIndex = path.lastIndexOf(".");
@@ -527,27 +499,9 @@ public class GUI32Controller implements Initializable {
             videoPane_ap.setVisible(true);
             imageViewImage.setVisible(false);
             imageViewGif.setVisible(false);
-            mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
-                if (!timeSlider.isValueChanging()) {
-                    timeSlider.setValue(newTime.toSeconds() / mediaPlayer.getTotalDuration().toSeconds() * 100);
-                }
-            });
-            timeSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
-                if (timeSlider.isValueChanging()) {
-                    mediaPlayer.seek(mediaPlayer.getTotalDuration().multiply(newValue.doubleValue() / 100));
-                }
-            });
-            playVideo.setOnAction(e -> {
-                if (mediaPlayer != null) {
-                    mediaPlayer.play();
-                }
-            });
-            // Pause video in MediaView
-            pause_btn.setOnAction(e -> {
-                if (mediaPlayer != null) {
-                    mediaPlayer.pause();
-                }
-            });
-        } else return;
+            setVideoPlay(mediaPlayer);
+            playVideo.setOnAction(e -> mediaPlayer.play());
+            pause_btn.setOnAction(e -> mediaPlayer.pause());
+        }
     }
 }
