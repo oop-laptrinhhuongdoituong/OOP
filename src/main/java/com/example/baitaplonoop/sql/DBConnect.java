@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.baitaplonoop.model.Choice;
-
 public class DBConnect {
     public Connection con;
-
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -21,7 +19,6 @@ public class DBConnect {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     public ResultSet getData(String stringSQL) {
         ResultSet rs = null;
         try {
@@ -32,7 +29,6 @@ public class DBConnect {
         }
         return rs;
     }
-
     public int InsertQuestion(String[] stringSQL, byte[] pic) {
         int rowInserted;
         String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMark, questionImage) values(?,?,?,?,?)";
@@ -50,7 +46,6 @@ public class DBConnect {
         }
         return rowInserted;
     }
-    // Add categoryID, questionID, questionText in SQL
     public int InsertQuestion(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Question(categoryID, questionID, questionText) values(?,?,?)";
@@ -66,23 +61,6 @@ public class DBConnect {
         }
         return rowInserted;
     }
-    public int InsertQuestionMedia(String[] stringSQL, String questionMediaPath) {
-        int rowInserted = 0;
-        String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMedia) values(?,?,?, ?)";
-        PreparedStatement statement;
-        try {
-            statement = con.prepareStatement(sql);
-            statement.setString(1, stringSQL[0]);
-            statement.setString(2, stringSQL[1]);
-            statement.setString(3, stringSQL[2]);
-            statement.setString(4, questionMediaPath);
-            rowInserted = statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return rowInserted;
-    }
-
     public int InsertChoice(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected, choiceMedia) values(?,?,?,?,?,?)";
@@ -101,7 +79,6 @@ public class DBConnect {
         }
         return rowInserted;
     }
-
     public int InsertQuestionInQuiz(String[] stringSQL) throws SQLException {
         int rowInserted = 0;
         String sql = "insert into QuestionInQuiz(questionID,quizName,yourMark) values(?,?,?)";
@@ -113,8 +90,6 @@ public class DBConnect {
         rowInserted = statement.executeUpdate();
         return rowInserted;
     }
-
-
     public String FindCategoryID(String categoryName) throws SQLException {
         String categoryID = null;
         String sql = "SELECT categoryID FROM Category WHERE categoryName = N'" + categoryName + "'";
@@ -124,8 +99,6 @@ public class DBConnect {
         }
         return categoryID;
     }
-
-
     public int InsertCategory(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Category(parentID, categoryName, categoryID, categoryinfo) values (?, ?, ?, ?)";
@@ -142,7 +115,6 @@ public class DBConnect {
         }
         return rowInserted;
     }
-
     public int AddNewQuiz(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Quiz(quizName, Descript, openTime, closeTime, timeLimit) values (?, ?, ?, ?, ?)";
@@ -160,7 +132,6 @@ public class DBConnect {
         }
         return rowInserted;
     }
-
     public String FindQuestionText(String questionID) {
         String questionText = null;
         String sql = "SELECT questionText FROM Question WHERE questionID = ?";
@@ -177,10 +148,9 @@ public class DBConnect {
         }
         return questionText;
     }
-
     public String[] FindChoiceInfo(String choiceID) {
         String[] choiceInfo = null;
-        String sql = "SELECT choiceText, choiceGrade FROM choice WHERE choiceID = ?";
+        String sql = "SELECT choiceText, choiceGrade, choiceMedia FROM choice WHERE choiceID = ?";
         try (
                 PreparedStatement statement = con.prepareStatement(sql);
         ) {
@@ -189,14 +159,14 @@ public class DBConnect {
             if (rs.next()) {
                 String choiceText = rs.getNString("choiceText");
                 Float choiceGrade = rs.getFloat("choiceGrade");
-                choiceInfo = new String[]{choiceText, String.valueOf(choiceGrade)};
+                String choiceMedia = rs.getString("choiceMedia");
+                choiceInfo = new String[]{choiceText, String.valueOf(choiceGrade), choiceMedia};
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return choiceInfo;
     }
-
     public int UpdateQuestion(String[] questionInfo) throws SQLException {
         int rowInserted = 0;
         String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) AS source (categoryID, questionID, questionText, questionMark, questionMedia)  ON target.questionID = source.questionID  WHEN MATCHED THEN  UPDATE SET questionText = source.questionText,  categoryID = source.categoryID, questionMedia = source.questionMedia  WHEN NOT MATCHED THEN  INSERT (questionID, questionText, categoryID, questionMedia)  VALUES (source.questionID, source.questionText, source.categoryID, source.questionMedia);";
@@ -235,7 +205,4 @@ public class DBConnect {
         }
         return result; // Trả về giá trị boolean
     }
-
 }
-
-

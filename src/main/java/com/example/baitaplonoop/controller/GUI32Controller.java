@@ -27,8 +27,6 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
-
-
 public class GUI32Controller implements Initializable {
     public TreeView<String> showCategory_tv;
     public TextArea questionText_tf;
@@ -81,10 +79,8 @@ public class GUI32Controller implements Initializable {
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion = "null";
     Double gradeChoice1 = 0.0, gradeChoice2 = 0.0, gradeChoice3 = 0.0, gradeChoice4 = 0.0, gradeChoice5 = 0.0, gradeChoice6 = 0.0;
-
     DBConnect db = new DBConnect();
     private MediaPlayer mediaPlayer;
-
     public Integer ChoiceNumberInQuestion() {
         int choiceNumber = 0;
         for (TextField textField : Arrays.asList(choice1_tf, choice2_tf, choice3_tf, choice4_tf, choice5_tf, choice6_tf)) {
@@ -93,10 +89,9 @@ public class GUI32Controller implements Initializable {
             }
         }
         return choiceNumber;
-    } // Trả về số textField của choice đã được ghi vào
-
+    } // Return Number of TextField Choice is Edited
     // View in Editing Question From GUI21
-    public void editingQuestionChoice(String categoryName, String questionID, String questionText, String choiceText1, String choiceGrade1, String choiceText2, String choiceGrade2, String choiceText3, String choiceGrade3, String choiceText4, String choiceGrade4, String choiceText5, String choiceGrade5, String choiceText6, String choiceGrade6) {
+    public void editingQuestionChoice(String categoryName, String questionID, String questionText, String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, String choiceText4, String choiceGrade4, String choiceMedia4, String choiceText5, String choiceGrade5, String choiceMedia5, String choiceText6, String choiceGrade6, String choiceMedia6) {
         videoPane_ap.setVisible(false);
         paneChoice2_ap.setVisible(false);
         questionLabel_lb.setText("Editing a Multilple choice question");
@@ -181,20 +176,25 @@ public class GUI32Controller implements Initializable {
         });
         // Event to show category in TreeView
         categoryName_lb.setOnMouseClicked(mouseEvent -> {
-            showCategory_tv.setVisible(true);
-            categoryName_lb.setVisible(false);
-            checkAddCategoryQuestion = true;
-            TreeItem<String> root = new TreeItem<>("Course IT:");
-            showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
-            showCategory_tv.setRoot(root);
-            showCategory_tv.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-                categoryName_lb.setText(newValue.getValue());
-                nameCategoryQuestion = newValue.getValue();
-            });
-
+            if (questionName_tf.isEditable()) {
+                showCategory_tv.setVisible(true);
+                categoryName_lb.setVisible(false);
+                checkAddCategoryQuestion = true;
+                TreeItem<String> root = new TreeItem<>("Course IT:");
+                showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
+                showCategory_tv.setRoot(root);
+                showCategory_tv.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        categoryName_lb.setText(newValue.getValue());
+                        nameCategoryQuestion = newValue.getValue();
+                    }
+                    showCategory_tv.setVisible(false);
+                    categoryName_lb.setVisible(true);
+                });
+            } else return;
         });
         // Event to creat new 3 choice
-        createChoice_btn.setOnMouseClicked(createChoiceEvent -> {
+        createChoice_btn.setOnMouseClicked(createChoiceEvent -> {// Event to creat new 3 choice
             paneChoice2_ap.setTranslateY(239);
             buttonPane_ap.setTranslateY(239);
             paneChoice2_ap.setVisible(true);
@@ -279,34 +279,28 @@ public class GUI32Controller implements Initializable {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
+            ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", saveChangeEvent);
         });
         cancel_btn.setOnMouseClicked(cancelEvent -> {
             ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", cancelEvent);
         });
         editing_btn.setOnMouseClicked(saveChangeContinueEditEvent -> {
-            try {
-                AddQuestionIntoSQL();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                EditQuestionFromSQL();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            if (questionName_tf.isEditable()) {
+                try {
+                    AddQuestionIntoSQL();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
-
     }
 
     public boolean CheckDuration(MediaView mediaView) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
-        // Lấy độ dài của media tính bằng Duration
         Duration duration = mediaPlayer.getTotalDuration();
         // Chuyển đổi Duration sang giây
         double seconds = duration.toSeconds();
         return 1 <= seconds & seconds <= 10;
-        //System.out.println(seconds);
     } // Check Duration Video in Question between 1s and 10s
 
     public String saveImage(ImageView imageView, String pathImage, String imageID) {
@@ -360,6 +354,15 @@ public class GUI32Controller implements Initializable {
         if (questionName_tf.getText().trim().equals("") || questionText_tf.getText().trim().equals("") || ChoiceNumberInQuestion() < 2) {
             AlertOOP.mustFill("Add Question Status", "Add Question Fail", "You must fill in Question Name, Question Text and minimum 2 Choice");
         } else {
+            boolean checkQuestionExist;
+            try {
+                checkQuestionExist = db.checkQuestionID(questionName_tf.getText().trim());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            if (checkQuestionExist & questionName_tf.isEditable())
+                AlertOOP.mustFill("Add Question Status", "Add Question Fail", "Question Name exists");
+            else {
                 String pathMediaQuestion = questionMediaPath();
                 String[] questionInfo = {getCategoryIDQuestion(), questionName_tf.getText().trim(), questionText_tf.getText().trim(), "1", pathMediaQuestion};
                 try {
@@ -429,11 +432,10 @@ public class GUI32Controller implements Initializable {
                     }
                 }
                 AlertOOP.AddDone("Add Question Status", "Add Question Done", "Done");
+                EditQuestionFromSQL();
             }
-        }   // Add new Question into SQL
-    }
-
-
+        }
+    }   // Add new Question into SQL
 
     public void AddImageToImageView(ImageView imageView) {
 
@@ -454,5 +456,18 @@ public class GUI32Controller implements Initializable {
         showCategory_tv.setEditable(false);
         questionName_tf.setEditable(false);
         categoryName_lb.setMouseTransparent(false);
+
     }   // Add new Question into SQL
+
+    public void loadImage(String path, ImageView imageView) {
+        if (path == null || path.isEmpty()) {
+            return;
+        }
+        try {
+            Image image = new Image(new FileInputStream(path));
+            imageView.setImage(image);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
