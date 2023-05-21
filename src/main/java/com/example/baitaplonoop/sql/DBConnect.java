@@ -50,7 +50,7 @@ public class DBConnect {
         }
         return rowInserted;
     }
-
+    // Add categoryID, questionID, questionText in SQL
     public int InsertQuestion(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Question(categoryID, questionID, questionText) values(?,?,?)";
@@ -66,7 +66,6 @@ public class DBConnect {
         }
         return rowInserted;
     }
-
     public int InsertQuestionMedia(String[] stringSQL, String questionMediaPath) {
         int rowInserted = 0;
         String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMedia) values(?,?,?, ?)";
@@ -86,7 +85,7 @@ public class DBConnect {
 
     public int InsertChoice(String[] stringSQL) {
         int rowInserted = 0;
-        String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected) values(?,?,?,?,?)";
+        String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected, choiceMedia) values(?,?,?,?,?,?)";
         PreparedStatement statement;
         try {
             statement = con.prepareStatement(sql);
@@ -95,6 +94,7 @@ public class DBConnect {
             statement.setString(3, stringSQL[2]);
             statement.setString(4, stringSQL[3]);
             statement.setString(5, stringSQL[4]);
+            statement.setString(6, stringSQL[5]);
             rowInserted = statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -199,7 +199,7 @@ public class DBConnect {
 
     public int UpdateQuestion(String[] questionInfo) throws SQLException {
         int rowInserted = 0;
-        String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) AS source (categoryID, questionID, questionText, questionMark, questionMedia)  ON target.questionID = source.questionID  WHEN MATCHED THEN  UPDATE SET questionText = source.questionText,  categoryID = source.categoryID  WHEN NOT MATCHED THEN  INSERT (questionID, questionText, categoryID)  VALUES (source.questionID, source.questionText, source.categoryID);";
+        String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) AS source (categoryID, questionID, questionText, questionMark, questionMedia)  ON target.questionID = source.questionID  WHEN MATCHED THEN  UPDATE SET questionText = source.questionText,  categoryID = source.categoryID, questionMedia = source.questionMedia  WHEN NOT MATCHED THEN  INSERT (questionID, questionText, categoryID, questionMedia)  VALUES (source.questionID, source.questionText, source.categoryID, source.questionMedia);";
         PreparedStatement statement;
         statement = con.prepareStatement(sql);
         statement.setString(1, questionInfo[0]);
@@ -210,7 +210,18 @@ public class DBConnect {
         rowInserted = statement.executeUpdate();
         return rowInserted;
     }
-
+    public boolean checkQuestionID(String questionID) throws SQLException {
+        boolean result = false;
+        String sql = "SELECT * FROM Question WHERE questionID = ?"; // Câu lệnh SQL truy vấn dữ liệu theo questionID
+        PreparedStatement statement;
+        statement = con.prepareStatement(sql);
+        statement.setString(1, questionID); // Thiết lập giá trị cho tham số
+        ResultSet rs = statement.executeQuery(); // Thực hiện câu lệnh và lấy kết quả trả về
+        if (rs.next()) { // Kiểm tra xem kết quả có dòng nào hay không
+            result = true; // Nếu có, nghĩa là questionID tồn tại
+        }
+        return result; // Trả về giá trị boolean
+    }
 
 }
 

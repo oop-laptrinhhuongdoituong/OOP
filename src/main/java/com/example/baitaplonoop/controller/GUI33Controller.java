@@ -56,7 +56,7 @@ public class GUI33Controller implements Initializable {
                 AlertOOP.AddDone("Add Category status", "Add category done", "");
                 ChangeScene.changeSceneUsingMouseEvent(this,  "/com/example/baitaplonoop/GUI11.fxml", buttonAddCategoryEvent);
             } else {
-                String IDParentCategory = null;
+                String IDParentCategory;
                 try {
                     IDParentCategory = String.valueOf(db.FindCategoryID(parentCategoryName));
                 } catch (SQLException e) {

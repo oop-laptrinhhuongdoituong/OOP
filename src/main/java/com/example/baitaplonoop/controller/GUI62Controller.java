@@ -2,7 +2,6 @@ package com.example.baitaplonoop.controller;
 
 
 import com.example.baitaplonoop.sql.DBConnect;
-import com.example.baitaplonoop.util.FindCategoryInfo;
 import com.example.baitaplonoop.util.IsMouseOnLabel;
 import com.example.baitaplonoop.util.TableQuestionsOfGui62;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -17,23 +16,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
-import static javafx.scene.control.TableView.UNCONSTRAINED_RESIZE_POLICY;
 
 public class GUI62Controller implements Initializable {
     DBConnect db=new DBConnect();

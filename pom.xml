@@ -14,13 +14,6 @@
         <junit.version>5.9.1</junit.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>xuggle</groupId>
-            <artifactId>xuggle-xuggler</artifactId>
-            <version>5.4</version>
-        </dependency>
-    </dependencies>
 
 
     <dependencies>
