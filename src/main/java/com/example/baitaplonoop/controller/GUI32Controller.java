@@ -360,17 +360,6 @@ public class GUI32Controller implements Initializable {
         if (questionName_tf.getText().trim().equals("") || questionText_tf.getText().trim().equals("") || ChoiceNumberInQuestion() < 2) {
             AlertOOP.mustFill("Add Question Status", "Add Question Fail", "You must fill in Question Name, Question Text and minimum 2 Choice");
         } else {
-
-            {
-//                boolean checkQuestionExist;
-//                try {
-//                    checkQuestionExist = db.checkQuestionID(questionName_tf.getText().trim());
-//                } catch (SQLException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                if (checkQuestionExist)
-//                    AlertOOP.mustFill("Add Question Status", "Add Question Fail", "Question Name exists");
-//                else {
                 String pathMediaQuestion = questionMediaPath();
                 String[] questionInfo = {getCategoryIDQuestion(), questionName_tf.getText().trim(), questionText_tf.getText().trim(), "1", pathMediaQuestion};
                 try {
@@ -443,6 +432,7 @@ public class GUI32Controller implements Initializable {
             }
         }   // Add new Question into SQL
     }
+
 
 
     public void AddImageToImageView(ImageView imageView) {
