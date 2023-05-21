@@ -14,7 +14,12 @@ import javafx.scene.layout.AnchorPane;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -27,6 +32,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
+
 public class GUI32Controller implements Initializable {
     public TreeView<String> showCategory_tv;
     public TextArea questionText_tf;
@@ -81,6 +87,7 @@ public class GUI32Controller implements Initializable {
     Double gradeChoice1 = 0.0, gradeChoice2 = 0.0, gradeChoice3 = 0.0, gradeChoice4 = 0.0, gradeChoice5 = 0.0, gradeChoice6 = 0.0;
     DBConnect db = new DBConnect();
     private MediaPlayer mediaPlayer;
+
     public Integer ChoiceNumberInQuestion() {
         int choiceNumber = 0;
         for (TextField textField : Arrays.asList(choice1_tf, choice2_tf, choice3_tf, choice4_tf, choice5_tf, choice6_tf)) {
@@ -90,8 +97,9 @@ public class GUI32Controller implements Initializable {
         }
         return choiceNumber;
     } // Return Number of TextField Choice is Edited
+
     // View in Editing Question From GUI21
-    public void editingQuestionChoice(String categoryName, String questionID, String questionText, String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, String choiceText4, String choiceGrade4, String choiceMedia4, String choiceText5, String choiceGrade5, String choiceMedia5, String choiceText6, String choiceGrade6, String choiceMedia6) {
+    public void editingQuestionChoice(String categoryName, String questionID, String questionText, String questionMedia, String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, String choiceText4, String choiceGrade4, String choiceMedia4, String choiceText5, String choiceGrade5, String choiceMedia5, String choiceText6, String choiceGrade6, String choiceMedia6) throws FileNotFoundException {
         videoPane_ap.setVisible(false);
         paneChoice2_ap.setVisible(false);
         nameCategoryQuestion = categoryName;
@@ -106,35 +114,36 @@ public class GUI32Controller implements Initializable {
         choice4_tf.setText(choiceText4);
         choice5_tf.setText(choiceText5);
         choice6_tf.setText(choiceText6);
+        loadFile(questionMedia, imageQuestion_iv, gifQuestion_iv, mediaQuestion_mv);
         if (!choiceText1.trim().equals("")) {
             gradeChoice1_cb.setEditable(true);
             gradeChoice1_cb.getEditor().setText(Float.parseFloat(choiceGrade1) * 100 + "%");
-            loadImage(choiceMedia1,imageChoice1_iv);
+            loadImage(choiceMedia1, imageChoice1_iv);
         }
         if (!choiceText2.trim().equals("")) {
             gradeChoice2_cb.setEditable(true);
             gradeChoice2_cb.getEditor().setText(Float.parseFloat(choiceGrade2) * 100 + "%");
-            loadImage(choiceMedia2,imageChoice2_iv);
+            loadImage(choiceMedia2, imageChoice2_iv);
         }
         if (!choiceText3.trim().equals("")) {
             gradeChoice3_cb.setEditable(true);
             gradeChoice3_cb.getEditor().setText(Float.parseFloat(choiceGrade3) * 100 + "%");
-            loadImage(choiceMedia3,imageChoice3_iv);
+            loadImage(choiceMedia3, imageChoice3_iv);
         }
         if (!choiceText4.trim().equals("")) {
             gradeChoice4_cb.setEditable(true);
             gradeChoice4_cb.getEditor().setText(Float.parseFloat(choiceGrade4) * 100 + "%");
-            loadImage(choiceMedia4,imageChoice4_iv);
+            loadImage(choiceMedia4, imageChoice4_iv);
         }
         if (!choiceText5.trim().equals("")) {
             gradeChoice5_cb.setEditable(true);
             gradeChoice5_cb.getEditor().setText(Float.parseFloat(choiceGrade5) * 100 + "%");
-            loadImage(choiceMedia5,imageChoice5_iv);
+            loadImage(choiceMedia5, imageChoice5_iv);
         }
         if (!choiceText6.trim().equals("")) {
             gradeChoice6_cb.setEditable(true);
             gradeChoice6_cb.getEditor().setText(Float.parseFloat(choiceGrade6) * 100 + "%");
-            loadImage(choiceMedia6,imageChoice6_iv);
+            loadImage(choiceMedia6, imageChoice6_iv);
         }
         if (!choiceText4.trim().equals("") || !choiceText5.trim().equals("") || !choiceText6.trim().equals("")) {
             paneChoice2_ap.setTranslateY(239);
@@ -293,12 +302,10 @@ public class GUI32Controller implements Initializable {
             ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", cancelEvent);
         });
         editing_btn.setOnMouseClicked(saveChangeContinueEditEvent -> {
-            if (questionName_tf.isEditable()) {
-                try {
-                    AddQuestionIntoSQL();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                AddQuestionIntoSQL();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -330,9 +337,29 @@ public class GUI32Controller implements Initializable {
             return saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
         else if (gifQuestion_iv.getImage() != null)
             return saveGif(gifQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText().trim());
-            //else if (mediaQuestion_mv.getMediaPlayer() != null)
+        else if (mediaQuestion_mv.getMediaPlayer() != null)
+            return saveVideo(mediaQuestion_mv, "./src/main/resources/com/example/baitaplonoop/Media/Video", questionName_tf.getText().trim());
         else return null;
     }   // To return path to Media in Question, this prepare for save in the database
+
+    public String saveVideo(MediaView mediaView, String pathVideo, String questionID) {
+        String questionVideoPath = null;
+        if (CheckDuration(mediaView)) {
+            try {
+                MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
+                Media media = mediaPlayer.getMedia();
+                String source = media.getSource();
+                File sourceFile = new File(new URI(source));
+                File targetFile = new File(pathVideo + File.separator + questionID + ".mp4");
+                Files.copy(sourceFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                questionVideoPath = pathVideo + File.separator + questionID + ".mp4";
+            } catch (Exception e) {
+                System.err.println("Failed to save video");
+                e.printStackTrace();
+            }
+        }
+        return questionVideoPath;
+    }
 
     public String saveGif(ImageView imageView, String pathGIF, String questionID) {
         String questionGifPah = null;
@@ -440,7 +467,9 @@ public class GUI32Controller implements Initializable {
                     }
                 }
                 AlertOOP.AddDone("Add Question Status", "Add Question Done", "Done");
-                EditQuestionFromSQL();
+                showCategory_tv.setEditable(false);
+                questionName_tf.setEditable(false);
+                categoryName_lb.setMouseTransparent(false);
             }
         }
     }   // Add new Question into SQL
@@ -460,13 +489,6 @@ public class GUI32Controller implements Initializable {
         }
     }
 
-    public void EditQuestionFromSQL() throws SQLException {
-        showCategory_tv.setEditable(false);
-        questionName_tf.setEditable(false);
-        categoryName_lb.setMouseTransparent(false);
-
-    }   // Add new Question into SQL
-
     public void loadImage(String path, ImageView imageView) {
         if (path == null || path.isEmpty()) {
             return;
@@ -477,5 +499,55 @@ public class GUI32Controller implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadFile(String path, ImageView imageViewImage, ImageView imageViewGif, MediaView mediaViewVideo) {
+        if (path == null || path.isEmpty()) return;
+        int dotIndex = path.lastIndexOf(".");
+        if (dotIndex == -1) return;
+        String extension = path.substring(dotIndex);
+        if (extension.equalsIgnoreCase(".jpg")) {
+            Image image = new Image("file:" + path);
+            imageViewImage.setImage(image);
+            imageViewImage.setVisible(true);
+            imageViewGif.setVisible(false);
+            mediaViewVideo.setVisible(false);
+        } else if (extension.equalsIgnoreCase(".gif")) {
+            Image gif = new Image("file:" + path);
+            imageViewGif.setImage(gif);
+            imageViewGif.setVisible(true);
+            imageViewImage.setVisible(false);
+            mediaViewVideo.setVisible(false);
+        } else if (extension.equalsIgnoreCase(".mp4")) {
+            Path pathVideo = Paths.get(path);
+            pathVideo = pathVideo.toAbsolutePath();
+            Media media = new Media(pathVideo.toUri().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaViewVideo.setMediaPlayer(mediaPlayer);
+            videoPane_ap.setVisible(true);
+            imageViewImage.setVisible(false);
+            imageViewGif.setVisible(false);
+            mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+                if (!timeSlider.isValueChanging()) {
+                    timeSlider.setValue(newTime.toSeconds() / mediaPlayer.getTotalDuration().toSeconds() * 100);
+                }
+            });
+            timeSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (timeSlider.isValueChanging()) {
+                    mediaPlayer.seek(mediaPlayer.getTotalDuration().multiply(newValue.doubleValue() / 100));
+                }
+            });
+            playVideo.setOnAction(e -> {
+                if (mediaPlayer != null) {
+                    mediaPlayer.play();
+                }
+            });
+            // Pause video in MediaView
+            pause_btn.setOnAction(e -> {
+                if (mediaPlayer != null) {
+                    mediaPlayer.pause();
+                }
+            });
+        } else return;
     }
 }

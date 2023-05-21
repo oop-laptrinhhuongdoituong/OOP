@@ -132,21 +132,23 @@ public class DBConnect {
         }
         return rowInserted;
     }
-    public String FindQuestionText(String questionID) {
-        String questionText = null;
-        String sql = "SELECT questionText FROM Question WHERE questionID = ?";
+    public String[] FindQuestionInfo(String questionID) {
+        String[] questionInfo = null;
+        String sql = "SELECT questionText,questionMedia FROM Question WHERE questionID = ?";
         try (
                 PreparedStatement statement = con.prepareStatement(sql);
         ) {
             statement.setString(1, questionID);
-
             ResultSet rs = statement.executeQuery();
-            if (rs.next()) questionText = rs.getNString("questionText");
+            if (rs.next()) {
+                String questionText = rs.getNString("questionText");
+                String questionMedia = rs.getString("questionMedia");
+                questionInfo = new String[]{questionText, questionMedia};
+            }
         } catch (SQLException e) {
-            // Xử lý các ngoại lệ SQL
             e.printStackTrace();
         }
-        return questionText;
+        return questionInfo;
     }
     public String[] FindChoiceInfo(String choiceID) {
         String[] choiceInfo = null;
