@@ -94,9 +94,11 @@ public class GUI32Controller implements Initializable {
     public void editingQuestionChoice(String categoryName, String questionID, String questionText, String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, String choiceText4, String choiceGrade4, String choiceMedia4, String choiceText5, String choiceGrade5, String choiceMedia5, String choiceText6, String choiceGrade6, String choiceMedia6) {
         videoPane_ap.setVisible(false);
         paneChoice2_ap.setVisible(false);
+        nameCategoryQuestion = categoryName;
         questionLabel_lb.setText("Editing a Multilple choice question");
         categoryName_lb.setText(categoryName);
         questionName_tf.setText(questionID);
+        questionName_tf.setEditable(false);
         questionText_tf.setText(questionText);
         choice1_tf.setText(choiceText1);
         choice2_tf.setText(choiceText2);
@@ -107,28 +109,34 @@ public class GUI32Controller implements Initializable {
         if (!choiceText1.trim().equals("")) {
             gradeChoice1_cb.setEditable(true);
             gradeChoice1_cb.getEditor().setText(Float.parseFloat(choiceGrade1) * 100 + "%");
+            loadImage(choiceMedia1,imageChoice1_iv);
         }
         if (!choiceText2.trim().equals("")) {
             gradeChoice2_cb.setEditable(true);
             gradeChoice2_cb.getEditor().setText(Float.parseFloat(choiceGrade2) * 100 + "%");
+            loadImage(choiceMedia2,imageChoice2_iv);
         }
         if (!choiceText3.trim().equals("")) {
             gradeChoice3_cb.setEditable(true);
             gradeChoice3_cb.getEditor().setText(Float.parseFloat(choiceGrade3) * 100 + "%");
+            loadImage(choiceMedia3,imageChoice3_iv);
         }
         if (!choiceText4.trim().equals("")) {
             gradeChoice4_cb.setEditable(true);
             gradeChoice4_cb.getEditor().setText(Float.parseFloat(choiceGrade4) * 100 + "%");
+            loadImage(choiceMedia4,imageChoice4_iv);
         }
         if (!choiceText5.trim().equals("")) {
             gradeChoice5_cb.setEditable(true);
             gradeChoice5_cb.getEditor().setText(Float.parseFloat(choiceGrade5) * 100 + "%");
+            loadImage(choiceMedia5,imageChoice5_iv);
         }
         if (!choiceText6.trim().equals("")) {
             gradeChoice6_cb.setEditable(true);
             gradeChoice6_cb.getEditor().setText(Float.parseFloat(choiceGrade6) * 100 + "%");
+            loadImage(choiceMedia6,imageChoice6_iv);
         }
-        if (choiceText4.trim().equals("") || !choiceText5.trim().equals("") || !choiceText6.trim().equals("")) {
+        if (!choiceText4.trim().equals("") || !choiceText5.trim().equals("") || !choiceText6.trim().equals("")) {
             paneChoice2_ap.setTranslateY(239);
             buttonPane_ap.setTranslateY(239);
             paneChoice2_ap.setVisible(true);
