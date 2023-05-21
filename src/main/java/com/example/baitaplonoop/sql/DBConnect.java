@@ -210,6 +210,19 @@ public class DBConnect {
         rowInserted = statement.executeUpdate();
         return rowInserted;
     }
+    public int UpdateChoice(String[] choiceInfo) throws SQLException {
+        int rowInserted = 0;
+        String sql = "MERGE Choice AS target USING (VALUES (?,?,?,?,?)) AS source (choiceText, choiceGrade, choiceID, questionID, choiceMedia)  ON target.choiceID = source.choiceID  WHEN MATCHED THEN  UPDATE SET choiceText = source.choiceText,  choiceGrade = source.choiceGrade, choiceID = source.choiceID,questionID = source.questionID, choiceMedia = source.choiceMedia  WHEN NOT MATCHED THEN  INSERT (choiceText, choiceGrade, choiceID, questionID, choiceMedia)  VALUES (source.choiceText, source.choiceGrade, source.choiceID, source.questionID, source.choiceMedia);";
+        PreparedStatement statement;
+        statement = con.prepareStatement(sql);
+        statement.setString(1, choiceInfo[0]);
+        statement.setFloat(2, Float.parseFloat(choiceInfo[1]));
+        statement.setString(3, choiceInfo[2]);
+        statement.setString(4, choiceInfo[3]);
+        statement.setString(5,  choiceInfo[4]);
+        rowInserted = statement.executeUpdate();
+        return rowInserted;
+    }
     public boolean checkQuestionID(String questionID) throws SQLException {
         boolean result = false;
         String sql = "SELECT * FROM Question WHERE questionID = ?"; // Câu lệnh SQL truy vấn dữ liệu theo questionID
