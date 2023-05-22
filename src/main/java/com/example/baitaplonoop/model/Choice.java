@@ -7,8 +7,7 @@ public class Choice {
     private String questionID;
     private boolean isSelected;
 
-    public Choice() {
-    }
+
 
     public Choice(String choiceText, double choiceGrade, String choiceID, String questionID, boolean isSelected) {
         this.choiceText = choiceText;

@@ -38,4 +38,18 @@ public class ChangeScene {
         Scene scene = new Scene(parent);
         stage.setScene(scene);
     }
+
+    public static void switchScene(String fxmlFile) {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(ChangeScene.class.getResource(fxmlFile));
+        Parent parent;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load FXML file", e);
+        }
+        Scene scene = new Scene(parent);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
