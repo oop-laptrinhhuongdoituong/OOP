@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.ChangeScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -44,8 +45,8 @@ public class GUI35Controller implements Initializable {
             }
         });
 
-        cancel_btn.setOnAction(cancelQuizEvent ->{
-            // Chưa thấy thầy bảo có sự kiện gì
+        cancel_btn.setOnMouseClicked(cancelQuizEvent ->{
+            ChangeScene.changeSceneUsingMouseEvent(this,"/com/example/baitaplonoop/GUI11.fxml",cancelQuizEvent);
         });
     }
 }

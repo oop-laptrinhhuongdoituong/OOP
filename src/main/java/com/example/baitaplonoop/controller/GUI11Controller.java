@@ -3,6 +3,7 @@ package com.example.baitaplonoop.controller;
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.ChangeScene;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -34,6 +36,7 @@ public class GUI11Controller implements Initializable {
     GUI11PopUpController controller;
     static Dialog<String> dialog;
     DBConnect db = new DBConnect();
+    public static MouseEvent settingEvent;
 
     public static String quizChosen = "";
     public void setListViewQuiz(){
@@ -58,33 +61,15 @@ public class GUI11Controller implements Initializable {
             ChangeScene.changeSceneUsingActionEvent((Initializable) this, "/com/example/baitaplonoop/GUI35AddingQuiz.fxml", event);
         });
         imgSetting.setOnMouseClicked(event -> {
+            settingEvent = event;
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI11PopUp.fxml"));
             try {
-                fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI11PopUp.fxml"));
-                DialogPane pane = fxmlLoader.load();
-                controller = fxmlLoader.getController();
-
-                dialog = new Dialog<>();
-                dialog.setDialogPane(pane);
-                ButtonType xacNhan = new ButtonType("Xác nhận", ButtonBar.ButtonData.OK_DONE);
-                dialog.getDialogPane().getButtonTypes().addAll(xacNhan);
-                dialog.setResultConverter(new Callback<ButtonType, String>() {
-                    @Override
-                    public String call(ButtonType buttonType) {
-                        if(buttonType == xacNhan){
-                            return controller.result;
-                        }
-                        return null;
-                    }
-                });
-                Optional<String>  result = dialog.showAndWait();
-                if (result.get().equals("Import")){
-                    ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI34.fxml", event);
-                } else if(result.get().equals("Category")){
-                    ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI33AddCategory.fxml", event);
-                } else if (result.get().equals("Question")) {
-                    ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI21.fxml", event);
-                }
+                Parent parent = fxmlLoader.load();
+                Scene scene = new Scene(parent);
+                stage.setScene(scene);
+                stage.show();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

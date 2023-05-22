@@ -32,7 +32,7 @@
       <Button layoutX="19.0" layoutY="194.0" mnemonicParsing="false" text="REPAGINATE" />
       <Label layoutX="509.0" layoutY="136.0" prefHeight="21.0" prefWidth="116.0" text="Maximun grade:" />
       <TextField alignment="CENTER" editable="false" layoutX="623.0" layoutY="131.0" prefHeight="31.0" prefWidth="51.0" text="10.00" />
-      <Button layoutX="698.0" layoutY="131.0" mnemonicParsing="false" text="SAVE" />
+      <Button fx:id="save" layoutX="698.0" layoutY="131.0" mnemonicParsing="false" text="SAVE" />
       <Label fx:id="totalOfMark" layoutX="634.0" layoutY="184.0" prefHeight="21.0" prefWidth="129.0" text="Total of mark: 0.00" />
       <ListView fx:id="listModeAdd" layoutX="555.0" layoutY="296.0" prefHeight="78.0" prefWidth="198.0" />
       <Label fx:id="numberQuestionInTable" layoutX="39.0" layoutY="162.0" prefHeight="21.0" prefWidth="210.0" text="Questions: 0 | This quiz is open" />
