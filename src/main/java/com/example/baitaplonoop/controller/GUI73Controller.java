@@ -4,6 +4,7 @@ import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.AnchorPaneGUI7;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -23,13 +24,17 @@ public class GUI73Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ResultSet rs = db.getData("Select questionID from QuestionInQuiz where quizName = N'" + quizChosen + "'");
         int i = 0;
+        double questionHeight = 0.0;
         try{
             while(rs.next()){
                 AnchorPaneGUI7 question = new AnchorPaneGUI7(i+1, rs.getString("questionID"));
                 apQuestion.getChildren().add(question);
                 AnchorPane.setRightAnchor(question, 0.0);
                 AnchorPane.setLeftAnchor(question, 0.0);
-                AnchorPane.setTopAnchor(question, 250.0*i);
+                AnchorPane.setTopAnchor(question, questionHeight);
+                questionHeight += 10.0;
+                questionHeight += question.getPrefHeight();
+                System.out.println(question.getBoundsInParent().getHeight());
                 i++;
             }
         } catch (SQLException e) {
