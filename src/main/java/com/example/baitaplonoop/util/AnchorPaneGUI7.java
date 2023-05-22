@@ -24,12 +24,10 @@ public class AnchorPaneGUI7 extends AnchorPane {
     private Label questionText = new Label();
     private ArrayList<RadioButton> listChoice = new ArrayList<>();
     DBConnect db = new DBConnect();
-
     public AnchorPaneGUI7(int position, String questionID) {
         setUpQuestionPos(position);
         setUpQuestionContent(questionID);
         this.setPrefSize(100, 250);
-
         this.getChildren().addAll(questionPos, questionContent);
         AnchorPane.setTopAnchor(questionPos, 0.0);
         AnchorPane.setLeftAnchor(questionPos, 0.0);
@@ -37,7 +35,6 @@ public class AnchorPaneGUI7 extends AnchorPane {
         AnchorPane.setRightAnchor(questionContent, 5.0);
         AnchorPane.setLeftAnchor(questionContent, 135.0);
     }
-
     public void setUpQuestionPos(int position){
         this.questionPos = new AnchorPane();
         this.questionPos.setStyle("-fx-background-color: #FFFFFF");

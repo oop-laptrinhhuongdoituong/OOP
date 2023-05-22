@@ -28,8 +28,6 @@ import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-
 public class GUI32Controller implements Initializable {
     public TreeView<String> showCategory_tv;
     public TextArea questionText_tf;
