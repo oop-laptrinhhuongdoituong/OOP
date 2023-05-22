@@ -313,7 +313,7 @@ public class GUI32Controller implements Initializable {
         if (imageQuestion_iv.getImage() != null)
             return saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
         else if (gifQuestion_iv.getImage() != null)
-            return saveGif(gifQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText().trim());
+            return saveGif(gifQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/GIF/Question", questionName_tf.getText().trim());
         else if (mediaQuestion_mv.getMediaPlayer() != null)
             return saveVideo(mediaQuestion_mv, "./src/main/resources/com/example/baitaplonoop/Media/Video", questionName_tf.getText().trim());
         else return null;
@@ -448,7 +448,6 @@ public class GUI32Controller implements Initializable {
         }
     }   // Add new Question into SQL
     public void AddImageToImageView(ImageView imageView) {
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.jpg"),
