@@ -42,7 +42,6 @@ public class GUI73Controller implements Initializable {
                 AnchorPane.setTopAnchor(question, questionHeight);
                 questionHeight += 10.0;
                 questionHeight += question.getPrefHeight();
-                System.out.println(question.getBoundsInParent().getHeight());
                 i++;
             }
         } catch (SQLException e) {

@@ -254,8 +254,11 @@ public class ImportFile {
                     }
                 }
                 String[] questionPart = part[start.get(j).LineNumber].split(": ", 2);
-                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00"};
-                int questionRowInserted = db.InsertQuestion(insertQuestion, bytepic);
+                String imagePath = "./src/main/resources/com/example/baitaplonoop/Media/Image/Question/" + questionPart[0] + ".png";
+                FileOutputStream os = new FileOutputStream(new File(imagePath));
+                os.write(bytepic);
+                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", imagePath};
+                int questionRowInserted = db.InsertQuestionFull(insertQuestion);
 
                 String[] answer = part[end.get(j).LineNumber].split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
@@ -303,8 +306,8 @@ public class ImportFile {
             }
             for (int j = 0; j < start.size(); j++) {
                 String[] questionPart = part.get(start.get(j).LineNumber).split(": ", 2);
-                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00"};
-                int questionRowInserted = db.InsertQuestion(insertQuestion, null);
+                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", "NULL"};
+                int questionRowInserted = db.InsertQuestionFull(insertQuestion);
                 String[] answer = part.get(end.get(j).LineNumber).split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);

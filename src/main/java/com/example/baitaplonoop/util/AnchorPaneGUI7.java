@@ -9,6 +9,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,8 +30,9 @@ public class AnchorPaneGUI7 extends AnchorPane {
 
     public AnchorPaneGUI7(int position, String questionID) {
         setUpQuestionPos(position);
-        setUpQuestionContent(questionID);
-        this.setMinSize(1000, 250);
+
+        this.setPrefWidth(1000);
+        this.setPrefHeight(setUpQuestionContent(questionID));
 
         this.getChildren().addAll(questionPos, questionContent);
         AnchorPane.setTopAnchor(questionPos, 0.0);
@@ -38,6 +40,7 @@ public class AnchorPaneGUI7 extends AnchorPane {
         AnchorPane.setTopAnchor(questionContent, 0.0);
         AnchorPane.setRightAnchor(questionContent, 5.0);
         AnchorPane.setLeftAnchor(questionContent, 135.0);
+        AnchorPane.setBottomAnchor(questionContent, 10.0);
     }
 
     public void setUpQuestionPos(int position){
@@ -57,15 +60,17 @@ public class AnchorPaneGUI7 extends AnchorPane {
         AnchorPane.setTopAnchor(questionFlag, 164.0);
         AnchorPane.setLeftAnchor(questionFlag, 14.0);
     }
-    public void setUpQuestionContent(String questionID){
+    public double setUpQuestionContent(String questionID){
         this.questionContent = new AnchorPane();
         this.questionContent.setStyle("-fx-background-color: #F0FFFF");
         this.questionContent.setMinSize(850,240);
         ResultSet rs = db.getData("Select questionText from Question where questionID = '" + questionID + "'");
+        double choiceHeight = 44.0;
         try {
             if(rs.next()){
-                this.questionText.setWrappingWidth(500);
+                this.questionText.setWrappingWidth(900);
                 this.questionText.setText(questionID + ": " + rs.getString("questionText"));
+                this.questionText.setTextAlignment(TextAlignment.JUSTIFY);
                 this.questionContent.getChildren().add(questionText);
                 AnchorPane.setTopAnchor(questionText, 14.0);
                 AnchorPane.setLeftAnchor(questionText, 14.0);
@@ -76,10 +81,11 @@ public class AnchorPaneGUI7 extends AnchorPane {
                     radioButton.setMaxWidth(485);
                     radioButton.setWrapText(true);
                     radioButton.setAlignment(Pos.TOP_CENTER);
+                    radioButton.setTextAlignment(TextAlignment.JUSTIFY);
                     listChoice.add(radioButton);
                     c++;
                 }
-                double choiceHeight = 44.0 + questionText.getLayoutBounds().getHeight();
+                choiceHeight += questionText.getLayoutBounds().getHeight();
                 for(int i = 0; i < listChoice.size(); i++){
                     choiceHeight += 10.0;
                     listChoice.get(i).setToggleGroup(group);
@@ -91,9 +97,12 @@ public class AnchorPaneGUI7 extends AnchorPane {
                     text.setWrappingWidth(465);
                     choiceHeight += text.getLayoutBounds().getHeight();
                 }
+                AnchorPane.setBottomAnchor(listChoice.get(listChoice.size()-1), 10.0);
+                choiceHeight += 20.0;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return choiceHeight > this.questionContent.getMinHeight() ? choiceHeight : (this.questionContent.getMinHeight() + 10.0);
     }
 }
