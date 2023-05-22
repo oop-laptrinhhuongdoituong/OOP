@@ -403,20 +403,20 @@ public class GUI32Controller implements Initializable {
                     if (imageChoice3_iv.getImage() != null) {
                         String pathMediaChoice = saveImage(imageChoice3_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "3");
                         String[] addChoice3 = {choice3_tf.getText(), String.valueOf(gradeChoice3), questionName_tf.getText() + "3", questionName_tf.getText(), null, pathMediaChoice};
-                        db.InsertChoice(addChoice3);
+                        db.UpdateChoice(addChoice3);
                     } else {
                         String[] addChoice3 = {choice3_tf.getText(), String.valueOf(gradeChoice3), questionName_tf.getText() + "3", questionName_tf.getText(), null, null};
-                        db.InsertChoice(addChoice3);
+                        db.UpdateChoice(addChoice3);
                     }
                 }
                 if (!choice4_tf.getText().trim().equals("")) {
                     if (imageChoice4_iv.getImage() != null) {
                         String pathMediaChoice = saveImage(imageChoice4_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "4");
                         String[] addChoice4 = {choice4_tf.getText(), String.valueOf(gradeChoice4), questionName_tf.getText() + "4", questionName_tf.getText(), null, pathMediaChoice};
-                        db.InsertChoice(addChoice4);
+                        db.UpdateChoice(addChoice4);
                     } else {
                         String[] addChoice4 = {choice4_tf.getText(), String.valueOf(gradeChoice4), questionName_tf.getText() + "4", questionName_tf.getText(), null, null};
-                        db.InsertChoice(addChoice4);
+                        db.UpdateChoice(addChoice4);
                     }
                 }
                 if (!choice5_tf.getText().trim().equals("")) {
@@ -424,20 +424,20 @@ public class GUI32Controller implements Initializable {
                         String pathMediaChoice = saveImage(imageChoice5_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "5");
                         System.out.println(pathMediaChoice);
                         String[] addChoice5 = {choice5_tf.getText(), String.valueOf(gradeChoice5), questionName_tf.getText() + "5", questionName_tf.getText(), null, pathMediaChoice};
-                        db.InsertChoice(addChoice5);
+                        db.UpdateChoice(addChoice5);
                     } else {
                         String[] addChoice5 = {choice5_tf.getText(), String.valueOf(gradeChoice5), questionName_tf.getText() + "5", questionName_tf.getText(), null, null};
-                        db.InsertChoice(addChoice5);
+                        db.UpdateChoice(addChoice5);
                     }
                 }
                 if (!choice6_tf.getText().trim().equals("")) {
                     if (imageChoice6_iv.getImage() != null) {
                         String pathMediaChoice = saveImage(imageChoice6_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "6");
                         String[] addChoice6 = {choice6_tf.getText(), String.valueOf(gradeChoice6), questionName_tf.getText() + "6", questionName_tf.getText(), null, pathMediaChoice};
-                        db.InsertChoice(addChoice6);
+                        db.UpdateChoice(addChoice6);
                     } else {
                         String[] addChoice6 = {choice6_tf.getText(), String.valueOf(gradeChoice6), questionName_tf.getText() + "6", questionName_tf.getText(), null, null};
-                        db.InsertChoice(addChoice6);
+                        db.UpdateChoice(addChoice6);
                     }
                 }
                 AlertOOP.AddDone("Add Question Status", "Add Question Done", "Done");
