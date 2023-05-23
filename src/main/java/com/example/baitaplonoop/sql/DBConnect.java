@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import com.example.baitaplonoop.model.Choice;
 public class DBConnect {
     public Connection con;
-
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -30,18 +29,17 @@ public class DBConnect {
         }
         return rs;
     }
-
-    public int InsertQuestionFull(String[] stringSQL){
-        int rowInserted = 0;
-        String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMark, questionMedia) values(?,?,?,?,?)";
+    public int InsertQuestion(String[] stringSQL, byte[] pic) {
+        int rowInserted;
+        String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMark, questionImage) values(?,?,?,?,?)";
         PreparedStatement statement;
-        try{
+        try {
             statement = con.prepareStatement(sql);
             statement.setString(1, stringSQL[0]);
             statement.setString(2, stringSQL[1]);
             statement.setString(3, stringSQL[2]);
             statement.setString(4, stringSQL[3]);
-            statement.setString(5, stringSQL[4]);
+            statement.setBytes(5, pic);
             rowInserted = statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

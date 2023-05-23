@@ -26,7 +26,7 @@
          <Label layoutX="33.0" layoutY="144.0" text="Question text" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="144.0" />
          <TextArea fx:id="questionText_tf" layoutX="205.0" layoutY="142.0" prefHeight="80.0" prefWidth="302.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="140.0" />
          <TextField fx:id="questionName_tf" layoutX="203.0" layoutY="101.0" prefHeight="25.0" prefWidth="302.0" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="100.0" />
-         <TreeView fx:id="showCategory_tv" layoutX="203.0" layoutY="63.0" prefHeight="29.0" prefWidth="302.0" visible="false" AnchorPane.leftAnchor="203.0" AnchorPane.topAnchor="60.0" />
+         <TreeView fx:id="showCategory_tv" layoutX="203.0" layoutY="63.0" prefHeight="160.0" prefWidth="302.0" visible="false" AnchorPane.leftAnchor="203.0" AnchorPane.topAnchor="60.0" />
          <Label fx:id="categoryName_lb" layoutX="205.0" layoutY="66.0" style="-fx-cursor: hand;" text="Choose Category Name" />
          <AnchorPane fx:id="buttonPane_ap" layoutX="201.0" layoutY="455.0" prefHeight="171.0" prefWidth="302.0" AnchorPane.leftAnchor="201.0" AnchorPane.topAnchor="455.0">
             <Button fx:id="addQuestion_btn" layoutX="164.0" layoutY="132.0" mnemonicParsing="false" style="-fx-background-color: #ff1e1e;" text="Save Change" />
