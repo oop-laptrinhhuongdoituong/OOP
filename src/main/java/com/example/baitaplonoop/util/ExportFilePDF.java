@@ -45,15 +45,9 @@ public class ExportFilePDF {
                 Phrase p = new Phrase();
                 if (rs1.next()) {
                     p.add(rs1.getString("questionID") + ": " + rs1.getString("questionText") + "\n\n");
-                    InputStream is = rs1.getBinaryStream(4);
-                    if (is != null) {
-                        FileOutputStream os = new FileOutputStream(new File("./src/main/resources/com/example/baitaplonoop/media/GIF/Question/image.png"));
-                        byte[] contents = new byte[1024];
-                        int size = 0;
-                        while ((size = is.read(contents)) != -1) {
-                            os.write(contents, 0, size);
-                        }
-                        Image image = Image.getInstance("./src/main/resources/com/example/baitaplonoop/media/GIF/Question/image.png");
+                    String imagePath = rs1.getString(5);
+                    if(imagePath != "NULL"){
+                        Image image = Image.getInstance(imagePath);
                         image.scaleToFit(150,200);
                         p.add(new Chunk(image, 0, 0, true));
                         p.add("\n");
@@ -70,15 +64,9 @@ public class ExportFilePDF {
                     ResultSet rs4 = db.getData("Select * from Choice where questionID = '" + rs.getString("questionID") + "'");
                     if (rs3.next()) {
                         p.add(rs3.getString("questionID") + ": " + rs3.getString("questionText") + "\n\n");
-                        InputStream is = rs3.getBinaryStream(4);
-                        if (is != null) {
-                            FileOutputStream os = new FileOutputStream(new File("./src/main/resources/com/example/baitaplonoop/media/GIF/Question/image.png"));
-                            byte[] contents = new byte[1024];
-                            int size = 0;
-                            while ((size = is.read(contents)) != -1) {
-                                os.write(contents, 0, size);
-                            }
-                            Image image = Image.getInstance("./src/main/resources/com/example/baitaplonoop/media/GIF/Question/image.png");
+                        String imagePath = rs3.getString(5);
+                        if(imagePath != "NULL"){
+                            Image image = Image.getInstance(imagePath);
                             image.scaleToFit(150,200);
                             p.add(new Chunk(image, 0, 0, true));
                             p.add("\n");

@@ -29,7 +29,6 @@ Create table Quiz
 	categoryID nvarchar(10),
 	questionID nvarchar(10) primary key,
 	questionText nvarchar(4000),
-	questionImage nvarchar(500),
 	questionMedia nvarchar(100),
 	questionMark float,
 	Foreign key(categoryID) references Category(categoryID)
