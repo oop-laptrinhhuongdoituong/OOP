@@ -30,14 +30,14 @@ import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
 public class GUI73Controller implements Initializable {
     @FXML
     private Label quizName_lb;
+    @FXML
+    private Label timerLabel;
     private String  quizName;
     public GridPane questionOverview_gp;
     public AnchorPane QuestionOverview_ap;
     @FXML
     private AnchorPane apQuestion;
     DBConnect db = new DBConnect();
-    @FXML
-    private Label timerLabel;
     private Timeline timeline;
     private int seconds = 0;
     private void updateTimerLabel() {

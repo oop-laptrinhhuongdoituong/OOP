@@ -29,7 +29,7 @@
          <Label layoutX="27.0" layoutY="60.0" text="Home  /" />
          <Label layoutX="87.0" layoutY="60.0" text="My courses  /" />
          <Label layoutX="172.0" layoutY="60.0" text="THI CUỐI KỲ  /" />
-         <Label layoutX="263.0" layoutY="56.0" prefHeight="29.0" prefWidth="602.0" />
+         <Label fx:id="quizName_lb" layoutX="263.0" layoutY="56.0" prefHeight="29.0" prefWidth="602.0" />
       </AnchorPane>
    </top>
    <center>
@@ -41,7 +41,7 @@
             <top>
                <AnchorPane prefHeight="62.0" prefWidth="608.0" BorderPane.alignment="CENTER">
                   <children>
-                     <Label layoutX="515.0" layoutY="31.0" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: #000;" textAlignment="CENTER" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="15.0" />
+                     <Label fx:id="timerLabel" alignment="CENTER" layoutX="515.0" layoutY="31.0" prefHeight="26.0" prefWidth="149.0" style="-fx-border-color: #000;" textAlignment="CENTER" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="15.0" />
                   </children>
                </AnchorPane>
             </top>
