@@ -2,6 +2,7 @@ package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.ImportFile;
+import com.example.baitaplonoop.util.insertCategoryIntoTreeView;
 import com.example.baitaplonoop.util.showTreeViewCategory;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,13 +50,17 @@ public class GUI34Controller implements Initializable {
 
     public void setEvent(){
         lbChooseImportCategory.setOnMouseClicked(mouseEvent -> {
-            treeViewImport.setVisible(true);
-            TreeItem<String> root = new TreeItem<>("Course IT:");
-            showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
-            treeViewImport.setRoot(root);
-            treeViewImport.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-                lbChooseImportCategory.setText(newValue.getValue());
-            });
+            try {
+                treeViewImport.setVisible(true);
+                TreeItem<String> root = new TreeItem<>("Course IT:");
+                treeViewImport.setRoot(root);
+                insertCategoryIntoTreeView.insertCategory("select * from Category where parentID IS NULL", root);
+                treeViewImport.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+                    lbChooseImportCategory.setText(newValue.getValue());
+                });
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
         apDropFile.setOnDragOver(dragEvent -> {
             if (dragEvent.getDragboard().hasFiles()) {

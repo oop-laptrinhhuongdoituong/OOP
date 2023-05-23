@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -259,20 +260,20 @@ public class ImportFile {
                     FileOutputStream os = new FileOutputStream(new File(imagePath));
                     os.write(bytepic);
                     String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", imagePath};
-                    int questionRowInserted = db.InsertQuestionFull(insertQuestion);
+                    int questionRowInserted = db.UpdateQuestion(insertQuestion);
                 }else{
-                    String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", "NULL"};
-                    int questionRowInserted = db.InsertQuestionFull(insertQuestion);
+                    String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", null};
+                    int questionRowInserted = db.UpdateQuestion(insertQuestion);
                 }
                 String[] answer = part[end.get(j).LineNumber].split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);
                     String partChoice[] = part[k].split(". ", 2);
                     if (partChoice[0].equals(answer[1])) {
-                        String insertChoice[] = {partChoice[1], "100", choiceID, questionPart[0], "0"};
+                        String insertChoice[] = {partChoice[1], "100", choiceID, questionPart[0], "0", null};
                         int choiceRowInserted = db.InsertChoice(insertChoice);
                     } else {
-                        String insertChoice[] = {partChoice[1], "0", choiceID, questionPart[0], "0"};
+                        String insertChoice[] = {partChoice[1], "0", choiceID, questionPart[0], "0", null};
                         int choiceRowInserted = db.InsertChoice(insertChoice);
                     }
                 }
@@ -280,6 +281,8 @@ public class ImportFile {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -310,8 +313,8 @@ public class ImportFile {
             }
             for (int j = 0; j < start.size(); j++) {
                 String[] questionPart = part.get(start.get(j).LineNumber).split(": ", 2);
-                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", "NULL"};
-                int questionRowInserted = db.InsertQuestionFull(insertQuestion);
+                String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", null};
+                int questionRowInserted = db.UpdateQuestion(insertQuestion);
                 String[] answer = part.get(end.get(j).LineNumber).split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);
@@ -326,6 +329,8 @@ public class ImportFile {
                 }
             }
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

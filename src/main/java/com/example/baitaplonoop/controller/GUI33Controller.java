@@ -32,7 +32,7 @@ public class GUI33Controller implements Initializable {
 
         // Choose the parent category
         addParentCategory_lb.setOnMouseClicked(mouseEvent -> {
-            checkAddParent = true;
+            //checkAddParent = true;
             parentCategory_tv.setVisible(true);
             addParentCategory_lb.setVisible(false);
             TreeItem<String> root = new TreeItem<>("Course IT:");
@@ -41,6 +41,7 @@ public class GUI33Controller implements Initializable {
             parentCategory_tv.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
                 addParentCategory_lb.setText(newValue.getValue());
                 parentCategoryName = newValue.getValue();
+                checkAddParent = true;
                 System.out.println(parentCategoryName);
             });
         });
@@ -53,7 +54,7 @@ public class GUI33Controller implements Initializable {
             } else if (!checkAddParent) {
                 String[] addCategory = {null, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
                 int categoryRowInsert = db.InsertCategory(addCategory);
-                AlertOOP.AddDone("Add Category status", "Add category done", "");
+                AlertOOP.AddDone("Add Category status", "Add category done", "Add category without parent category");
                 ChangeScene.changeSceneUsingMouseEvent(this,  "/com/example/baitaplonoop/GUI11.fxml", buttonAddCategoryEvent);
             } else {
                 String IDParentCategory;
@@ -64,7 +65,7 @@ public class GUI33Controller implements Initializable {
                 }
                 String[] addCategory = {IDParentCategory, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
                 int categoryRowInsert = db.InsertCategory(addCategory);
-                AlertOOP.AddDone("Add Category status", "Add category done", "");
+                AlertOOP.AddDone("Add Category status", "Add category done", "Add category with parent Category");
                 ChangeScene.changeSceneUsingMouseEvent(this,  "/com/example/baitaplonoop/GUI11.fxml", buttonAddCategoryEvent);
             }
         });

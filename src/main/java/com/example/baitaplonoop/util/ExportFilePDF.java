@@ -45,7 +45,7 @@ public class ExportFilePDF {
                 Phrase p = new Phrase();
                 if (rs1.next()) {
                     p.add(rs1.getString("questionID") + ": " + rs1.getString("questionText") + "\n\n");
-                    String imagePath = rs1.getString(5);
+                    String imagePath = rs1.getString(4);
                     if(imagePath != "NULL"){
                         Image image = Image.getInstance(imagePath);
                         image.scaleToFit(150,200);
@@ -64,7 +64,7 @@ public class ExportFilePDF {
                     ResultSet rs4 = db.getData("Select * from Choice where questionID = '" + rs.getString("questionID") + "'");
                     if (rs3.next()) {
                         p.add(rs3.getString("questionID") + ": " + rs3.getString("questionText") + "\n\n");
-                        String imagePath = rs3.getString(5);
+                        String imagePath = rs3.getString(4);
                         if(imagePath != "NULL"){
                             Image image = Image.getInstance(imagePath);
                             image.scaleToFit(150,200);

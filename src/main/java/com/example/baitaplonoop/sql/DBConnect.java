@@ -29,9 +29,9 @@ public class DBConnect {
         }
         return rs;
     }
-    public int InsertQuestion(String[] stringSQL, byte[] pic) {
+    public int InsertQuestion(String[] stringSQL) {
         int rowInserted;
-        String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMark, questionImage) values(?,?,?,?,?)";
+        String sql = "INSERT INTO Question(categoryID, questionID, questionText, questionMark, questionMedia) values(?,?,?,?,?)";
         PreparedStatement statement;
         try {
             statement = con.prepareStatement(sql);
@@ -39,28 +39,27 @@ public class DBConnect {
             statement.setString(2, stringSQL[1]);
             statement.setString(3, stringSQL[2]);
             statement.setString(4, stringSQL[3]);
-            statement.setBytes(5, pic);
             rowInserted = statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return rowInserted;
     }
-    public int InsertQuestion(String[] stringSQL) {
-        int rowInserted = 0;
-        String sql = "INSERT INTO Question(categoryID, questionID, questionText) values(?,?,?)";
-        PreparedStatement statement;
-        try {
-            statement = con.prepareStatement(sql);
-            statement.setString(1, stringSQL[0]);
-            statement.setString(2, stringSQL[1]);
-            statement.setString(3, stringSQL[2]);
-            rowInserted = statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return rowInserted;
-    }
+//    public int InsertQuestion(String[] stringSQL) {
+//        int rowInserted = 0;
+//        String sql = "INSERT INTO Question(categoryID, questionID, questionText) values(?,?,?)";
+//        PreparedStatement statement;
+//        try {
+//            statement = con.prepareStatement(sql);
+//            statement.setString(1, stringSQL[0]);
+//            statement.setString(2, stringSQL[1]);
+//            statement.setString(3, stringSQL[2]);
+//            rowInserted = statement.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return rowInserted;
+//    }
     public int InsertChoice(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected, choiceMedia) values(?,?,?,?,?,?)";
@@ -178,7 +177,7 @@ public class DBConnect {
         statement.setString(2, questionInfo[1]);
         statement.setString(3, questionInfo[2]);
         statement.setString(4, questionInfo[3]);
-        statement.setString(5,questionInfo[4]);
+        statement.setString(5, questionInfo[4]);
         rowInserted = statement.executeUpdate();
         return rowInserted;
     }

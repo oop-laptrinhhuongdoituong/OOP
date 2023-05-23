@@ -28,7 +28,6 @@ public class insertCategoryIntoTreeView {
                 String a = "Select * from dbo.Category where parentID = N'" + rs1.getString("categoryID") + "'";
                 insertCategory(a, item);
                 root.getChildren().add(item);
-
             }
 
         } catch (Exception e) {
