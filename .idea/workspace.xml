@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e99e4343-1934-4a34-858d-155e3f4e1670" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI32Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI32Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI73Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI73Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/util/showTreeViewCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/util/showTreeViewCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI32AddQuestion.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI32AddQuestion.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,21 +77,15 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.baitaplonoop.HelloApplication" />
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.example.baitaplonoop.Main" />
       <module name="BaiTapLonOOP" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.baitaplonoop.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="com.example.baitaplonoop.Main" />
+    <configuration name="QuizApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="QuizApp" />
       <module name="BaiTapLonOOP" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -150,19 +145,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="Application.QuizApp" />
       <item itemvalue="Application.test" />
-      <item itemvalue="Application.HelloApplication" />
       <item itemvalue="Application.main" />
       <item itemvalue="Application.main (1)" />
       <item itemvalue="Application.main (2)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.QuizApp" />
         <item itemvalue="Application.test" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.main (2)" />
         <item itemvalue="Application.main (1)" />
-        <item itemvalue="Application.main" />
       </list>
     </recent_temporary>
   </component>

@@ -6,11 +6,8 @@ import javafx.scene.control.TreeItem;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 public class showTreeViewCategory {
     static DBConnect db = new DBConnect();
-
-
     public static void setTreeViewImport(String sql, TreeItem<String> root){
         ResultSet rs = db.getData(sql);
         ArrayList<String> categoryName = new ArrayList<>();

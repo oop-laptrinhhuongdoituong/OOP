@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
@@ -26,6 +27,8 @@ public class GUI73Controller implements Initializable {
     @FXML
     private AnchorPane apQuestion;
     DBConnect db = new DBConnect();
+    ArrayList<AnchorPaneGUI7> listAnchorPane = new ArrayList<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ResultSet rs = db.getData("Select questionID from QuestionInQuiz where quizName = N'" + quizChosen + "'");
@@ -33,11 +36,13 @@ public class GUI73Controller implements Initializable {
         try{
             while(rs.next()){
                 AnchorPaneGUI7 question = new AnchorPaneGUI7(i+1, rs.getString("questionID"));
+                listAnchorPane.add(question);
                 apQuestion.getChildren().add(question);
                 AnchorPane.setRightAnchor(question, 0.0);
                 AnchorPane.setLeftAnchor(question, 0.0);
                 AnchorPane.setTopAnchor(question, 250.0*i);
                 i++;
+                //listAnchorPane.get
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -120,6 +125,7 @@ public class GUI73Controller implements Initializable {
             });
             // Thêm button vào gridpane
             gridPane.getChildren().add(button);
+
         }
         // Thêm gridpane vào anchorpane
         anchorPane.getChildren().add(gridPane);

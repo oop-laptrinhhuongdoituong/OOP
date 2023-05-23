@@ -299,10 +299,10 @@ public class GUI32Controller implements Initializable {
     public String saveImage(ImageView imageView, String pathImage, String imageID) {
         String questionMediaPath = null;
         try {
-            File target = new File(pathImage + File.separator + imageID + ".jpg");
+            File target = new File(pathImage + File.separator + imageID + ".png");
             BufferedImage toWrite = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-            ImageIO.write(toWrite, "jpg", target);
-            questionMediaPath = pathImage + File.separator + imageID + ".jpg";
+            ImageIO.write(toWrite, "png", target);
+            questionMediaPath = pathImage + File.separator + imageID + ".png";
         } catch (Exception x) {
             System.err.println("Failed to save image");
             x.printStackTrace();
@@ -477,7 +477,7 @@ public class GUI32Controller implements Initializable {
         int dotIndex = path.lastIndexOf(".");
         if (dotIndex == -1) return;
         String extension = path.substring(dotIndex);
-        if (extension.equalsIgnoreCase(".jpg")) {
+        if (extension.equalsIgnoreCase(".png")) {
             Image image = new Image("file:" + path);
             imageViewImage.setImage(image);
             imageViewImage.setVisible(true);
