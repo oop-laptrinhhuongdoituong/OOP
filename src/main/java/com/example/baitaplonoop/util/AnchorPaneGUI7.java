@@ -2,15 +2,18 @@ package com.example.baitaplonoop.util;
 
 
 import com.example.baitaplonoop.sql.DBConnect;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class AnchorPaneGUI7 extends AnchorPane {
     private AnchorPane questionPos;
