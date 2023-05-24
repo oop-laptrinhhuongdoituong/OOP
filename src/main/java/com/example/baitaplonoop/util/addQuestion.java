@@ -38,12 +38,12 @@ public class addQuestion extends Question {
         return super.getQuestionText();
     }
 
-    public void setQuestionImage(String questionImage) {
-        super.setQuestionImage(questionImage);
+    public void setQuestionImage(String questionMedia) {
+        super.setQuestionMedia(questionMedia);
     }
 
     public String getQuestionImage() {
-        return super.getQuestionImage();
+        return super.getQuestionMedia();
     }
 
     public void setQuestionMark(double questionMark) {

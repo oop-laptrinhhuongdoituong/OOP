@@ -4,8 +4,11 @@ import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.AnchorPaneGUI7;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -23,6 +26,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
@@ -40,6 +44,10 @@ public class GUI73Controller implements Initializable {
     DBConnect db = new DBConnect();
     private Timeline timeline;
     private int seconds = 0;
+    @FXML
+    Hyperlink hlFinish;
+    ArrayList<AnchorPaneGUI7> listQuestion = new ArrayList<>();
+    ArrayList<Button> listButton = new ArrayList<>();
     private void updateTimerLabel() {
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
@@ -81,6 +89,7 @@ public class GUI73Controller implements Initializable {
         try{
             while(rs.next()){
                 AnchorPaneGUI7 question = new AnchorPaneGUI7(i+1, rs.getString("questionID"));
+                listQuestion.add(question);
                 apQuestion.getChildren().add(question);
                 AnchorPane.setRightAnchor(question, 0.0);
                 AnchorPane.setLeftAnchor(question, 0.0);
@@ -113,6 +122,17 @@ public class GUI73Controller implements Initializable {
         //addButtonsAndGridPane(i,QuestionOverview_ap);
         addButtonsAndGridPane(i,QuestionOverview_ap,this);
         //setQuestionButtonAction(i,apQuestion);
+        hlFinish.setOnMouseClicked(mouseEvent -> {
+            double mark = 0;
+            for(int j = 0; j < listQuestion.size(); j++){
+                for(int h = 0; h < listQuestion.get(j).listChoice.size(); h++){
+                    if(listQuestion.get(j).listRadioButton.get(h).isSelected()){
+                        mark += listQuestion.get(j).question.getQuestionMark() * listQuestion.get(j).listChoice.get(h).getChoiceGrade();
+                    }
+                }
+            }
+            System.out.println(mark);
+        });
     }
     // Hàm để thêm button vào gridpane
     // Hàm để thêm button vào gridpane và thêm gridpane vào anchorpane
@@ -210,6 +230,4 @@ public class GUI73Controller implements Initializable {
             });
         }
     }
-
-
 }

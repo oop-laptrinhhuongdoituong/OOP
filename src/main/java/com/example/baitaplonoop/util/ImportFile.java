@@ -270,7 +270,7 @@ public class ImportFile {
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);
                     String partChoice[] = part[k].split(". ", 2);
                     if (partChoice[0].equals(answer[1])) {
-                        String insertChoice[] = {partChoice[1], "100", choiceID, questionPart[0], "0", null};
+                        String insertChoice[] = {partChoice[1], "1.00", choiceID, questionPart[0], "0", null};
                         int choiceRowInserted = db.InsertChoice(insertChoice);
                     } else {
                         String insertChoice[] = {partChoice[1], "0", choiceID, questionPart[0], "0", null};
@@ -320,7 +320,7 @@ public class ImportFile {
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);
                     String partChoice[] = part.get(k).split(". ", 2);
                     if (partChoice[0].equals(answer[1])) {
-                        String insertChoice[] = {partChoice[1], "100", choiceID, questionPart[0], "0"};
+                        String insertChoice[] = {partChoice[1], "1.00", choiceID, questionPart[0], "0"};
                         int choiceRowInserted = db.InsertChoice(insertChoice);
                     } else {
                         String insertChoice[] = {partChoice[1], "0", choiceID, questionPart[0], "0"};

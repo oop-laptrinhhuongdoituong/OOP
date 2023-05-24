@@ -4,14 +4,14 @@ public class Question {
     private String categoryID;
     private String questionID;
     private String questionText;
-    private String questionImage;
+    private String questionMedia;
     private double questionMark;
 
-    public Question(String categoryID, String questionID, String questionText, String questionImage, double questionMark) {
+    public Question(String categoryID, String questionID, String questionText, String questionMedia, double questionMark) {
         this.categoryID = categoryID;
         this.questionID = questionID;
         this.questionText = questionText;
-        this.questionImage = questionImage;
+        this.questionMedia = questionMedia;
         this.questionMark = questionMark;
     }
 
@@ -42,12 +42,12 @@ public class Question {
         this.questionText = questionText;
     }
 
-    public String getQuestionImage() {
-        return questionImage;
+    public String getQuestionMedia() {
+        return questionMedia;
     }
 
-    public void setQuestionImage(String questionImage) {
-        this.questionImage = questionImage;
+    public void setQuestionMedia(String questionMedia) {
+        this.questionMedia = questionMedia;
     }
 
     public double getQuestionMark() {

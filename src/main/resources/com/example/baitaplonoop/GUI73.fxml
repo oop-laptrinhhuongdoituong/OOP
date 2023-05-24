@@ -68,7 +68,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Label>
-         <Hyperlink layoutX="22.0" layoutY="440.0" prefHeight="24.0" prefWidth="144.0" text="Finish attempt..." />
+         <Hyperlink fx:id="hlFinish" layoutX="22.0" layoutY="440.0" prefHeight="24.0" prefWidth="144.0" text="Finish attempt..." AnchorPane.bottomAnchor="33.60000000000002" AnchorPane.leftAnchor="22.0" />
          <GridPane fx:id="questionOverview_gp" layoutX="46.0" layoutY="101.0" prefHeight="173.0" prefWidth="197.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="100.0">
            <columnConstraints>
              <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="101.0" />
