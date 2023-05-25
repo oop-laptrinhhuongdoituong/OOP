@@ -10,10 +10,10 @@ public class DBConnect {
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://DESKTOP-AP629KT\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
+            String url = "jdbc:sqlserver://DAT\\MSSQLSERVER01:1433;databaseName=Exam_Management2;"
                     + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
             String username = "sa";
-            String password = "hoangphuc0703";
+            String password = "123";
             con = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,13 +170,19 @@ public class DBConnect {
     }
     public int UpdateQuestion(String[] questionInfo) throws SQLException {
         int rowInserted = 0;
-        String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) AS source (categoryID, questionID, questionText, questionMark, questionMedia)  ON target.questionID = source.questionID  WHEN MATCHED THEN  UPDATE SET questionText = source.questionText,  categoryID = source.categoryID, questionMedia = source.questionMedia  WHEN NOT MATCHED THEN  INSERT (questionID, questionText, categoryID, questionMedia)  VALUES (source.questionID, source.questionText, source.categoryID, source.questionMedia);";
+        String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) " +
+                "AS source (categoryID, questionID, questionText, questionMark, questionMedia)  " +
+                "ON target.questionID = source.questionID  " +
+                "WHEN MATCHED THEN  UPDATE SET questionText = source.questionText,  " +
+                "categoryID = source.categoryID, questionMedia = source.questionMedia, questionMark = source.questionMark " +
+                "WHEN NOT MATCHED THEN  INSERT (questionID, questionText, categoryID, questionMark, questionMedia)  " +
+                "VALUES (source.questionID, source.questionText, source.categoryID,source.questionMark, source.questionMedia);";
         PreparedStatement statement;
         statement = con.prepareStatement(sql);
         statement.setString(1, questionInfo[0]);
         statement.setString(2, questionInfo[1]);
         statement.setString(3, questionInfo[2]);
-        statement.setString(4, questionInfo[3]);
+        statement.setFloat(4, Float.parseFloat(questionInfo[3]));
         statement.setString(5, questionInfo[4]);
         rowInserted = statement.executeUpdate();
         return rowInserted;
