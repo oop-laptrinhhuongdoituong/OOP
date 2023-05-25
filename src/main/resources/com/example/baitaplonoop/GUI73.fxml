@@ -44,7 +44,7 @@
             </top>
             <center>
                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                  <ScrollPane layoutY="6.0" prefHeight="433.6" prefWidth="608.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0">
+                  <ScrollPane fx:id="questionView_cr" layoutY="6.0" prefHeight="433.6" prefWidth="608.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0">
                      <AnchorPane fx:id="apQuestion" prefHeight="500.0" prefWidth="1300.0" />
                   </ScrollPane>
                </AnchorPane>
