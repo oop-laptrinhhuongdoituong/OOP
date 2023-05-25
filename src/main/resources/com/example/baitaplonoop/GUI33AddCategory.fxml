@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" style="-fx-background-color: #E0FFFF;" xmlns="http://javafx.com/javafx/19"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI33Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E0FFFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI33Controller">
    <Label layoutX="42.0" layoutY="25.0" prefHeight="36.0" prefWidth="162.0" text="Add Category" textFill="#ff1e1e">
       <font>
-         <Font size="25.0"/>
+         <Font size="25.0" />
       </font>
    </Label>
-   <Label layoutX="55.0" layoutY="87.0" text="Parent Category" AnchorPane.leftAnchor="55.0"
-          AnchorPane.topAnchor="80.0"/>
-   <Label layoutX="55.0" layoutY="121.0" text="Name" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="120.0"/>
-   <Label layoutX="55.0" layoutY="175.0" text="Category infomation" AnchorPane.leftAnchor="55.0"
-          AnchorPane.topAnchor="160.0"/>
-   <Label layoutX="55.0" layoutY="273.0" text="ID number" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="270.0"/>
-   <ComboBox fx:id="parentCategory_cb" layoutX="257.0" layoutY="83.0" prefHeight="25.0" prefWidth="245.0"
-             AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="80.0"/>
-   <TextField fx:id="nameCategory_tf" layoutX="257.0" layoutY="130.0" prefHeight="25.0" prefWidth="245.0"
-              AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="120.0"/>
-   <TextArea fx:id="infoCategory_ta" layoutX="257.0" layoutY="165.0" prefHeight="89.0" prefWidth="245.0"
-             AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="160.0"/>
-   <TextField fx:id="categoryID_tf" layoutX="250.0" layoutY="269.0" prefHeight="25.0" prefWidth="86.0"
-              AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="270.0"/>
-   <Button fx:id="addCategory_Btn" layoutX="250.0" layoutY="323.0" mnemonicParsing="false"
-           style="-fx-background-color: #ff1e1e;" text="Add Category" textFill="WHITE"/>
+   <Label layoutX="55.0" layoutY="87.0" text="Parent Category" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="80.0" />
+   <Label layoutX="55.0" layoutY="121.0" text="Name" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="220.0" />
+   <Label layoutX="55.0" layoutY="175.0" text="Category infomation" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="260.0" />
+   <Label layoutX="55.0" layoutY="273.0" text="ID number" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="300.0" />
+   <TextField fx:id="nameCategory_tf" layoutX="257.0" layoutY="130.0" prefHeight="25.0" prefWidth="245.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="220.0" />
+   <TextField fx:id="categoryID_tf" layoutX="250.0" layoutY="269.0" prefHeight="25.0" prefWidth="86.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="300.0" />
+   <Button fx:id="addCategory_Btn" layoutX="250.0" layoutY="323.0" mnemonicParsing="false" style="-fx-background-color: #ff1e1e;" text="Add Category" textFill="WHITE" AnchorPane.bottomAnchor="30.0" />
+   <TextField fx:id="infoCategory_tf" layoutX="260.0" layoutY="130.0" prefHeight="25.0" prefWidth="245.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="260.0" />
+   <TreeView fx:id="parentCategory_tv" layoutX="236.0" layoutY="80.0" prefHeight="121.0" prefWidth="245.0" visible="false" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="80.0" />
+   <Label fx:id="addParentCategory_lb" layoutX="250.0" layoutY="80.0" style="-fx-cursor: hand;" text="Add parent Category" />
 </AnchorPane>

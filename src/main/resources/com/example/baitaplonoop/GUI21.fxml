@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gui2_1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI21Controller">
+<AnchorPane fx:id="gui2_1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI21Controller">
     <children>
         <Label layoutX="-1.0" layoutY="-1.0" style="-fx-background-color: #00CED1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Label layoutX="35.0" layoutY="38.0" text="IT" textFill="#c61c1c" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="544.0" AnchorPane.topAnchor="38.0">
@@ -30,23 +33,23 @@
             </font>
         </Label>
         <Label layoutX="24.0" layoutY="269.0" text="The default category for questions shared in context" />
-        <Button layoutX="35.0" layoutY="362.0" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="CREATE A NEW QUESTION..." />
+        <Button fx:id="createQuestionButton" layoutX="35.0" layoutY="362.0" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="CREATE A NEW QUESTION..." />
         <CheckBox fx:id="gui2_1CheckBox" layoutX="23.0" layoutY="304.0" mnemonicParsing="false" text="Also show questions from subcategories" />
         <CheckBox layoutX="23.0" layoutY="333.0" mnemonicParsing="false" text="Also show old questions" />
         <TreeView fx:id="category" layoutX="376.0" layoutY="218.0" prefHeight="178.0" prefWidth="217.0" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="7.0" />
-        <ToolBar layoutX="26.0" layoutY="131.0" prefHeight="38.0" prefWidth="345.0">
-            <items>
-                <Button mnemonicParsing="false" text="Questions" />
-                <Button mnemonicParsing="false" text="Categories" />
-                <Button mnemonicParsing="false" text="Import" />
-                <Button mnemonicParsing="false" text="Export" />
-            </items>
+        <ToolBar fx:id="toolBar" layoutX="26.0" layoutY="131.0" prefHeight="45.0" prefWidth="357.0">
+         <items>
+            <ToggleButton fx:id="questionsButton" mnemonicParsing="false" text="Questions" />
+            <ToggleButton fx:id="categoriesButton" mnemonicParsing="false" text="Categories" />
+            <ToggleButton fx:id="importButton" mnemonicParsing="false" text="Import" />
+            <ToggleButton fx:id="exportButton" mnemonicParsing="false" text="Export" />
+         </items>
         </ToolBar>
         <Label fx:id="Default" layoutX="375.0" layoutY="196.0" prefHeight="21.0" prefWidth="120.0" text="Default" textAlignment="CENTER" />
       <TableView fx:id="table" layoutX="53.0" layoutY="402.0" prefHeight="200.0" prefWidth="619.0">
         <columns>
-          <TableColumn fx:id="question" prefWidth="539.0" text="Question" />
-          <TableColumn fx:id="action" prefWidth="78.0" text="Action" />
+          <TableColumn fx:id="question" prefWidth="575.9999694824219" text="Question" />
+          <TableColumn fx:id="action" prefWidth="42.0" text="Action" />
         </columns>
       </TableView>
     </children>
