@@ -189,7 +189,6 @@ public class GUI21Controller implements Initializable {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-
         });
         importButton.setOnAction(e -> {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -221,4 +220,3 @@ public class GUI21Controller implements Initializable {
     }
 
 }
-

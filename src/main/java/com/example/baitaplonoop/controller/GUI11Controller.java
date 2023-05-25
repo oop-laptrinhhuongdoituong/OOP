@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -26,8 +27,16 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class GUI11Controller implements Initializable {
-    @FXML
-    ImageView imgSetting;
+    public Tab questionTab_tp;
+    public AnchorPane GUI21_tp;
+    public AnchorPane GUI33_tp;
+    public AnchorPane GUI34_tp;
+    public Tab categoryTab_tp;
+    public Tab importTab_tp;
+    public TabPane tabpane_tp;
+    public AnchorPane listQuiz_ap;
+    public Button setting_btn;
+
     @FXML
     ListView<String> lvQuiz = new ListView<>();
     @FXML
@@ -58,9 +67,10 @@ public class GUI11Controller implements Initializable {
         });
 
         btnTurnEditingOn.setOnAction(event -> {
-            ChangeScene.changeSceneUsingActionEvent((Initializable) this, "/com/example/baitaplonoop/GUI35AddingQuiz.fxml", event);
+            //ChangeScene.changeSceneUsingActionEvent((Initializable) this, "/com/example/baitaplonoop/GUI35AddingQuiz.fxml", event);
+
         });
-        imgSetting.setOnMouseClicked(event -> {
+        setting_btn.setOnMouseClicked(event -> {
             settingEvent = event;
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -81,5 +91,14 @@ public class GUI11Controller implements Initializable {
         setListViewQuiz();
         setEvent();
     }
+    public void selectCategoryTab() {
+        // Lấy đối tượng TabPane có id là tp
+        TabPane tabPane = (TabPane) fxmlLoader.getNamespace().get("tabpane_tb");
+        // Lấy đối tượng Tab có id là category_tab
+        Tab categoryTab = (Tab) fxmlLoader.getNamespace().get("categoryTab_tp");
+        // Chọn tab category_tab
+        tabPane.getSelectionModel().select(categoryTab);
+    }
+
 }
 //
