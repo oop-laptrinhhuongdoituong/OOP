@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="gui2_1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI63Controller">
+    <Label layoutX="-1.0" layoutY="-1.0" style="-fx-background-color: #00CED1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <Label layoutX="35.0" layoutY="40.0" prefHeight="34.0" prefWidth="410.0" text="Add from the question bank at the end" textFill="#d00b0b" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="295.0">
+        <font>
+            <Font size="23.0" />
+        </font>
+    </Label>
+    <Label layoutX="32.0" layoutY="74.0" text="Select a category:">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Label>
+    <Label layoutX="36.0" layoutY="100.0" text="The default category for questions shared in context" />
+    <CheckBox fx:id="gui2_1CheckBox" layoutX="32.0" layoutY="127.0" mnemonicParsing="false" text="Also show questions from subcategories" />
+    <CheckBox layoutX="32.0" layoutY="158.0" mnemonicParsing="false" text="Also show old questions" />
+    <TreeView fx:id="category" layoutX="343.0" layoutY="78.0" prefHeight="178.0" prefWidth="217.0" AnchorPane.leftAnchor="343.0" AnchorPane.rightAnchor="40.0" />
+    <Label fx:id="Default" layoutX="192.0" layoutY="76.0" prefHeight="21.0" prefWidth="120.0" text="Default" textAlignment="CENTER" />
+    <TableView fx:id="table" layoutX="36.0" layoutY="271.0" prefHeight="273.0" prefWidth="646.0">
+        <columns>
+            <TableColumn fx:id="question" prefWidth="569.6000900268555" text="Question" />
+            <TableColumn fx:id="action" prefWidth="76.79998779296875" text="Choice" />
+        </columns>
+    </TableView>
+   <Button fx:id="addSelectedQuestionToQuiz_btn" layoutX="46.0" layoutY="572.0" mnemonicParsing="false" text="Add Selected Question to the quiz" />
+</AnchorPane>

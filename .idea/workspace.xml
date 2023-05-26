@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e99e4343-1934-4a34-858d-155e3f4e1670" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI11Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI11Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +18,10 @@
       <list>
         <option value="JavaFXApplication" />
         <option value="JavaFXApplication" />
+        <option value="CSS File" />
+        <option value="FxmlFile" />
+        <option value="FxmlFile" />
         <option value="Class" />
-        <option value="FxmlFile" />
-        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -52,7 +54,15 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;Hung&quot;
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Dat&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -62,6 +72,7 @@
       <recent name="C:\Users\HOANGPHUC\IdeaProjects\OOP\src\main\resources\com\example\baitaplonoop\icon" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\CodeTest\OOP\src\main\resources\com\example\baitaplonoop\Media" />
       <recent name="C:\Users\ASUS\Desktop\Github\OOP\src\main\resources\com\example\baitaplonoop\icon" />
     </key>
   </component>
@@ -140,11 +151,11 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.test" />
       <item itemvalue="Application.HelloApplication" />
-      <item itemvalue="Application.main" />
       <item itemvalue="Application.main (1)" />
       <item itemvalue="Application.main (2)" />
+      <item itemvalue="Application.main" />
+      <item itemvalue="Application.test" />
     </list>
     <recent_temporary>
       <list>
@@ -181,6 +192,10 @@
       <workItem from="1683577609966" duration="2766000" />
       <workItem from="1683581477159" duration="247000" />
       <workItem from="1683589851139" duration="596000" />
+      <workItem from="1685032475231" duration="8436000" />
+      <workItem from="1685045584496" duration="515000" />
+      <workItem from="1685047082923" duration="24000" />
+      <workItem from="1685058425839" duration="653000" />
     </task>
     <servers />
   </component>

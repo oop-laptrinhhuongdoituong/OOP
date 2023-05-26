@@ -29,7 +29,7 @@ Create table Quiz
 	categoryID nvarchar(10),
 	questionID nvarchar(10) primary key,
 	questionText nvarchar(4000),
-	questionImage nvarchar(500),
+	questionMedia nvarchar(100),
 	questionMark float,
 	Foreign key(categoryID) references Category(categoryID)
  )
@@ -47,11 +47,12 @@ Create table Quiz
 
  Create table Choice
  (
-	choiceText nvarchar(4000),
+	choiceText nvarchar(4000) primary key,
 	choiceGrade float,
-	choiceID nvarchar(12) primary key,
+	choiceID nvarchar(12),
 	questionID nvarchar(10),
 	isSelected bit,
+	choiceMedia nvarchar(100),
 	Foreign key(questionID) references Question(questionID),
 
  )

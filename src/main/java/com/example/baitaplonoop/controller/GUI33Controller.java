@@ -1,16 +1,16 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.AlertOOP;
 import com.example.baitaplonoop.util.ChangeScene;
 import com.example.baitaplonoop.util.showTreeViewCategory;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.ResourceBundle;
+
 
 
 public class GUI33Controller implements Initializable {
@@ -32,7 +32,7 @@ public class GUI33Controller implements Initializable {
 
         // Choose the parent category
         addParentCategory_lb.setOnMouseClicked(mouseEvent -> {
-            checkAddParent = true;
+            //checkAddParent = true;
             parentCategory_tv.setVisible(true);
             addParentCategory_lb.setVisible(false);
             TreeItem<String> root = new TreeItem<>("Course IT:");
@@ -41,40 +41,33 @@ public class GUI33Controller implements Initializable {
             parentCategory_tv.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
                 addParentCategory_lb.setText(newValue.getValue());
                 parentCategoryName = newValue.getValue();
+                checkAddParent = true;
                 System.out.println(parentCategoryName);
             });
         });
 
         // Event to press the Button Add Category
         addCategory_Btn.setOnMouseClicked(buttonAddCategoryEvent -> {
-            String content = "";
-            Alert alertAddCategory = new Alert(Alert.AlertType.INFORMATION);
-            alertAddCategory.setTitle("Add Category Information");
-            ButtonType btnContinue = new ButtonType("Oke", ButtonBar.ButtonData.YES);
-            ButtonType btnBack = new ButtonType("Home page", ButtonBar.ButtonData.NO);
-            alertAddCategory.getButtonTypes().setAll(btnContinue, btnBack);
-
             // To check fill the field in Category if fill all the field then add data Category into Database
-            if(checkAddParent == false || nameCategory_tf.getText().trim().equals("") || categoryID_tf.getText().trim().equals("")){
-                content = "You must fill all the field!";
+            if(nameCategory_tf.getText().trim().equals("") || categoryID_tf.getText().trim().equals("")){
+                AlertOOP.mustFill("Add Category Status", "Add category fail", "You must file the blank field");
+            } else if (!checkAddParent) {
+                String[] addCategory = {null, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
+                int categoryRowInsert = db.InsertCategory(addCategory);
+                AlertOOP.AddDone("Add Category status", "Add category done", "Add category without parent category");
+                ChangeScene.changeSceneUsingMouseEvent(this,  "/com/example/baitaplonoop/GUI11.fxml", buttonAddCategoryEvent);
             } else {
-                String IDParentCategory = null;
+                String IDParentCategory;
                 try {
                     IDParentCategory = String.valueOf(db.FindCategoryID(parentCategoryName));
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                String addCategory[] = {IDParentCategory, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
+                String[] addCategory = {IDParentCategory, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
                 int categoryRowInsert = db.InsertCategory(addCategory);
-                content = "Insert successfully!";
-            }
-            alertAddCategory.setContentText(content);
-            Optional<ButtonType> result = alertAddCategory.showAndWait();
-            if(result.get().equals(btnBack)){
-                ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", buttonAddCategoryEvent);
+                AlertOOP.AddDone("Add Category status", "Add category done", "Add category with parent Category");
+                ChangeScene.changeSceneUsingMouseEvent(this,  "/com/example/baitaplonoop/GUI11.fxml", buttonAddCategoryEvent);
             }
         });
     }
-
-
 }
