@@ -42,7 +42,7 @@ public class GUI73Controller implements Initializable {
     private AnchorPane anchorPane1;
     private GridPane gridPane = new GridPane();
     @FXML
-    private  ScrollPane questionView_cr;
+    private ScrollPane questionView_cr;
     DBConnect db = new DBConnect();
     private Timeline timeline;
     private int seconds = 0;
@@ -81,34 +81,7 @@ public class GUI73Controller implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-    void insertNavigation(int numberButton) {
-        scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
-        GridPane gridPane = new GridPane();
-        gridPane.setVgap(1);
-        gridPane.setHgap(1);
-        AnchorPane.setTopAnchor(gridPane, 0.0); // cách top 98 pixel
-        AnchorPane.setLeftAnchor(gridPane, 0.0); // cách left 50 pixel
-        AnchorPane.setRightAnchor(gridPane, 0.00); // cách right 50 pixel
-        for (int i = 0; i < numberButton; i++) {
-            Button button = new Button();
-            button.setAlignment(Pos.TOP_CENTER);
-            button.setFont(Font.font(15));
-            button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
-            if (0 <= i && i < 9) button.setText("0" + String.valueOf(i + 1));
-            else button.setText(String.valueOf(i + 1));
-            button.setId("question" + String.valueOf(i + 1));
-            GridPane.setConstraints(button, i % 5, i / 5);
-            GridPane.setMargin(button, new Insets(2, 1, 2, 1));
-            GridPane.setHgrow(button, Priority.ALWAYS);
-            GridPane.setVgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều dọc
-            gridPane.getChildren().add(button);
-        }
-        // Thêm gridpane vào anchorpane
-        anchorPane1.getChildren().add(gridPane);
-
-
-    }
-    void insertIntoGridPane(){
+    void insertIntoGridPane() {
         scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
 
         gridPane.setVgap(1);
@@ -119,15 +92,17 @@ public class GUI73Controller implements Initializable {
         anchorPane1.getChildren().add(gridPane);
 
     }
+
     private void scrollToNode(ScrollPane scrollPane, AnchorPane node) {
         Bounds bounds = node.getBoundsInParent();
         double y = bounds.getMinY();
         double contentHeight = scrollPane.getContent().getBoundsInLocal().getHeight();
         double viewportHeight = scrollPane.getViewportBounds().getHeight();
-        double vValue = (y - 0.5 * viewportHeight) / (contentHeight - viewportHeight);
+        double vValue = (y) / (contentHeight - viewportHeight);
         scrollPane.setVvalue(vValue);
         scrollPane.setHvalue(0.00);
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         insertIntoGridPane();
@@ -138,26 +113,25 @@ public class GUI73Controller implements Initializable {
             while (rs.next()) {
                 AnchorPaneGUI7 question = new AnchorPaneGUI7(i + 1, rs.getString("questionID"));
                 ///tao button tuong ung voi cau hoi
-                    Button button = new Button();
-                    button.setAlignment(Pos.TOP_CENTER);
-                    button.setFont(Font.font(15));
-                    button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
-                    if (0 <= i && i < 9) button.setText("0" + String.valueOf(i + 1));
-                    else button.setText(String.valueOf(i + 1));
-                    button.setId("question" + String.valueOf(i + 1));
-                    GridPane.setConstraints(button, i % 5, i / 5);
-                    GridPane.setMargin(button, new Insets(2, 1, 2, 1));
-                    GridPane.setHgrow(button, Priority.ALWAYS);
-                    GridPane.setVgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều dọc
-                    gridPane.getChildren().add(button);
+                Button button = new Button();
+                button.setAlignment(Pos.TOP_CENTER);
+                button.setFont(Font.font(15));
+                button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
+                if (0 <= i && i < 9) button.setText("0" + String.valueOf(i + 1));
+                else button.setText(String.valueOf(i + 1));
+                button.setId("question" + String.valueOf(i + 1));
+                GridPane.setConstraints(button, i % 5, i / 5);
+                GridPane.setMargin(button, new Insets(2, 1, 2, 1));
+                GridPane.setHgrow(button, Priority.ALWAYS);
+                GridPane.setVgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều dọc
+                gridPane.getChildren().add(button);
                 ///////////////////////////////////Hung
                 apQuestion.getChildren().add(question);
-
                 AnchorPane.setRightAnchor(question, 0.0);
                 AnchorPane.setLeftAnchor(question, 0.0);
                 AnchorPane.setTopAnchor(question, questionHeight);
                 button.setOnAction(event -> {
-                    scrollToNode(questionView_cr,question);
+                    scrollToNode(questionView_cr, question);
                 });
                 questionHeight += 10.0;
                 questionHeight += question.getPrefHeight();

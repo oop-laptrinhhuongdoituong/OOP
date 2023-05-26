@@ -45,6 +45,8 @@ public class GUI62Controller implements Initializable {
     private ObservableList<TableQuestionsOfGui62> chosenQuestions = FXCollections.observableArrayList();
     @FXML
     private TableView<TableQuestionsOfGui62> tableQuestions;
+    @FXML
+    private CheckBox shuffle;
 
     @FXML
     private TableColumn<TableQuestionsOfGui62, Label> DeleteIcon;
