@@ -36,6 +36,7 @@ public class GUI11Controller implements Initializable {
     public TabPane tabpane_tp;
     public AnchorPane listQuiz_ap;
     public Button setting_btn;
+    public AnchorPane addQuestion_ap;
 
     @FXML
     ListView<String> lvQuiz = new ListView<>();
