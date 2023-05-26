@@ -39,6 +39,7 @@ public class DBConnect {
             statement.setString(2, stringSQL[1]);
             statement.setString(3, stringSQL[2]);
             statement.setString(4, stringSQL[3]);
+            statement.setString(5, stringSQL[4]);
             rowInserted = statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -67,7 +68,7 @@ public class DBConnect {
         try {
             statement = con.prepareStatement(sql);
             statement.setString(1, stringSQL[0]);
-            statement.setFloat(2, Float.parseFloat(stringSQL[1]));
+            statement.setString(2, stringSQL[1]);
             statement.setString(3, stringSQL[2]);
             statement.setString(4, stringSQL[3]);
             statement.setString(5, stringSQL[4]);
@@ -168,15 +169,34 @@ public class DBConnect {
         }
         return choiceInfo;
     }
+//    public int UpdateQuestion(String[] questionInfo) throws SQLException {
+//        int rowInserted = 0;
+//        String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) AS source (categoryID, questionID, questionText, questionMark, questionMedia)  ON target.questionID = source.questionID  WHEN MATCHED THEN  UPDATE SET questionText = source.questionText,  categoryID = source.categoryID, questionMedia = source.questionMedia  WHEN NOT MATCHED THEN  INSERT (questionID, questionText, categoryID, questionMedia)  VALUES (source.questionID, source.questionText, source.categoryID, source.questionMedia);";
+//        PreparedStatement statement;
+//        statement = con.prepareStatement(sql);
+//        statement.setString(1, questionInfo[0]);
+//        statement.setString(2, questionInfo[1]);
+//        statement.setString(3, questionInfo[2]);
+//        statement.setString(4, questionInfo[3]);
+//        statement.setString(5, questionInfo[4]);
+//        rowInserted = statement.executeUpdate();
+//        return rowInserted;
+//    }
     public int UpdateQuestion(String[] questionInfo) throws SQLException {
         int rowInserted = 0;
-        String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) AS source (categoryID, questionID, questionText, questionMark, questionMedia)  ON target.questionID = source.questionID  WHEN MATCHED THEN  UPDATE SET questionText = source.questionText,  categoryID = source.categoryID, questionMedia = source.questionMedia  WHEN NOT MATCHED THEN  INSERT (questionID, questionText, categoryID, questionMedia)  VALUES (source.questionID, source.questionText, source.categoryID, source.questionMedia);";
+        String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) " +
+                "AS source (categoryID, questionID, questionText, questionMark, questionMedia)  " +
+                "ON target.questionID = source.questionID  " +
+                "WHEN MATCHED THEN  UPDATE SET questionText = source.questionText,  " +
+                "categoryID = source.categoryID, questionMedia = source.questionMedia, questionMark = source.questionMark " +
+                "WHEN NOT MATCHED THEN  INSERT (questionID, questionText, categoryID, questionMark, questionMedia)  " +
+                "VALUES (source.questionID, source.questionText, source.categoryID,source.questionMark, source.questionMedia);";
         PreparedStatement statement;
         statement = con.prepareStatement(sql);
         statement.setString(1, questionInfo[0]);
         statement.setString(2, questionInfo[1]);
         statement.setString(3, questionInfo[2]);
-        statement.setString(4, questionInfo[3]);
+        statement.setFloat(4, Float.parseFloat(questionInfo[3]));
         statement.setString(5, questionInfo[4]);
         rowInserted = statement.executeUpdate();
         return rowInserted;

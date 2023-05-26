@@ -47,9 +47,9 @@ Create table Quiz
 
  Create table Choice
  (
-	choiceText nvarchar(4000) primary key,
+	choiceText nvarchar(4000),
 	choiceGrade float,
-	choiceID nvarchar(12),
+	choiceID nvarchar(12) primary key,
 	questionID nvarchar(10),
 	isSelected bit,
 	choiceMedia nvarchar(100),

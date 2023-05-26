@@ -48,13 +48,25 @@ public class GUI34Controller implements Initializable {
     List<File> files;
     DBConnect db = new DBConnect();
 
+    public void SetUpTreeView(String sql, TreeItem<String> treeItem){
+        ResultSet rs = db.getData(sql);
+        try{
+            while(rs.next()){
+                TreeItem<String> item = new TreeItem<>(rs.getString("categoryName"));
+                treeItem.getChildren().add(item);
+                SetUpTreeView("select * from Category where parentID = N'" + rs.getString("categoryID") + "'", item);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void setEvent(){
         lbChooseImportCategory.setOnMouseClicked(mouseEvent -> {
             try {
                 treeViewImport.setVisible(true);
                 TreeItem<String> root = new TreeItem<>("Course IT:");
                 treeViewImport.setRoot(root);
-                insertCategoryIntoTreeView.insertCategory("select * from Category where parentID IS NULL", root);
+                SetUpTreeView("select * from Category where parentID IS NULL", root);
                 treeViewImport.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
                     lbChooseImportCategory.setText(newValue.getValue());
                 });
