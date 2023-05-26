@@ -3,27 +3,21 @@ package com.example.baitaplonoop.controller;
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.ChangeScene;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class GUI11Controller implements Initializable {
@@ -33,7 +27,7 @@ public class GUI11Controller implements Initializable {
     public AnchorPane GUI34_tp;
     public Tab categoryTab_tp;
     public Tab importTab_tp;
-    public TabPane tabpane_tp;
+    public TabPane tabPane;
     public AnchorPane listQuiz_ap;
     public Button setting_btn;
     public AnchorPane addQuestion_ap;

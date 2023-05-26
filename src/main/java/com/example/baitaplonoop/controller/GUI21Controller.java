@@ -50,18 +50,14 @@ public class GUI21Controller implements Initializable {
     @FXML
     private TableColumn<addQuestion, Button> action;
     private ObservableList<addQuestion> questionsList = FXCollections.observableArrayList();
-    ;
+
     @FXML
     private Label Default;
     @FXML
     private TreeView<String> category;
     @FXML
     private CheckBox gui2_1CheckBox;
-
     DBConnect db = new DBConnect();
-
-    //create click event for treeView
-
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
         category.setVisible(false);
@@ -178,43 +174,44 @@ public class GUI21Controller implements Initializable {
             if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent) == false)
                 category.setVisible(false);
         });
-        categoriesButton.setOnAction(e -> {
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI33AddCategory.fxml"));
-            try {
-                Parent GUI33AddCategory = loader.load();
-                Scene scene = new Scene(GUI33AddCategory);
-                stage.setScene(scene);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-        importButton.setOnAction(e -> {
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI34.fxml"));
-            try {
-                Parent GUI33AddCategory = loader.load();
-                Scene scene = new Scene(GUI33AddCategory);
-                stage.setScene(scene);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-        });
+//        categoriesButton.setOnAction(e -> {
+//            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI33AddCategory.fxml"));
+//            try {
+//                Parent GUI33AddCategory = loader.load();
+//                Scene scene = new Scene(GUI33AddCategory);
+//                stage.setScene(scene);
+//            } catch (IOException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//
+//        });
+//        importButton.setOnAction(e -> {
+//            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI34.fxml"));
+//            try {
+//                Parent GUI33AddCategory = loader.load();
+//                Scene scene = new Scene(GUI33AddCategory);
+//                stage.setScene(scene);
+//            } catch (IOException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//
+//        });
         createQuestionButton.setOnAction(e -> {
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
-            try {
-                Parent GUI33AddCategory = loader.load();
-                Scene scene = new Scene(GUI33AddCategory);
-                stage.setScene(scene);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
+//            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
+//            try {
+//                Parent GUI33AddCategory = loader.load();
+//                Scene scene = new Scene(GUI33AddCategory);
+//                stage.setScene(scene);
+//            } catch (IOException ex) {
+//                throw new RuntimeException(ex);
+//            }
+            ChangeScene.mainSceneGUI21(this, e, "/com/example/baitaplonoop/GUInew.fxml");
         });
 
     }

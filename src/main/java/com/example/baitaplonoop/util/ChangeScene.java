@@ -41,6 +41,21 @@ public class ChangeScene {
         Scene scene = new Scene(parent);
         stage.setScene(scene);
     }
+    public static void  mainSceneGUI21(Initializable controller, ActionEvent event, String path){
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(controller.getClass().getResource(path));
+        Parent parent = null;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene scene = new Scene(parent);
+        GUI11Controller gui11Controller = fxmlLoader.getController();
+        gui11Controller.listQuiz_ap.setVisible(true);
+        stage.setScene(scene);
+    }
 
     public static void switchScene(String fxmlFile) {
         Stage stage = new Stage();
