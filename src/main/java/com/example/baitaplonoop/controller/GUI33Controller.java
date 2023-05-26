@@ -32,7 +32,6 @@ public class GUI33Controller implements Initializable {
 
         // Choose the parent category
         addParentCategory_lb.setOnMouseClicked(mouseEvent -> {
-            //checkAddParent = true;
             parentCategory_tv.setVisible(true);
             addParentCategory_lb.setVisible(false);
             TreeItem<String> root = new TreeItem<>("Course IT:");
@@ -41,6 +40,7 @@ public class GUI33Controller implements Initializable {
             parentCategory_tv.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
                 addParentCategory_lb.setText(newValue.getValue());
                 parentCategoryName = newValue.getValue();
+                if(parentCategoryName == null) checkAddParent = false;
                 checkAddParent = true;
                 System.out.println(parentCategoryName);
             });
