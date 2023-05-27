@@ -53,7 +53,8 @@ public class ChangeScene {
         }
         Scene scene = new Scene(parent);
         GUI11Controller gui11Controller = fxmlLoader.getController();
-        gui11Controller.listQuiz_ap.setVisible(true);
+        Tab tab = gui11Controller.categoryTab_tp;
+        gui11Controller.tabPane.getSelectionModel().select(tab);
         stage.setScene(scene);
     }
 
