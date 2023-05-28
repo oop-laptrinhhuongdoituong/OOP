@@ -214,6 +214,15 @@ public class DBConnect {
         rowInserted = statement.executeUpdate();
         return rowInserted;
     }
+    public boolean updateQuiz(boolean a,String quizName) throws  SQLException{
+        boolean result =false;
+        String sql="update Quiz set shuffle = ? where quizName = N'"+quizName+"'";
+        PreparedStatement statement;
+        statement=con.prepareStatement(sql);
+        statement.setString(1,Boolean.toString(a));
+        result = statement.execute();
+        return result;
+    }
     public boolean checkQuestionID(String questionID) throws SQLException {
         boolean result = false;
         String sql = "SELECT * FROM Question WHERE questionID = ?"; // Câu lệnh SQL truy vấn dữ liệu theo questionID
