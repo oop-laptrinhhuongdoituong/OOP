@@ -1,10 +1,11 @@
 package com.example.baitaplonoop.controller;
 
+import com.example.baitaplonoop.util.CustomMedia;
+
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.AlertOOP;
 import com.example.baitaplonoop.util.ChangeScene;
 import com.example.baitaplonoop.util.showTreeViewCategory;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,14 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URI;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -29,9 +24,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
-import javafx.util.Duration;
-
-import javax.imageio.ImageIO;
 
 public class GUI32Controller implements Initializable {
     public TreeView<String> showCategory_tv;
@@ -87,6 +79,7 @@ public class GUI32Controller implements Initializable {
     Double gradeChoice1 = 0.0, gradeChoice2 = 0.0, gradeChoice3 = 0.0, gradeChoice4 = 0.0, gradeChoice5 = 0.0, gradeChoice6 = 0.0;
     DBConnect db = new DBConnect();
     private MediaPlayer mediaPlayer;
+
     public Integer ChoiceNumberInQuestion() {
         int choiceNumber = 0;
         for (TextField textField : Arrays.asList(choice1_tf, choice2_tf, choice3_tf, choice4_tf, choice5_tf, choice6_tf)) {
@@ -96,6 +89,7 @@ public class GUI32Controller implements Initializable {
         }
         return choiceNumber;
     } // Return Number of TextField Choice is Edited
+
     // View in Editing Question From GUI21
     public void editingQuestionChoice(String categoryName, String questionID, String questionText, String questionMedia, String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, String choiceText4, String choiceGrade4, String choiceMedia4, String choiceText5, String choiceGrade5, String choiceMedia5, String choiceText6, String choiceGrade6, String choiceMedia6) throws FileNotFoundException {
         videoPane_ap.setVisible(false);
@@ -112,36 +106,37 @@ public class GUI32Controller implements Initializable {
         choice4_tf.setText(choiceText4);
         choice5_tf.setText(choiceText5);
         choice6_tf.setText(choiceText6);
-        loadFile(questionMedia, imageQuestion_iv, gifQuestion_iv, mediaQuestion_mv);
+        CustomMedia.loadFile(questionMedia, imageQuestion_iv, gifQuestion_iv, mediaQuestion_mv, videoPane_ap, playVideo, pause_btn, timeSlider);
+
         if (!choiceText1.trim().equals("")) {
             gradeChoice1_cb.setEditable(true);
             gradeChoice1_cb.getEditor().setText(Float.parseFloat(choiceGrade1) * 100 + "%");
-            loadImage(choiceMedia1, imageChoice1_iv);
+            CustomMedia.loadImage(choiceMedia1, imageChoice1_iv);
         }
         if (!choiceText2.trim().equals("")) {
             gradeChoice2_cb.setEditable(true);
             gradeChoice2_cb.getEditor().setText(Float.parseFloat(choiceGrade2) * 100 + "%");
-            loadImage(choiceMedia2, imageChoice2_iv);
+            CustomMedia.loadImage(choiceMedia2, imageChoice2_iv);
         }
         if (!choiceText3.trim().equals("")) {
             gradeChoice3_cb.setEditable(true);
             gradeChoice3_cb.getEditor().setText(Float.parseFloat(choiceGrade3) * 100 + "%");
-            loadImage(choiceMedia3, imageChoice3_iv);
+            CustomMedia.loadImage(choiceMedia3, imageChoice3_iv);
         }
         if (!choiceText4.trim().equals("")) {
             gradeChoice4_cb.setEditable(true);
             gradeChoice4_cb.getEditor().setText(Float.parseFloat(choiceGrade4) * 100 + "%");
-            loadImage(choiceMedia4, imageChoice4_iv);
+            CustomMedia.loadImage(choiceMedia4, imageChoice4_iv);
         }
         if (!choiceText5.trim().equals("")) {
             gradeChoice5_cb.setEditable(true);
             gradeChoice5_cb.getEditor().setText(Float.parseFloat(choiceGrade5) * 100 + "%");
-            loadImage(choiceMedia5, imageChoice5_iv);
+            CustomMedia.loadImage(choiceMedia5, imageChoice5_iv);
         }
         if (!choiceText6.trim().equals("")) {
             gradeChoice6_cb.setEditable(true);
             gradeChoice6_cb.getEditor().setText(Float.parseFloat(choiceGrade6) * 100 + "%");
-            loadImage(choiceMedia6, imageChoice6_iv);
+            CustomMedia.loadImage(choiceMedia6, imageChoice6_iv);
         }
         if (!choiceText4.trim().equals("") || !choiceText5.trim().equals("") || !choiceText6.trim().equals("")) {
             paneChoice2_ap.setTranslateY(239);
@@ -149,6 +144,116 @@ public class GUI32Controller implements Initializable {
             paneChoice2_ap.setVisible(true);
         }
     }
+
+    public String questionMediaPath() {
+        if (imageQuestion_iv.getImage() != null)
+            return CustomMedia.saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
+        else if (gifQuestion_iv.getImage() != null)
+            return CustomMedia.saveGif(gifQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/GIF/Question", questionName_tf.getText().trim());
+        else if (mediaQuestion_mv.getMediaPlayer() != null)
+            return CustomMedia.saveVideo(mediaQuestion_mv, "./src/main/resources/com/example/baitaplonoop/Media/Video", questionName_tf.getText().trim());
+        else return null;
+    }   // To return path to Media in Question, this prepare for save in the database
+
+    public String getCategoryIDQuestion() {
+        if (nameCategoryQuestion != null) {
+            try {
+                return db.FindCategoryID(nameCategoryQuestion);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else return null;
+    } // Return categoryID in question
+
+    public void AddQuestionIntoSQL() throws SQLException {
+        if (questionName_tf.getText().trim().equals("") || questionText_tf.getText().trim().equals("") || ChoiceNumberInQuestion() < 2) {
+            AlertOOP.mustFill("Add Question Status", "Add Question Fail", "You must fill in Question Name, Question Text and minimum 2 Choice");
+        } else {
+            boolean checkQuestionExist;
+            try {
+                checkQuestionExist = db.checkQuestionID(questionName_tf.getText().trim());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            if (checkQuestionExist & questionName_tf.isEditable())
+                AlertOOP.mustFill("Add Question Status", "Add Question Fail", "Question Name exists");
+            else {
+                String pathMediaQuestion = questionMediaPath();
+                String[] questionInfo = {getCategoryIDQuestion(), questionName_tf.getText().trim(), questionText_tf.getText().trim(), "1", pathMediaQuestion};
+                try {
+                    int addQuestion = db.UpdateQuestion(questionInfo);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                if (!choice1_tf.getText().trim().equals("")) {
+                    if (imageChoice1_iv.getImage() != null) {
+                        String pathMediaChoice = CustomMedia.saveImage(imageChoice1_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "1");
+                        String[] addChoice1 = {choice1_tf.getText(), String.valueOf(gradeChoice1), questionName_tf.getText() + "1", questionName_tf.getText(), pathMediaChoice};
+                        db.UpdateChoice(addChoice1);
+                    } else {
+                        String[] addChoice1 = {choice1_tf.getText(), String.valueOf(gradeChoice1), questionName_tf.getText() + "1", questionName_tf.getText(), null};
+                        db.UpdateChoice(addChoice1);
+                    }
+                }
+                if (!choice2_tf.getText().trim().equals("")) {
+                    if (imageChoice2_iv.getImage() != null) {
+                        String pathMediaChoice = CustomMedia.saveImage(imageChoice2_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "2");
+                        String[] addChoice2 = {choice2_tf.getText(), String.valueOf(gradeChoice2), questionName_tf.getText() + "2", questionName_tf.getText(), pathMediaChoice};
+                        db.UpdateChoice(addChoice2);
+                    } else {
+                        String[] addChoice2 = {choice2_tf.getText(), String.valueOf(gradeChoice2), questionName_tf.getText() + "2", questionName_tf.getText(), null};
+                        db.UpdateChoice(addChoice2);
+                    }
+                }
+                if (!choice3_tf.getText().trim().equals("")) {
+                    if (imageChoice3_iv.getImage() != null) {
+                        String pathMediaChoice = CustomMedia.saveImage(imageChoice3_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "3");
+                        String[] addChoice3 = {choice3_tf.getText(), String.valueOf(gradeChoice3), questionName_tf.getText() + "3", questionName_tf.getText(), null, pathMediaChoice};
+                        db.UpdateChoice(addChoice3);
+                    } else {
+                        String[] addChoice3 = {choice3_tf.getText(), String.valueOf(gradeChoice3), questionName_tf.getText() + "3", questionName_tf.getText(), null, null};
+                        db.UpdateChoice(addChoice3);
+                    }
+                }
+                if (!choice4_tf.getText().trim().equals("")) {
+                    if (imageChoice4_iv.getImage() != null) {
+                        String pathMediaChoice = CustomMedia.saveImage(imageChoice4_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "4");
+                        String[] addChoice4 = {choice4_tf.getText(), String.valueOf(gradeChoice4), questionName_tf.getText() + "4", questionName_tf.getText(), null, pathMediaChoice};
+                        db.UpdateChoice(addChoice4);
+                    } else {
+                        String[] addChoice4 = {choice4_tf.getText(), String.valueOf(gradeChoice4), questionName_tf.getText() + "4", questionName_tf.getText(), null, null};
+                        db.UpdateChoice(addChoice4);
+                    }
+                }
+                if (!choice5_tf.getText().trim().equals("")) {
+                    if (imageChoice5_iv.getImage() != null) {
+                        String pathMediaChoice = CustomMedia.saveImage(imageChoice5_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "5");
+                        System.out.println(pathMediaChoice);
+                        String[] addChoice5 = {choice5_tf.getText(), String.valueOf(gradeChoice5), questionName_tf.getText() + "5", questionName_tf.getText(), null, pathMediaChoice};
+                        db.UpdateChoice(addChoice5);
+                    } else {
+                        String[] addChoice5 = {choice5_tf.getText(), String.valueOf(gradeChoice5), questionName_tf.getText() + "5", questionName_tf.getText(), null, null};
+                        db.UpdateChoice(addChoice5);
+                    }
+                }
+                if (!choice6_tf.getText().trim().equals("")) {
+                    if (imageChoice6_iv.getImage() != null) {
+                        String pathMediaChoice = CustomMedia.saveImage(imageChoice6_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "6");
+                        String[] addChoice6 = {choice6_tf.getText(), String.valueOf(gradeChoice6), questionName_tf.getText() + "6", questionName_tf.getText(), null, pathMediaChoice};
+                        db.UpdateChoice(addChoice6);
+                    } else {
+                        String[] addChoice6 = {choice6_tf.getText(), String.valueOf(gradeChoice6), questionName_tf.getText() + "6", questionName_tf.getText(), null, null};
+                        db.UpdateChoice(addChoice6);
+                    }
+                }
+                AlertOOP.AddDone("Add Question Status", "Add Question Done", "Done");
+                showCategory_tv.setEditable(false);
+                questionName_tf.setEditable(false);
+                categoryName_lb.setMouseTransparent(false);
+            }
+        }
+    }   // Add new Question into SQL
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         videoPane_ap.setVisible(false);
@@ -213,13 +318,13 @@ public class GUI32Controller implements Initializable {
             paneChoice2_ap.setVisible(true);
         });
         // Add image in Question Text (upload in ImageView not to save in Database)
-        imageQuestion_btn.setOnAction(e -> AddImageToImageView(imageQuestion_iv));
-        addImageChoice1_btn.setOnAction(e -> AddImageToImageView(imageChoice1_iv));
-        addImageChoice2_btn.setOnAction(e -> AddImageToImageView(imageChoice2_iv));
-        addImageChoice3_btn.setOnAction(e -> AddImageToImageView(imageChoice3_iv));
-        addImageChoice4_btn.setOnAction(e -> AddImageToImageView(imageChoice4_iv));
-        addImageChoice5_btn.setOnAction(e -> AddImageToImageView(imageChoice5_iv));
-        addImageChoice6_btn.setOnAction(e -> AddImageToImageView(imageChoice6_iv));
+        imageQuestion_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageQuestion_iv));
+        addImageChoice1_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageChoice1_iv));
+        addImageChoice2_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageChoice2_iv));
+        addImageChoice3_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageChoice3_iv));
+        addImageChoice4_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageChoice4_iv));
+        addImageChoice5_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageChoice5_iv));
+        addImageChoice6_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageChoice6_iv));
         // Add gif in Question Text (upload in ImageView not to save in Database)
         gifQuestion_btn.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -243,11 +348,12 @@ public class GUI32Controller implements Initializable {
             File file = fileChooser.showOpenDialog(null);
             if (file != null) {
                 String urlVideoQuestion = file.toURI().toString();
+                System.out.println(urlVideoQuestion);
                 Media media = new Media(urlVideoQuestion);
                 mediaPlayer = new MediaPlayer(media);
                 mediaQuestion_mv.setMediaPlayer(mediaPlayer);
                 videoPane_ap.setVisible(true);
-                setVideoPlay(mediaPlayer);
+                CustomMedia.setVideoPlay(mediaPlayer, timeSlider);
             }
         });
         playVideo.setOnAction(e -> {
@@ -276,231 +382,5 @@ public class GUI32Controller implements Initializable {
                 throw new RuntimeException(e);
             }
         });
-    }
-    private void setVideoPlay(MediaPlayer mediaPlayer) {
-        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
-            if (!timeSlider.isValueChanging()) {
-                timeSlider.setValue(newTime.toSeconds() / mediaPlayer.getTotalDuration().toSeconds() * 100);
-            }
-        });
-        timeSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
-            if (timeSlider.isValueChanging()) {
-                mediaPlayer.seek(mediaPlayer.getTotalDuration().multiply(newValue.doubleValue() / 100));
-            }
-        });
-    }
-    public boolean CheckDuration(MediaView mediaView) {
-        MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
-        Duration duration = mediaPlayer.getTotalDuration();
-        // Chuyển đổi Duration sang giây
-        double seconds = duration.toSeconds();
-        return 1 <= seconds & seconds <= 10;
-    } // Check Duration Video in Question between 1s and 10s
-    public String saveImage(ImageView imageView, String pathImage, String imageID) {
-        String questionMediaPath = null;
-        try {
-            File target = new File(pathImage + File.separator + imageID + ".png");
-            BufferedImage toWrite = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-            ImageIO.write(toWrite, "png", target);
-            questionMediaPath = pathImage + File.separator + imageID + ".png";
-        } catch (Exception x) {
-            System.err.println("Failed to save image");
-            x.printStackTrace();
-        }
-        return questionMediaPath;
-    } // Save Image in the local memory
-    public String questionMediaPath() {
-        if (imageQuestion_iv.getImage() != null)
-            return saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
-        else if (gifQuestion_iv.getImage() != null)
-            return saveGif(gifQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/GIF/Question", questionName_tf.getText().trim());
-        else if (mediaQuestion_mv.getMediaPlayer() != null)
-            return saveVideo(mediaQuestion_mv, "./src/main/resources/com/example/baitaplonoop/Media/Video", questionName_tf.getText().trim());
-        else return null;
-    }   // To return path to Media in Question, this prepare for save in the database
-    public String saveVideo(MediaView mediaView, String pathVideo, String questionID) {
-        String questionVideoPath = null;
-        if (CheckDuration(mediaView)) {
-            try {
-                MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
-                Media media = mediaPlayer.getMedia();
-                String source = media.getSource();
-                File sourceFile = new File(new URI(source));
-                File targetFile = new File(pathVideo + File.separator + questionID + ".mp4");
-                Files.copy(sourceFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                questionVideoPath = pathVideo + File.separator + questionID + ".mp4";
-            } catch (Exception e) {
-                System.err.println("Failed to save video");
-                e.printStackTrace();
-            }
-        }
-        return questionVideoPath;
-    }
-
-    public String saveGif(ImageView imageView, String pathGIF, String questionID) {
-        String questionGifPah = null;
-        try {
-            File target = new File(pathGIF + File.separator + questionID + "gif");
-            BufferedImage toWrite = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-            ImageIO.write(toWrite, "gif", target);
-            questionGifPah = target.getAbsolutePath();
-        } catch (Exception x) {
-            System.err.println("Failed to save gif");
-            x.printStackTrace();
-        }
-        return questionGifPah;
-    }   // Save GIF in the local memory
-    public String getCategoryIDQuestion() {
-        if (nameCategoryQuestion != null) {
-            try {
-                return db.FindCategoryID(nameCategoryQuestion);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        } else return null;
-    } // Return categoryID in question
-    public void AddQuestionIntoSQL() throws SQLException {
-        if (questionName_tf.getText().trim().equals("") || questionText_tf.getText().trim().equals("") || ChoiceNumberInQuestion() < 2) {
-            AlertOOP.mustFill("Add Question Status", "Add Question Fail", "You must fill in Question Name, Question Text and minimum 2 Choice");
-        } else {
-            boolean checkQuestionExist;
-            try {
-                checkQuestionExist = db.checkQuestionID(questionName_tf.getText().trim());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            if (checkQuestionExist & questionName_tf.isEditable())
-                AlertOOP.mustFill("Add Question Status", "Add Question Fail", "Question Name exists");
-            else {
-                String pathMediaQuestion = questionMediaPath();
-                String[] questionInfo = {getCategoryIDQuestion(), questionName_tf.getText().trim(), questionText_tf.getText().trim(), "1", pathMediaQuestion};
-                try {
-                    int addQuestion = db.UpdateQuestion(questionInfo);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                if (!choice1_tf.getText().trim().equals("")) {
-                    if (imageChoice1_iv.getImage() != null) {
-                        String pathMediaChoice = saveImage(imageChoice1_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "1");
-                        String[] addChoice1 = {choice1_tf.getText(), String.valueOf(gradeChoice1), questionName_tf.getText() + "1", questionName_tf.getText(), pathMediaChoice};
-                        db.UpdateChoice(addChoice1);
-                    } else {
-                        String[] addChoice1 = {choice1_tf.getText(), String.valueOf(gradeChoice1), questionName_tf.getText() + "1", questionName_tf.getText(), null};
-                        db.UpdateChoice(addChoice1);
-                    }
-                }
-                if (!choice2_tf.getText().trim().equals("")) {
-                    if (imageChoice2_iv.getImage() != null) {
-                        String pathMediaChoice = saveImage(imageChoice2_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "2");
-                        String[] addChoice2 = {choice2_tf.getText(), String.valueOf(gradeChoice2), questionName_tf.getText() + "2", questionName_tf.getText(), pathMediaChoice};
-                        db.UpdateChoice(addChoice2);
-                    } else {
-                        String[] addChoice2 = {choice2_tf.getText(), String.valueOf(gradeChoice2), questionName_tf.getText() + "2", questionName_tf.getText(), null};
-                        db.UpdateChoice(addChoice2);
-                    }
-                }
-                if (!choice3_tf.getText().trim().equals("")) {
-                    if (imageChoice3_iv.getImage() != null) {
-                        String pathMediaChoice = saveImage(imageChoice3_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "3");
-                        String[] addChoice3 = {choice3_tf.getText(), String.valueOf(gradeChoice3), questionName_tf.getText() + "3", questionName_tf.getText(), null, pathMediaChoice};
-                        db.UpdateChoice(addChoice3);
-                    } else {
-                        String[] addChoice3 = {choice3_tf.getText(), String.valueOf(gradeChoice3), questionName_tf.getText() + "3", questionName_tf.getText(), null, null};
-                        db.UpdateChoice(addChoice3);
-                    }
-                }
-                if (!choice4_tf.getText().trim().equals("")) {
-                    if (imageChoice4_iv.getImage() != null) {
-                        String pathMediaChoice = saveImage(imageChoice4_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "4");
-                        String[] addChoice4 = {choice4_tf.getText(), String.valueOf(gradeChoice4), questionName_tf.getText() + "4", questionName_tf.getText(), null, pathMediaChoice};
-                        db.UpdateChoice(addChoice4);
-                    } else {
-                        String[] addChoice4 = {choice4_tf.getText(), String.valueOf(gradeChoice4), questionName_tf.getText() + "4", questionName_tf.getText(), null, null};
-                        db.UpdateChoice(addChoice4);
-                    }
-                }
-                if (!choice5_tf.getText().trim().equals("")) {
-                    if (imageChoice5_iv.getImage() != null) {
-                        String pathMediaChoice = saveImage(imageChoice5_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "5");
-                        System.out.println(pathMediaChoice);
-                        String[] addChoice5 = {choice5_tf.getText(), String.valueOf(gradeChoice5), questionName_tf.getText() + "5", questionName_tf.getText(), null, pathMediaChoice};
-                        db.UpdateChoice(addChoice5);
-                    } else {
-                        String[] addChoice5 = {choice5_tf.getText(), String.valueOf(gradeChoice5), questionName_tf.getText() + "5", questionName_tf.getText(), null, null};
-                        db.UpdateChoice(addChoice5);
-                    }
-                }
-                if (!choice6_tf.getText().trim().equals("")) {
-                    if (imageChoice6_iv.getImage() != null) {
-                        String pathMediaChoice = saveImage(imageChoice6_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice", questionName_tf.getText() + "6");
-                        String[] addChoice6 = {choice6_tf.getText(), String.valueOf(gradeChoice6), questionName_tf.getText() + "6", questionName_tf.getText(), null, pathMediaChoice};
-                        db.UpdateChoice(addChoice6);
-                    } else {
-                        String[] addChoice6 = {choice6_tf.getText(), String.valueOf(gradeChoice6), questionName_tf.getText() + "6", questionName_tf.getText(), null, null};
-                        db.UpdateChoice(addChoice6);
-                    }
-                }
-                AlertOOP.AddDone("Add Question Status", "Add Question Done", "Done");
-                showCategory_tv.setEditable(false);
-                questionName_tf.setEditable(false);
-                categoryName_lb.setMouseTransparent(false);
-            }
-        }
-    }   // Add new Question into SQL
-    public void AddImageToImageView(ImageView imageView) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png")
-        );
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) {
-            String url1 = file.toURI().toString();
-            Image image = new Image(url1);
-            imageView.setImage(image);
-        }
-    }
-    public void loadImage(String path, ImageView imageView) {
-        if (path == null || path.isEmpty()) {
-            return;
-        }
-        try {
-            Image image = new Image(new FileInputStream(path));
-            imageView.setImage(image);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-    // Load MediaQuestion from database path in the file local
-    public void loadFile(String path, ImageView imageViewImage, ImageView imageViewGif, MediaView mediaViewVideo) {
-        if (path == null || path.isEmpty()) return;
-        int dotIndex = path.lastIndexOf(".");
-        if (dotIndex == -1) return;
-        String extension = path.substring(dotIndex);
-        if (extension.equalsIgnoreCase(".png")) {
-            Image image = new Image("file:" + path);
-            imageViewImage.setImage(image);
-            imageViewImage.setVisible(true);
-            imageViewGif.setVisible(false);
-            mediaViewVideo.setVisible(false);
-        } else if (extension.equalsIgnoreCase(".gif")) {
-            Image gif = new Image("file:" + path);
-            imageViewGif.setImage(gif);
-            imageViewGif.setVisible(true);
-            imageViewImage.setVisible(false);
-            mediaViewVideo.setVisible(false);
-        } else if (extension.equalsIgnoreCase(".mp4")) {
-            Path pathVideo = Paths.get(path);
-            pathVideo = pathVideo.toAbsolutePath();
-            Media media = new Media(pathVideo.toUri().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            mediaViewVideo.setMediaPlayer(mediaPlayer);
-            videoPane_ap.setVisible(true);
-            imageViewImage.setVisible(false);
-            imageViewGif.setVisible(false);
-            setVideoPlay(mediaPlayer);
-            playVideo.setOnAction(e -> mediaPlayer.play());
-            pause_btn.setOnAction(e -> mediaPlayer.pause());
-        }
     }
 }
