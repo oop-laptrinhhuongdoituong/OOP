@@ -124,4 +124,20 @@ public class ChangeScene {
         gui11Controller.addQuiz_ap.setVisible(true);
         stage.setScene(scene);
     }
+    public static void  mainSceneGUI11(Initializable controller, MouseEvent event){
+        String path = "/com/example/baitaplonoop/GUInew.fxml";
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(controller.getClass().getResource(path));
+        Parent parent = null;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene scene = new Scene(parent);
+        GUI11Controller gui11Controller = fxmlLoader.getController();
+        gui11Controller.listQuiz_ap.setVisible(true);
+        stage.setScene(scene);
+    }
 }

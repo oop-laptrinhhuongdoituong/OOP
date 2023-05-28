@@ -53,9 +53,9 @@ public class GUI33Controller implements Initializable {
                 AlertOOP.mustFill("Add Category Status", "Add category fail", "You must file the blank field");
             } else if (!checkAddParent) {
                 String[] addCategory = {null, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
-                int categoryRowInsert = db.InsertCategory(addCategory);
+                db.InsertCategory(addCategory);
                 AlertOOP.AddDone("Add Category status", "Add category done", "Add category without parent category");
-                ChangeScene.changeSceneUsingMouseEvent(this,  "/com/example/baitaplonoop/GUI11.fxml", buttonAddCategoryEvent);
+                ChangeScene.mainSceneGUI11(this,buttonAddCategoryEvent);
             } else {
                 String IDParentCategory;
                 try {
@@ -64,9 +64,9 @@ public class GUI33Controller implements Initializable {
                     throw new RuntimeException(e);
                 }
                 String[] addCategory = {IDParentCategory, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
-                int categoryRowInsert = db.InsertCategory(addCategory);
+                db.InsertCategory(addCategory);
                 AlertOOP.AddDone("Add Category status", "Add category done", "Add category with parent Category");
-                ChangeScene.changeSceneUsingMouseEvent(this,  "/com/example/baitaplonoop/GUI11.fxml", buttonAddCategoryEvent);
+                ChangeScene.mainSceneGUI11(this,buttonAddCategoryEvent);
             }
         });
     }

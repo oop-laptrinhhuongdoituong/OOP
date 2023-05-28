@@ -97,7 +97,7 @@ public class DBConnect {
         }
         return categoryID;
     }
-    public int InsertCategory(String[] stringSQL) {
+    public void InsertCategory(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Category(parentID, categoryName, categoryID, categoryinfo) values (?, ?, ?, ?)";
         PreparedStatement statement;
@@ -111,7 +111,7 @@ public class DBConnect {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return rowInserted;
+
     }
     public int AddNewQuiz(String[] stringSQL) {
         int rowInserted = 0;
