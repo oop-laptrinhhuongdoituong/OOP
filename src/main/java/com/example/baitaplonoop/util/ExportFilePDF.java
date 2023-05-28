@@ -45,8 +45,8 @@ public class ExportFilePDF {
                 Phrase p = new Phrase();
                 if (rs1.next()) {
                     p.add(rs1.getString("questionID") + ": " + rs1.getString("questionText") + "\n\n");
-                    String imagePath = rs1.getString(4);
-                    if(imagePath != "NULL"){
+                    String imagePath = rs1.getString("questionMedia");
+                    if(imagePath != null){
                         Image image = Image.getInstance(imagePath);
                         image.scaleToFit(150,200);
                         p.add(new Chunk(image, 0, 0, true));
@@ -56,6 +56,13 @@ public class ExportFilePDF {
                 char c = 'A';
                 while (rs2.next()) {
                     p.add(String.valueOf(c) + ". " + rs2.getString("choiceText") + "\n");
+                    String imagePath = rs2.getString("choiceMedia");
+                    if(imagePath != null){
+                        Image image = Image.getInstance(imagePath);
+                        image.scaleToFit(150,200);
+                        p.add(new Chunk(image, 0, 0, true));
+                        p.add("\n");
+                    }
                     c++;
                 }
                 p.add("\n");
@@ -64,8 +71,8 @@ public class ExportFilePDF {
                     ResultSet rs4 = db.getData("Select * from Choice where questionID = '" + rs.getString("questionID") + "'");
                     if (rs3.next()) {
                         p.add(rs3.getString("questionID") + ": " + rs3.getString("questionText") + "\n\n");
-                        String imagePath = rs3.getString(4);
-                        if(imagePath != "NULL"){
+                        String imagePath = rs3.getString("questionMedia");
+                        if(imagePath != null){
                             Image image = Image.getInstance(imagePath);
                             image.scaleToFit(150,200);
                             p.add(new Chunk(image, 0, 0, true));
@@ -75,6 +82,13 @@ public class ExportFilePDF {
                     char C = 'A';
                     while (rs4.next()) {
                         p.add(String.valueOf(C) + ". " + rs4.getString("choiceText") + "\n");
+                        String imagePath = rs4.getString("choiceMedia");
+                        if(imagePath != null){
+                            Image image1 = Image.getInstance(imagePath);
+                            image1.scaleToFit(150,200);
+                            p.add(new Chunk(image1, 0, 0, true));
+                            p.add("\n");
+                        }
                         C++;
                     }
                     p.add("\n");

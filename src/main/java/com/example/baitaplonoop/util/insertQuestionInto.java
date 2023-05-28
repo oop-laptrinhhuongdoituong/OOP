@@ -87,7 +87,7 @@ public class insertQuestionInto {
         ResultSet rs1 = db.getData(questionView);
         try {
             while (rs1.next()) {
-                addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"), rs1.getString("questionText"), rs1.getString("questionImage"), rs1.getDouble("questionMark"), new Button("Edit"));
+                addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"), rs1.getString("questionText"), rs1.getString("questionMedia"), rs1.getDouble("questionMark"), new Button("Edit"));
                 questionsList.add((question1.getQuestionID() + ": " + question1.getQuestionText()));
                 questionRandom.add(new Pair<>(question1.getQuestionID(), question1.getQuestionID() + ": " + question1.getQuestionText()));
             }
@@ -101,7 +101,7 @@ public class insertQuestionInto {
         try {
             while (rs1.next()) {
                 Button button = new Button("edit");
-                addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"),rs1.getString("questionID")+": "+ rs1.getString("questionText"), rs1.getString("questionImage"), rs1.getDouble("questionMark"), button);
+                addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"),rs1.getString("questionID")+": "+ rs1.getString("questionText"), rs1.getString("questionMedia"), rs1.getDouble("questionMark"), button);
                 questionsList.add(question1);
             }
         } catch (Exception e) {
@@ -116,7 +116,7 @@ public class insertQuestionInto {
         try {
             while (rs1.next()) {
                 Button button=new Button("Edit");
-                addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"),rs1.getString("questionID")+": "+ rs1.getString("questionText"), rs1.getString("questionImage"), rs1.getDouble("questionMark"), button);
+                addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"),rs1.getString("questionID")+": "+ rs1.getString("questionText"), rs1.getString("questionMedia"), rs1.getDouble("questionMark"), button);
                 questionsList.add(question1);
             }
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class insertQuestionInto {
         ResultSet rs1 = db.getData(questionView);
         try {
             while (rs1.next()) {
-                addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"), rs1.getString("questionText"), rs1.getString("questionImage"), rs1.getDouble("questionMark"), new Button("Edit"));
+                addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"), rs1.getString("questionText"), rs1.getString("questionMedia"), rs1.getDouble("questionMark"), new Button("Edit"));
                 questionsList.add(question1.getQuestionID() + ": " + question1.getQuestionText());
                 questionRandom.add(new Pair<>(question1.getQuestionID(), question1.getQuestionID() + ": " + question1.getQuestionText()));
             }

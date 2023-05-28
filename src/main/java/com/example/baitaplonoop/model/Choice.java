@@ -6,15 +6,17 @@ public class Choice {
     private String choiceID;
     private String questionID;
     private boolean isSelected;
+    private String choiceMedia;
 
 
 
-    public Choice(String choiceText, double choiceGrade, String choiceID, String questionID, boolean isSelected) {
+    public Choice(String choiceText, double choiceGrade, String choiceID, String questionID, boolean isSelected, String choiceMedia) {
         this.choiceText = choiceText;
         this.choiceGrade = choiceGrade;
         this.choiceID = choiceID;
         this.questionID = questionID;
         this.isSelected = isSelected;
+        this.choiceMedia = choiceMedia;
     }
 
     public Choice(String choiceText, double choiceGrade) {
@@ -61,5 +63,13 @@ public class Choice {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public String getChoiceMedia() {
+        return choiceMedia;
+    }
+
+    public void setChoiceMedia(String choiceMedia) {
+        this.choiceMedia = choiceMedia;
     }
 }

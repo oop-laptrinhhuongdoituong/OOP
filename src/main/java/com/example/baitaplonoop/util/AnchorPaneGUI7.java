@@ -1,11 +1,16 @@
 package com.example.baitaplonoop.util;
 
 
+import com.example.baitaplonoop.model.Choice;
+import com.example.baitaplonoop.model.Question;
 import com.example.baitaplonoop.sql.DBConnect;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -14,21 +19,31 @@ import javafx.scene.text.TextAlignment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import static com.example.baitaplonoop.controller.GUI61Controller.isShuffle;
 
 public class AnchorPaneGUI7 extends AnchorPane {
     private AnchorPane questionPos;
     private AnchorPane questionContent;
     private Label questionNumber = new Label();
-    private Label questionStatus = new Label();
+    public Label questionStatus = new Label();
     private Label questionMark = new Label("Mark out of 1.00");
     private Label questionFlag = new Label("Flag question");
-    private ToggleGroup group = new ToggleGroup();
-    private ArrayList<RadioButton> listRadioButton = new ArrayList<>();
+    public ToggleGroup group = new ToggleGroup();
+    public ArrayList<RadioButton> listRadioButton = new ArrayList<>();
+    public ArrayList<CheckBox> listCheckBox = new ArrayList<>();
     private Text questionText = new Text();
-    private ArrayList<RadioButton> listChoice = new ArrayList<>();
+    public Question question;
+    public ArrayList<Choice> listChoice = new ArrayList<>();
     DBConnect db = new DBConnect();
+    private int notNullChoice = 0;
+    public int boxChecked = 0;
+    public int position;
 
     public AnchorPaneGUI7(int position, String questionID) {
+        this.position = position;
         setUpQuestionPos(position);
 
         this.setPrefWidth(1000);
@@ -64,45 +79,127 @@ public class AnchorPaneGUI7 extends AnchorPane {
         this.questionContent = new AnchorPane();
         this.questionContent.setStyle("-fx-background-color: #F0FFFF");
         this.questionContent.setMinSize(850,240);
-        ResultSet rs = db.getData("Select questionText from Question where questionID = '" + questionID + "'");
-        double choiceHeight = 44.0;
+        ResultSet rs = db.getData("Select * from Question where questionID = '" + questionID + "'");
+        double choiceHeight = 0;
         try {
             if(rs.next()){
+                question = new Question(rs.getString("categoryID"), rs.getString("questionID"), rs.getString("questionText"), rs.getString("questionMedia"), Double.valueOf(rs.getString("questionMark")));
                 this.questionText.setWrappingWidth(900);
                 this.questionText.setText(questionID + ": " + rs.getString("questionText"));
                 this.questionText.setTextAlignment(TextAlignment.JUSTIFY);
                 this.questionContent.getChildren().add(questionText);
                 AnchorPane.setTopAnchor(questionText, 14.0);
                 AnchorPane.setLeftAnchor(questionText, 14.0);
-                ResultSet rs1 = db.getData("Select choiceText from Choice where questionID = '" + questionID + "'");
-                char c = 'A';
+                choiceHeight += questionText.getLayoutBounds().getHeight() + 14.0;
+                if(question.getQuestionMedia() != null){
+                    if(question.getQuestionMedia().substring(question.getQuestionMedia().length() - 3, question.getQuestionMedia().length()).equals("png")){
+                        Image image = new Image("file:" + question.getQuestionMedia());
+                        ImageView imageView = new ImageView();
+                        imageView.setImage(image);
+                        imageView.setFitWidth(450); // Thiết lập chiều rộng mới là 200
+                        imageView.setFitHeight(300); // Thiết lập chiều cao mới là 150
+                        imageView.setPreserveRatio(true); // Duy trì tỷ lệ khung hình ban đầu
+                        this.questionContent.getChildren().add(imageView);
+                        choiceHeight += 14.0;
+                        AnchorPane.setTopAnchor(imageView, choiceHeight);
+                        AnchorPane.setLeftAnchor(imageView, 30.0);
+                        choiceHeight += 300;
+                    }
+                }
+                ResultSet rs1 = db.getData("Select * from Choice where questionID = '" + questionID + "'");
+
                 while (rs1.next()){
-                    RadioButton radioButton = new RadioButton(String.valueOf(c) + ". " + rs1.getString("choiceText"));
-                    radioButton.setMaxWidth(485);
-                    radioButton.setWrapText(true);
-                    radioButton.setAlignment(Pos.TOP_CENTER);
-                    radioButton.setTextAlignment(TextAlignment.JUSTIFY);
-                    listChoice.add(radioButton);
-                    c++;
+                    if(rs1.getString("choiceGrade") == null){
+                        listChoice.add(new Choice(rs1.getString("choiceText"), 0, rs1.getString("choiceID"), rs1.getString("questionID"), false, rs1.getString("choiceMedia")));
+                    }else{
+                        notNullChoice ++;
+                        listChoice.add(new Choice(rs1.getString("choiceText"), Double.valueOf(rs1.getString("choiceGrade")), rs1.getString("choiceID"), rs1.getString("questionID"), false, rs1.getString("choiceMedia")));
+                    }
                 }
-                choiceHeight += questionText.getLayoutBounds().getHeight();
-                for(int i = 0; i < listChoice.size(); i++){
-                    choiceHeight += 10.0;
-                    listChoice.get(i).setToggleGroup(group);
-                    this.questionContent.getChildren().add(listChoice.get(i));
-                    AnchorPane.setTopAnchor(listChoice.get(i), choiceHeight);
-                    AnchorPane.setLeftAnchor(listChoice.get(i), 30.0);
-                    Text text = new Text(listChoice.get(i).getText());
-                    text.setFont(listChoice.get(i).getFont());
-                    text.setWrappingWidth(465);
-                    choiceHeight += text.getLayoutBounds().getHeight();
+                if(isShuffle){
+                    Collections.shuffle(listChoice);
                 }
-                AnchorPane.setBottomAnchor(listChoice.get(listChoice.size()-1), 10.0);
+                char c = 'A';
+                if(notNullChoice <= 1) {
+                    for (int i = 0; i < listChoice.size(); i++) {
+                        RadioButton radioButton = new RadioButton(String.valueOf(c) + ". " + listChoice.get(i).getChoiceText());
+                        radioButton.setMaxWidth(485);
+                        radioButton.setWrapText(true);
+                        radioButton.setAlignment(Pos.TOP_CENTER);
+                        radioButton.setTextAlignment(TextAlignment.JUSTIFY);
+                        listRadioButton.add(radioButton);
+                        choiceHeight += 10.0;
+                        radioButton.setToggleGroup(group);
+                        this.questionContent.getChildren().add(radioButton);
+                        AnchorPane.setTopAnchor(radioButton, choiceHeight);
+                        AnchorPane.setLeftAnchor(radioButton, 30.0);
+                        Text text = new Text(radioButton.getText());
+                        text.setFont(radioButton.getFont());
+                        text.setWrappingWidth(465);
+                        choiceHeight += text.getLayoutBounds().getHeight();
+                        c++;
+                        if(listChoice.get(i).getChoiceMedia() != null){
+                            if(listChoice.get(i).getChoiceMedia().substring(listChoice.get(i).getChoiceMedia().length() - 3, listChoice.get(i).getChoiceMedia().length()).equals("png")){
+                                Image image = new Image("file:" + listChoice.get(i).getChoiceMedia());
+                                ImageView imageView = new ImageView();
+                                imageView.setImage(image);
+                                imageView.setFitWidth(450); // Thiết lập chiều rộng mới là 200
+                                imageView.setFitHeight(300); // Thiết lập chiều cao mới là 150
+                                imageView.setPreserveRatio(true); // Duy trì tỷ lệ khung hình ban đầu
+                                this.questionContent.getChildren().add(imageView);
+                                choiceHeight += 14.0;
+                                AnchorPane.setTopAnchor(imageView, choiceHeight);
+                                AnchorPane.setLeftAnchor(imageView, 30.0);
+                                choiceHeight += 300;
+                            }
+                        }
+                    }
+//                    AnchorPane.setBottomAnchor(listRadioButton.get(listRadioButton.size()-1), 10.0);
+                }
+                else {
+                    for (int i = 0; i < listChoice.size(); i++) {
+                        CheckBox checkBox = new CheckBox(String.valueOf(c) + ". " + listChoice.get(i).getChoiceText());
+                        checkBox.setMaxWidth(485);
+                        checkBox.setWrapText(true);
+                        checkBox.setAlignment(Pos.TOP_CENTER);
+                        checkBox.setTextAlignment(TextAlignment.JUSTIFY);
+                        listCheckBox.add(checkBox);
+                        choiceHeight += 10.0;
+                        this.questionContent.getChildren().add(checkBox);
+                        AnchorPane.setTopAnchor(checkBox, choiceHeight);
+                        AnchorPane.setLeftAnchor(checkBox, 30.0);
+                        Text text = new Text(checkBox.getText());
+                        text.setFont(checkBox.getFont());
+                        text.setWrappingWidth(465);
+                        choiceHeight += text.getLayoutBounds().getHeight();
+                        c++;
+                        if(listChoice.get(i).getChoiceMedia() != null){
+                            if(listChoice.get(i).getChoiceMedia().substring(listChoice.get(i).getChoiceMedia().length() - 3, listChoice.get(i).getChoiceMedia().length()).equals("png")){
+                                Image image = new Image("file:" + listChoice.get(i).getChoiceMedia());
+                                ImageView imageView = new ImageView();
+                                imageView.setImage(image);
+                                imageView.setFitWidth(450); // Thiết lập chiều rộng mới là 200
+                                imageView.setFitHeight(300); // Thiết lập chiều cao mới là 150
+                                imageView.setPreserveRatio(true); // Duy trì tỷ lệ khung hình ban đầu
+                                this.questionContent.getChildren().add(imageView);
+                                choiceHeight += 14.0;
+                                AnchorPane.setTopAnchor(imageView, choiceHeight);
+                                AnchorPane.setLeftAnchor(imageView, 30.0);
+                                choiceHeight += 300;
+                            }
+                        }
+                    }
+//                    AnchorPane.setBottomAnchor(listCheckBox.get(listCheckBox.size()-1), 10.0);
+                }
                 choiceHeight += 20.0;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return choiceHeight > this.questionContent.getMinHeight() ? choiceHeight : (this.questionContent.getMinHeight() + 10.0);
+    }
+
+    public int getNotNullChoice() {
+        return notNullChoice;
     }
 }
