@@ -56,6 +56,13 @@ Create table Quiz
 	Foreign key(questionID) references Question(questionID),
 
  )
-
  Go
+ create table HistoryAttempt
+ (
+ quizName NVARCHAR(500),
+ mark FLOAT,
+ dateAttempt datetime,
+ foreign key (quizName) references Quiz(quizName)
+ )
+ go
 

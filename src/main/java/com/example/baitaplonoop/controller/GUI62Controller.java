@@ -24,6 +24,7 @@ import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -47,8 +48,6 @@ public class GUI62Controller implements Initializable {
     private ObservableList<TableQuestionsOfGui62> chosenQuestions = FXCollections.observableArrayList();
     @FXML
     private TableView<TableQuestionsOfGui62> tableQuestions;
-    @FXML
-    private CheckBox shuffle;
 
     @FXML
     private TableColumn<TableQuestionsOfGui62, Label> DeleteIcon;
@@ -170,7 +169,14 @@ public class GUI62Controller implements Initializable {
             });
         }
     }
-
+    private void setStatementShuffle(String quizName) throws SQLException {
+        DBConnect db=new DBConnect();
+        ResultSet rs=db.getData("select shuffle from dbo.Quiz where quizName = N'"+quizName+"'");
+        while (rs.next()){
+            boolean shulffleStatement=rs.getBoolean("shuffle");
+            shuffle.setSelected(shulffleStatement);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         quizNameLink.setText("/" + quizChosen + "/ Edit quiz");
@@ -179,6 +185,11 @@ public class GUI62Controller implements Initializable {
         tableQuestions.setVisible(false);
         addQuestionIntoTable();
         addQuestionMode();
+        try {
+            setStatementShuffle(quizChosen);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         addLabel.setOnMouseClicked(mouseEvent -> {
             if (!listModeAdd.isVisible()) listModeAdd.setVisible(true);
             else listModeAdd.setVisible(false);
@@ -187,6 +198,7 @@ public class GUI62Controller implements Initializable {
             if (listModeAdd.isVisible() && IsMouseOnLabel.isMouseOnLabel(addLabel, mouseEvent) == false)
                 listModeAdd.setVisible(false);
         });
+
         listModeAdd.setOnMouseClicked(mouseEvent -> {
             Label label = listModeAdd.getSelectionModel().getSelectedItem();
             if (label.getText() == "random a question") {
@@ -244,7 +256,13 @@ public class GUI62Controller implements Initializable {
         numberQuestionAndMarkInTable();
     });
     save.setOnAction(event -> {
-      for(int i=0;i<chosenQuestions.size();i++){
+        DBConnect db=new DBConnect();
+        try {
+            db.updateQuiz(shuffle.isSelected(),quizChosen);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        for(int i=0;i<chosenQuestions.size();i++){
           String[] addQuestionInQuiz={chosenQuestions.get(i).getQuestionID(),quizChosen,null};
           try {
               int row = db.InsertQuestionInQuiz(addQuestionInQuiz);

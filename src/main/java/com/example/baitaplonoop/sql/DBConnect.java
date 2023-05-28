@@ -10,10 +10,10 @@ public class DBConnect {
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://DESKTOP-AP629KT\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
+            String url = "jdbc:sqlserver://LAPTOP-5RN02RRR\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
                     + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
             String username = "sa";
-            String password = "hoangphuc0703";
+            String password = "123123";
             con = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -214,6 +214,15 @@ public class DBConnect {
         rowInserted = statement.executeUpdate();
         return rowInserted;
     }
+    public boolean updateQuiz(boolean a,String quizName) throws  SQLException{
+        boolean result =false;
+        String sql="update Quiz set shuffle = ? where quizName = N'"+quizName+"'";
+        PreparedStatement statement;
+        statement=con.prepareStatement(sql);
+        statement.setString(1,Boolean.toString(a));
+        result = statement.execute();
+        return result;
+    }
     public boolean checkQuestionID(String questionID) throws SQLException {
         boolean result = false;
         String sql = "SELECT * FROM Question WHERE questionID = ?"; // Câu lệnh SQL truy vấn dữ liệu theo questionID
@@ -226,4 +235,5 @@ public class DBConnect {
         }
         return result; // Trả về giá trị boolean
     }
+
 }
