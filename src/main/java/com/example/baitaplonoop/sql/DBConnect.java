@@ -1,10 +1,9 @@
 package com.example.baitaplonoop.sql;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.example.baitaplonoop.model.Choice;
+
 public class DBConnect {
     public Connection con;
     public DBConnect() {
@@ -168,7 +167,7 @@ public class DBConnect {
         }
         return choiceInfo;
     }
-    public int UpdateQuestion(String[] questionInfo) throws SQLException {
+    public void UpdateQuestion(String[] questionInfo) throws SQLException {
         int rowInserted = 0;
         String sql = "MERGE Question AS target USING (VALUES (?,?,?,?,?)) " +
                 "AS source (categoryID, questionID, questionText, questionMark, questionMedia)  " +
@@ -185,9 +184,8 @@ public class DBConnect {
         statement.setFloat(4, Float.parseFloat(questionInfo[3]));
         statement.setString(5, questionInfo[4]);
         rowInserted = statement.executeUpdate();
-        return rowInserted;
     }
-    public int UpdateChoice(String[] choiceInfo) throws SQLException {
+    public void UpdateChoice(String[] choiceInfo) throws SQLException {
         int rowInserted = 0;
         String sql = "MERGE Choice AS target USING (VALUES (?,?,?,?,?)) AS source (choiceText, choiceGrade, choiceID, questionID, choiceMedia)  ON target.choiceID = source.choiceID  WHEN MATCHED THEN  UPDATE SET choiceText = source.choiceText,  choiceGrade = source.choiceGrade, choiceID = source.choiceID,questionID = source.questionID, choiceMedia = source.choiceMedia  WHEN NOT MATCHED THEN  INSERT (choiceText, choiceGrade, choiceID, questionID, choiceMedia)  VALUES (source.choiceText, source.choiceGrade, source.choiceID, source.questionID, source.choiceMedia);";
         PreparedStatement statement;
@@ -198,7 +196,6 @@ public class DBConnect {
         statement.setString(4, choiceInfo[3]);
         statement.setString(5,  choiceInfo[4]);
         rowInserted = statement.executeUpdate();
-        return rowInserted;
     }
     public boolean checkQuestionID(String questionID) throws SQLException {
         boolean result = false;

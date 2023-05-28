@@ -6,7 +6,6 @@ import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.AlertOOP;
 import com.example.baitaplonoop.util.ChangeScene;
 import com.example.baitaplonoop.util.showTreeViewCategory;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -72,8 +71,8 @@ public class GUI32Controller implements Initializable {
     public ImageView imageChoice6_iv;
     public Button editing_btn;
     public Button cancel_btn;
-    @FXML
-    private MediaView mediaQuestion_mv;
+    public MediaView mediaQuestion_mv;
+
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion = "null";
     Double gradeChoice1 = 0.0, gradeChoice2 = 0.0, gradeChoice3 = 0.0, gradeChoice4 = 0.0, gradeChoice5 = 0.0, gradeChoice6 = 0.0;
@@ -91,11 +90,11 @@ public class GUI32Controller implements Initializable {
     } // Return Number of TextField Choice is Edited
 
     // View in Editing Question From GUI21
-    public void editingQuestionChoice(String categoryName, String questionID, String questionText, String questionMedia, String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, String choiceText4, String choiceGrade4, String choiceMedia4, String choiceText5, String choiceGrade5, String choiceMedia5, String choiceText6, String choiceGrade6, String choiceMedia6) throws FileNotFoundException {
+    public void editingQuestionChoice(String categoryName, String questionID, String questionText, String questionMedia, String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, String choiceText4, String choiceGrade4, String choiceMedia4, String choiceText5, String choiceGrade5, String choiceMedia5, String choiceText6, String choiceGrade6, String choiceMedia6) {
         videoPane_ap.setVisible(false);
         paneChoice2_ap.setVisible(false);
         nameCategoryQuestion = categoryName;
-        questionLabel_lb.setText("Editing a Multilple choice question");
+        questionLabel_lb.setText("Editing a Multiple choice question");
         categoryName_lb.setText(categoryName);
         questionName_tf.setText(questionID);
         questionName_tf.setEditable(false);
@@ -153,7 +152,7 @@ public class GUI32Controller implements Initializable {
         else if (mediaQuestion_mv.getMediaPlayer() != null)
             return CustomMedia.saveVideo(mediaQuestion_mv, "./src/main/resources/com/example/baitaplonoop/Media/Video", questionName_tf.getText().trim());
         else return null;
-    }   // To return path to Media in Question, this prepare for save in the database
+    }   // To return path to Media in Question, this prepares for save in the database
 
     public String getCategoryIDQuestion() {
         if (nameCategoryQuestion != null) {
@@ -181,7 +180,7 @@ public class GUI32Controller implements Initializable {
                 String pathMediaQuestion = questionMediaPath();
                 String[] questionInfo = {getCategoryIDQuestion(), questionName_tf.getText().trim(), questionText_tf.getText().trim(), "1", pathMediaQuestion};
                 try {
-                    int addQuestion = db.UpdateQuestion(questionInfo);
+                    db.UpdateQuestion(questionInfo);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -271,7 +270,7 @@ public class GUI32Controller implements Initializable {
         gradeChoice5_cb.setOnAction(gradeChoice5Event -> gradeChoice5 = addValueComboBox.convertStringToDouble(gradeChoice5_cb));
         gradeChoice6_cb.setOnAction(gradeChoice6Event -> gradeChoice6 = addValueComboBox.convertStringToDouble(gradeChoice6_cb));
         selectMedia_cb.getItems().addAll("Add Video", "Add Image", "Add Gif");
-        //Chọn hiện button thêm ảnh, video, gif vào question
+        // Select to visibly add image button, add video button or add gif button
         selectMedia_cb.setOnAction(selectMediaEvent -> {
             String selectedItem = selectMedia_cb.getSelectionModel().getSelectedItem();
             switch (selectedItem) {

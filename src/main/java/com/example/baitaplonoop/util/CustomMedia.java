@@ -24,7 +24,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class CustomMedia {
-    // Load Media in Database when input is String in path
+    // Load Media in Database when input is String in path (useful in load media in Question Text)
     public static void loadFile(String path, ImageView imageViewImage, ImageView imageViewGif, MediaView mediaViewVideo, AnchorPane mediaVideo_ap, Button playVideo, Button pause_btn, Slider timeSlider) {
         if (path == null || path.isEmpty()) return;
         int dotIndex = path.lastIndexOf(".");
@@ -56,7 +56,7 @@ public class CustomMedia {
             pause_btn.setOnAction(e -> mediaPlayer.pause());
         }
     }
-
+    //
     public static void setVideoPlay(MediaPlayer mediaPlayer, Slider timeSlider) {
         mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
             if (!timeSlider.isValueChanging()) {
@@ -99,7 +99,6 @@ public class CustomMedia {
     public static boolean CheckDuration(MediaView mediaView) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
         Duration duration = mediaPlayer.getTotalDuration();
-        // Chuyển đổi Duration sang giây
         double seconds = duration.toSeconds();
         return 1 <= seconds & seconds <= 20;
     } // Check Duration Video in Question between 1s and 10s

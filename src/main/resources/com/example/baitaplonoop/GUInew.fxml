@@ -46,4 +46,7 @@
 
         </fx:include>
     </AnchorPane>
+    <AnchorPane fx:id="addQuiz_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="820.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
+        <fx:include source="GUI35AddingQuiz.fxml" />
+    </AnchorPane>
 </AnchorPane>

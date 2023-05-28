@@ -260,10 +260,10 @@ public class ImportFile {
                     FileOutputStream os = new FileOutputStream(new File(imagePath));
                     os.write(bytepic);
                     String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", imagePath};
-                    int questionRowInserted = db.UpdateQuestion(insertQuestion);
+                    db.UpdateQuestion(insertQuestion);
                 }else{
                     String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", null};
-                    int questionRowInserted = db.UpdateQuestion(insertQuestion);
+                    db.UpdateQuestion(insertQuestion);
                 }
                 String[] answer = part[end.get(j).LineNumber].split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
@@ -314,7 +314,7 @@ public class ImportFile {
             for (int j = 0; j < start.size(); j++) {
                 String[] questionPart = part.get(start.get(j).LineNumber).split(": ", 2);
                 String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", null};
-                int questionRowInserted = db.UpdateQuestion(insertQuestion);
+                db.UpdateQuestion(insertQuestion);
                 String[] answer = part.get(end.get(j).LineNumber).split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);

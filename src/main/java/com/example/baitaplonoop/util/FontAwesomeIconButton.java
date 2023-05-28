@@ -12,6 +12,7 @@ public class FontAwesomeIconButton extends Button {
 
     public FontAwesomeIconButton(FontAwesomeIcon icon) {
         FontAwesomeIconView iconView = new FontAwesomeIconView(icon);
+
         setGraphic(iconView);
     }
 
