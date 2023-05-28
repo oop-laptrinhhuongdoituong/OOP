@@ -226,4 +226,16 @@ public class DBConnect {
         }
         return result; // Trả về giá trị boolean
     }
+    public int updateQuizMark(double mark, String quizChosen){
+        int rowUpdated = 0;
+        String sql = "Update Quiz set mark = ? where quizName = N'" + quizChosen + "'";
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, String.valueOf(mark));
+            rowUpdated = statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rowUpdated;
+    }
 }
