@@ -2,7 +2,6 @@ package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.ChangeScene;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
@@ -15,14 +14,31 @@ public class GUI35Controller implements Initializable {
     public DatePicker openQuiz_dp;
     public DatePicker closeQuiz_dp;
     public TextField timeQuiz_tf;
-    public ComboBox expires_cb;
+    public ComboBox<String> expires_cb;
     public Button createQuiz_btn;
     public Button cancel_btn;
+    public Spinner<Integer> minuteStart_sp;
+    public Spinner<Integer> hourStart_sp;
+    public Spinner<Integer> hourEnd_sp;
+    public Spinner<Integer> minuteEnd_sp;
 
     DBConnect db = new DBConnect();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60);
+        hourStart_sp.setValueFactory(valueFactory);
+        TextFormatter<Integer> textFormatter = new TextFormatter<>(valueFactory.getConverter(), valueFactory.getValue(), change -> {
+            String newText = change.getControlNewText();
+            if (newText.isEmpty() || (newText.matches("\\d+") && Integer.parseInt(newText) >= 0 && Integer.parseInt(newText) <= 60)) {
+                return change;
+            }
+            return null;
+        });
+
+        // Gán textFormatter cho spinner
+        hourStart_sp.getEditor().setTextFormatter(textFormatter);
 
         createQuiz_btn.setOnAction(createQuizEvent -> {
 
@@ -44,9 +60,6 @@ public class GUI35Controller implements Initializable {
                 db.AddNewQuiz(quiz);
             }
         });
-
-        cancel_btn.setOnMouseClicked(cancelQuizEvent ->{
-            ChangeScene.changeSceneUsingMouseEvent(this,"/com/example/baitaplonoop/GUI11.fxml",cancelQuizEvent);
-        });
+        cancel_btn.setOnMouseClicked(cancelQuizEvent -> ChangeScene.changeSceneUsingMouseEvent(this,"/com/example/baitaplonoop/GUI11.fxml",cancelQuizEvent));
     }
 }

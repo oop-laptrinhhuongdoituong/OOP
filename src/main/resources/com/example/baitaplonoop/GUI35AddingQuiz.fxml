@@ -13,40 +13,44 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="820.0" style="-fx-background-color: #E0FFFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI35Controller">
-   <Label layoutX="51.0" layoutY="14.0" text="Adding a new Quiz" textFill="#ff1e1e" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="381.0" AnchorPane.topAnchor="14.0">
+<AnchorPane prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #E0FFFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI35Controller">
+   <Label layoutX="80.0" layoutY="13.0" text="Adding a new Quiz" textFill="#ff1e1e" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="351.0" AnchorPane.topAnchor="13.0">
       <font>
          <Font size="20.0" />
       </font>
    </Label>
-   <Label layoutX="50.0" layoutY="81.0" text="Name" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="80.0" />
-   <Label layoutX="44.0" layoutY="110.0" text="Description" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0" />
-   <Label layoutX="49.0" layoutY="50.0" text="General" textFill="#ff1e1e" AnchorPane.leftAnchor="49.0" AnchorPane.topAnchor="50.0">
+   <Label layoutX="50.0" layoutY="81.0" text="Name" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="80.0" />
+   <Label layoutX="44.0" layoutY="110.0" text="Description" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="120.0" />
+   <Label layoutX="49.0" layoutY="50.0" text="General" textFill="#ff1e1e" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="50.0">
       <font>
          <Font name="System Bold" size="14.0" />
       </font>
    </Label>
    <Separator layoutX="18.0" layoutY="197.0" prefHeight="6.0" prefWidth="563.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="200.0" />
-   <Label layoutX="49.0" layoutY="228.0" text="Timing" textFill="#ff1e1e" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="210.0">
+   <Label layoutX="49.0" layoutY="228.0" text="Timing" textFill="#ff1e1e" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="210.0">
       <font>
          <Font name="System Bold" size="14.0" />
       </font>
    </Label>
-   <Label layoutX="51.0" layoutY="256.0" text="Open the quiz" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="240.0" />
-   <Label layoutX="51.0" layoutY="285.0" text="Close the quiz" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="280.0" />
-   <Label layoutX="48.0" layoutY="311.0" text="Time limit" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="320.0" />
-   <Label layoutX="46.0" layoutY="342.0" text="When time expires" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="360.0" />
-   <TextField fx:id="quizName_tf" layoutX="219.0" layoutY="77.0" prefHeight="25.0" prefWidth="332.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="80.0" />
-   <TextArea fx:id="quizDescription_tf" layoutX="200.0" layoutY="119.0" prefHeight="73.0" prefWidth="332.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0" />
-   <DatePicker fx:id="openQuiz_dp" layoutX="213.0" layoutY="236.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="240.0" />
-   <DatePicker fx:id="closeQuiz_dp" layoutX="210.0" layoutY="250.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="280.0" />
-   <TextField fx:id="timeQuiz_tf" layoutX="200.0" layoutY="316.0" prefHeight="25.0" prefWidth="61.0" AnchorPane.leftAnchor="390.0" AnchorPane.topAnchor="320.0" />
-   <Label layoutX="273.0" layoutY="324.0" text="minute" AnchorPane.rightAnchor="289.6666666666667" AnchorPane.topAnchor="324.0" />
-   <ComboBox fx:id="expires_cb" layoutX="198.0" layoutY="356.0" prefHeight="25.0" prefWidth="175.0" AnchorPane.leftAnchor="390.0" AnchorPane.topAnchor="360.0" />
-   <Button fx:id="createQuiz_btn" layoutX="480.0" layoutY="385.0" mnemonicParsing="false" style="-fx-background-color: ff1e1e;" text="Create" textFill="WHITE" AnchorPane.bottomAnchor="23.666666666666668" AnchorPane.rightAnchor="87.33333333333334" />
-   <Button fx:id="cancel_btn" layoutX="595.0" layoutY="551.0" mnemonicParsing="false" style="-fx-background-color: ff1e1e;" text="Cancel" textFill="WHITE" />
-   <Spinner layoutX="347.0" layoutY="207.0" prefHeight="25.0" prefWidth="51.0" />
-   <Spinner layoutX="410.0" layoutY="207.0" prefHeight="25.0" prefWidth="51.0" />
-   <CheckBox layoutX="475.0" layoutY="211.0" mnemonicParsing="false" text="CheckBox" />
-   <FontAwesomeIconView fill="#ef1717" glyphName="FILE_TEXT_ALT" layoutX="149.0" layoutY="167.0" selectionFill="BLACK" size="30" text="" />
+   <Label layoutX="51.0" layoutY="256.0" text="Open the quiz" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="240.0" />
+   <Label layoutX="51.0" layoutY="285.0" text="Close the quiz" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="280.0" />
+   <Label layoutX="48.0" layoutY="311.0" text="Time limit" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="320.0" />
+   <Label layoutX="46.0" layoutY="342.0" text="When time expires" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="360.0" />
+   <TextField fx:id="quizName_tf" layoutX="219.0" layoutY="77.0" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="80.0" />
+   <TextArea fx:id="quizDescription_tf" layoutX="200.0" layoutY="119.0" prefHeight="73.0" prefWidth="332.0" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0" />
+   <DatePicker fx:id="openQuiz_dp" layoutX="436.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="240.0" />
+   <DatePicker fx:id="closeQuiz_dp" layoutX="430.0" layoutY="280.0" prefHeight="25.0" prefWidth="223.0" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="280.0" />
+   <TextField fx:id="timeQuiz_tf" layoutX="430.0" layoutY="324.0" prefHeight="25.0" prefWidth="91.0" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="320.0" />
+   <Label layoutX="531.0" layoutY="324.0" text="minute" AnchorPane.leftAnchor="531.0" AnchorPane.topAnchor="324.0" />
+   <ComboBox fx:id="expires_cb" layoutX="198.0" layoutY="356.0" prefHeight="25.0" prefWidth="175.0" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="360.0" />
+   <Button fx:id="createQuiz_btn" layoutX="506.0" layoutY="466.0" mnemonicParsing="false" style="-fx-background-color: ff1e1e;" text="Create" textFill="WHITE" AnchorPane.bottomAnchor="108.66666666666669" AnchorPane.rightAnchor="355.33333333333337" />
+   <Button fx:id="cancel_btn" layoutX="627.0" layoutY="466.0" mnemonicParsing="false" style="-fx-background-color: ff1e1e;" text="Cancel" textFill="WHITE" />
+   <Spinner fx:id="minuteStart_sp" layoutX="733.0" layoutY="240.0" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="733.0" AnchorPane.topAnchor="240.0" />
+   <Spinner fx:id="hourStart_sp" editable="true" layoutX="655.0" layoutY="240.0" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="655.0" AnchorPane.topAnchor="240.0" />
+   <CheckBox layoutX="812.0" layoutY="244.0" mnemonicParsing="false" text="Enable" AnchorPane.leftAnchor="812.0" />
+   <FontAwesomeIconView fill="#18a8ed" glyphName="FILE_TEXT_ALT" layoutX="60.0" layoutY="33.0" selectionFill="BLACK" size="15" text="" />
+   <Spinner fx:id="hourEnd_sp" layoutX="655.0" layoutY="280.0" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="655.0" />
+   <Spinner fx:id="minuteEnd_sp" layoutX="733.0" layoutY="280.0" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="733.0" AnchorPane.topAnchor="280.0" />
+   <CheckBox layoutX="812.0" layoutY="280.0" mnemonicParsing="false" text="Enable" AnchorPane.leftAnchor="812.0" />
+   <CheckBox layoutX="577.0" layoutY="324.0" mnemonicParsing="false" text="Enable" AnchorPane.leftAnchor="577.0" AnchorPane.topAnchor="324.0" />
 </AnchorPane>
