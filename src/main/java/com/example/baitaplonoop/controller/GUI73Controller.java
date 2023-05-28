@@ -1,13 +1,17 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.AnchorPaneFinish;
 import com.example.baitaplonoop.util.AnchorPaneGUI7;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.geometry.Bounds;
@@ -20,11 +24,13 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,13 +55,15 @@ public class GUI73Controller implements Initializable {
     private AnchorPane anchorPane1;
     private GridPane gridPane = new GridPane();
     @FXML
-    private  ScrollPane questionView_cr;
+    private ScrollPane questionView_cr;
     DBConnect db = new DBConnect();
     private Timeline timeline;
     private int seconds = 0;
     @FXML
     Hyperlink hlFinish;
+    public static LocalDateTime finishTime;
     ArrayList<AnchorPaneGUI7> listQuestion = new ArrayList<>();
+    ArrayList<AnchorPaneFinish> result = new ArrayList<>();
     ArrayList<Button> listButton = new ArrayList<>();
 
     private void updateTimerLabel() {
@@ -92,34 +100,8 @@ public class GUI73Controller implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-    void insertNavigation(int numberButton) {
-        scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
-        GridPane gridPane = new GridPane();
-        gridPane.setVgap(1);
-        gridPane.setHgap(1);
-        AnchorPane.setTopAnchor(gridPane, 0.0); // cách top 98 pixel
-        AnchorPane.setLeftAnchor(gridPane, 0.0); // cách left 50 pixel
-        AnchorPane.setRightAnchor(gridPane, 0.00); // cách right 50 pixel
-        for (int i = 0; i < numberButton; i++) {
-            Button button = new Button();
-            button.setAlignment(Pos.TOP_CENTER);
-            button.setFont(Font.font(15));
-            button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
-            if (0 <= i && i < 9) button.setText("0" + String.valueOf(i + 1));
-            else button.setText(String.valueOf(i + 1));
-            button.setId("question" + String.valueOf(i + 1));
-            GridPane.setConstraints(button, i % 5, i / 5);
-            GridPane.setMargin(button, new Insets(2, 1, 2, 1));
-            GridPane.setHgrow(button, Priority.ALWAYS);
-            GridPane.setVgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều dọc
-            gridPane.getChildren().add(button);
-        }
-        // Thêm gridpane vào anchorpane
-        anchorPane1.getChildren().add(gridPane);
 
-
-    }
-    void insertIntoGridPane(){
+    void insertIntoGridPane() {
         scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
 
         gridPane.setVgap(1);
@@ -130,185 +112,157 @@ public class GUI73Controller implements Initializable {
         anchorPane1.getChildren().add(gridPane);
 
     }
+
     private void scrollToNode(ScrollPane scrollPane, AnchorPane node) {
         Bounds bounds = node.getBoundsInParent();
         double y = bounds.getMinY();
         double contentHeight = scrollPane.getContent().getBoundsInLocal().getHeight();
         double viewportHeight = scrollPane.getViewportBounds().getHeight();
-        double vValue = (y - 0.5 * viewportHeight) / (contentHeight - viewportHeight);
+        double vValue = y / (contentHeight - viewportHeight);
         scrollPane.setVvalue(vValue);
         scrollPane.setHvalue(0.00);
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         insertIntoGridPane();
         ResultSet rs = db.getData("Select questionID from QuestionInQuiz where quizName = N'" + quizChosen + "'");
         int i = 0;
         double questionHeight = 0.0;
-        try{
-            while(rs.next()){
-                AnchorPaneGUI7 question = new AnchorPaneGUI7(i+1, rs.getString("questionID"));
-                listQuestion.add(question);
         try {
             while (rs.next()) {
                 AnchorPaneGUI7 question = new AnchorPaneGUI7(i + 1, rs.getString("questionID"));
                 ///tao button tuong ung voi cau hoi
-                    Button button = new Button();
-                    button.setAlignment(Pos.TOP_CENTER);
-                    button.setFont(Font.font(15));
-                    button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
-                    if (0 <= i && i < 9) button.setText("0" + String.valueOf(i + 1));
-                    else button.setText(String.valueOf(i + 1));
-                    button.setId("question" + String.valueOf(i + 1));
-                    GridPane.setConstraints(button, i % 5, i / 5);
-                    GridPane.setMargin(button, new Insets(2, 1, 2, 1));
-                    GridPane.setHgrow(button, Priority.ALWAYS);
-                    GridPane.setVgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều dọc
-                    gridPane.getChildren().add(button);
+                Button button = new Button();
+                button.setAlignment(Pos.TOP_CENTER);
+                button.setFont(Font.font(15));
+                button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
+                if (0 <= i && i < 9) button.setText("0" + String.valueOf(i + 1));
+                else button.setText(String.valueOf(i + 1));
+                button.setId("question" + String.valueOf(i + 1));
+                listButton.add(button);
+                GridPane.setConstraints(button, i % 5, i / 5);
+                GridPane.setMargin(button, new Insets(2, 1, 2, 1));
+                GridPane.setHgrow(button, Priority.ALWAYS);
+                GridPane.setVgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều dọc
+                gridPane.getChildren().add(button);
                 ///////////////////////////////////Hung
                 apQuestion.getChildren().add(question);
+                listQuestion.add(question);
 
                 AnchorPane.setRightAnchor(question, 0.0);
                 AnchorPane.setLeftAnchor(question, 0.0);
                 AnchorPane.setTopAnchor(question, questionHeight);
                 button.setOnAction(event -> {
-                    scrollToNode(questionView_cr,question);
+                    scrollToNode(questionView_cr, question);
                 });
                 questionHeight += 10.0;
                 questionHeight += question.getPrefHeight();
-
-                i++;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        quizName = quizChosen;
-        quizName_lb.setText(quizName + " / Edit quiz");
-        LocalDateTime localDateTime = LocalDateTime.now();
-        ResultSet rs1 = db.getData("select * from dbo.Quiz where quizName = N'" + quizName + "'");
-        LocalDateTime openTime;
-        LocalDateTime closeTime;
-
-        try {
-            if (rs1.next()) {
-                openTime = rs1.getTimestamp("openTime").toLocalDateTime();
-                closeTime = rs1.getTimestamp("closeTime").toLocalDateTime();
-                if (localDateTime.isAfter(openTime) && localDateTime.isBefore(closeTime)) {
-                    timerAction(rs1.getInt("timeLimit"));
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        //addButtonsAndGridPane(i,QuestionOverview_ap);
-        addButtonsAndGridPane(i,QuestionOverview_ap,this);
-        //setQuestionButtonAction(i,apQuestion);
-        hlFinish.setOnMouseClicked(mouseEvent -> {
-            double mark = 0;
-            for(int j = 0; j < listQuestion.size(); j++){
-                for(int h = 0; h < listQuestion.get(j).listChoice.size(); h++){
-                    if(listQuestion.get(j).listRadioButton.get(h).isSelected()){
-                        mark += listQuestion.get(j).question.getQuestionMark() * listQuestion.get(j).listChoice.get(h).getChoiceGrade();
+                if(question.getNotNullChoice() <= 1) {
+                    question.group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+                        @Override
+                        public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
+                            question.questionStatus.setText("Answered");
+                            listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #FFFFFF 30%)");
+                        }
+                    });
+                }else{
+                    for(int j = 0; j < question.listCheckBox.size(); j++){
+                        question.listCheckBox.get(j).selectedProperty().addListener(new ChangeListener<Boolean>() {
+                            @Override
+                            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                                if(t1){
+                                    question.boxChecked ++;
+                                    question.questionStatus.setText("Answered");
+                                    listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #FFFFFF 30%)");
+                                }else{
+                                    question.boxChecked--;
+                                    if(question.boxChecked == 0){
+                                        question.questionStatus.setText("Not yet answered");
+                                        listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
+                i++;
             }
-            System.out.println(mark);
-        });
-    }
-    // Hàm để thêm button vào gridpane
-    // Hàm để thêm button vào gridpane và thêm gridpane vào anchorpane
-    public void addButtonsAndGridPane(int numberButton, AnchorPane anchorPane, GUI73Controller gui73Controller) {
-        // Tạo một gridpane mới
-        GridPane gridPane = new GridPane();
-        // Đặt vị trí và kích thước của gridpane trong anchorpane
-        // Bạn có thể thay đổi các giá trị này tùy theo ý muốn
-        AnchorPane.setTopAnchor(gridPane, 98.0); // cách top 98 pixel
-        AnchorPane.setLeftAnchor(gridPane, 50.0); // cách left 50 pixel
-        AnchorPane.setRightAnchor(gridPane, 50.0); // cách right 50 pixel
-        AnchorPane.setBottomAnchor(gridPane, 50.0); // cách bottom 50 pixel
-        // Duyệt qua số lượng button cần thêm
-        for (int i = 0; i < numberButton; i++) {
-            // Tạo một button mới với text là số thứ tự của nó
-            Button button = new Button(String.valueOf(i + 1));
-            button.setId("question" + String.valueOf(i+1) );
-            // Đặt vị trí và kích thước của button trong gridpane
-            // Bạn có thể thay đổi các giá trị này tùy theo ý muốn
-            GridPane.setConstraints(button, i % 5, i / 5); // column = i % 5, row = i / 5
-            //GridPane.setMargin(button, new Insets(2)); // khoảng cách giữa các button
-            GridPane.setMargin(button,new Insets(2, 2, 2, 2));
-            GridPane.setHgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều ngang
-            //GridPane.setVgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều dọc
+            quizName = quizChosen;
+            quizName_lb.setText(quizName + " / Edit quiz");
+            LocalDateTime localDateTime = LocalDateTime.now();
+            ResultSet rs1 = db.getData("select * from dbo.Quiz where quizName = N'" + quizName + "'");
+            LocalDateTime openTime;
+            LocalDateTime closeTime;
 
-            // Thêm button vào gridpane
-            gridPane.getChildren().add(button);
-        }
-        // Thêm gridpane vào anchorpane
-        anchorPane.getChildren().add(gridPane);
-
-    }
-    // Hàm để thêm button vào gridpane và thêm gridpane vào anchorpane
-    public void addButtonsAndGridPane(int numberButton, AnchorPane anchorPane, Scene scene) {
-        // Tạo một gridpane mới
-        GridPane gridPane = new GridPane();
-        // Đặt vị trí và kích thước của gridpane trong anchorpane
-        // Bạn có thể thay đổi các giá trị này tùy theo ý muốn
-        AnchorPane.setTopAnchor(gridPane, 98.0); // cách top 98 pixel
-        AnchorPane.setLeftAnchor(gridPane, 50.0); // cách left 50 pixel
-        AnchorPane.setRightAnchor(gridPane, 50.0); // cách right 50 pixel
-        AnchorPane.setBottomAnchor(gridPane, 50.0); // cách bottom 50 pixel
-        // Tạo một mảng chứa các anchorpane với số thứ tự tương ứng
-        AnchorPane[] anchorPanes = new AnchorPane[numberButton];
-        for (int i = 0; i < numberButton; i++) {
-            // Tạo một anchorpane mới với text là số thứ tự của nó
-            AnchorPane ap = new AnchorPane();
-            Label label = new Label("AnchorPane " + (i + 1));
-            label.setFont(new Font(20));
-            label.setTextFill(Color.WHITE);
-            ap.getChildren().add(label);
-            ap.setStyle("-fx-background-color: #" + Integer.toHexString((int)(Math.random() * 16777215))); // màu nền ngẫu nhiên
-            AnchorPane.setTopAnchor(label, 100.0); // cách top 100 pixel
-            AnchorPane.setLeftAnchor(label, 100.0); // cách left 100 pixel
-            // Thêm anchorpane vào mảng
-            anchorPanes[i] = ap;
-        }
-        // Duyệt qua số lượng button cần thêm
-        for (int i = 0; i < numberButton; i++) {
-            // Tạo một button mới với text là số thứ tự của nó
-            Button button = new Button(String.valueOf(i + 1));
-            // Đặt vị trí và kích thước của button trong gridpane
-            // Bạn có thể thay đổi các giá trị này tùy theo ý muốn
-            GridPane.setConstraints(button, i % 5, i / 5); // column = i % 5, row = i / 5
-            GridPane.setMargin(button, new Insets(10)); // khoảng cách giữa các button
-            GridPane.setHgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều ngang
-            GridPane.setVgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều dọc
-            // Set sự kiện cho button khi được nhấn
-            int index = i; // biến để lưu số thứ tự của button
-            button.setOnAction(event -> {
-                // Chuyển đến anchorpane với số thứ tự tương ứng trong mảng
-                scene.getRoot().getChildrenUnmodifiable().setAll(anchorPanes[index]);
-            });
-            // Thêm button vào gridpane
-            gridPane.getChildren().add(button);
-        }
-        // Thêm gridpane vào anchorpane
-        anchorPane.getChildren().add(gridPane);
-    }
-    // Hàm để set sự kiện cho button có id là "question" + i
-    public void setQuestionButtonAction(int i, AnchorPane anchorPane) {
-        // Tìm button có id là "question" + i trong anchorpane
-        Button button = (Button) anchorPane.lookup("question" + String.valueOf(i+1));
-        // Kiểm tra nếu button tồn tại
-        if (button != null) {
-            // Set sự kiện cho button khi được nhấn
-            button.setOnAction(event -> {
-                // Tìm câu hỏi thứ i trong anchorpane
-                Label question = (Label) anchorPane.lookup("question" + String.valueOf(i+1));
-                // Kiểm tra nếu câu hỏi tồn tại
-                if (question != null) {
-                    // Đưa màn hình đến vị trí của câu hỏi
-                    question.requestFocus();
+            try {
+                if (rs1.next()) {
+                    openTime = rs1.getTimestamp("openTime").toLocalDateTime();
+                    closeTime = rs1.getTimestamp("closeTime").toLocalDateTime();
+                    if (localDateTime.isAfter(openTime) && localDateTime.isBefore(closeTime)) {
+                        timerAction(rs1.getInt("timeLimit"));
+                    }
                 }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            hlFinish.setOnMouseClicked(mouseEvent -> {
+                finishTime = LocalDateTime.now();
+                double marks = 0;
+                for(int k = 0; k < listQuestion.size(); k++){
+                    double questionMark = 0;
+                    if(listQuestion.get(k).getNotNullChoice() <= 1){
+                        String correctAnswer = "";
+                        for(int j = 0; j < listQuestion.get(k).listRadioButton.size(); j++){
+                            if(listQuestion.get(k).listRadioButton.get(j).isSelected()){
+                                questionMark += listQuestion.get(k).question.getQuestionMark() * listQuestion.get(k).listChoice.get(j).getChoiceGrade();
+                            }
+                            if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() == 1){
+                                correctAnswer = String.valueOf((char) (j+65));
+                            }
+                        }
+                        marks += questionMark;
+                        if(questionMark == 0){
+                            result.add(new AnchorPaneFinish(listQuestion.get(k), "The correct answer is: " + correctAnswer));
+                        }else{
+                            result.add(new AnchorPaneFinish(listQuestion.get(k), "Correct!"));
+                        }
+                    }else{
+                        String correctAnswer = "";
+                        for(int j = 0; j < listQuestion.get(k).listCheckBox.size(); j++){
+                            if(listQuestion.get(k).listCheckBox.get(j).isSelected()){
+                                questionMark += listQuestion.get(k).question.getQuestionMark() * listQuestion.get(k).listChoice.get(j).getChoiceGrade();
+                            }
+                            if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() > 0){
+                                correctAnswer += String.valueOf((char) (j+65)) + " ";
+                            }
+                        }
+                        marks += questionMark;
+                        if(questionMark == 1){
+                            result.add(new AnchorPaneFinish(listQuestion.get(k), "Correct!"));
+                        }else{
+                            result.add(new AnchorPaneFinish(listQuestion.get(k), "The correct answer is: " + correctAnswer));
+                        }
+                    }
+                }
+                try {
+                    Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(this.getClass().getResource("/com/example/baitaplonoop/GUI74.fxml"));
+                    Parent parent = loader.load();
+                    Scene scene = new Scene(parent);
+                    GUI74Controller controller = loader.getController();
+                    controller.setUpScene(result, (double) listQuestion.size(), marks);
+                    stage.setScene(scene);
+                    stage.setMaximized(true);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
             });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
+

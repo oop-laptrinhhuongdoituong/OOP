@@ -9,6 +9,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -18,6 +20,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+
+import static com.example.baitaplonoop.controller.GUI61Controller.isShuffle;
 
 public class AnchorPaneGUI7 extends AnchorPane {
     private AnchorPane questionPos;
@@ -34,9 +39,11 @@ public class AnchorPaneGUI7 extends AnchorPane {
     public ArrayList<Choice> listChoice = new ArrayList<>();
     DBConnect db = new DBConnect();
     private int notNullChoice = 0;
-    private int boxChecked = 0;
+    public int boxChecked = 0;
+    public int position;
 
     public AnchorPaneGUI7(int position, String questionID) {
+        this.position = position;
         setUpQuestionPos(position);
 
         this.setPrefWidth(1000);
@@ -49,31 +56,6 @@ public class AnchorPaneGUI7 extends AnchorPane {
         AnchorPane.setRightAnchor(questionContent, 5.0);
         AnchorPane.setLeftAnchor(questionContent, 135.0);
         AnchorPane.setBottomAnchor(questionContent, 10.0);
-        if(notNullChoice <= 1) {
-            group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-                @Override
-                public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
-                    questionStatus.setText("Answered");
-                }
-            });
-        }else{
-            for(int i = 0; i < listCheckBox.size(); i++){
-                listCheckBox.get(i).selectedProperty().addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                        if(t1){
-                            boxChecked ++;
-                            questionStatus.setText("Answered");
-                        }else{
-                            boxChecked--;
-                            if(boxChecked == 0){
-                                questionStatus.setText("Not yet answered");
-                            }
-                        }
-                    }
-                });
-            }
-        }
     }
 
     public void setUpQuestionPos(int position){
@@ -98,7 +80,7 @@ public class AnchorPaneGUI7 extends AnchorPane {
         this.questionContent.setStyle("-fx-background-color: #F0FFFF");
         this.questionContent.setMinSize(850,240);
         ResultSet rs = db.getData("Select * from Question where questionID = '" + questionID + "'");
-        double choiceHeight = 44.0;
+        double choiceHeight = 0;
         try {
             if(rs.next()){
                 question = new Question(rs.getString("categoryID"), rs.getString("questionID"), rs.getString("questionText"), rs.getString("questionMedia"), Double.valueOf(rs.getString("questionMark")));
@@ -108,6 +90,22 @@ public class AnchorPaneGUI7 extends AnchorPane {
                 this.questionContent.getChildren().add(questionText);
                 AnchorPane.setTopAnchor(questionText, 14.0);
                 AnchorPane.setLeftAnchor(questionText, 14.0);
+                choiceHeight += questionText.getLayoutBounds().getHeight() + 14.0;
+                if(question.getQuestionMedia() != null){
+                    if(question.getQuestionMedia().substring(question.getQuestionMedia().length() - 3, question.getQuestionMedia().length()).equals("png")){
+                        Image image = new Image("file:" + question.getQuestionMedia());
+                        ImageView imageView = new ImageView();
+                        imageView.setImage(image);
+                        imageView.setFitWidth(450); // Thiết lập chiều rộng mới là 200
+                        imageView.setFitHeight(300); // Thiết lập chiều cao mới là 150
+                        imageView.setPreserveRatio(true); // Duy trì tỷ lệ khung hình ban đầu
+                        this.questionContent.getChildren().add(imageView);
+                        choiceHeight += 14.0;
+                        AnchorPane.setTopAnchor(imageView, choiceHeight);
+                        AnchorPane.setLeftAnchor(imageView, 30.0);
+                        choiceHeight += 300;
+                    }
+                }
                 ResultSet rs1 = db.getData("Select * from Choice where questionID = '" + questionID + "'");
 
                 while (rs1.next()){
@@ -118,7 +116,9 @@ public class AnchorPaneGUI7 extends AnchorPane {
                         listChoice.add(new Choice(rs1.getString("choiceText"), Double.valueOf(rs1.getString("choiceGrade")), rs1.getString("choiceID"), rs1.getString("questionID"), false, rs1.getString("choiceMedia")));
                     }
                 }
-                choiceHeight += questionText.getLayoutBounds().getHeight();
+                if(isShuffle){
+                    Collections.shuffle(listChoice);
+                }
                 char c = 'A';
                 if(notNullChoice <= 1) {
                     for (int i = 0; i < listChoice.size(); i++) {
@@ -138,8 +138,23 @@ public class AnchorPaneGUI7 extends AnchorPane {
                         text.setWrappingWidth(465);
                         choiceHeight += text.getLayoutBounds().getHeight();
                         c++;
+                        if(listChoice.get(i).getChoiceMedia() != null){
+                            if(listChoice.get(i).getChoiceMedia().substring(listChoice.get(i).getChoiceMedia().length() - 3, listChoice.get(i).getChoiceMedia().length()).equals("png")){
+                                Image image = new Image("file:" + listChoice.get(i).getChoiceMedia());
+                                ImageView imageView = new ImageView();
+                                imageView.setImage(image);
+                                imageView.setFitWidth(450); // Thiết lập chiều rộng mới là 200
+                                imageView.setFitHeight(300); // Thiết lập chiều cao mới là 150
+                                imageView.setPreserveRatio(true); // Duy trì tỷ lệ khung hình ban đầu
+                                this.questionContent.getChildren().add(imageView);
+                                choiceHeight += 14.0;
+                                AnchorPane.setTopAnchor(imageView, choiceHeight);
+                                AnchorPane.setLeftAnchor(imageView, 30.0);
+                                choiceHeight += 300;
+                            }
+                        }
                     }
-                    AnchorPane.setBottomAnchor(listRadioButton.get(listRadioButton.size()-1), 10.0);
+//                    AnchorPane.setBottomAnchor(listRadioButton.get(listRadioButton.size()-1), 10.0);
                 }
                 else {
                     for (int i = 0; i < listChoice.size(); i++) {
@@ -158,8 +173,23 @@ public class AnchorPaneGUI7 extends AnchorPane {
                         text.setWrappingWidth(465);
                         choiceHeight += text.getLayoutBounds().getHeight();
                         c++;
+                        if(listChoice.get(i).getChoiceMedia() != null){
+                            if(listChoice.get(i).getChoiceMedia().substring(listChoice.get(i).getChoiceMedia().length() - 3, listChoice.get(i).getChoiceMedia().length()).equals("png")){
+                                Image image = new Image("file:" + listChoice.get(i).getChoiceMedia());
+                                ImageView imageView = new ImageView();
+                                imageView.setImage(image);
+                                imageView.setFitWidth(450); // Thiết lập chiều rộng mới là 200
+                                imageView.setFitHeight(300); // Thiết lập chiều cao mới là 150
+                                imageView.setPreserveRatio(true); // Duy trì tỷ lệ khung hình ban đầu
+                                this.questionContent.getChildren().add(imageView);
+                                choiceHeight += 14.0;
+                                AnchorPane.setTopAnchor(imageView, choiceHeight);
+                                AnchorPane.setLeftAnchor(imageView, 30.0);
+                                choiceHeight += 300;
+                            }
+                        }
                     }
-                    AnchorPane.setBottomAnchor(listCheckBox.get(listCheckBox.size()-1), 10.0);
+//                    AnchorPane.setBottomAnchor(listCheckBox.get(listCheckBox.size()-1), 10.0);
                 }
                 choiceHeight += 20.0;
             }

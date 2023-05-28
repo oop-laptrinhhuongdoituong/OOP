@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
@@ -36,6 +37,8 @@ public class GUI61Controller implements Initializable {
 
     DBConnect db = new DBConnect();
     public static String timeLimit = "";
+    public static boolean isShuffle;
+    public static boolean isOpenable;
 
     void setUpScene(){
         lbQuiz.setText(quizChosen);
@@ -44,6 +47,12 @@ public class GUI61Controller implements Initializable {
             while (rs.next()) {
                 timeLimit = rs.getString("timeLimit");
                 lbTimeLimit.setText(timeLimit + " mins");
+                isShuffle = rs.getBoolean("shuffle");
+                if(rs.getTimestamp("openTime").toLocalDateTime().isAfter(LocalDateTime.now()) || rs.getTimestamp("closeTime").toLocalDateTime().isBefore(LocalDateTime.now())){
+                    isOpenable = false;
+                }else{
+                    isOpenable = true;
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

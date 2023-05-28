@@ -30,6 +30,8 @@ import java.util.ResourceBundle;
 import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
 
 public class GUI62Controller implements Initializable {
+    @FXML
+    private CheckBox shuffle;
     DBConnect db=new DBConnect();
     @FXML
     private ToggleButton selectMultipleItems;

@@ -80,7 +80,6 @@
              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
          </GridPane>
-         <Hyperlink layoutX="22.0" layoutY="440.0" prefHeight="24.0" prefWidth="144.0" text="Finish attempt..." AnchorPane.bottomAnchor="33.60000000000002" />
          <ScrollPane fx:id="scrollPane" layoutX="6.0" layoutY="83.0" prefHeight="347.0" prefWidth="272.0" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="82.0">
             <content>
                <AnchorPane fx:id="anchorPane1" prefHeight="326.0" prefWidth="241.0" />
