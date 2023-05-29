@@ -21,6 +21,7 @@ module com.example.baitaplonoop {
     requires org.apache.commons.collections4;
     requires javafx.swing;
     requires javafx.swingEmpty;
+    requires org.controlsfx.controls;
 
     opens com.example.baitaplonoop to javafx.fxml;
     exports com.example.baitaplonoop;

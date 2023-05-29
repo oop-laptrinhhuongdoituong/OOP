@@ -1,28 +1,30 @@
 /* File styles.css */
 .tab-pane {
-    -fx-background-color: lightgray; /* Màu nền của tabPane */
+    -fx-background-color: white; /* Màu nền của tabPane */
 }
 
 .tab {
-    -fx-background-color: pink; /* Màu nền của tab bình thường */
+    -fx-background-color: white; /* Màu nền của tab bình thường */
+
 }
 
 .tab:hover {
-    -fx-background-color: red; /* Màu nền của tab khi di chuột qua */
+    -fx-background-color: white; /* Màu nền của tab khi di chuột qua */
 }
 
 .tab:selected {
-    -fx-background-color: yellow; /* Màu nền của tab khi được chọn */
+    -fx-background-color: white; /* Màu nền của tab khi được chọn */
+    -fx-border-color: #868e96;
+    -fx-text-fill: white;
 }
 
 .tab-header-area {
-    -fx-background-color: blue; /* Màu nền của khu vực chứa các tab */
+    -fx-background-color: white; /* Màu nền của khu vực chứa các tab */
 }
 
 .tab-header-background {
-    -fx-background-color: green; /* Màu nền của khu vực phía sau các tab */
+    -fx-background-color: white; /* Màu nền của khu vực phía sau các tab */
 }
-/* File styles.css */
 .anchor-pane {
     /* Thiết lập màu xám cho viền của anchorPane */
     -fx-border-color: gray;

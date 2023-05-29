@@ -31,17 +31,14 @@ public class GUI11Controller implements Initializable {
     public AnchorPane listQuiz_ap;
     public Button setting_btn;
     public AnchorPane addQuestion_ap;
-
+    public Label message;
+    public AnchorPane addQuiz_ap;
     @FXML
     ListView<String> lvQuiz = new ListView<>();
     @FXML
     Button btnTurnEditingOn;
-    FXMLLoader fxmlLoader;
-    GUI11PopUpController controller;
-    static Dialog<String> dialog;
     DBConnect db = new DBConnect();
     public static MouseEvent settingEvent;
-
     public static String quizChosen = "";
     public void setListViewQuiz(){
         ArrayList<String> listQuiz = new ArrayList<>();
@@ -61,10 +58,7 @@ public class GUI11Controller implements Initializable {
             ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI61.fxml", mouseEvent);
         });
 
-        btnTurnEditingOn.setOnAction(event -> {
-            //ChangeScene.changeSceneUsingActionEvent((Initializable) this, "/com/example/baitaplonoop/GUI35AddingQuiz.fxml", event);
-
-        });
+        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.mainSceneGUI35AddQuiz(this,turnEditingOneEvent));
         setting_btn.setOnMouseClicked(event -> {
             settingEvent = event;
             Stage stage = new Stage();
@@ -80,20 +74,10 @@ public class GUI11Controller implements Initializable {
             }
         });
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         setListViewQuiz();
         setEvent();
     }
-    public void selectCategoryTab() {
-        // Lấy đối tượng TabPane có id là tp
-        TabPane tabPane = (TabPane) fxmlLoader.getNamespace().get("tabpane_tb");
-        // Lấy đối tượng Tab có id là category_tab
-        Tab categoryTab = (Tab) fxmlLoader.getNamespace().get("categoryTab_tp");
-        // Chọn tab category_tab
-        tabPane.getSelectionModel().select(categoryTab);
-    }
-
 }
-//
+
