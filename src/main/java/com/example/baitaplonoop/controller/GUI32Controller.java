@@ -107,40 +107,30 @@ public class GUI32Controller implements Initializable {
         choice6_tf.setText(choiceText6);
         CustomMedia.loadFile(questionMedia, imageQuestion_iv, gifQuestion_iv, mediaQuestion_mv, videoPane_ap, playVideo, pause_btn, timeSlider);
 
-        if (!choiceText1.trim().equals("")) {
-            gradeChoice1_cb.setEditable(true);
-            gradeChoice1_cb.getEditor().setText(Float.parseFloat(choiceGrade1) * 100 + "%");
-            CustomMedia.loadImage(choiceMedia1, imageChoice1_iv);
-        }
-        if (!choiceText2.trim().equals("")) {
-            gradeChoice2_cb.setEditable(true);
-            gradeChoice2_cb.getEditor().setText(Float.parseFloat(choiceGrade2) * 100 + "%");
-            CustomMedia.loadImage(choiceMedia2, imageChoice2_iv);
-        }
-        if (!choiceText3.trim().equals("")) {
-            gradeChoice3_cb.setEditable(true);
-            gradeChoice3_cb.getEditor().setText(Float.parseFloat(choiceGrade3) * 100 + "%");
-            CustomMedia.loadImage(choiceMedia3, imageChoice3_iv);
-        }
-        if (!choiceText4.trim().equals("")) {
-            gradeChoice4_cb.setEditable(true);
-            gradeChoice4_cb.getEditor().setText(Float.parseFloat(choiceGrade4) * 100 + "%");
-            CustomMedia.loadImage(choiceMedia4, imageChoice4_iv);
-        }
-        if (!choiceText5.trim().equals("")) {
-            gradeChoice5_cb.setEditable(true);
-            gradeChoice5_cb.getEditor().setText(Float.parseFloat(choiceGrade5) * 100 + "%");
-            CustomMedia.loadImage(choiceMedia5, imageChoice5_iv);
-        }
-        if (!choiceText6.trim().equals("")) {
-            gradeChoice6_cb.setEditable(true);
-            gradeChoice6_cb.getEditor().setText(Float.parseFloat(choiceGrade6) * 100 + "%");
-            CustomMedia.loadImage(choiceMedia6, imageChoice6_iv);
-        }
+        choiceInfo123(choiceText1, choiceGrade1, choiceMedia1, choiceText2, choiceGrade2, choiceMedia2, choiceText3, choiceGrade3, choiceMedia3, gradeChoice1_cb, imageChoice1_iv, gradeChoice2_cb, imageChoice2_iv, gradeChoice3_cb, imageChoice3_iv);
+        choiceInfo123(choiceText4, choiceGrade4, choiceMedia4, choiceText5, choiceGrade5, choiceMedia5, choiceText6, choiceGrade6, choiceMedia6, gradeChoice4_cb, imageChoice4_iv, gradeChoice5_cb, imageChoice5_iv, gradeChoice6_cb, imageChoice6_iv);
         if (!choiceText4.trim().equals("") || !choiceText5.trim().equals("") || !choiceText6.trim().equals("")) {
             paneChoice2_ap.setTranslateY(239);
             buttonPane_ap.setTranslateY(239);
             paneChoice2_ap.setVisible(true);
+        }
+    }
+
+    private void choiceInfo123(String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, ComboBox<String> gradeChoice1Cb, ImageView imageChoice1Iv, ComboBox<String> gradeChoice2Cb, ImageView imageChoice2Iv, ComboBox<String> gradeChoice3Cb, ImageView imageChoice3Iv) {
+        if (!choiceText1.trim().equals("")) {
+            gradeChoice1Cb.setEditable(true);
+            gradeChoice1Cb.getEditor().setText(Float.parseFloat(choiceGrade1) * 100 + "%");
+            CustomMedia.loadImage(choiceMedia1, imageChoice1Iv);
+        }
+        if (!choiceText2.trim().equals("")) {
+            gradeChoice2Cb.setEditable(true);
+            gradeChoice2Cb.getEditor().setText(Float.parseFloat(choiceGrade2) * 100 + "%");
+            CustomMedia.loadImage(choiceMedia2, imageChoice2Iv);
+        }
+        if (!choiceText3.trim().equals("")) {
+            gradeChoice3Cb.setEditable(true);
+            gradeChoice3Cb.getEditor().setText(Float.parseFloat(choiceGrade3) * 100 + "%");
+            CustomMedia.loadImage(choiceMedia3, imageChoice3Iv);
         }
     }
 
