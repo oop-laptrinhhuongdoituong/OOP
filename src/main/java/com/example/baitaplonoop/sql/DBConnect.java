@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.sql;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -246,5 +247,19 @@ public class DBConnect {
             throw new RuntimeException(e);
         }
         return rowUpdated;
+    }
+    public boolean insertIntoHistory(String quizName, double mark, LocalDateTime dateAttempt){
+        boolean rowInserted = false;
+        String querry = "Insert into HistoryAttempt (quizName, mark, dateAttempt) values (?, ?, ?)";
+        try {
+            PreparedStatement statement = con.prepareStatement(querry);
+            statement.setString(1, quizName);
+            statement.setDouble(2, mark);
+            statement.setTimestamp(3, Timestamp.valueOf(dateAttempt));
+            rowInserted = statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rowInserted;
     }
 }

@@ -36,7 +36,7 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <TableView layoutX="32.0" layoutY="167.0" prefHeight="130.0" prefWidth="440.0" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="167.0">
+            <TableView fx:id="tbHistory" layoutX="32.0" layoutY="167.0" prefHeight="130.0" prefWidth="440.0" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="167.0">
               <columns>
                 <TableColumn fx:id="AttemptColumn" prefWidth="177.6000518798828" text="Attempt" />
                 <TableColumn fx:id="StatusColumn" minWidth="0.0" prefWidth="254.79998779296875" text="Status" />

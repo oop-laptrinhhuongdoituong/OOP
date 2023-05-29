@@ -248,6 +248,7 @@ public class GUI73Controller implements Initializable {
 
                 try {
                     int rowUpdated = db.updateQuizMark(marks, quizChosen);
+                    boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
                     Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(this.getClass().getResource("/com/example/baitaplonoop/GUI74.fxml"));
