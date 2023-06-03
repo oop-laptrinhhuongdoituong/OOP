@@ -9,10 +9,10 @@ public class DBConnect {
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://Dat\\MSSQLSERVER01:1433;databaseName=Exam_Management2;"
+            String url = "jdbc:sqlserver://LAPTOP-5RN02RRR\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
                     + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
             String username = "sa";
-            String password = "123";
+            String password = "123123";
             con = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -44,6 +44,21 @@ public class DBConnect {
         }
         return rowInserted;
     }
+//    public int InsertQuestion(String[] stringSQL) {
+//        int rowInserted = 0;
+//        String sql = "INSERT INTO Question(categoryID, questionID, questionText) values(?,?,?)";
+//        PreparedStatement statement;
+//        try {
+//            statement = con.prepareStatement(sql);
+//            statement.setString(1, stringSQL[0]);
+//            statement.setString(2, stringSQL[1]);
+//            statement.setString(3, stringSQL[2]);
+//            rowInserted = statement.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return rowInserted;
+//    }
     public int InsertChoice(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected, choiceMedia) values(?,?,?,?,?,?)";
@@ -169,6 +184,7 @@ public class DBConnect {
         statement.setFloat(4, Float.parseFloat(questionInfo[3]));
         statement.setString(5, questionInfo[4]);
         rowInserted = statement.executeUpdate();
+
     }
     public void UpdateChoice(String[] choiceInfo) throws SQLException {
         int rowInserted = 0;
@@ -181,6 +197,15 @@ public class DBConnect {
         statement.setString(4, choiceInfo[3]);
         statement.setString(5,  choiceInfo[4]);
         rowInserted = statement.executeUpdate();
+
+    }
+    public void updateQuiz(boolean a, String quizName) throws  SQLException{
+        boolean result =false;
+        String sql="update Quiz set shuffle = ? where quizName = N'"+quizName+"'";
+        PreparedStatement statement;
+        statement=con.prepareStatement(sql);
+        statement.setString(1,Boolean.toString(a));
+        result = statement.execute();
     }
     public boolean checkQuestionID(String questionID) throws SQLException {
         boolean result = false;

@@ -1,6 +1,5 @@
 package com.example.baitaplonoop.controller;
 
-import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,10 +14,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -38,12 +35,11 @@ public class GUI65Controller implements Initializable {
     private TreeView<String> category;
     @FXML
     private ComboBox<String> numberOfQuestions;
-    private ListView<String> questionsListView = new ListView<>();
-    private ObservableList<String> numberOfComboBox = FXCollections.observableArrayList();
-    private ObservableList<String> questionsList = FXCollections.observableArrayList();
-    private ObservableList<Pair<String, String>> questionRandom = FXCollections.observableArrayList();
-    private ObservableList<Pair<String, String>> subQuestionRandom = FXCollections.observableArrayList();
-    DBConnect db = new DBConnect();
+    private final ListView<String> questionsListView = new ListView<>();
+    private final ObservableList<String> numberOfComboBox = FXCollections.observableArrayList();
+    private final ObservableList<String> questionsList = FXCollections.observableArrayList();
+    private final ObservableList<Pair<String, String>> questionRandom = FXCollections.observableArrayList();
+    private final ObservableList<Pair<String, String>> subQuestionRandom = FXCollections.observableArrayList();
 
     private void showQuestion() {
         category.setOnKeyPressed(keyEvent -> {
@@ -56,7 +52,7 @@ public class GUI65Controller implements Initializable {
                 TreeItem<String> item = category.getSelectionModel().getSelectedItem();
                 category.setVisible(false);
                 Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
-                int page = 0;
+                int page;
                 if (gui6_5CheckBox.isSelected()) {
                     insertQuestionInto.insertQuestionIntoQuestionListWithSubcategory(item, questionsList, questionRandom);
                     if (Integer.parseInt(FindCategoryInfo.findNumberQuestionOfCategoryAndSubCategories(item)) % numberQuestionsInAPage == 0)
@@ -122,9 +118,7 @@ public class GUI65Controller implements Initializable {
         });
         gui6_5CheckBox.setSelected(false);
         showQuestion();
-        gui6_5CheckBox.setOnAction(event -> {
-            showQuestion();
-        });
+        gui6_5CheckBox.setOnAction(event -> showQuestion());
         add.setOnAction(event -> {
             if (numberOfQuestions.getValue() != null) {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -143,7 +137,7 @@ public class GUI65Controller implements Initializable {
             }
         });
         gui6_5.setOnMouseClicked(mouseEvent -> {
-            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent) == false)
+            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent))
                 category.setVisible(false);
         });
     }

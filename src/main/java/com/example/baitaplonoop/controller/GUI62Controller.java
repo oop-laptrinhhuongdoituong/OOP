@@ -2,6 +2,7 @@ package com.example.baitaplonoop.controller;
 
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.ChangeScene;
 import com.example.baitaplonoop.util.IsMouseOnLabel;
 import com.example.baitaplonoop.util.TableQuestionsOfGui62;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -21,16 +22,16 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
-
 import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
-
 public class GUI62Controller implements Initializable {
-    DBConnect db=new DBConnect();
+    @FXML
+    private CheckBox shuffle;
     @FXML
     private ToggleButton selectMultipleItems;
     @FXML
@@ -41,8 +42,8 @@ public class GUI62Controller implements Initializable {
     private AnchorPane gui62;
     @FXML
     private ListView<Label> listModeAdd;
-    private ObservableList<Label> addMode = FXCollections.observableArrayList();
-    private ObservableList<TableQuestionsOfGui62> chosenQuestions = FXCollections.observableArrayList();
+    private final ObservableList<Label> addMode = FXCollections.observableArrayList();
+    private final ObservableList<TableQuestionsOfGui62> chosenQuestions = FXCollections.observableArrayList();
     @FXML
     private TableView<TableQuestionsOfGui62> tableQuestions;
 
@@ -70,8 +71,7 @@ public class GUI62Controller implements Initializable {
     private TableColumn<TableQuestionsOfGui62, Label> Setting;
     @FXML
     private Label totalOfMark;
-    @FXML
-    private Label quizNameLink;
+
     @FXML
     private Label quizName;
     @FXML
@@ -86,9 +86,9 @@ public class GUI62Controller implements Initializable {
         listModeAdd.getItems().addAll(addMode);
     }
     private void numberQuestionAndMarkInTable(){
-        String a="Question: "+Integer.toString(chosenQuestions.size())+"| This quiz is open";
+        String a="Question: "+ chosenQuestions.size() +"| This quiz is open";
         numberQuestionInTable.setText(a);
-        String b="Total of mark: "+Integer.toString(chosenQuestions.size())+".00";
+        String b="Total of mark: "+ chosenQuestions.size() +".00";
         totalOfMark.setText(b);
     }
     public void setChosenQuestions(ObservableList<Pair<String, String>> randomQuestion) {
@@ -143,49 +143,58 @@ public class GUI62Controller implements Initializable {
         tableQuestions.setTableMenuButtonVisible(false);
         tableQuestions.setStyle("-fx-table-cell-border-color: transparent;");
         MultiQuestionsChoice.setVisible(false);
-        MultiQuestionsChoice.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, CheckBox>("multiQuestionsChoice"));
-        Order.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Text>("order"));
-        Setting.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("setting"));
-        QuestionText.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, String>("questionText"));
-        PlusIcon.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("plusIcon"));
-        DeleteIcon.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("deleteIcon"));
-        QuestionMark.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, TextField>("questionMark"));
+        MultiQuestionsChoice.setCellValueFactory(new PropertyValueFactory<>("multiQuestionsChoice"));
+        Order.setCellValueFactory(new PropertyValueFactory<>("order"));
+        Setting.setCellValueFactory(new PropertyValueFactory<>("setting"));
+        QuestionText.setCellValueFactory(new PropertyValueFactory<>("questionText"));
+        PlusIcon.setCellValueFactory(new PropertyValueFactory<>("plusIcon"));
+        DeleteIcon.setCellValueFactory(new PropertyValueFactory<>("deleteIcon"));
+        QuestionMark.setCellValueFactory(new PropertyValueFactory<>("questionMark"));
         numberQuestionAndMarkInTable();
         tableQuestions.setItems(chosenQuestions);
     }
     private void deleteEvent(){
         for(TableQuestionsOfGui62 a: chosenQuestions){
             a.getDeleteIcon().setOnMouseClicked(mouseEvent -> {
-                    chosenQuestions.remove(a);
-                    int i=0;
-                    for(TableQuestionsOfGui62 b :chosenQuestions){
-                        i++;
-                        b.getOrder().setText(Integer.toString(i));
-                    }
-                    numberQuestionAndMarkInTable();
+                chosenQuestions.remove(a);
+                int i=0;
+                for(TableQuestionsOfGui62 b :chosenQuestions){
+                    i++;
+                    b.getOrder().setText(Integer.toString(i));
+                }
+                numberQuestionAndMarkInTable();
             });
         }
     }
-
+    private void setStatementShuffle(String quizName) throws SQLException {
+        DBConnect db=new DBConnect();
+        ResultSet rs=db.getData("select shuffle from dbo.Quiz where quizName = N'"+quizName+"'");
+        while (rs.next()){
+            boolean shuffleStatement=rs.getBoolean("shuffle");
+            shuffle.setSelected(shuffleStatement);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        quizNameLink.setText("/" + quizChosen + "/ Edit quiz");
         quizName.setText("Editing quiz: " + quizChosen);
         deleteMultipleItems.setVisible(false);
         tableQuestions.setVisible(false);
         addQuestionIntoTable();
         addQuestionMode();
-        addLabel.setOnMouseClicked(mouseEvent -> {
-            if (!listModeAdd.isVisible()) listModeAdd.setVisible(true);
-            else listModeAdd.setVisible(false);
-        });
+        try {
+            setStatementShuffle(quizChosen);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        addLabel.setOnMouseClicked(mouseEvent -> listModeAdd.setVisible(!listModeAdd.isVisible()));
         gui62.setOnMouseClicked(mouseEvent -> {
-            if (listModeAdd.isVisible() && IsMouseOnLabel.isMouseOnLabel(addLabel, mouseEvent) == false)
+            if (listModeAdd.isVisible() && IsMouseOnLabel.isMouseOnLabel(addLabel, mouseEvent))
                 listModeAdd.setVisible(false);
         });
+
         listModeAdd.setOnMouseClicked(mouseEvent -> {
             Label label = listModeAdd.getSelectionModel().getSelectedItem();
-            if (label.getText() == "random a question") {
+            if (Objects.equals(label.getText(), "random a question")) {
                 label.setOnMouseClicked(mouseEvent1 -> {
                     Stage stage = (Stage) ((Node) mouseEvent1.getSource()).getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader();
@@ -199,65 +208,62 @@ public class GUI62Controller implements Initializable {
                     }
                 });
             }
-            if(label.getText()=="from question bank"){
+            if(Objects.equals(label.getText(), "from question bank")){
                 label.setOnMouseClicked(mouseEvent1 -> {
-                    Stage stage = (Stage) ((Node) mouseEvent1.getSource()).getScene().getWindow();
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI63.fxml"));
-                    try {
-                        Parent GUI63 = loader.load();
-                        Scene scene = new Scene(GUI63);
-                        stage.setScene(scene);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    ChangeScene.GUI63(this, mouseEvent1);
                 });
             }
         });
-    selectMultipleItems.setOnAction(event -> {
-        if(selectMultipleItems.isSelected()){
-            MultiQuestionsChoice.setVisible(true);
-            deleteMultipleItems.setVisible(true);
-        }
-        else {
-            MultiQuestionsChoice.setVisible(false);
-            deleteMultipleItems.setVisible(false);
-        }
-    });
-    deleteMultipleItems.setOnAction(event -> {
-        for(int i=0;i<chosenQuestions.size();i++){
-            if(chosenQuestions.get(i).getMultiQuestionsChoice().isSelected()){
+        selectMultipleItems.setOnAction(event -> {
+            if(selectMultipleItems.isSelected()){
+                MultiQuestionsChoice.setVisible(true);
                 deleteMultipleItems.setVisible(true);
-                chosenQuestions.remove(chosenQuestions.get(i));
-                i--;
             }
-        }
-        int i=0;
-        for(TableQuestionsOfGui62 b :chosenQuestions){
-            i++;
-            b.getOrder().setText(Integer.toString(i));
-        }
-        numberQuestionAndMarkInTable();
-    });
-    save.setOnAction(event -> {
-      for(int i=0;i<chosenQuestions.size();i++){
-          String[] addQuestionInQuiz={chosenQuestions.get(i).getQuestionID(),quizChosen,null};
-          try {
-              int row = db.InsertQuestionInQuiz(addQuestionInQuiz);
-          } catch (SQLException e) {
-              throw new RuntimeException(e);
-          }
-      }
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI61.fxml"));
-        try {
-            Parent gui61 = loader.load();
-            Scene scene = new Scene(gui61);
-            stage.setScene(scene);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    });
+            else {
+                MultiQuestionsChoice.setVisible(false);
+                deleteMultipleItems.setVisible(false);
+            }
+        });
+        deleteMultipleItems.setOnAction(event -> {
+            for(int i=0;i<chosenQuestions.size();i++){
+                if(chosenQuestions.get(i).getMultiQuestionsChoice().isSelected()){
+                    deleteMultipleItems.setVisible(true);
+                    chosenQuestions.remove(chosenQuestions.get(i));
+                    i--;
+                }
+            }
+            int i=0;
+            for(TableQuestionsOfGui62 b :chosenQuestions){
+                i++;
+                b.getOrder().setText(Integer.toString(i));
+            }
+            numberQuestionAndMarkInTable();
+        });
+        save.setOnAction(event -> {
+            DBConnect db=new DBConnect();
+            try {
+                db.updateQuiz(shuffle.isSelected(),quizChosen);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            for (TableQuestionsOfGui62 chosenQuestion : chosenQuestions) {
+                String[] addQuestionInQuiz = {chosenQuestion.getQuestionID(), quizChosen, null};
+                try {
+                    int row = db.InsertQuestionInQuiz(addQuestionInQuiz);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI61.fxml"));
+            try {
+                Parent gui61 = loader.load();
+                Scene scene = new Scene(gui61);
+                stage.setScene(scene);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

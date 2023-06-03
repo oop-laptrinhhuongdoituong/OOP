@@ -34,6 +34,8 @@ public class GUI11Controller implements Initializable {
     public Label message;
     public AnchorPane addQuiz_ap;
     public AnchorPane GUI61_ap;
+    public AnchorPane GUI62_ap;
+    public AnchorPane GUI63_ap;
     @FXML
     ListView<String> lvQuiz = new ListView<>();
     @FXML
