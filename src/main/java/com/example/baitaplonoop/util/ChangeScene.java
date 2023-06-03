@@ -158,4 +158,37 @@ public class ChangeScene {
         gui11Controller.GUI61_ap.setVisible(true);
         stage.setScene(scene);
     }
+    public static void GUI62ShowQuestionChosen(Initializable controller, MouseEvent event){
+        String path = "/com/example/baitaplonoop/GUInew.fxml";
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(controller.getClass().getResource(path));
+        Parent parent;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene scene = new Scene(parent);
+        GUI11Controller gui11Controller = fxmlLoader.getController();
+        gui11Controller.GUI62_ap.setVisible(true);
+        stage.setScene(scene);
+    }
+
+    public static void GUI63(Initializable controller, MouseEvent event){
+        String path = "/com/example/baitaplonoop/GUInew.fxml";
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(controller.getClass().getResource(path));
+        Parent parent;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene scene = new Scene(parent);
+        GUI11Controller gui11Controller = fxmlLoader.getController();
+        gui11Controller.GUI63_ap.setVisible(true);
+        stage.setScene(scene);
+    }
 }

@@ -65,7 +65,7 @@ public class GUI61Controller implements Initializable {
             }
         });
         imgAddQuestionToQuiz.setOnMouseClicked(mouseEvent -> {
-            ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI62.fxml", mouseEvent);
+            ChangeScene.GUI62ShowQuestionChosen(this, mouseEvent);
         });
     }
 

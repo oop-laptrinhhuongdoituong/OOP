@@ -1,6 +1,5 @@
 package com.example.baitaplonoop.controller;
 
-import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +15,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,39 +22,21 @@ import java.util.ResourceBundle;
 public class GUI63Controller implements Initializable {
     public Button addSelectedQuestionToQuiz_btn;
     @FXML
-    private Button createQuestionButton;
-    @FXML
-    private ToolBar toolBar;
-
-    @FXML
-    private ToggleButton exportButton;
-    @FXML
-    private ToggleButton importButton;
-    @FXML
-    private ToggleButton questionsButton;
-    @FXML
-    private ToggleButton categoriesButton;
-    @FXML
-    private AnchorPane gui2_1;
+    private AnchorPane gui6_3;
     @FXML
     private TableView<QuestionCheckBoxInTable> table;
-
     @FXML
     private TableColumn<QuestionCheckBoxInTable, String> question;
-
     @FXML
     private TableColumn<QuestionCheckBoxInTable, CheckBox> action;
-    private ObservableList<QuestionCheckBoxInTable> questionsList =FXCollections.observableArrayList();
-    private ObservableList<Pair<String,String>> choiceQuestion=FXCollections.observableArrayList();
+    private final ObservableList<QuestionCheckBoxInTable> questionsList =FXCollections.observableArrayList();
+    private final ObservableList<Pair<String,String>> choiceQuestion=FXCollections.observableArrayList();
     @FXML
     private Label Default;
     @FXML
     private TreeView<String> category;
     @FXML
-    private CheckBox gui2_1CheckBox;
-
-    DBConnect db = new DBConnect();
-
+    private CheckBox gui6_3CheckBox;
     //create click event for treeView
     private void showQuestionInCategory() {
         category.setOnKeyPressed(keyEvent -> {
@@ -64,19 +44,18 @@ public class GUI63Controller implements Initializable {
                 questionsList.clear();
                 table.setItems(questionsList);
                 TreeItem<String> item = category.getSelectionModel().getSelectedItem();
-                if (gui2_1CheckBox.isSelected())
+                if (gui6_3CheckBox.isSelected())
                     insertQuestionInto.insertQuestionIntoTableViewWithSubcategoryInNewQuiz(item, questionsList);
                 else insertQuestionInto.insertQuestionIntoTableViewWithoutSubcategoryInNewQuiz(item, questionsList);
                 category.setVisible(false);
                 Default.setText(FindCategoryInfo.findCategoryName(item.getValue()));
-                question.setCellValueFactory(new PropertyValueFactory<QuestionCheckBoxInTable, String>("questionText"));
-                action.setCellValueFactory(new PropertyValueFactory<QuestionCheckBoxInTable, CheckBox>("checkBox"));
+                question.setCellValueFactory(new PropertyValueFactory<>("questionText"));
+                action.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
                 table.setItems(questionsList);
                 table.setVisible(true);
             }
         });
     }
-
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
         category.setVisible(false);
@@ -93,18 +72,14 @@ public class GUI63Controller implements Initializable {
             category.setRoot(root);
             category.setVisible(true);
         });
-        gui2_1CheckBox.setSelected(false);
+        gui6_3CheckBox.setSelected(false);
         showQuestionInCategory();
-        gui2_1CheckBox.setOnAction(event -> {
-            showQuestionInCategory();
-        });
-        gui2_1.setOnMouseClicked(mouseEvent -> {
-            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent) == false)
+        gui6_3CheckBox.setOnAction(event -> showQuestionInCategory());
+        gui6_3.setOnMouseClicked(mouseEvent -> {
+            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent))
                 category.setVisible(false);
         });
-        addSelectedQuestionToQuiz_btn.setOnMouseClicked(addSelectedQuestionToQuizEvent -> {
-            System.out.println(insertQuestionInto.insertQuesionToQuiz());
-        });
+        addSelectedQuestionToQuiz_btn.setOnMouseClicked(addSelectedQuestionToQuizEvent -> System.out.println(insertQuestionInto.insertQuesionToQuiz()));
         addSelectedQuestionToQuiz_btn.setOnAction(event -> {
             for(QuestionCheckBoxInTable a: questionsList){
                 if(a.getCheckBox().isSelected()){
