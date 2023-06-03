@@ -45,6 +45,7 @@ public class GUI11PopUpController implements Initializable{
             }
             Scene scene = new Scene(parent);
             GUI11Controller gui11Controller = fxmlLoader.getController();
+            gui11Controller.tabPane.setVisible(true);
             Tab tab = gui11Controller.questionTab_tp;
             gui11Controller.tabPane.getSelectionModel().select(tab);
             oldstage.setScene(scene);
@@ -63,6 +64,7 @@ public class GUI11PopUpController implements Initializable{
             }
             Scene scene = new Scene(parent);
             GUI11Controller gui11Controller = fxmlLoader.getController();
+            gui11Controller.tabPane.setVisible(true);
             Tab tab = gui11Controller.categoryTab_tp;
             gui11Controller.tabPane.getSelectionModel().select(tab);
             oldstage.setScene(scene);
@@ -81,6 +83,7 @@ public class GUI11PopUpController implements Initializable{
             }
             Scene scene = new Scene(parent);
             GUI11Controller gui11Controller = fxmlLoader.getController();
+            gui11Controller.tabPane.setVisible(true);
             Tab tab = gui11Controller.importTab_tp;
             gui11Controller.tabPane.getSelectionModel().select(tab);
             oldstage.setScene(scene);

@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e99e4343-1934-4a34-858d-155e3f4e1670" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_13_2023_1_24_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_13_2023_1_24_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_2023_5_54_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_2023_5_54_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI11PopUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI11PopUpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/util/ChangeScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/util/ChangeScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUInew.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUInew.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,6 +208,13 @@
       <workItem from="1685245624604" duration="27595000" />
       <workItem from="1685327430876" duration="930000" />
       <workItem from="1685334805191" duration="218000" />
+      <workItem from="1685535544750" duration="425000" />
+      <workItem from="1685589830984" duration="45000" />
+      <workItem from="1685643661652" duration="315000" />
+      <workItem from="1685644022133" duration="80000" />
+      <workItem from="1685671740237" duration="404000" />
+      <workItem from="1685683301065" duration="766000" />
+      <workItem from="1685720248434" duration="905000" />
     </task>
     <servers />
   </component>
