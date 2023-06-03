@@ -56,7 +56,16 @@ public class GUI11Controller implements Initializable {
     public void setEvent(){
         lvQuiz.setOnMouseClicked(mouseEvent -> {
             quizChosen = lvQuiz.getSelectionModel().getSelectedItem();
-            //ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI61.fxml", mouseEvent);
+
+
+
+
+
+
+
+
+
+
             ChangeScene.GUI61PreviewQuiz(this, mouseEvent);
         });
 
