@@ -9,10 +9,10 @@ public class DBConnect {
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://DESKTOP-AP629KT\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
+            String url = "jdbc:sqlserver://Dat\\MSSQLSERVER01:1433;databaseName=Exam_Management2;"
                     + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
             String username = "sa";
-            String password = "hoangphuc0703";
+            String password = "123";
             con = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -44,21 +44,6 @@ public class DBConnect {
         }
         return rowInserted;
     }
-//    public int InsertQuestion(String[] stringSQL) {
-//        int rowInserted = 0;
-//        String sql = "INSERT INTO Question(categoryID, questionID, questionText) values(?,?,?)";
-//        PreparedStatement statement;
-//        try {
-//            statement = con.prepareStatement(sql);
-//            statement.setString(1, stringSQL[0]);
-//            statement.setString(2, stringSQL[1]);
-//            statement.setString(3, stringSQL[2]);
-//            rowInserted = statement.executeUpdate();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return rowInserted;
-//    }
     public int InsertChoice(String[] stringSQL) {
         int rowInserted = 0;
         String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected, choiceMedia) values(?,?,?,?,?,?)";

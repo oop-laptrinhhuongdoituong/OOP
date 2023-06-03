@@ -1,9 +1,7 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
-import com.example.baitaplonoop.util.ImportFile;
-import com.example.baitaplonoop.util.insertCategoryIntoTreeView;
-import com.example.baitaplonoop.util.showTreeViewCategory;
+import com.example.baitaplonoop.util.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -72,7 +70,7 @@ public class GUI34Controller implements Initializable {
             File file = files.get(0);
             lbFilePath.setText(file.getName());
         });
-        btnImport.setOnAction(event -> {
+        btnImport.setOnMouseClicked(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Import information");
             ButtonType btnContinue = new ButtonType("Continue", ButtonBar.ButtonData.YES);
@@ -82,6 +80,7 @@ public class GUI34Controller implements Initializable {
             if (files == null || files.size() == 0) {
                 contentText = "There are no files imported";
                 lbAlert.setText("There are no files imported");
+                AlertOOP.mustFill("Import File", " ", contentText);
             } else {
                 String path = files.get(0).getName();
                 if (path.substring(path.length() - 4, path.length()).equals("docx")) {
@@ -124,21 +123,8 @@ public class GUI34Controller implements Initializable {
                     lbAlert.setText("Wrong format");
                     contentText = "Wrong format";
                 }
-            }
-            alert.setContentText(contentText);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get().equals(btnBack)) {
-                try {
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI11.fxml"));
-                    Parent gui11 = null;
-                    gui11 = fxmlLoader.load();
-                    Scene scene = new Scene(gui11);
-                    stage.setScene(scene);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                AlertOOP.AddDone("Import File", " ", contentText);
+                ChangeScene.mainSceneGUI11(this,event);
             }
         });
         btnChooseAFile.setOnAction(event -> {
@@ -157,7 +143,6 @@ public class GUI34Controller implements Initializable {
             }
         });
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         treeViewImport.setVisible(false);

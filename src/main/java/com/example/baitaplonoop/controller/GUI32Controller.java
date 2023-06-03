@@ -106,7 +106,6 @@ public class GUI32Controller implements Initializable {
         choice5_tf.setText(choiceText5);
         choice6_tf.setText(choiceText6);
         CustomMedia.loadFile(questionMedia, imageQuestion_iv, gifQuestion_iv, mediaQuestion_mv, videoPane_ap, playVideo, pause_btn, timeSlider);
-
         choiceInfo123(choiceText1, choiceGrade1, choiceMedia1, choiceText2, choiceGrade2, choiceMedia2, choiceText3, choiceGrade3, choiceMedia3, gradeChoice1_cb, imageChoice1_iv, gradeChoice2_cb, imageChoice2_iv, gradeChoice3_cb, imageChoice3_iv);
         choiceInfo123(choiceText4, choiceGrade4, choiceMedia4, choiceText5, choiceGrade5, choiceMedia5, choiceText6, choiceGrade6, choiceMedia6, gradeChoice4_cb, imageChoice4_iv, gradeChoice5_cb, imageChoice5_iv, gradeChoice6_cb, imageChoice6_iv);
         if (!choiceText4.trim().equals("") || !choiceText5.trim().equals("") || !choiceText6.trim().equals("")) {
@@ -152,7 +151,7 @@ public class GUI32Controller implements Initializable {
                 throw new RuntimeException(e);
             }
         } else return null;
-    } // Return categoryID in question
+    } // Return categoryID's question in the treeView
 
     public void AddQuestionIntoSQL() throws SQLException {
         if (questionName_tf.getText().trim().equals("") || questionText_tf.getText().trim().equals("") || ChoiceNumberInQuestion() < 2) {
@@ -361,9 +360,10 @@ public class GUI32Controller implements Initializable {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", saveChangeEvent);
+            //ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUInew.fxml", saveChangeEvent);
+            ChangeScene.mainSceneGUI11(this, saveChangeEvent);
         });
-        cancel_btn.setOnMouseClicked(cancelEvent -> ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", cancelEvent));
+        cancel_btn.setOnMouseClicked(cancelEvent -> ChangeScene.mainSceneGUI11(this, cancelEvent));
         editing_btn.setOnMouseClicked(saveChangeContinueEditEvent -> {
             try {
                 AddQuestionIntoSQL();

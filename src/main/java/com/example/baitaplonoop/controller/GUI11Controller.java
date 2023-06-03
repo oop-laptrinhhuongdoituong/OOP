@@ -33,6 +33,7 @@ public class GUI11Controller implements Initializable {
     public AnchorPane addQuestion_ap;
     public Label message;
     public AnchorPane addQuiz_ap;
+    public AnchorPane GUI61_ap;
     @FXML
     ListView<String> lvQuiz = new ListView<>();
     @FXML
@@ -55,7 +56,8 @@ public class GUI11Controller implements Initializable {
     public void setEvent(){
         lvQuiz.setOnMouseClicked(mouseEvent -> {
             quizChosen = lvQuiz.getSelectionModel().getSelectedItem();
-            ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI61.fxml", mouseEvent);
+            //ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI61.fxml", mouseEvent);
+            ChangeScene.GUI61PreviewQuiz(this, mouseEvent);
         });
 
         btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.GUI35AddQuiz(this,turnEditingOneEvent));

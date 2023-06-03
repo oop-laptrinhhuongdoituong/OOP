@@ -10,9 +10,6 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
-
-
 public class GUI33Controller implements Initializable {
     public TextField nameCategory_tf;
     public TextField categoryID_tf;
@@ -20,16 +17,11 @@ public class GUI33Controller implements Initializable {
     public TextField infoCategory_tf;
     public TreeView<String> parentCategory_tv;
     public Label addParentCategory_lb;
-
     boolean checkAddParent = false;
-
     DBConnect db = new DBConnect();
-
     String parentCategoryName;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         // Choose the parent category
         addParentCategory_lb.setOnMouseClicked(mouseEvent -> {
             //checkAddParent = true;
@@ -42,10 +34,8 @@ public class GUI33Controller implements Initializable {
                 addParentCategory_lb.setText(newValue.getValue());
                 parentCategoryName = newValue.getValue();
                 checkAddParent = true;
-                System.out.println(parentCategoryName);
             });
         });
-
         // Event to press the Button Add Category
         addCategory_Btn.setOnMouseClicked(buttonAddCategoryEvent -> {
             // To check fill the field in Category if fill all the field then add data Category into Database
