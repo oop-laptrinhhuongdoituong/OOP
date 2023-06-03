@@ -1,21 +1,11 @@
 package com.example.baitaplonoop.util;
 
-import com.example.baitaplonoop.controller.GUI62Controller;
 import com.example.baitaplonoop.sql.DBConnect;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TreeItem;
-import javafx.stage.Stage;
 import javafx.util.Pair;
-
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,34 +41,15 @@ public class insertQuestionInto {
             while (rs1.next()) {
                 CheckBox checkBox=new CheckBox();
                 QuestionCheckBoxInTable question1 = new QuestionCheckBoxInTable(rs1.getString("questionID" +
-                        ""), rs1.getString("questionID")+": "+rs1.getString("questionText"),checkBox);
+                        " "), rs1.getString("questionID")+": "+rs1.getString("questionText"),checkBox);
                 questionsList.add(question1);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if (item.isLeaf() == false) {
+        if (!item.isLeaf()) {
             for (TreeItem<String> subItem : item.getChildren()) {
                 insertQuestionIntoTableViewWithSubcategoryInNewQuiz(subItem, questionsList);
-            }
-        }
-    }
-    //Add questions to the listView if you also add questions of subcategories
-    public static void insertQuestionIntoQuestionListWithSubcategoryInNewQuiz(TreeItem<String> item,ObservableList<QuestionCheckBoxInTable> questionsList) {
-        String questionView = "select *from dbo.Question as q,dbo.Category as c where q.categoryID = c.categoryID and c.categoryName = N'" + FindCategoryInfo.findCategoryName(item.getValue()) + "'";
-        ResultSet rs1 = db.getData(questionView);
-        try {
-            while (rs1.next()) {
-                CheckBox checkBox=new CheckBox();
-                QuestionCheckBoxInTable question1 = new QuestionCheckBoxInTable(rs1.getString("questionID"),rs1.getString("questionID")+": "+rs1.getString("questionText"),checkBox);
-
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        if (item.isLeaf() == false) {
-            for (TreeItem<String> subItem : item.getChildren()) {
-                insertQuestionInto.insertQuestionIntoQuestionListWithSubcategoryInNewQuiz(subItem,questionsList);
             }
         }
     }
@@ -122,7 +93,7 @@ public class insertQuestionInto {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if (item.isLeaf() == false) {
+        if (!item.isLeaf()) {
             for (TreeItem<String> subItem : item.getChildren()) {
                 insertQuestionIntoTableViewWithSubcategory(subItem, questionsList);
             }
@@ -141,7 +112,7 @@ public class insertQuestionInto {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if (item.isLeaf() == false) {
+        if (!item.isLeaf()) {
             for (TreeItem<String> subItem : item.getChildren()) {
                 insertQuestionInto.insertQuestionIntoQuestionListWithSubcategory(subItem,questionsList,questionRandom);
             }

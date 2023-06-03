@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
@@ -33,7 +34,6 @@ import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
 public class GUI62Controller implements Initializable {
     @FXML
     private CheckBox shuffle;
-    DBConnect db=new DBConnect();
     @FXML
     private ToggleButton selectMultipleItems;
     @FXML
@@ -44,8 +44,8 @@ public class GUI62Controller implements Initializable {
     private AnchorPane gui62;
     @FXML
     private ListView<Label> listModeAdd;
-    private ObservableList<Label> addMode = FXCollections.observableArrayList();
-    private ObservableList<TableQuestionsOfGui62> chosenQuestions = FXCollections.observableArrayList();
+    private final ObservableList<Label> addMode = FXCollections.observableArrayList();
+    private final ObservableList<TableQuestionsOfGui62> chosenQuestions = FXCollections.observableArrayList();
     @FXML
     private TableView<TableQuestionsOfGui62> tableQuestions;
 
@@ -89,9 +89,9 @@ public class GUI62Controller implements Initializable {
         listModeAdd.getItems().addAll(addMode);
     }
     private void numberQuestionAndMarkInTable(){
-        String a="Question: "+Integer.toString(chosenQuestions.size())+"| This quiz is open";
+        String a="Question: "+ chosenQuestions.size() +"| This quiz is open";
         numberQuestionInTable.setText(a);
-        String b="Total of mark: "+Integer.toString(chosenQuestions.size())+".00";
+        String b="Total of mark: "+ chosenQuestions.size() +".00";
         totalOfMark.setText(b);
     }
     public void setChosenQuestions(ObservableList<Pair<String, String>> randomQuestion) {
@@ -146,13 +146,13 @@ public class GUI62Controller implements Initializable {
         tableQuestions.setTableMenuButtonVisible(false);
         tableQuestions.setStyle("-fx-table-cell-border-color: transparent;");
         MultiQuestionsChoice.setVisible(false);
-        MultiQuestionsChoice.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, CheckBox>("multiQuestionsChoice"));
-        Order.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Text>("order"));
-        Setting.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("setting"));
-        QuestionText.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, String>("questionText"));
-        PlusIcon.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("plusIcon"));
-        DeleteIcon.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, Label>("deleteIcon"));
-        QuestionMark.setCellValueFactory(new PropertyValueFactory<TableQuestionsOfGui62, TextField>("questionMark"));
+        MultiQuestionsChoice.setCellValueFactory(new PropertyValueFactory<>("multiQuestionsChoice"));
+        Order.setCellValueFactory(new PropertyValueFactory<>("order"));
+        Setting.setCellValueFactory(new PropertyValueFactory<>("setting"));
+        QuestionText.setCellValueFactory(new PropertyValueFactory<>("questionText"));
+        PlusIcon.setCellValueFactory(new PropertyValueFactory<>("plusIcon"));
+        DeleteIcon.setCellValueFactory(new PropertyValueFactory<>("deleteIcon"));
+        QuestionMark.setCellValueFactory(new PropertyValueFactory<>("questionMark"));
         numberQuestionAndMarkInTable();
         tableQuestions.setItems(chosenQuestions);
     }
@@ -190,18 +190,15 @@ public class GUI62Controller implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        addLabel.setOnMouseClicked(mouseEvent -> {
-            if (!listModeAdd.isVisible()) listModeAdd.setVisible(true);
-            else listModeAdd.setVisible(false);
-        });
+        addLabel.setOnMouseClicked(mouseEvent -> listModeAdd.setVisible(!listModeAdd.isVisible()));
         gui62.setOnMouseClicked(mouseEvent -> {
-            if (listModeAdd.isVisible() && IsMouseOnLabel.isMouseOnLabel(addLabel, mouseEvent) == false)
+            if (listModeAdd.isVisible() && IsMouseOnLabel.isMouseOnLabel(addLabel, mouseEvent))
                 listModeAdd.setVisible(false);
         });
 
         listModeAdd.setOnMouseClicked(mouseEvent -> {
             Label label = listModeAdd.getSelectionModel().getSelectedItem();
-            if (label.getText() == "random a question") {
+            if (Objects.equals(label.getText(), "random a question")) {
                 label.setOnMouseClicked(mouseEvent1 -> {
                     Stage stage = (Stage) ((Node) mouseEvent1.getSource()).getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader();
@@ -215,7 +212,7 @@ public class GUI62Controller implements Initializable {
                     }
                 });
             }
-            if(label.getText()=="from question bank"){
+            if(Objects.equals(label.getText(), "from question bank")){
                 label.setOnMouseClicked(mouseEvent1 -> {
                     Stage stage = (Stage) ((Node) mouseEvent1.getSource()).getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader();
@@ -262,14 +259,14 @@ public class GUI62Controller implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        for(int i=0;i<chosenQuestions.size();i++){
-          String[] addQuestionInQuiz={chosenQuestions.get(i).getQuestionID(),quizChosen,null};
-          try {
-              int row = db.InsertQuestionInQuiz(addQuestionInQuiz);
-          } catch (SQLException e) {
-              throw new RuntimeException(e);
-          }
-      }
+        for (TableQuestionsOfGui62 chosenQuestion : chosenQuestions) {
+            String[] addQuestionInQuiz = {chosenQuestion.getQuestionID(), quizChosen, null};
+            try {
+                int row = db.InsertQuestionInQuiz(addQuestionInQuiz);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI61.fxml"));

@@ -19,7 +19,7 @@ public class insertCategoryIntoTreeView {
                 rs2.next();
                 String childrenCategory1;
                 numberQuestions = Integer.toString(rs2.getInt("cnt"));
-                if (numberQuestions.equals("0") == false) {
+                if (!numberQuestions.equals("0")) {
                     childrenCategory1 = childrenCategory + "(" + numberQuestions + ")";
                 } else {
                     childrenCategory1 = childrenCategory;

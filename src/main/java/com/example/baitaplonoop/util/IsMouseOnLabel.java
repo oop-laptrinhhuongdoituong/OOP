@@ -9,6 +9,6 @@ public class IsMouseOnLabel {
         Bounds bounds = label.getBoundsInParent();
         double mouseX = event.getSceneX();
         double mouseY = event.getSceneY();
-        return bounds.contains(mouseX, mouseY);
+        return !bounds.contains(mouseX, mouseY);
     }
 }
