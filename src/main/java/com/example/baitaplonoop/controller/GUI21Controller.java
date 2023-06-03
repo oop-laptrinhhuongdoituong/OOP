@@ -128,10 +128,8 @@ public class GUI21Controller implements Initializable {
                 table.setVisible(true);
             }
         }));
-        createQuestionButton.setOnAction(e -> ChangeScene.mainSceneGUI21(this, e));
-
+        createQuestionButton.setOnAction(e -> ChangeScene.GUI32AddQuestion(this, e));
     }
-
     private void QuestionInfo(int k, Stage stage, Scene scene, GUI32Controller gui32Controller, String[] editQuestionText, String[] choiceInfo1) throws FileNotFoundException {
         String[] choiceInfo2 = db.FindChoiceInfo(questionsList.get(k).getQuestionID() + "2");
         if (choiceInfo2 == null) choiceInfo2 = new String[]{" ", "", ""};
@@ -146,5 +144,4 @@ public class GUI21Controller implements Initializable {
         gui32Controller.editingQuestionChoice(Default.getText(), questionsList.get(k).getQuestionID(), editQuestionText[0],editQuestionText[1], choiceInfo1[0], choiceInfo1[1], choiceInfo1[2], choiceInfo2[0], choiceInfo2[1], choiceInfo2[2], choiceInfo3[0], choiceInfo3[1], choiceInfo3[2], choiceInfo4[0], choiceInfo4[1], choiceInfo4[2], choiceInfo5[0], choiceInfo5[1], choiceInfo5[2], choiceInfo6[0], choiceInfo6[1], choiceInfo6[2]);
         stage.setScene(scene);
     }
-
 }

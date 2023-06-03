@@ -40,26 +40,7 @@ public class ChangeScene {
         Scene scene = new Scene(parent);
         stage.setScene(scene);
     }
-    public static void  mainSceneGUI21(Initializable controller, ActionEvent event){
-        String path = "/com/example/baitaplonoop/GUInew.fxml";
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(controller.getClass().getResource(path));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Scene scene = new Scene(parent);
-        GUI11Controller gui11Controller = fxmlLoader.getController();
-        gui11Controller.tabPane.setVisible(true);
-
-        Tab tab = gui11Controller.categoryTab_tp;
-        gui11Controller.tabPane.getSelectionModel().select(tab);
-        stage.setScene(scene);
-    }
-    public static void  mainSceneGUI21inQuestionTab(Initializable controller, MouseEvent event){
+    public static void GUI21ListQuestion(Initializable controller, ActionEvent event){
         String path = "/com/example/baitaplonoop/GUInew.fxml";
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -73,38 +54,16 @@ public class ChangeScene {
         Scene scene = new Scene(parent);
         GUI11Controller gui11Controller = fxmlLoader.getController();
         gui11Controller.tabPane.setVisible(true);
-//        gui11Controller.listQuiz_ap.setVisible(false);
         Tab tab = gui11Controller.questionTab_tp;
-
         gui11Controller.tabPane.getSelectionModel().select(tab);
         stage.setScene(scene);
-
-
     }
-    public static void  mainSceneGUI21inExportTab(Initializable controller, ActionEvent event){
+    public static void GUI33AddCategory(Initializable controller, MouseEvent event){
         String path = "/com/example/baitaplonoop/GUInew.fxml";
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(controller.getClass().getResource(path));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Scene scene = new Scene(parent);
-        GUI11Controller gui11Controller = fxmlLoader.getController();
-        gui11Controller.tabPane.setVisible(true);
-        Tab tab = gui11Controller.importTab_tp;
-        gui11Controller.tabPane.getSelectionModel().select(tab);
-        stage.setScene(scene);
-    }
-    public static void  mainSceneGUI21inCategoryTab(Initializable controller, ActionEvent event){
-        String path = "/com/example/baitaplonoop/GUInew.fxml";
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(controller.getClass().getResource(path));
-        Parent parent = null;
+        Parent parent;
         try {
             parent = fxmlLoader.load();
         } catch (IOException e) {
@@ -117,12 +76,31 @@ public class ChangeScene {
         gui11Controller.tabPane.getSelectionModel().select(tab);
         stage.setScene(scene);
     }
-    public static void  mainSceneGUI35AddQuiz(Initializable controller, ActionEvent event){
+    public static void GUI34ImportFileQuestion(Initializable controller, ActionEvent event){
         String path = "/com/example/baitaplonoop/GUInew.fxml";
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(controller.getClass().getResource(path));
-        Parent parent = null;
+        Parent parent;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene scene = new Scene(parent);
+        GUI11Controller gui11Controller = fxmlLoader.getController();
+        gui11Controller.tabPane.setVisible(true);
+        Tab tab = gui11Controller.importTab_tp;
+        gui11Controller.tabPane.getSelectionModel().select(tab);
+        stage.setScene(scene);
+    }
+
+    public static void GUI35AddQuiz(Initializable controller, ActionEvent event){
+        String path = "/com/example/baitaplonoop/GUInew.fxml";
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(controller.getClass().getResource(path));
+        Parent parent;
         try {
             parent = fxmlLoader.load();
         } catch (IOException e) {
@@ -146,7 +124,22 @@ public class ChangeScene {
         }
         Scene scene = new Scene(parent);
         GUI11Controller gui11Controller = fxmlLoader.getController();
-        gui11Controller.listQuiz_ap.setVisible(true);
+        stage.setScene(scene);
+    }
+    public static void GUI32AddQuestion(Initializable controller, ActionEvent event){
+        String path = "/com/example/baitaplonoop/GUInew.fxml";
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(controller.getClass().getResource(path));
+        Parent parent;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene scene = new Scene(parent);
+        GUI11Controller gui11Controller = fxmlLoader.getController();
+        gui11Controller.addQuestion_ap.setVisible(true);
         stage.setScene(scene);
     }
 }

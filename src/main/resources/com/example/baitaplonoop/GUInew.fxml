@@ -42,9 +42,7 @@
         </Tab>
     </TabPane>
     <AnchorPane fx:id="addQuestion_ap" layoutX="54.0" layoutY="196.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
-        <fx:include source="GUI32AddQuestion.fxml">
-
-        </fx:include>
+        <fx:include source="GUI32AddQuestion.fxml"/>
     </AnchorPane>
     <AnchorPane fx:id="addQuiz_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <fx:include source="GUI35AddingQuiz.fxml" />

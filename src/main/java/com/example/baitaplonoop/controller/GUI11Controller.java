@@ -58,7 +58,7 @@ public class GUI11Controller implements Initializable {
             ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI61.fxml", mouseEvent);
         });
 
-        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.mainSceneGUI35AddQuiz(this,turnEditingOneEvent));
+        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.GUI35AddQuiz(this,turnEditingOneEvent));
         setting_btn.setOnMouseClicked(event -> {
             settingEvent = event;
             Stage stage = new Stage();
