@@ -58,20 +58,12 @@ public class GUI11Controller implements Initializable {
     public void setEvent(){
         lvQuiz.setOnMouseClicked(mouseEvent -> {
             quizChosen = lvQuiz.getSelectionModel().getSelectedItem();
-
-
-
-
-
-
-
-
-
-
             ChangeScene.GUI61PreviewQuiz(this, mouseEvent);
         });
 
-        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.GUI35AddQuiz(this,turnEditingOneEvent));
+//        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.GUI35AddQuiz(this,turnEditingOneEvent));
+        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.showGUI32new("IT"));
+
         setting_btn.setOnMouseClicked(event -> {
             settingEvent = event;
             Stage stage = new Stage();
