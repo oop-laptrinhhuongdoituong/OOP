@@ -12,10 +12,15 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -96,9 +101,61 @@ public class AnchorPaneGUI7 extends AnchorPane {
                         Image image = new Image("file:" + question.getQuestionMedia());
                         ImageView imageView = new ImageView();
                         imageView.setImage(image);
-                        imageView.setFitWidth(450); // Thiết lập chiều rộng mới là 200
-                        imageView.setFitHeight(300); // Thiết lập chiều cao mới là 150
-                        imageView.setPreserveRatio(true); // Duy trì tỷ lệ khung hình ban đầu
+                        imageView.setFitWidth(450);
+                        imageView.setFitHeight(300);
+                        imageView.setPreserveRatio(true);
+                        this.questionContent.getChildren().add(imageView);
+                        choiceHeight += 14.0;
+                        AnchorPane.setTopAnchor(imageView, choiceHeight);
+                        AnchorPane.setLeftAnchor(imageView, 30.0);
+                        choiceHeight += 300;
+                    } else if (question.getQuestionMedia().substring(question.getQuestionMedia().length() - 3, question.getQuestionMedia().length()).equals("mp4")) {
+                        MediaView mediaViewVideo = new MediaView();
+                        Path pathVideo = Paths.get(question.getQuestionMedia()).toAbsolutePath();
+                        Media media = new Media(pathVideo.toUri().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(media);
+                        mediaViewVideo.setMediaPlayer(mediaPlayer);
+                        mediaViewVideo.setFitWidth(450);
+                        mediaViewVideo.setFitHeight(300);
+                        mediaViewVideo.setPreserveRatio(true);
+                        this.questionContent.getChildren().add(mediaViewVideo);
+                        choiceHeight += 14.0;
+                        AnchorPane.setTopAnchor(mediaViewVideo, choiceHeight);
+                        AnchorPane.setLeftAnchor(mediaViewVideo, 30.0);
+                        choiceHeight += 314;
+                        Button play = new Button("Play");
+                        Button pause = new Button("Pause");
+                        this.questionContent.getChildren().add(play);
+                        this.questionContent.getChildren().add(pause);
+                        play.setOnAction(e -> mediaPlayer.play());
+                        pause.setOnAction(e -> mediaPlayer.pause());
+                        AnchorPane.setTopAnchor(play, choiceHeight);
+                        AnchorPane.setLeftAnchor(play, 30.0);
+                        AnchorPane.setTopAnchor(pause, choiceHeight);
+                        AnchorPane.setLeftAnchor(pause, 100.0);
+                        choiceHeight += 40.0;
+                        Slider timeSlider = new Slider();
+                        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+                            if (!timeSlider.isValueChanging()) {
+                                timeSlider.setValue(newTime.toSeconds() / mediaPlayer.getTotalDuration().toSeconds() * 100);
+                            }
+                        });
+                        timeSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+                            if (timeSlider.isValueChanging()) {
+                                mediaPlayer.seek(mediaPlayer.getTotalDuration().multiply(newValue.doubleValue() / 100));
+                            }
+                        });
+                        this.questionContent.getChildren().add(timeSlider);
+                        AnchorPane.setTopAnchor(timeSlider, choiceHeight);
+                        AnchorPane.setLeftAnchor(timeSlider, 30.0);
+                        choiceHeight += 20.0;
+                    } else if (question.getQuestionMedia().substring(question.getQuestionMedia().length() - 3, question.getQuestionMedia().length()).equals("gif")) {
+                        Image image = new Image("file:" + question.getQuestionMedia());
+                        ImageView imageView = new ImageView();
+                        imageView.setImage(image);
+                        imageView.setFitWidth(450);
+                        imageView.setFitHeight(300);
+                        imageView.setPreserveRatio(true);
                         this.questionContent.getChildren().add(imageView);
                         choiceHeight += 14.0;
                         AnchorPane.setTopAnchor(imageView, choiceHeight);

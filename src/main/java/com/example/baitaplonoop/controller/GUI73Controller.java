@@ -229,13 +229,20 @@ public class GUI73Controller implements Initializable {
                         }
                     }else{
                         String correctAnswer = "";
+                        boolean isHaveMark = true;
                         for(int j = 0; j < listQuestion.get(k).listCheckBox.size(); j++){
                             if(listQuestion.get(k).listCheckBox.get(j).isSelected()){
+                                if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() == 0){
+                                    isHaveMark = false;
+                                }
                                 questionMark += listQuestion.get(k).question.getQuestionMark() * listQuestion.get(k).listChoice.get(j).getChoiceGrade();
                             }
                             if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() > 0){
                                 correctAnswer += String.valueOf((char) (j+65)) + " ";
                             }
+                        }
+                        if(isHaveMark == false){
+                            questionMark = 0;
                         }
                         marks += questionMark;
                         if(questionMark == 1){
@@ -261,7 +268,71 @@ public class GUI73Controller implements Initializable {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+            });
+            timerLabel.textProperty().addListener((observableValue, s, t1) -> {
+                if(t1.equals("Time left 00:00:00")){
+                    finishTime = LocalDateTime.now();
+                    double marks = 0;
+                    for(int k = 0; k < listQuestion.size(); k++){
+                        double questionMark = 0;
+                        if(listQuestion.get(k).getNotNullChoice() <= 1){
+                            String correctAnswer = "";
+                            for(int j = 0; j < listQuestion.get(k).listRadioButton.size(); j++){
+                                if(listQuestion.get(k).listRadioButton.get(j).isSelected()){
+                                    questionMark += listQuestion.get(k).question.getQuestionMark() * listQuestion.get(k).listChoice.get(j).getChoiceGrade();
+                                }
+                                if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() == 1){
+                                    correctAnswer = String.valueOf((char) (j+65));
+                                }
+                            }
+                            marks += questionMark;
+                            if(questionMark == 0){
+                                result.add(new AnchorPaneFinish(listQuestion.get(k), "The correct answer is: " + correctAnswer));
+                            }else{
+                                result.add(new AnchorPaneFinish(listQuestion.get(k), "Correct!"));
+                            }
+                        }else{
+                            String correctAnswer = "";
+                            boolean isHaveMark = true;
+                            for(int j = 0; j < listQuestion.get(k).listCheckBox.size(); j++){
+                                if(listQuestion.get(k).listCheckBox.get(j).isSelected()){
+                                    if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() == 0){
+                                        isHaveMark = false;
+                                    }
+                                    questionMark += listQuestion.get(k).question.getQuestionMark() * listQuestion.get(k).listChoice.get(j).getChoiceGrade();
+                                }
+                                if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() > 0){
+                                    correctAnswer += String.valueOf((char) (j+65)) + " ";
+                                }
+                            }
+                            if(isHaveMark == false){
+                                questionMark = 0;
+                            }
+                            marks += questionMark;
+                            if(questionMark == 1){
+                                result.add(new AnchorPaneFinish(listQuestion.get(k), "Correct!"));
+                            }else{
+                                result.add(new AnchorPaneFinish(listQuestion.get(k), "The correct answer is: " + correctAnswer));
+                            }
+                        }
+                    }
 
+                    try {
+                        int rowUpdated = db.updateQuizMark(marks, quizChosen);
+                        boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
+                        Stage stage = (Stage) timerLabel.getScene().getWindow();
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(this.getClass().getResource("/com/example/baitaplonoop/GUI74.fxml"));
+                        Parent parent = loader.load();
+                        Scene scene = new Scene(parent);
+                        GUI74Controller controller = loader.getController();
+                        controller.setUpScene(result, (double) listQuestion.size(), marks);
+                        stage.setScene(scene);
+                        stage.setMaximized(true);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             });
         } catch (SQLException e) {
             throw new RuntimeException(e);
