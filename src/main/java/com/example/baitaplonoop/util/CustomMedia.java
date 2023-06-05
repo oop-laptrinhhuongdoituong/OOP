@@ -1,5 +1,6 @@
 package com.example.baitaplonoop.util;
 
+import com.itextpdf.text.pdf.codec.GifImage;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -56,6 +57,7 @@ public class CustomMedia {
             pause_btn.setOnAction(e -> mediaPlayer.pause());
         }
     }
+
     //
     public static void setVideoPlay(MediaPlayer mediaPlayer, Slider timeSlider) {
         mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
@@ -96,6 +98,19 @@ public class CustomMedia {
         }
     }
 
+    public static void AddGifToImageView(ImageView imageView) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("JPG files (*.gif)", "*.gif")
+        );
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            String url1 = file.toURI().toString();
+            Image image = new Image(url1);
+            imageView.setImage(image);
+        }
+    }
+
     public static boolean CheckDuration(MediaView mediaView) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
         Duration duration = mediaPlayer.getTotalDuration();
@@ -116,7 +131,25 @@ public class CustomMedia {
         }
         return questionMediaPath;
     }
-    public static  String saveVideo(MediaView mediaView, String pathVideo, String questionID) {
+
+        public static String saveGif(ImageView imageView, String pathGIF, String questionID) {
+        String questionGifPah = null;
+        try {
+            File target = new File(pathGIF + File.separator + questionID + ".gif");
+            //questionGifPah = target.toURI().toString();
+
+            BufferedImage toWrite = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+            ImageIO.write(toWrite, "gif", target);
+            questionGifPah = target.getAbsolutePath();
+        } catch (Exception x) {
+            System.err.println("Failed to save gif");
+            x.printStackTrace();
+        }
+        return questionGifPah;
+    }   // Save GIF in the local memory
+
+
+    public static String saveVideo(MediaView mediaView, String pathVideo, String questionID) {
         String questionVideoPath = null;
         if (CustomMedia.CheckDuration(mediaView)) {
             try {
@@ -134,17 +167,24 @@ public class CustomMedia {
         }
         return questionVideoPath;
     }
-    public static String saveGif(ImageView imageView, String pathGIF, String questionID) {
-        String questionGifPah = null;
-        try {
-            File target = new File(pathGIF + File.separator + questionID + "gif");
-            BufferedImage toWrite = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-            ImageIO.write(toWrite, "gif", target);
-            questionGifPah = target.getAbsolutePath();
-        } catch (Exception x) {
-            System.err.println("Failed to save gif");
-            x.printStackTrace();
-        }
-        return questionGifPah;
-    }   // Save GIF in the local memory
+//    public static String saveGifnew(ImageView imageView, String path, String name) {
+//        String gifPath = null;
+//        try {
+//            // Chuyển đổi ảnh từ kiểu Image sang kiểu BufferedImage
+//            BufferedImage image = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+//            // Nối tên file với đường dẫn của thư mục và thêm đuôi ".gif"
+//            String fileName = path + File.separator + name + ".gif";
+//            // Tạo một đối tượng File với tên file đã cho
+//            File file = new File(fileName);
+//            // Ghi ảnh vào file với định dạng gif
+//            ImageIO.write(image, "gif", file);
+//            // Lấy đường dẫn tuyệt đối của file
+//            gifPath = file.getAbsolutePath();
+//        } catch (Exception e) {
+//            System.err.println("Failed to save gif");
+//            e.printStackTrace();
+//        }
+//        return gifPath;
+//    }
+
 }
