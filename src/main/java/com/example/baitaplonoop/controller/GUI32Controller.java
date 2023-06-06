@@ -134,10 +134,11 @@ public class GUI32Controller implements Initializable {
     }
 
     public String questionMediaPath() {
+        String path1 = CustomMedia.gifPathQuestion;
         if (imageQuestion_iv.getImage() != null)
             return CustomMedia.saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
         else if (gifQuestion_iv.getImage() != null)
-            return CustomMedia.saveGif(gifQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/GIF/Question", questionName_tf.getText().trim());
+            return CustomMedia.saveGif(path1, "./src/main/resources/com/example/baitaplonoop/Media/Gif", questionName_tf.getText().trim());
         else if (mediaQuestion_mv.getMediaPlayer() != null)
             return CustomMedia.saveVideo(mediaQuestion_mv, "./src/main/resources/com/example/baitaplonoop/Media/Video", questionName_tf.getText().trim());
         else return null;
@@ -315,16 +316,7 @@ public class GUI32Controller implements Initializable {
         addImageChoice6_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageChoice6_iv));
         // Add gif in Question Text (upload in ImageView not to save in Database)
         gifQuestion_btn.setOnAction(e -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(
-                    new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
-            );
-            File file = fileChooser.showOpenDialog(null);
-            if (file != null) {
-                String urlGif = file.toURI().toString();
-                Image image = new Image(urlGif);
-                imageQuestion_iv.setImage(image);
-            }
+            CustomMedia.AddGifToImageView(gifQuestion_iv);
         });
         // Add video in Question Text (upload in MediaView not to save in Database)
         videoQuestion_btn.setOnAction(e -> {

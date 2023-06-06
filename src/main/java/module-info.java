@@ -23,7 +23,6 @@ module com.example.baitaplonoop {
     requires javafx.swingEmpty;
     requires org.controlsfx.controls;
 
-
     opens com.example.baitaplonoop to javafx.fxml;
     exports com.example.baitaplonoop;
     exports com.example.baitaplonoop.controller;
