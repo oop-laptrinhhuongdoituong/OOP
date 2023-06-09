@@ -77,7 +77,7 @@ public class GUI32Controller implements Initializable {
     Double gradeChoice1 = 0.0, gradeChoice2 = 0.0, gradeChoice3 = 0.0, gradeChoice4 = 0.0, gradeChoice5 = 0.0, gradeChoice6 = 0.0;
     DBConnect db = new DBConnect();
     private MediaPlayer mediaPlayer;
-    String pathToQuestionMedia ="";
+    String pathToQuestionMedia = "";
 
     public Integer ChoiceNumberInQuestion() {
         int choiceNumber = 0;

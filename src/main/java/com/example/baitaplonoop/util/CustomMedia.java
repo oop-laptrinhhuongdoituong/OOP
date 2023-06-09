@@ -62,7 +62,6 @@ public class CustomMedia {
         }
     }
 
-    //
     public static void setVideoPlay(MediaPlayer mediaPlayer, Slider timeSlider) {
         mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
             if (!timeSlider.isValueChanging()) {
@@ -143,7 +142,6 @@ public class CustomMedia {
         }
         return questionVideoPath;
     }
-
 
     public static void AddGifToImageView(ImageView imageView) {
         FileChooser fileChooser = new FileChooser();

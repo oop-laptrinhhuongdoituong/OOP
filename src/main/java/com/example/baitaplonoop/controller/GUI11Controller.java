@@ -62,7 +62,7 @@ public class GUI11Controller implements Initializable {
         });
 
 //        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.GUI35AddQuiz(this,turnEditingOneEvent));
-        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.showGUI32new("IT"));
+        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.GUI35AddQuiz(this, turnEditingOneEvent));
 
         setting_btn.setOnMouseClicked(event -> {
             settingEvent = event;

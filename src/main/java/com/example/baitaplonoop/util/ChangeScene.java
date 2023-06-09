@@ -40,43 +40,14 @@ public class ChangeScene {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         GUI32Controller controller32 = loader2.getController();
         controller32.editingQuestionChoice(categoryName, questionID, questionText, questionMedia, choiceText1, choiceGrade1, choiceMedia1, choiceText2, choiceGrade2, choiceMedia2, choiceText3, choiceGrade3, choiceMedia3, choiceText4, choiceGrade4, choiceMedia4, choiceText5, choiceGrade5, choiceMedia5, choiceText6, choiceGrade6, choiceMedia6);
         gui11Controller.addQuestion_ap.setVisible(true);
         editQuestion_ap.getChildren().setAll(root2);
         stage.setScene(scene);
     }
-    public static void showGUI32new(String string) {
-        try {
-            // Load GUI11.fxml and get its controller
-            FXMLLoader loader = new FXMLLoader(ChangeScene.class.getResource("/com/example/baitaplonoop/GUInew.fxml"));
-            Parent root = loader.load();
-            GUI11Controller controllerGUI11 = loader.getController();
-            // Get the anchor pane with id gui11 from GUI11.fxml
-            AnchorPane gui11 = controllerGUI11.addQuestion_ap;
-            // Get the anchor pane with id question_ap from gui11
-            AnchorPane question_ap = (AnchorPane) gui11.lookup("#addQuestion_ap");
 
-            // Load GUI32.fxml and get its controller
-            FXMLLoader loader2 = new FXMLLoader(ChangeScene.class.getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
-            Parent root2 = loader2.load();
-            GUI32Controller controller2 = loader2.getController();
-            // Get the label with id it_lb from GUI32.fxml
-            Label it_lb = controller2.questionLabel_lb;
-            // Set the text of the label to the string parameter
-            it_lb.setText(string);
-            controllerGUI11.addQuestion_ap.setVisible(true);
-            // Set the source of question_ap to GUI32.fxml
-            question_ap.getChildren().setAll(root2);
-            // Create a new stage and scene for GUI11
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     public static void showGUI32(String string) {
         try {
             GUI32Controller gui32Controller = new GUI32Controller();
@@ -139,6 +110,7 @@ public class ChangeScene {
     public static void GUI21ListQuestion(Initializable controller, ActionEvent event){
         String path = "/com/example/baitaplonoop/GUInew.fxml";
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(controller.getClass().getResource(path));
         Parent parent;
@@ -274,6 +246,7 @@ public class ChangeScene {
     public static void GUI63(Initializable controller, MouseEvent event){
         String path = "/com/example/baitaplonoop/GUInew.fxml";
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(controller.getClass().getResource(path));
         Parent parent;
@@ -282,9 +255,11 @@ public class ChangeScene {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         Scene scene = new Scene(parent);
         GUI11Controller gui11Controller = fxmlLoader.getController();
         gui11Controller.GUI63_ap.setVisible(true);
         stage.setScene(scene);
+
     }
 }
