@@ -121,24 +121,13 @@ public class GUI65Controller implements Initializable {
         gui6_5CheckBox.setOnAction(event -> showQuestion());
         add.setOnAction(event -> {
             if (numberOfQuestions.getValue() != null) {
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI62.fxml"));
-                try {
-                    Parent gui62 = loader.load();
-                    Scene scene = new Scene(gui62);
-                    GUI62Controller gui62Controller=loader.getController();
                     randomQuestionFromCategory();
-                    gui62Controller.setChosenQuestions(subQuestionRandom);
-                    stage.setScene(scene);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                    ChangeScene.GUI62(this,event,subQuestionRandom);
             }
         });
-        gui6_5.setOnMouseClicked(mouseEvent -> {
-            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent))
-                category.setVisible(false);
-        });
+//        gui6_5.setOnMouseClicked(mouseEvent -> {
+//            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent))
+//                category.setVisible(false);
+//        });
     }
 }

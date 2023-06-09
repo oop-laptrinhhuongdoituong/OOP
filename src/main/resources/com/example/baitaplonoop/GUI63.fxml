@@ -22,7 +22,7 @@
         </font>
     </Label>
     <Label layoutX="35.0" layoutY="100.0" text="The default category for questions shared in context" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="100.0" />
-    <CheckBox fx:id="gui2_1CheckBox" layoutX="35.0" layoutY="125.0" mnemonicParsing="false" text="Also show questions from subcategories" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="125.0" />
+    <CheckBox fx:id="gui6_3CheckBox" layoutX="35.0" layoutY="125.0" mnemonicParsing="false" text="Also show questions from subcategories" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="125.0" />
     <CheckBox layoutX="35.0" layoutY="157.0" mnemonicParsing="false" text="Also show old questions" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="157.0" />
     <TreeView fx:id="category" layoutX="350.0" layoutY="77.0" prefHeight="178.0" prefWidth="207.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="77.0" />
     <Label fx:id="Default" layoutX="192.0" layoutY="76.0" prefHeight="21.0" prefWidth="120.0" text="Default" textAlignment="CENTER" AnchorPane.leftAnchor="192.0" AnchorPane.topAnchor="76.0" />

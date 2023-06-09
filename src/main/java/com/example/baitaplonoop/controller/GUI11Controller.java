@@ -37,6 +37,8 @@ public class GUI11Controller implements Initializable {
     public AnchorPane GUI62_ap;
     public AnchorPane GUI63_ap;
     @FXML
+    public AnchorPane GUI65_ap;
+    @FXML
     ListView<String> lvQuiz = new ListView<>();
     @FXML
     Button btnTurnEditingOn;

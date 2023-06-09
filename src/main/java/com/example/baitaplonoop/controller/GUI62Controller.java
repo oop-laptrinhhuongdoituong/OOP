@@ -187,25 +187,16 @@ public class GUI62Controller implements Initializable {
             throw new RuntimeException(e);
         }
         addLabel.setOnMouseClicked(mouseEvent -> listModeAdd.setVisible(!listModeAdd.isVisible()));
-        gui62.setOnMouseClicked(mouseEvent -> {
-            if (listModeAdd.isVisible() && IsMouseOnLabel.isMouseOnLabel(addLabel, mouseEvent))
-                listModeAdd.setVisible(false);
-        });
+//        gui62.setOnMouseClicked(mouseEvent -> {
+//            if (listModeAdd.isVisible() && IsMouseOnLabel.isMouseOnLabel(addLabel, mouseEvent))
+//                listModeAdd.setVisible(false);
+//        });
 
         listModeAdd.setOnMouseClicked(mouseEvent -> {
             Label label = listModeAdd.getSelectionModel().getSelectedItem();
             if (Objects.equals(label.getText(), "random a question")) {
                 label.setOnMouseClicked(mouseEvent1 -> {
-                    Stage stage = (Stage) ((Node) mouseEvent1.getSource()).getScene().getWindow();
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI65.fxml"));
-                    try {
-                        Parent GUI65 = loader.load();
-                        Scene scene = new Scene(GUI65);
-                        stage.setScene(scene);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                   ChangeScene.GUI65(this,mouseEvent1);
                 });
             }
             if(Objects.equals(label.getText(), "from question bank")){

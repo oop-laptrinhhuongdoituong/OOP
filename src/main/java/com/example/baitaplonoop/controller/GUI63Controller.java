@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GUI63Controller implements Initializable {
+    @FXML
     public Button addSelectedQuestionToQuiz_btn;
     @FXML
     private AnchorPane gui6_3;
@@ -62,7 +63,7 @@ public class GUI63Controller implements Initializable {
         table.setVisible(false);
         Default.setOnMouseClicked(mouseEvent -> {
             Default.setText("Default");
-
+            category.setVisible(true);
             TreeItem<String> root = new TreeItem<>("For IT");
             try {
                 insertCategoryIntoTreeView.insertCategory("select * from dbo.Category where parentID is NULL", root);
@@ -75,10 +76,10 @@ public class GUI63Controller implements Initializable {
         gui6_3CheckBox.setSelected(false);
         showQuestionInCategory();
         gui6_3CheckBox.setOnAction(event -> showQuestionInCategory());
-        gui6_3.setOnMouseClicked(mouseEvent -> {
-            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent))
-                category.setVisible(false);
-        });
+//        gui6_3.setOnMouseClicked(mouseEvent -> {
+//            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent))
+//                category.setVisible(false);
+//        });
         addSelectedQuestionToQuiz_btn.setOnMouseClicked(addSelectedQuestionToQuizEvent -> System.out.println(insertQuestionInto.insertQuesionToQuiz()));
         addSelectedQuestionToQuiz_btn.setOnAction(event -> {
             for(QuestionCheckBoxInTable a: questionsList){
@@ -86,18 +87,7 @@ public class GUI63Controller implements Initializable {
                     choiceQuestion.add(new Pair<>(a.getQuestionID(),a.getQuestionText()));
                 }
             }
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI62.fxml"));
-            try {
-                Parent gui62 = loader.load();
-                Scene scene = new Scene(gui62);
-                GUI62Controller gui62Controller=loader.getController();
-                gui62Controller.setChosenQuestions(choiceQuestion);
-                stage.setScene(scene);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            ChangeScene.GUI62(this,event,choiceQuestion);
         });
     }
 }

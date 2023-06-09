@@ -5,12 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e99e4343-1934-4a34-858d-155e3f4e1670" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/211.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/A51.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/AA011.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/AAA1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/CHOIC!1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/DATA1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/DATA2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/DATA3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/DUNG1231.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/Dat121.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/GIANBE1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/GT2DK1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/KIEN321.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Choice/THANHBEO1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/CGIANGBEO.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/CTHANHBEO.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/DATA.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/GIANGAA.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/IMAGE.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/ML03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/adsf.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/jhhb.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/qưq.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Image/Question/ádf.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Video/A4.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Video/A5.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Video/ADAT.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Video/VIDEO12.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/Media/Video/VIDEOTEST.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI11Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI11Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI21Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI21Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI32Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI32Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI62Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI62Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI63Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI63Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI65Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/controller/GUI65Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/sql/DBConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/sql/DBConnect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/util/ChangeScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/util/ChangeScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/util/CustomMedia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/baitaplonoop/util/CustomMedia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI63.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUI63.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUInew.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/baitaplonoop/GUInew.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +80,6 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectId" id="2OQ6MePDlkzrfbaRYgtTZKnGXV0" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -62,7 +91,6 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Revamp&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
@@ -71,7 +99,6 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -208,27 +235,6 @@
       <workItem from="1685058425839" duration="653000" />
       <workItem from="1685078072978" duration="1328000" />
       <workItem from="1685084634532" duration="2047000" />
-      <workItem from="1685245624604" duration="27595000" />
-      <workItem from="1685327430876" duration="930000" />
-      <workItem from="1685334805191" duration="218000" />
-      <workItem from="1685535544750" duration="425000" />
-      <workItem from="1685589830984" duration="45000" />
-      <workItem from="1685643661652" duration="315000" />
-      <workItem from="1685644022133" duration="80000" />
-      <workItem from="1685671740237" duration="404000" />
-      <workItem from="1685683301065" duration="766000" />
-      <workItem from="1685720248434" duration="905000" />
-      <workItem from="1685792157951" duration="15413000" />
-      <workItem from="1685877932888" duration="3267000" />
-      <workItem from="1685888349545" duration="3633000" />
-      <workItem from="1685900178149" duration="4693000" />
-      <workItem from="1685939766838" duration="2550000" />
-      <workItem from="1685947444505" duration="4734000" />
-      <workItem from="1685974116053" duration="2315000" />
-      <workItem from="1686067055226" duration="3497000" />
-      <workItem from="1686234304636" duration="3366000" />
-      <workItem from="1686275581616" duration="2005000" />
-      <workItem from="1686294438532" duration="579000" />
     </task>
     <servers />
   </component>
@@ -245,16 +251,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
