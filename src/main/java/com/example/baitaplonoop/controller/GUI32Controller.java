@@ -8,7 +8,6 @@ import com.example.baitaplonoop.util.ChangeScene;
 import com.example.baitaplonoop.util.showTreeViewCategory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -78,6 +77,7 @@ public class GUI32Controller implements Initializable {
     Double gradeChoice1 = 0.0, gradeChoice2 = 0.0, gradeChoice3 = 0.0, gradeChoice4 = 0.0, gradeChoice5 = 0.0, gradeChoice6 = 0.0;
     DBConnect db = new DBConnect();
     private MediaPlayer mediaPlayer;
+    String pathToQuestionMedia ="";
 
     public Integer ChoiceNumberInQuestion() {
         int choiceNumber = 0;
@@ -113,6 +113,7 @@ public class GUI32Controller implements Initializable {
             buttonPane_ap.setTranslateY(239);
             paneChoice2_ap.setVisible(true);
         }
+        pathToQuestionMedia = questionMedia;
     }
 
     private void choiceInfo123(String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, ComboBox<String> gradeChoice1Cb, ImageView imageChoice1Iv, ComboBox<String> gradeChoice2Cb, ImageView imageChoice2Iv, ComboBox<String> gradeChoice3Cb, ImageView imageChoice3Iv) {
@@ -167,7 +168,10 @@ public class GUI32Controller implements Initializable {
             if (checkQuestionExist & questionName_tf.isEditable())
                 AlertOOP.mustFill("Add Question Status", "Add Question Fail", "Question Name exists");
             else {
-                String pathMediaQuestion = questionMediaPath();
+
+                String pathMediaQuestion;
+                if(!pathToQuestionMedia.trim().equals("")) pathMediaQuestion = pathToQuestionMedia;
+                else pathMediaQuestion = questionMediaPath();
                 String[] questionInfo = {getCategoryIDQuestion(), questionName_tf.getText().trim(), questionText_tf.getText().trim(), "1", pathMediaQuestion};
                 try {
                     db.UpdateQuestion(questionInfo);
@@ -315,9 +319,7 @@ public class GUI32Controller implements Initializable {
         addImageChoice5_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageChoice5_iv));
         addImageChoice6_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageChoice6_iv));
         // Add gif in Question Text (upload in ImageView not to save in Database)
-        gifQuestion_btn.setOnAction(e -> {
-            CustomMedia.AddGifToImageView(gifQuestion_iv);
-        });
+        gifQuestion_btn.setOnAction(e -> CustomMedia.AddGifToImageView(gifQuestion_iv));
         // Add video in Question Text (upload in MediaView not to save in Database)
         videoQuestion_btn.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -352,7 +354,6 @@ public class GUI32Controller implements Initializable {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            //ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUInew.fxml", saveChangeEvent);
             ChangeScene.mainSceneGUI11(this, saveChangeEvent);
         });
         cancel_btn.setOnMouseClicked(cancelEvent -> ChangeScene.mainSceneGUI11(this, cancelEvent));

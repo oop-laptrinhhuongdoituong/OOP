@@ -25,7 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-
+// Can set the flag mediaPath in the GUI32 when edit ( not done)
 public class CustomMedia {
     public static String gifPathQuestion;
 
@@ -103,17 +103,6 @@ public class CustomMedia {
         }
     }
 
-//    public static void AddGifToImageView(ImageView imageView) {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG files (*.gif)", "*.gif"));
-//        File file = fileChooser.showOpenDialog(null);
-//        if (file != null) {
-//            String url1 = file.toURI().toString();
-//            Image image = new Image(url1);
-//            imageView.setImage(image);
-//        }
-//    }
-
     public static boolean CheckDuration(MediaView mediaView) {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
         Duration duration = mediaPlayer.getTotalDuration();
@@ -169,45 +158,20 @@ public class CustomMedia {
     }
 
     public static String saveGif(String path1, String path2, String name) {
-        // Kiểm tra xem path1 có phải là null hay không
-        System.out.println(path1);
-        if (path1 == null) {
-            System.out.println("Không có file gif nào được chọn.");
-            return path1;
-        }
-        if (path2 == null) {
-            System.out.println("Không có thư mục nào được chỉ định.");
-            return path1;
-        }
-        if (name == null) {
-            System.out.println("Không có tên file nào được nhập.");
-            return path1;
-        }
-        // Tạo một đối tượng File từ path1 để đọc file gif
-        File inputFile = null;
+        File inputFile;
         try {
             inputFile = new File(new URI(path1));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        // Tạo một đối tượng File từ path2 và name để lưu file gif mới
         File outputFile = new File(path2 + File.separator + name + ".gif");
         System.out.println(path2 + File.separator + name + ".gif");
         try {
-            // Đọc file gif từ inputFile vào một đối tượng BufferedImage
             BufferedImage image = ImageIO.read(inputFile);
-            // Ghi file gif từ image vào outputFile
             ImageIO.write(image, "gif", outputFile);
-            // In ra thông báo thành công
-            System.out.println("Đã lưu file gif thành công.");
         } catch (IOException e) {
-            // Nếu có lỗi xảy ra, in ra thông báo lỗi và stack trace của nó
-            System.out.println("Có lỗi xảy ra khi lưu file gif.");
             e.printStackTrace();
         }
         return path2 + File.separator + name + ".gif" ;
     }
-
-
-
 }

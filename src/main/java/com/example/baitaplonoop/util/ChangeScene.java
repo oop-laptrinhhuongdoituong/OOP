@@ -17,8 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ChangeScene {
-    private Stage gui11Stage;
-    private GUI11Controller gui11Controller;
+
     public static void GUI32AddQuestion(Initializable controller, ActionEvent event, String categoryName, String questionID, String questionText, String questionMedia, String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, String choiceText4, String choiceGrade4, String choiceMedia4, String choiceText5, String choiceGrade5, String choiceMedia5, String choiceText6, String choiceGrade6, String choiceMedia6){
         String path = "/com/example/baitaplonoop/GUInew.fxml";
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -35,7 +34,7 @@ public class ChangeScene {
         AnchorPane gui32AddQuestion = gui11Controller.addQuestion_ap;
         AnchorPane editQuestion_ap = (AnchorPane) gui32AddQuestion.lookup("#addQuestion_ap");
         FXMLLoader loader2 = new FXMLLoader(ChangeScene.class.getResource("/com/example/baitaplonoop/GUI32AddQuestion.fxml"));
-        Parent root2 = null;
+        Parent root2;
         try {
             root2 = loader2.load();
         } catch (IOException e) {
@@ -80,16 +79,12 @@ public class ChangeScene {
     }
     public static void showGUI32(String string) {
         try {
-            // Tạo một đối tượng GUI32Controller
             GUI32Controller gui32Controller = new GUI32Controller();
-            // Tạo một FXMLLoader cho GUI11.fxml
             FXMLLoader loader = new FXMLLoader(ChangeScene.class.getResource("GUInew.fxml"));
-            // Đặt controllerFactory cho loader để trả về gui32Controller khi cần
             loader.setControllerFactory(c -> {
                 if (c == GUI32Controller.class) {
                     return gui32Controller;
                 } else {
-                    // Cố gắng tạo một controller mặc định cho các class khác
                     try {
                         return c.newInstance();
                     } catch (Exception e) {
@@ -108,11 +103,8 @@ public class ChangeScene {
             gui32Controller.questionLabel_lb.setText(string);
             // Tạo một scene mới với root node là gui11
             Scene scene = new Scene(gui11);
-            // Tạo một stage mới và đặt scene cho nó
             Stage stage = new Stage();
             stage.setScene(scene);
-            // Hiển thị stage lên
-            //stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -135,7 +127,7 @@ public class ChangeScene {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(controller.getClass().getResource(path));
-        Parent parent = null;
+        Parent parent;
         try {
             parent = fxmlLoader.load();
         } catch (IOException e) {
