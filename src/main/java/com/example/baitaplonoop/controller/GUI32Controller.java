@@ -6,7 +6,9 @@ import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.AlertOOP;
 import com.example.baitaplonoop.util.ChangeScene;
 import com.example.baitaplonoop.util.showTreeViewCategory;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -71,6 +73,8 @@ public class GUI32Controller implements Initializable {
     public Button editing_btn;
     public Button cancel_btn;
     public MediaView mediaQuestion_mv;
+    @FXML
+    private ScrollPane scrollPaneGui32;
 
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion = "null";
@@ -78,7 +82,15 @@ public class GUI32Controller implements Initializable {
     DBConnect db = new DBConnect();
     private MediaPlayer mediaPlayer;
     String pathToQuestionMedia = "";
-
+    private void scrollToNode(ScrollPane scrollPane, Label label) {
+        Bounds bounds = label.getBoundsInParent();
+        double y = bounds.getMinY();
+        double contentHeight = scrollPane.getContent().getBoundsInLocal().getHeight();
+        double viewportHeight = scrollPane.getViewportBounds().getHeight();
+        double vValue = y / (contentHeight - viewportHeight);
+        scrollPane.setVvalue(vValue);
+        scrollPane.setHvalue(0.00);
+    }
     public Integer ChoiceNumberInQuestion() {
         int choiceNumber = 0;
         for (TextField textField : Arrays.asList(choice1_tf, choice2_tf, choice3_tf, choice4_tf, choice5_tf, choice6_tf)) {
@@ -302,6 +314,7 @@ public class GUI32Controller implements Initializable {
                     showCategory_tv.setVisible(false);
                     categoryName_lb.setVisible(true);
                 });
+                ////hung
             }
         });
         // Event to creat new 3 choice
@@ -309,6 +322,8 @@ public class GUI32Controller implements Initializable {
             paneChoice2_ap.setTranslateY(239);
             buttonPane_ap.setTranslateY(239);
             paneChoice2_ap.setVisible(true);
+            //Hung
+
         });
         // Add image in Question Text (upload in ImageView not to save in Database)
         imageQuestion_btn.setOnAction(e -> CustomMedia.AddImageToImageView(imageQuestion_iv));

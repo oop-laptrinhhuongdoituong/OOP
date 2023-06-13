@@ -156,20 +156,40 @@ public class CustomMedia {
     }
 
     public static String saveGif(String path1, String path2, String name) {
-        File inputFile;
+//        File inputFile;
+//        try {
+//            inputFile = new File(new URI(path1));
+//        } catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+//        File outputFile = new File(path2 + File.separator + name + ".gif");
+//        System.out.println(path2 + File.separator + name + ".gif");
+//        try {
+//            BufferedImage image = ImageIO.read(inputFile);
+//            ImageIO.write(image, "gif", outputFile);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        copyFile(path1, path2 + File.separator + name + ".gif");
+        return path2 + File.separator + name + ".gif";
+    }
+
+    public static void copyFile(String path1, String path2) {
+
+        URI uri1 = null;
         try {
-            inputFile = new File(new URI(path1));
+            uri1 = new URI(path1);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        File outputFile = new File(path2 + File.separator + name + ".gif");
-        System.out.println(path2 + File.separator + name + ".gif");
+
+        String projectPath = System.getProperty("user.dir");
+        Path destPath = Paths.get(projectPath,path2);
         try {
-            BufferedImage image = ImageIO.read(inputFile);
-            ImageIO.write(image, "gif", outputFile);
+            Files.copy(Path.of(uri1),destPath,StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return path2 + File.separator + name + ".gif" ;
     }
+
 }

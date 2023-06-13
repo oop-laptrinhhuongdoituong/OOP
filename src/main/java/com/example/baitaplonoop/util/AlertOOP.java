@@ -8,11 +8,6 @@ import javafx.scene.paint.Color;
 public class AlertOOP {
     public static void  mustFill(String Title, String HeaderText, String Content){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        //Label header = new Label(HeaderText);
-        //header.setTextFill(Color.RED);
-        // Đặt header text cho alert
-        //alert.getDialogPane().setHeaderText(null);
-        //alert.getDialogPane().setGraphic(header);
         alert.setTitle(Title);
         alert.setHeaderText(HeaderText);
         alert.setContentText(Content);
