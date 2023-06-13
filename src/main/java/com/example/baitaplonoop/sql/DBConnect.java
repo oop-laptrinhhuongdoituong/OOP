@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.sql;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,10 +10,10 @@ public class DBConnect {
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://LAPTOP-5RN02RRR\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
+            String url = "jdbc:sqlserver://DESKTOP-AP629KT\\SQLEXPRESS :1433;databaseName=Exam_Management2;"
                     + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
             String username = "sa";
-            String password = "123123";
+            String password = "hoangphuc0703";
             con = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -219,4 +220,31 @@ public class DBConnect {
         }
         return result; // Trả về giá trị boolean
     }
+    public int updateQuizMark(double mark, String quizChosen){
+        int rowUpdated = 0;
+        String sql = "Update Quiz set mark = ? where quizName = N'" + quizChosen + "'";
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, String.valueOf(mark));
+            rowUpdated = statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rowUpdated;
+    }
+    public boolean insertIntoHistory(String quizName, double mark, LocalDateTime dateAttempt){
+        boolean rowInserted = false;
+        String querry = "Insert into HistoryAttempt (quizName, mark, dateAttempt) values (?, ?, ?)";
+        try {
+            PreparedStatement statement = con.prepareStatement(querry);
+            statement.setString(1, quizName);
+            statement.setDouble(2, mark);
+            statement.setTimestamp(3, Timestamp.valueOf(dateAttempt));
+            rowInserted = statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rowInserted;
+    }
+
 }

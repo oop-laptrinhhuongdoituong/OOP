@@ -82,6 +82,7 @@ public class GUI32Controller implements Initializable {
     DBConnect db = new DBConnect();
     private MediaPlayer mediaPlayer;
     String pathToQuestionMedia = "";
+    Boolean addQuestionDone = false;
     private void scrollToNode(ScrollPane scrollPane, Label label) {
         Bounds bounds = label.getBoundsInParent();
         double y = bounds.getMinY();
@@ -252,6 +253,7 @@ public class GUI32Controller implements Initializable {
                     }
                 }
                 AlertOOP.AddDone("Add Question Status", "Add Question Done", "Done");
+                addQuestionDone = true;
                 showCategory_tv.setEditable(false);
                 questionName_tf.setEditable(false);
                 categoryName_lb.setMouseTransparent(false);
@@ -369,7 +371,7 @@ public class GUI32Controller implements Initializable {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            ChangeScene.mainSceneGUI11(this, saveChangeEvent);
+            if(addQuestionDone) ChangeScene.mainSceneGUI11(this, saveChangeEvent);
         });
         cancel_btn.setOnMouseClicked(cancelEvent -> ChangeScene.mainSceneGUI11(this, cancelEvent));
         editing_btn.setOnMouseClicked(saveChangeContinueEditEvent -> {
