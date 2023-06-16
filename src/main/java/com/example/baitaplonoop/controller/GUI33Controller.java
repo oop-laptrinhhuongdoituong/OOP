@@ -10,6 +10,10 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
+import static com.example.baitaplonoop.controller.GUI11Controller.level;
+
 public class GUI33Controller implements Initializable {
     public TextField nameCategory_tf;
     public TextField categoryID_tf;
@@ -45,6 +49,8 @@ public class GUI33Controller implements Initializable {
                 String[] addCategory = {null, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
                 db.InsertCategory(addCategory);
                 AlertOOP.AddDone("Add Category status", "Add category done", "Add category without parent category");
+                breadCrumb.remove(1,breadCrumb.size());
+                level.remove(1,breadCrumb.size());
                 ChangeScene.mainSceneGUI11(this,buttonAddCategoryEvent);
             } else {
                 String IDParentCategory;
@@ -56,6 +62,8 @@ public class GUI33Controller implements Initializable {
                 String[] addCategory = {IDParentCategory, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
                 db.InsertCategory(addCategory);
                 AlertOOP.AddDone("Add Category status", "Add category done", "Add category with parent Category");
+                breadCrumb.remove(1,breadCrumb.size());
+                level.remove(1,breadCrumb.size());
                 ChangeScene.mainSceneGUI11(this,buttonAddCategoryEvent);
             }
         });

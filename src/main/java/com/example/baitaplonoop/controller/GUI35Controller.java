@@ -8,6 +8,9 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
+import static com.example.baitaplonoop.controller.GUI11Controller.level;
+
 public class GUI35Controller implements Initializable {
     public TextField quizName_tf;
     public TextArea quizDescription_tf;
@@ -60,6 +63,10 @@ public class GUI35Controller implements Initializable {
                 db.AddNewQuiz(quiz);
             }
         });
-        cancel_btn.setOnMouseClicked(cancelQuizEvent -> ChangeScene.changeSceneUsingMouseEvent(this,"/com/example/baitaplonoop/GUI11.fxml",cancelQuizEvent));
+        cancel_btn.setOnMouseClicked(cancelQuizEvent -> {
+            breadCrumb.remove(1,breadCrumb.size());
+            level.remove(1,breadCrumb.size());
+            ChangeScene.changeSceneUsingMouseEvent(this,"/com/example/baitaplonoop/GUI11.fxml",cancelQuizEvent);
+        });
     }
 }

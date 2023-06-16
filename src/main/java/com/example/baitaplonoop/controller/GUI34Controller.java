@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
+import static com.example.baitaplonoop.controller.GUI11Controller.level;
 import static com.example.baitaplonoop.util.ImportFile.ErrorLine;
 import static com.example.baitaplonoop.util.ImportFile.numberOfQuestion;
 import static com.example.baitaplonoop.util.showTreeViewCategory.setTreeViewImport;
@@ -124,6 +126,8 @@ public class GUI34Controller implements Initializable {
                     contentText = "Wrong format";
                 }
                 AlertOOP.AddDone("Import File", " ", contentText);
+                breadCrumb.remove(1,breadCrumb.size());
+                level.remove(1,breadCrumb.size());
                 ChangeScene.mainSceneGUI11(this,event);
             }
         });

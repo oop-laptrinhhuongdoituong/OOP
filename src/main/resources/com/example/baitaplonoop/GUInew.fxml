@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane focusTraversable="true" prefHeight="680.0" prefWidth="1020.0" stylesheets="@Design/Style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11Controller">
@@ -26,6 +27,7 @@
                 <FontAwesomeIconView glyphName="GEAR" size="35" />
             </graphic>
         </Button>
+      <FlowPane fx:id="breadcrumb" layoutX="41.0" layoutY="61.0" prefHeight="43.0" prefWidth="613.0" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="61.0" />
     </AnchorPane>
     <TabPane fx:id="tabPane" layoutX="54.0" layoutY="177.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <Tab fx:id="questionTab_tp" closable="false" text="Questions">
@@ -42,7 +44,7 @@
         </Tab>
     </TabPane>
     <AnchorPane fx:id="addQuestion_ap" layoutX="54.0" layoutY="196.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
-        <fx:include source="GUI32AddQuestion.fxml"/>
+        <fx:include source="GUI32AddQuestion.fxml" />
     </AnchorPane>
     <AnchorPane fx:id="addQuiz_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <fx:include source="GUI35AddingQuiz.fxml" />

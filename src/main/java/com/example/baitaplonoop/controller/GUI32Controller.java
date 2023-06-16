@@ -25,6 +25,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 
+import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
+import static com.example.baitaplonoop.controller.GUI11Controller.level;
+
 public class GUI32Controller implements Initializable {
     public TreeView<String> showCategory_tv;
     public TextArea questionText_tf;
@@ -371,9 +374,16 @@ public class GUI32Controller implements Initializable {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+            breadCrumb.remove(1,breadCrumb.size());
+            level.remove(1,breadCrumb.size());
+            ChangeScene.mainSceneGUI11(this, saveChangeEvent);
             if(addQuestionDone) ChangeScene.mainSceneGUI11(this, saveChangeEvent);
         });
-        cancel_btn.setOnMouseClicked(cancelEvent -> ChangeScene.mainSceneGUI11(this, cancelEvent));
+        cancel_btn.setOnMouseClicked(cancelEvent -> {
+            breadCrumb.remove(1,breadCrumb.size());
+            level.remove(1,breadCrumb.size());
+            ChangeScene.mainSceneGUI11(this, cancelEvent);
+        });
         editing_btn.setOnMouseClicked(saveChangeContinueEditEvent -> {
             try {
                 AddQuestionIntoSQL();

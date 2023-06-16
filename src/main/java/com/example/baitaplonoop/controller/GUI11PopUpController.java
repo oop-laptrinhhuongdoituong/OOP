@@ -1,5 +1,7 @@
 package com.example.baitaplonoop.controller;
 
+import com.example.baitaplonoop.util.BreadCrumb;
+import com.example.baitaplonoop.util.ChangeScene;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,8 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.example.baitaplonoop.controller.GUI11Controller.settingEvent;
-
+import static com.example.baitaplonoop.controller.GUI11Controller.*;
 
 
 public class GUI11PopUpController implements Initializable{
@@ -26,12 +27,17 @@ public class GUI11PopUpController implements Initializable{
     private Hyperlink hlCategory;
     @FXML
     private Hyperlink hlImport;
-    @FXML
-    private Hyperlink hlExport;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hlQuestion.setOnMouseClicked(mouseEvent -> {
+            Hyperlink question_hf=new Hyperlink(hlQuestion.getText());
+            question_hf.setOnAction(e -> {
+                BreadCrumb.changeBreadCrumb(breadCrumb,level,question_hf);
+                ChangeScene.GUI21ListQuestion(this,e);
+
+            });
+            BreadCrumb.addBreadCrumb(breadCrumb,level,1,question_hf);
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             stage.close();
             Stage oldstage = (Stage) ((Node) settingEvent.getSource()).getScene().getWindow();
@@ -51,6 +57,13 @@ public class GUI11PopUpController implements Initializable{
             oldstage.setScene(scene);
         });
         hlCategory.setOnMouseClicked(mouseEvent -> {
+            Hyperlink category_hl=new Hyperlink(hlCategory.getText());
+            category_hl.setOnMouseClicked(mouseEvent1 -> {
+                ChangeScene.GUI33AddCategory(this,mouseEvent1);
+                BreadCrumb.changeBreadCrumb(breadCrumb,level,category_hl);
+            });
+            BreadCrumb.addBreadCrumb(breadCrumb,level,1,category_hl);
+
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             stage.close();
             Stage oldstage = (Stage) ((Node) settingEvent.getSource()).getScene().getWindow();
@@ -70,6 +83,12 @@ public class GUI11PopUpController implements Initializable{
             oldstage.setScene(scene);
         });
         hlImport.setOnMouseClicked(mouseEvent -> {
+            Hyperlink import_hf=new Hyperlink(hlImport.getText());
+            import_hf.setOnAction(e -> {
+                ChangeScene.GUI34ImportFileQuestion(this,e);
+                BreadCrumb.changeBreadCrumb(breadCrumb,level,import_hf);
+            });
+            BreadCrumb.addBreadCrumb(breadCrumb,level,1,import_hf);
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             stage.close();
             Stage oldstage = (Stage) ((Node) settingEvent.getSource()).getScene().getWindow();
