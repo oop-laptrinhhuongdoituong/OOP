@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class BreadCrumb {
     public static void addBreadCrumb(ObservableList<Hyperlink> breadcrumbList, ObservableList<Integer> level,int a,Hyperlink hyperlink){
+        hyperlink.setText(" / "+hyperlink.getText());
          for(int i=1;i<breadcrumbList.size();i++){
            if(level.get(i)>=a){
                breadcrumbList.remove(i);

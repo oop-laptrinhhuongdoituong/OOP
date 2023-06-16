@@ -68,7 +68,15 @@ public class GUI11Controller implements Initializable {
     public void setEvent(){
         lvQuiz.setOnMouseClicked(mouseEvent -> {
             quizChosen = lvQuiz.getSelectionModel().getSelectedItem();
-            if(listQuiz.contains(quizChosen))ChangeScene.GUI61PreviewQuiz(this, mouseEvent);
+            if(listQuiz.contains(quizChosen)){
+                Hyperlink quiz_hf=new Hyperlink(quizChosen);
+                quiz_hf.setOnMouseClicked(event -> {
+                    BreadCrumb.changeBreadCrumb(breadCrumb,level,quiz_hf);
+                    ChangeScene.GUI61PreviewQuiz(this, event);
+                });
+                BreadCrumb.addBreadCrumb(breadCrumb,level,1,quiz_hf);
+                ChangeScene.GUI61PreviewQuiz(this, mouseEvent);
+            }
         });
 
 //        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.GUI35AddQuiz(this,turnEditingOneEvent));

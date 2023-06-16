@@ -374,10 +374,11 @@ public class GUI32Controller implements Initializable {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            breadCrumb.remove(1,breadCrumb.size());
-            level.remove(1,breadCrumb.size());
-            ChangeScene.mainSceneGUI11(this, saveChangeEvent);
-            if(addQuestionDone) ChangeScene.mainSceneGUI11(this, saveChangeEvent);
+            if(addQuestionDone) {
+                breadCrumb.remove(1,breadCrumb.size());
+                level.remove(1,breadCrumb.size());
+                ChangeScene.mainSceneGUI11(this, saveChangeEvent);
+            }
         });
         cancel_btn.setOnMouseClicked(cancelEvent -> {
             breadCrumb.remove(1,breadCrumb.size());

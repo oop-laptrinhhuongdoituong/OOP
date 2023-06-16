@@ -2,6 +2,7 @@ package com.example.baitaplonoop.controller;
 
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.BreadCrumb;
 import com.example.baitaplonoop.util.ChangeScene;
 import com.example.baitaplonoop.util.IsMouseOnLabel;
 import com.example.baitaplonoop.util.TableQuestionsOfGui62;
@@ -28,7 +29,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
+
+import static com.example.baitaplonoop.controller.GUI11Controller.*;
+
 public class GUI62Controller implements Initializable {
     @FXML
     private CheckBox shuffle;
@@ -196,11 +199,23 @@ public class GUI62Controller implements Initializable {
             Label label = listModeAdd.getSelectionModel().getSelectedItem();
             if (Objects.equals(label.getText(), "random a question")) {
                 label.setOnMouseClicked(mouseEvent1 -> {
+                    Hyperlink randomquestion_hl=new Hyperlink("Add random a question");
+                    randomquestion_hl.setOnMouseClicked(mouseEvent2 -> {
+                        BreadCrumb.changeBreadCrumb(breadCrumb,level,randomquestion_hl);
+                        ChangeScene.GUI65(this,mouseEvent2);
+                    });
+                    BreadCrumb.addBreadCrumb(breadCrumb,level,3,randomquestion_hl);
                    ChangeScene.GUI65(this,mouseEvent1);
                 });
             }
             if(Objects.equals(label.getText(), "from question bank")){
                 label.setOnMouseClicked(mouseEvent1 -> {
+                    Hyperlink addFromQuestionBank_hl=new Hyperlink("Add question from question bank");
+                    addFromQuestionBank_hl.setOnMouseClicked(mouseEvent2 -> {
+                        BreadCrumb.changeBreadCrumb(breadCrumb,level,addFromQuestionBank_hl);
+                        ChangeScene.GUI63(this,mouseEvent2);
+                    });
+                    BreadCrumb.addBreadCrumb(breadCrumb,level,3,addFromQuestionBank_hl);
                     ChangeScene.GUI63(this, mouseEvent1);
                 });
             }
@@ -230,7 +245,7 @@ public class GUI62Controller implements Initializable {
             }
             numberQuestionAndMarkInTable();
         });
-        save.setOnAction(event -> {
+        save.setOnMouseClicked(event -> {
             DBConnect db=new DBConnect();
             try {
                 db.updateQuiz(shuffle.isSelected(),quizChosen);
@@ -245,16 +260,13 @@ public class GUI62Controller implements Initializable {
                     throw new RuntimeException(e);
                 }
             }
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI61.fxml"));
-            try {
-                Parent gui61 = loader.load();
-                Scene scene = new Scene(gui61);
-                stage.setScene(scene);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+             Hyperlink quiz_hf=new Hyperlink(quizChosen);
+            quiz_hf.setOnMouseClicked(event1 -> {
+                BreadCrumb.changeBreadCrumb(breadCrumb,level,quiz_hf);
+                ChangeScene.GUI61PreviewQuiz(this, event1);
+            });
+            BreadCrumb.addBreadCrumb(breadCrumb,level,1,quiz_hf);
+            ChangeScene.GUI61PreviewQuiz(this,event);
         });
     }
 }

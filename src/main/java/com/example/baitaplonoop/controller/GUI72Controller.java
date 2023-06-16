@@ -1,5 +1,6 @@
 package com.example.baitaplonoop.controller;
 
+import com.example.baitaplonoop.util.BreadCrumb;
 import com.example.baitaplonoop.util.ExportFilePDF;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +18,8 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
+import static com.example.baitaplonoop.controller.GUI11Controller.level;
 import static com.example.baitaplonoop.controller.GUI61Controller.*;
 
 public class GUI72Controller implements Initializable {
@@ -46,6 +49,8 @@ public class GUI72Controller implements Initializable {
             stage.close();
             if(isOpenable == true) {
                 openTime = LocalDateTime.now();
+                Hyperlink openQuiz_hl=new Hyperlink("Preview");
+                BreadCrumb.addBreadCrumb(breadCrumb,level,3,openQuiz_hl);
                 Stage oldstage = (Stage) ((Node) StartEvent.getSource()).getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI73.fxml"));

@@ -19,6 +19,9 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
+import static com.example.baitaplonoop.controller.GUI11Controller.level;
+
 public class GUI65Controller implements Initializable {
     @FXML
     private ToggleButton add;
@@ -121,6 +124,8 @@ public class GUI65Controller implements Initializable {
         gui6_5CheckBox.setOnAction(event -> showQuestion());
         add.setOnAction(event -> {
             if (numberOfQuestions.getValue() != null) {
+                    breadCrumb.remove(breadCrumb.size()-1);
+                    level.remove(level.size()-1);
                     randomQuestionFromCategory();
                     ChangeScene.GUI62(this,event,subQuestionRandom);
             }

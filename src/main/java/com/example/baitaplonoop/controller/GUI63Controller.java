@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
+import static com.example.baitaplonoop.controller.GUI11Controller.level;
+
 public class GUI63Controller implements Initializable {
     @FXML
     public Button addSelectedQuestionToQuiz_btn;
@@ -80,13 +83,14 @@ public class GUI63Controller implements Initializable {
 //            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent))
 //                category.setVisible(false);
 //        });
-        addSelectedQuestionToQuiz_btn.setOnMouseClicked(addSelectedQuestionToQuizEvent -> System.out.println(insertQuestionInto.insertQuesionToQuiz()));
         addSelectedQuestionToQuiz_btn.setOnAction(event -> {
             for(QuestionCheckBoxInTable a: questionsList){
                 if(a.getCheckBox().isSelected()){
                     choiceQuestion.add(new Pair<>(a.getQuestionID(),a.getQuestionText()));
                 }
             }
+            breadCrumb.remove(breadCrumb.size()-1);
+            level.remove(level.size()-1);
             ChangeScene.GUI62(this,event,choiceQuestion);
         });
     }

@@ -3,6 +3,7 @@ package com.example.baitaplonoop.controller;
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.AnchorPaneFinish;
 import com.example.baitaplonoop.util.AnchorPaneGUI7;
+import com.example.baitaplonoop.util.BreadCrumb;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -38,7 +39,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
+import static com.example.baitaplonoop.controller.GUI11Controller.*;
 
 public class GUI73Controller implements Initializable {
     @FXML
@@ -61,6 +62,8 @@ public class GUI73Controller implements Initializable {
     private int seconds = 0;
     @FXML
     Hyperlink hlFinish;
+    @FXML
+    FlowPane flowPane1;
     public static LocalDateTime finishTime;
     ArrayList<AnchorPaneGUI7> listQuestion = new ArrayList<>();
     ArrayList<AnchorPaneFinish> result = new ArrayList<>();
@@ -125,6 +128,7 @@ public class GUI73Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        flowPane1.getChildren().addAll(breadCrumb);
         insertIntoGridPane();
         ResultSet rs = db.getData("Select questionID from QuestionInQuiz where quizName = N'" + quizChosen + "'");
         int i = 0;
@@ -189,7 +193,6 @@ public class GUI73Controller implements Initializable {
                 i++;
             }
             quizName = quizChosen;
-            quizName_lb.setText(quizName + " / Edit quiz");
             LocalDateTime localDateTime = LocalDateTime.now();
             ResultSet rs1 = db.getData("select * from dbo.Quiz where quizName = N'" + quizName + "'");
             LocalDateTime openTime;
@@ -256,6 +259,11 @@ public class GUI73Controller implements Initializable {
                 try {
                     int rowUpdated = db.updateQuizMark(marks, quizChosen);
                     boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
+                    breadCrumb.remove(breadCrumb.size()-1);
+                    level.remove(breadCrumb.size()-1);
+                    Hyperlink result_hl=new Hyperlink("Preview Result");
+                    BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
+                    BreadCrumb.addBreadCrumb(breadCrumb,level,3,result_hl);
                     Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(this.getClass().getResource("/com/example/baitaplonoop/GUI74.fxml"));
@@ -320,6 +328,11 @@ public class GUI73Controller implements Initializable {
                     try {
                         int rowUpdated = db.updateQuizMark(marks, quizChosen);
                         boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
+                        breadCrumb.remove(breadCrumb.size()-1);
+                        level.remove(breadCrumb.size()-1);
+                        Hyperlink result_hl=new Hyperlink("Preview Result");
+                        BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
+                        BreadCrumb.addBreadCrumb(breadCrumb,level,3,result_hl);
                         Stage stage = (Stage) timerLabel.getScene().getWindow();
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(this.getClass().getResource("/com/example/baitaplonoop/GUI74.fxml"));

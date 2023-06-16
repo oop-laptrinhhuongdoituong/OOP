@@ -1,6 +1,7 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.sql.DBConnect;
+import com.example.baitaplonoop.util.BreadCrumb;
 import com.example.baitaplonoop.util.ChangeScene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import javax.swing.event.HyperlinkEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -27,7 +29,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
+import static com.example.baitaplonoop.controller.GUI11Controller.*;
 
 public class GUI61Controller implements Initializable {
     @FXML
@@ -114,6 +116,12 @@ public class GUI61Controller implements Initializable {
             }
         });
         imgAddQuestionToQuiz.setOnMouseClicked(mouseEvent -> {
+            Hyperlink addQuestionToQuiz_hl=new Hyperlink("Edit quiz");
+            addQuestionToQuiz_hl.setOnMouseClicked(event -> {
+                BreadCrumb.changeBreadCrumb(breadCrumb,level,addQuestionToQuiz_hl);
+                ChangeScene.GUI62ShowQuestionChosen(this, event);
+            });
+             BreadCrumb.addBreadCrumb(breadCrumb,level,2,addQuestionToQuiz_hl);
             ChangeScene.GUI62ShowQuestionChosen(this, mouseEvent);
         });
     }

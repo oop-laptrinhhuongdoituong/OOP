@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
 import static com.example.baitaplonoop.controller.GUI72Controller.openTime;
 import static com.example.baitaplonoop.controller.GUI73Controller.finishTime;
 
@@ -46,6 +48,8 @@ public class GUI74Controller implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private AnchorPane anchorPane1;
+    @FXML
+    private FlowPane flowPane2;
     ArrayList<Button> listButton = new ArrayList<>();
     void insertIntoGridPane() {
         scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
@@ -72,6 +76,7 @@ public class GUI74Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        flowPane2.getChildren().addAll(breadCrumb);
         insertIntoGridPane();
     }
     public void setUpScene(ArrayList<AnchorPaneFinish> result, double marks, double yourmarks){

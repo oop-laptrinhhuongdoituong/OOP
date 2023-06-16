@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
@@ -22,15 +23,12 @@
             <Insets bottom="5.0" />
          </BorderPane.margin>
          <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="65.0" text="IT" textFill="#ea0b0b">
+            <Label alignment="CENTER" layoutX="14.0" layoutY="2.0" prefHeight="33.0" prefWidth="62.0" text="IT" textFill="#ea0b0b">
                <font>
                   <Font size="31.0" />
                </font>
             </Label>
-            <Label layoutX="27.0" layoutY="60.0" text="Home  /" />
-            <Label layoutX="87.0" layoutY="60.0" text="My courses  /" />
-            <Label layoutX="172.0" layoutY="60.0" text="THI CUỐI KỲ  /" />
-            <Label fx:id="quizName_lb" layoutX="263.0" layoutY="56.0" prefHeight="29.0" prefWidth="602.0" />
+            <FlowPane fx:id="flowPane2" layoutX="34.0" layoutY="47.0" prefHeight="34.0" prefWidth="742.0" />
          </children>
       </AnchorPane>
    </top>
