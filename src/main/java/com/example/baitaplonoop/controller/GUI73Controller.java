@@ -259,8 +259,7 @@ public class GUI73Controller implements Initializable {
                 try {
                     int rowUpdated = db.updateQuizMark(marks, quizChosen);
                     boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
-                    breadCrumb.remove(breadCrumb.size()-1);
-                    level.remove(breadCrumb.size()-1);
+
                     Hyperlink result_hl=new Hyperlink("Preview Result");
                     BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
                     BreadCrumb.addBreadCrumb(breadCrumb,level,3,result_hl);
@@ -328,8 +327,6 @@ public class GUI73Controller implements Initializable {
                     try {
                         int rowUpdated = db.updateQuizMark(marks, quizChosen);
                         boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
-                        breadCrumb.remove(breadCrumb.size()-1);
-                        level.remove(breadCrumb.size()-1);
                         Hyperlink result_hl=new Hyperlink("Preview Result");
                         BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
                         BreadCrumb.addBreadCrumb(breadCrumb,level,3,result_hl);
