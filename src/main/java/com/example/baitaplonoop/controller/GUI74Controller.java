@@ -1,12 +1,15 @@
 package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.util.AnchorPaneFinish;
+import com.example.baitaplonoop.util.BreadCrumb;
+import com.example.baitaplonoop.util.ChangeScene;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -22,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
+import static com.example.baitaplonoop.controller.GUI11Controller.*;
 import static com.example.baitaplonoop.controller.GUI72Controller.openTime;
 import static com.example.baitaplonoop.controller.GUI73Controller.finishTime;
 
@@ -50,6 +53,8 @@ public class GUI74Controller implements Initializable {
     private AnchorPane anchorPane1;
     @FXML
     private FlowPane flowPane2;
+    @FXML
+    private Hyperlink hlFinish;
     ArrayList<Button> listButton = new ArrayList<>();
     void insertIntoGridPane() {
         scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
@@ -78,6 +83,15 @@ public class GUI74Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         flowPane2.getChildren().addAll(breadCrumb);
         insertIntoGridPane();
+        hlFinish.setOnMouseClicked(event -> {
+            Hyperlink quiz_hf=new Hyperlink(" / "+quizChosen);
+            quiz_hf.setOnMouseClicked(event1 -> {
+                BreadCrumb.changeBreadCrumb(breadCrumb,level,quiz_hf);
+                ChangeScene.GUI61PreviewQuiz(this, event1);
+            });
+            BreadCrumb.addBreadCrumb(breadCrumb,level,1,quiz_hf);
+            ChangeScene.GUI61PreviewQuiz(this, event);
+        });
     }
     public void setUpScene(ArrayList<AnchorPaneFinish> result, double marks, double yourmarks){
         lbStart.setText(openTime.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy, h:mm a")));

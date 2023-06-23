@@ -4,26 +4,18 @@ package com.example.baitaplonoop.controller;
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.BreadCrumb;
 import com.example.baitaplonoop.util.ChangeScene;
-import com.example.baitaplonoop.util.IsMouseOnLabel;
 import com.example.baitaplonoop.util.TableQuestionsOfGui62;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Pair;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,8 +33,6 @@ public class GUI62Controller implements Initializable {
     private Button deleteMultipleItems;
     @FXML
     private Label addLabel;
-    @FXML
-    private AnchorPane gui62;
     @FXML
     private ListView<Label> listModeAdd;
     private final ObservableList<Label> addMode = FXCollections.observableArrayList();
@@ -190,16 +180,11 @@ public class GUI62Controller implements Initializable {
             throw new RuntimeException(e);
         }
         addLabel.setOnMouseClicked(mouseEvent -> listModeAdd.setVisible(!listModeAdd.isVisible()));
-//        gui62.setOnMouseClicked(mouseEvent -> {
-//            if (listModeAdd.isVisible() && IsMouseOnLabel.isMouseOnLabel(addLabel, mouseEvent))
-//                listModeAdd.setVisible(false);
-//        });
-
         listModeAdd.setOnMouseClicked(mouseEvent -> {
             Label label = listModeAdd.getSelectionModel().getSelectedItem();
             if (Objects.equals(label.getText(), "random a question")) {
                 label.setOnMouseClicked(mouseEvent1 -> {
-                    Hyperlink randomquestion_hl=new Hyperlink("Add random a question");
+                    Hyperlink randomquestion_hl=new Hyperlink(" / "+"Add random a question");
                     randomquestion_hl.setOnMouseClicked(mouseEvent2 -> {
                         BreadCrumb.changeBreadCrumb(breadCrumb,level,randomquestion_hl);
                         ChangeScene.GUI65(this,mouseEvent2);
@@ -210,7 +195,7 @@ public class GUI62Controller implements Initializable {
             }
             if(Objects.equals(label.getText(), "from question bank")){
                 label.setOnMouseClicked(mouseEvent1 -> {
-                    Hyperlink addFromQuestionBank_hl=new Hyperlink("Add question from question bank");
+                    Hyperlink addFromQuestionBank_hl=new Hyperlink(" / "+"Add question from question bank");
                     addFromQuestionBank_hl.setOnMouseClicked(mouseEvent2 -> {
                         BreadCrumb.changeBreadCrumb(breadCrumb,level,addFromQuestionBank_hl);
                         ChangeScene.GUI63(this,mouseEvent2);
@@ -260,7 +245,7 @@ public class GUI62Controller implements Initializable {
                     throw new RuntimeException(e);
                 }
             }
-             Hyperlink quiz_hf=new Hyperlink(quizChosen);
+             Hyperlink quiz_hf=new Hyperlink(" / "+quizChosen);
             quiz_hf.setOnMouseClicked(event1 -> {
                 BreadCrumb.changeBreadCrumb(breadCrumb,level,quiz_hf);
                 ChangeScene.GUI61PreviewQuiz(this, event1);

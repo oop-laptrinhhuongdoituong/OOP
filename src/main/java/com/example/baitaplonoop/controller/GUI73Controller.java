@@ -20,17 +20,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -45,8 +38,6 @@ public class GUI73Controller implements Initializable {
     @FXML
     private ScrollPane scrollPane;
     @FXML
-    private Label quizName_lb;
-    @FXML
     private Label timerLabel;
     private String quizName;
     public AnchorPane QuestionOverview_ap;
@@ -54,7 +45,7 @@ public class GUI73Controller implements Initializable {
     private AnchorPane apQuestion;
     @FXML
     private AnchorPane anchorPane1;
-    private GridPane gridPane = new GridPane();
+    private final GridPane gridPane = new GridPane();
     @FXML
     private ScrollPane questionView_cr;
     DBConnect db = new DBConnect();
@@ -210,6 +201,7 @@ public class GUI73Controller implements Initializable {
                 throw new RuntimeException(e);
             }
             hlFinish.setOnMouseClicked(mouseEvent -> {
+                stopTimer();
                 finishTime = LocalDateTime.now();
                 double marks = 0;
                 for(int k = 0; k < listQuestion.size(); k++){
@@ -260,7 +252,7 @@ public class GUI73Controller implements Initializable {
                     int rowUpdated = db.updateQuizMark(marks, quizChosen);
                     boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
 
-                    Hyperlink result_hl=new Hyperlink("Preview Result");
+                    Hyperlink result_hl=new Hyperlink(" / "+"Preview Result");
                     BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
                     BreadCrumb.addBreadCrumb(breadCrumb,level,3,result_hl);
                     Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
@@ -278,6 +270,7 @@ public class GUI73Controller implements Initializable {
             });
             timerLabel.textProperty().addListener((observableValue, s, t1) -> {
                 if(t1.equals("Time left 00:00:00")){
+                    stopTimer();
                     finishTime = LocalDateTime.now();
                     double marks = 0;
                     for(int k = 0; k < listQuestion.size(); k++){
@@ -327,7 +320,7 @@ public class GUI73Controller implements Initializable {
                     try {
                         int rowUpdated = db.updateQuizMark(marks, quizChosen);
                         boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
-                        Hyperlink result_hl=new Hyperlink("Preview Result");
+                        Hyperlink result_hl=new Hyperlink(" / "+"Preview Result");
                         BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
                         BreadCrumb.addBreadCrumb(breadCrumb,level,3,result_hl);
                         Stage stage = (Stage) timerLabel.getScene().getWindow();

@@ -80,7 +80,7 @@ public class GUI21Controller implements Initializable {
                         if (choiceInfo5 == null) choiceInfo5 = new String[]{" ", "", ""};
                         String[] choiceInfo6 = db.FindChoiceInfo(questionsList.get(k).getQuestionID() + "6");
                         if (choiceInfo6 == null) choiceInfo6 = new String[]{" ", "", ""};
-                        Hyperlink editQuestion_hl =new Hyperlink("Editing a Multiple choice question");
+                        Hyperlink editQuestion_hl =new Hyperlink(" / "+"Editing a Multiple choice question");
                         String[] finalChoiceInfo = choiceInfo1;
                         String[] finalChoiceInfo1 = choiceInfo2;
                         String[] finalChoiceInfo2 = choiceInfo3;
@@ -128,7 +128,7 @@ public class GUI21Controller implements Initializable {
                         if (choiceInfo5 == null) choiceInfo5 = new String[]{" ", "", ""};
                         String[] choiceInfo6 = db.FindChoiceInfo(questionsList.get(k).getQuestionID() + "6");
                         if (choiceInfo6 == null) choiceInfo6 = new String[]{" ", "", ""};
-                        Hyperlink editQuestion_hl =new Hyperlink("Editing a Multiple choice question");
+                        Hyperlink editQuestion_hl =new Hyperlink(" / "+"Editing a Multiple choice question");
                         String[] finalChoiceInfo = choiceInfo6;
                         String[] finalChoiceInfo1 = choiceInfo5;
                         String[] finalChoiceInfo2 = choiceInfo4;
@@ -148,7 +148,7 @@ public class GUI21Controller implements Initializable {
             }
         }));
         createQuestionButton.setOnAction(e -> {
-            Hyperlink createQuestion_hl =new Hyperlink("Adding a Multiple choice question");
+            Hyperlink createQuestion_hl =new Hyperlink(" / "+"Adding a Multiple choice question");
             createQuestion_hl.setOnAction(event -> {
                 BreadCrumb.changeBreadCrumb(breadCrumb,level,createQuestion_hl);
                 ChangeScene.GUI32AddQuestion(this,event);

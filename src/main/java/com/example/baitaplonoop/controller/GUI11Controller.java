@@ -50,7 +50,7 @@ public class GUI11Controller implements Initializable {
     Button btnTurnEditingOn;
     private final ArrayList<String> listQuiz = new ArrayList<>();
     public static ObservableList<Hyperlink> breadCrumb=FXCollections.observableArrayList();
-    public static ObservableList<Integer> level=FXCollections.observableArrayList();
+    public static ObservableList<String> level=FXCollections.observableArrayList();
     DBConnect db = new DBConnect();
     public static MouseEvent settingEvent;
     public static String quizChosen = "";
@@ -69,7 +69,7 @@ public class GUI11Controller implements Initializable {
         lvQuiz.setOnMouseClicked(mouseEvent -> {
             quizChosen = lvQuiz.getSelectionModel().getSelectedItem();
             if(listQuiz.contains(quizChosen)){
-                Hyperlink quiz_hf=new Hyperlink(quizChosen);
+                Hyperlink quiz_hf=new Hyperlink(" / "+quizChosen);
                 quiz_hf.setOnMouseClicked(event -> {
                     BreadCrumb.changeBreadCrumb(breadCrumb,level,quiz_hf);
                     ChangeScene.GUI61PreviewQuiz(this, event);
@@ -81,7 +81,7 @@ public class GUI11Controller implements Initializable {
 
 //        btnTurnEditingOn.setOnAction(turnEditingOneEvent -> ChangeScene.GUI35AddQuiz(this,turnEditingOneEvent));
         btnTurnEditingOn.setOnAction(turnEditingOneEvent -> {
-            Hyperlink addQuiz_hl= new Hyperlink("Adding a new Quiz");
+            Hyperlink addQuiz_hl= new Hyperlink(" / Adding a new Quiz");
             addQuiz_hl.setOnAction(event -> {
                 BreadCrumb.changeBreadCrumb(breadCrumb,level,addQuiz_hl);
                 ChangeScene.GUI35AddQuiz(this,turnEditingOneEvent);
@@ -117,7 +117,7 @@ public class GUI11Controller implements Initializable {
        }
        if(tmp==0){
            breadCrumb.add(homeHyperlink);
-           level.add(0);
+           level.add(Integer.toString(0));
        }
        breadcrumb.getChildren().clear();
        breadcrumb.getChildren().addAll(breadCrumb);
@@ -128,7 +128,7 @@ public class GUI11Controller implements Initializable {
         setEvent();
         setBreadcrumb();
        categoryTab_tp.setOnSelectionChanged(event -> {
-           Hyperlink category_hl=new Hyperlink(categoryTab_tp.getText());
+           Hyperlink category_hl=new Hyperlink(" / "+categoryTab_tp.getText());
            category_hl.setOnMouseClicked(mouseEvent -> {
                ChangeScene.GUI33AddCategory(this,mouseEvent);
                BreadCrumb.changeBreadCrumb(breadCrumb,level,category_hl);
@@ -138,7 +138,7 @@ public class GUI11Controller implements Initializable {
            breadcrumb.getChildren().addAll(breadCrumb);
        });
         questionTab_tp.setOnSelectionChanged(event -> {
-            Hyperlink question_hf=new Hyperlink(questionTab_tp.getText());
+            Hyperlink question_hf=new Hyperlink(" / "+questionTab_tp.getText());
             question_hf.setOnAction(e -> {
                 BreadCrumb.changeBreadCrumb(breadCrumb,level,question_hf);
                 ChangeScene.GUI21ListQuestion(this,e);
@@ -148,7 +148,7 @@ public class GUI11Controller implements Initializable {
             breadcrumb.getChildren().addAll(breadCrumb);
         });
         importTab_tp.setOnSelectionChanged(event -> {
-            Hyperlink import_hf=new Hyperlink(importTab_tp.getText());
+            Hyperlink import_hf=new Hyperlink(" / "+importTab_tp.getText());
             import_hf.setOnAction(e -> {
                 ChangeScene.GUI34ImportFileQuestion(this,e);
                 BreadCrumb.changeBreadCrumb(breadCrumb,level,import_hf);

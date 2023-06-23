@@ -6,9 +6,7 @@ import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.AlertOOP;
 import com.example.baitaplonoop.util.ChangeScene;
 import com.example.baitaplonoop.util.showTreeViewCategory;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -16,12 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import com.example.baitaplonoop.util.addValueComboBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -79,8 +73,6 @@ public class GUI32Controller implements Initializable {
     public Button editing_btn;
     public Button cancel_btn;
     public MediaView mediaQuestion_mv;
-    @FXML
-    private ScrollPane scrollPaneGui32;
 
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion = "null";
@@ -89,18 +81,6 @@ public class GUI32Controller implements Initializable {
     private MediaPlayer mediaPlayer;
     String pathToQuestionMedia = "";
     Boolean addQuestionDone = false;
-    private void scrollTo(ScrollPane scrollPane, double vvalue) {
-        scrollPane.setVvalue(vvalue);
-    }
-    private void scrollToNode(ScrollPane scrollPane, Label label) {
-        Bounds bounds = label.getBoundsInParent();
-        double y = bounds.getMinY();
-        double contentHeight = scrollPane.getContent().getBoundsInLocal().getHeight();
-        double viewportHeight = scrollPane.getViewportBounds().getHeight();
-        double vValue = y / (contentHeight - viewportHeight);
-        scrollPane.setVvalue(vValue);
-        scrollPane.setHvalue(0.00);
-    }
     public Integer ChoiceNumberInQuestion() {
         int choiceNumber = 0;
         for (TextField textField : Arrays.asList(choice1_tf, choice2_tf, choice3_tf, choice4_tf, choice5_tf, choice6_tf)) {
@@ -327,8 +307,8 @@ public class GUI32Controller implements Initializable {
             }
         });
 
-        // Event to creat new 3 choice
-        createChoice_btn.setOnMouseClicked(createChoiceEvent -> {// Event to creat new 3 choice
+        // Event to create new 3 choice
+        createChoice_btn.setOnMouseClicked(createChoiceEvent -> {// Event to create new 3 choice
             paneChoice2_ap.setTranslateY(239);
             buttonPane_ap.setTranslateY(239);
             paneChoice2_ap.setVisible(true);

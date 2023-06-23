@@ -31,7 +31,7 @@ public class GUI11PopUpController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hlQuestion.setOnMouseClicked(mouseEvent -> {
-            Hyperlink question_hf=new Hyperlink(hlQuestion.getText());
+            Hyperlink question_hf=new Hyperlink(" / "+hlQuestion.getText());
             question_hf.setOnAction(e -> {
                 BreadCrumb.changeBreadCrumb(breadCrumb,level,question_hf);
                 ChangeScene.GUI21ListQuestion(this,e);
@@ -57,7 +57,7 @@ public class GUI11PopUpController implements Initializable{
             oldstage.setScene(scene);
         });
         hlCategory.setOnMouseClicked(mouseEvent -> {
-            Hyperlink category_hl=new Hyperlink(hlCategory.getText());
+            Hyperlink category_hl=new Hyperlink(" / "+hlCategory.getText());
             category_hl.setOnMouseClicked(mouseEvent1 -> {
                 ChangeScene.GUI33AddCategory(this,mouseEvent1);
                 BreadCrumb.changeBreadCrumb(breadCrumb,level,category_hl);
@@ -83,7 +83,7 @@ public class GUI11PopUpController implements Initializable{
             oldstage.setScene(scene);
         });
         hlImport.setOnMouseClicked(mouseEvent -> {
-            Hyperlink import_hf=new Hyperlink(hlImport.getText());
+            Hyperlink import_hf=new Hyperlink(" / "+hlImport.getText());
             import_hf.setOnAction(e -> {
                 ChangeScene.GUI34ImportFileQuestion(this,e);
                 BreadCrumb.changeBreadCrumb(breadCrumb,level,import_hf);

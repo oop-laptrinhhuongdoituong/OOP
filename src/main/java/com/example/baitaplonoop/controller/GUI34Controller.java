@@ -3,32 +3,24 @@ package com.example.baitaplonoop.controller;
 import com.example.baitaplonoop.sql.DBConnect;
 import com.example.baitaplonoop.util.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static com.example.baitaplonoop.controller.GUI11Controller.breadCrumb;
 import static com.example.baitaplonoop.controller.GUI11Controller.level;
 import static com.example.baitaplonoop.util.ImportFile.ErrorLine;
 import static com.example.baitaplonoop.util.ImportFile.numberOfQuestion;
-import static com.example.baitaplonoop.util.showTreeViewCategory.setTreeViewImport;
 
 public class GUI34Controller implements Initializable {
     @FXML
@@ -78,7 +70,7 @@ public class GUI34Controller implements Initializable {
             ButtonType btnContinue = new ButtonType("Continue", ButtonBar.ButtonData.YES);
             ButtonType btnBack = new ButtonType("Home page", ButtonBar.ButtonData.NO);
             alert.getButtonTypes().setAll(btnContinue, btnBack);
-            String contentText = "";
+            String contentText;
             if (files == null || files.size() == 0) {
                 contentText = "There are no files imported";
                 lbAlert.setText("There are no files imported");

@@ -4,18 +4,11 @@ import com.example.baitaplonoop.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Pair;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,8 +18,6 @@ import static com.example.baitaplonoop.controller.GUI11Controller.level;
 public class GUI63Controller implements Initializable {
     @FXML
     public Button addSelectedQuestionToQuiz_btn;
-    @FXML
-    private AnchorPane gui6_3;
     @FXML
     private TableView<QuestionCheckBoxInTable> table;
     @FXML
@@ -79,10 +70,6 @@ public class GUI63Controller implements Initializable {
         gui6_3CheckBox.setSelected(false);
         showQuestionInCategory();
         gui6_3CheckBox.setOnAction(event -> showQuestionInCategory());
-//        gui6_3.setOnMouseClicked(mouseEvent -> {
-//            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent))
-//                category.setVisible(false);
-//        });
         addSelectedQuestionToQuiz_btn.setOnAction(event -> {
             for(QuestionCheckBoxInTable a: questionsList){
                 if(a.getCheckBox().isSelected()){

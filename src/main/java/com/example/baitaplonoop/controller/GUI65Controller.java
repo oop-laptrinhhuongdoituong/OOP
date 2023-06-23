@@ -4,17 +4,10 @@ import com.example.baitaplonoop.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Pair;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -28,8 +21,6 @@ public class GUI65Controller implements Initializable {
     final int numberQuestionsInAPage = 9;
     @FXML
     private CheckBox gui6_5CheckBox;
-    @FXML
-    private AnchorPane gui6_5;
     @FXML
     private Label Default;
     @FXML
@@ -130,9 +121,5 @@ public class GUI65Controller implements Initializable {
                     ChangeScene.GUI62(this,event,subQuestionRandom);
             }
         });
-//        gui6_5.setOnMouseClicked(mouseEvent -> {
-//            if (category.isVisible() && IsMouseOnLabel.isMouseOnLabel(Default, mouseEvent))
-//                category.setVisible(false);
-//        });
     }
 }

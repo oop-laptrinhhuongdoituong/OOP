@@ -6,11 +6,9 @@ import com.example.baitaplonoop.util.ChangeScene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,8 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
-import javax.swing.event.HyperlinkEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -60,11 +56,7 @@ public class GUI61Controller implements Initializable {
                 timeLimit = rs.getString("timeLimit");
                 lbTimeLimit.setText(timeLimit + " mins");
                 isShuffle = rs.getBoolean("shuffle");
-                if(rs.getTimestamp("openTime").toLocalDateTime().isAfter(LocalDateTime.now()) || rs.getTimestamp("closeTime").toLocalDateTime().isBefore(LocalDateTime.now())){
-                    isOpenable = false;
-                }else{
-                    isOpenable = true;
-                }
+                isOpenable = !rs.getTimestamp("openTime").toLocalDateTime().isAfter(LocalDateTime.now()) && !rs.getTimestamp("closeTime").toLocalDateTime().isBefore(LocalDateTime.now());
             }
             while(rs1.next()){
                 LocalDateTime timeAttempt = rs1.getTimestamp("dateAttempt").toLocalDateTime();
@@ -116,7 +108,7 @@ public class GUI61Controller implements Initializable {
             }
         });
         imgAddQuestionToQuiz.setOnMouseClicked(mouseEvent -> {
-            Hyperlink addQuestionToQuiz_hl=new Hyperlink("Edit quiz");
+            Hyperlink addQuestionToQuiz_hl=new Hyperlink(" / "+"Edit quiz");
             addQuestionToQuiz_hl.setOnMouseClicked(event -> {
                 BreadCrumb.changeBreadCrumb(breadCrumb,level,addQuestionToQuiz_hl);
                 ChangeScene.GUI62ShowQuestionChosen(this, event);

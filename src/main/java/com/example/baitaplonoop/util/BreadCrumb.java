@@ -3,27 +3,22 @@ package com.example.baitaplonoop.util;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Hyperlink;
 
-import java.util.Objects;
-
 public class BreadCrumb {
-    public static void addBreadCrumb(ObservableList<Hyperlink> breadcrumbList, ObservableList<Integer> level,int a,Hyperlink hyperlink){
-        hyperlink.setText(" / "+hyperlink.getText());
-         for(int i=1;i<breadcrumbList.size();i++){
-           if(level.get(i)>=a){
-               breadcrumbList.remove(i);
-               level.remove(i);
-           }
-         }
+    public static void addBreadCrumb(ObservableList<Hyperlink> breadcrumbList, ObservableList<String> level, int a, Hyperlink hyperlink){
+       while(Integer.parseInt(level.get(level.size()-1))>=a){
+           breadcrumbList.remove(level.size()-1);
+           level.remove(level.size()-1);
+       }
          breadcrumbList.add(hyperlink);
-         level.add(a);
+         level.add(Integer.toString(a));
     }
-    public static void changeBreadCrumb(ObservableList<Hyperlink> breadcrumbList,ObservableList<Integer> level,Hyperlink hyperlink){
-        for(int i=0;i<breadcrumbList.size();i++){
-            if(Objects.equals(breadcrumbList.get(i).getText(), hyperlink.getText())){
-                breadcrumbList.remove(i+1,breadcrumbList.size());
-                level.remove(i+1,breadcrumbList.size());
+    public static void changeBreadCrumb(ObservableList<Hyperlink> breadcrumbList,ObservableList<String> level,Hyperlink hyperlink){
+       int i=0;
+        for(;i<breadcrumbList.size();i++)
+            if (breadcrumbList.get(i).getText().equals(hyperlink.getText())) {
                 break;
             }
-        }
+        breadcrumbList.remove(i+1,breadcrumbList.size());
+        level.remove(i+1,level.size());
     }
 }

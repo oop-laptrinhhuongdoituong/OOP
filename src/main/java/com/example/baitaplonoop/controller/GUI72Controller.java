@@ -2,8 +2,6 @@ package com.example.baitaplonoop.controller;
 
 import com.example.baitaplonoop.util.BreadCrumb;
 import com.example.baitaplonoop.util.ExportFilePDF;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,15 +39,13 @@ public class GUI72Controller implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
         });
-        btnExport.setOnAction(event -> {
-            ExportFilePDF.exportPDFFile();
-        });
+        btnExport.setOnAction(event -> ExportFilePDF.exportPDFFile());
         btnStart.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
-            if(isOpenable == true) {
+            if(isOpenable) {
                 openTime = LocalDateTime.now();
-                Hyperlink openQuiz_hl=new Hyperlink("Preview");
+                Hyperlink openQuiz_hl=new Hyperlink(" / "+"Preview");
                 BreadCrumb.addBreadCrumb(breadCrumb,level,3,openQuiz_hl);
                 Stage oldstage = (Stage) ((Node) StartEvent.getSource()).getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader();
