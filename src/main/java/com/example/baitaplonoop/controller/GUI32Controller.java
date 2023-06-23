@@ -16,8 +16,11 @@ import javafx.scene.layout.AnchorPane;
 import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.example.baitaplonoop.util.addValueComboBox;
 import javafx.scene.media.Media;
@@ -86,6 +89,9 @@ public class GUI32Controller implements Initializable {
     private MediaPlayer mediaPlayer;
     String pathToQuestionMedia = "";
     Boolean addQuestionDone = false;
+    private void scrollTo(ScrollPane scrollPane, double vvalue) {
+        scrollPane.setVvalue(vvalue);
+    }
     private void scrollToNode(ScrollPane scrollPane, Label label) {
         Bounds bounds = label.getBoundsInParent();
         double y = bounds.getMinY();
@@ -311,17 +317,16 @@ public class GUI32Controller implements Initializable {
                 TreeItem<String> root = new TreeItem<>("Course IT:");
                 showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
                 showCategory_tv.setRoot(root);
-                showCategory_tv.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        categoryName_lb.setText(newValue.getValue());
-                        nameCategoryQuestion = newValue.getValue();
-                    }
-                    showCategory_tv.setVisible(false);
-                    categoryName_lb.setVisible(true);
+                showCategory_tv.setOnKeyPressed(keyEvent -> {
+                    TreeItem<String> item=showCategory_tv.getSelectionModel().getSelectedItem();
+                   categoryName_lb.setText(item.getValue());
+                   nameCategoryQuestion=item.getValue();
+                   showCategory_tv.setVisible(false);
+                   categoryName_lb.setVisible(true);
                 });
-                ////hung
             }
         });
+
         // Event to creat new 3 choice
         createChoice_btn.setOnMouseClicked(createChoiceEvent -> {// Event to creat new 3 choice
             paneChoice2_ap.setTranslateY(239);
