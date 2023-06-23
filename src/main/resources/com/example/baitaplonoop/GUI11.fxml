@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="499.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11Controller">
+<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" prefHeight="499.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11Controller">
    <Label layoutX="36.0" layoutY="33.0" prefHeight="30.0" prefWidth="526.0" style="-fx-background-color: #4169E1;" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="33.0" />
    <AnchorPane layoutX="54.0" layoutY="63.0" prefHeight="122.0" prefWidth="496.0" style="-fx-background-color: #F8F8FF;" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="63.0">
       <Label layoutX="40.0" layoutY="28.0" text="IT" textFill="FIREBRICK" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="28.0">

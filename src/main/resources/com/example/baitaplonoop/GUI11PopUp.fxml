@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="190.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11PopUpController">
+<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" prefHeight="190.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11PopUpController">
    <children>
       <Label layoutX="36.0" layoutY="38.0" text="Question bank" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="38.0" />
       <Hyperlink fx:id="hlQuestion" layoutX="205.0" layoutY="35.0" text="Question" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="38.0" />

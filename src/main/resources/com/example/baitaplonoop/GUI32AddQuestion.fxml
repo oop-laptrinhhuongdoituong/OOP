@@ -13,7 +13,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI32Controller">
+<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI32Controller">
    <ScrollPane fx:id="scrollPaneGui32" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <AnchorPane fx:id="paneInScrollPane_ap" prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: #E0FFFF;">
          <Label fx:id="questionLabel_lb" layoutX="34.0" layoutY="14.0" text="Adding a Multilple choice question" textFill="RED" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="14.0">
