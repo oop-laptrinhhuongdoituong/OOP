@@ -24,34 +24,39 @@ public class GUI33Controller implements Initializable {
     boolean checkAddParent = false;
     DBConnect db = new DBConnect();
     String parentCategoryName;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Choose the parent category
+        // Event to show category in TreeView
         addParentCategory_lb.setOnMouseClicked(mouseEvent -> {
-            //checkAddParent = true;
             parentCategory_tv.setVisible(true);
             addParentCategory_lb.setVisible(false);
+            //checkAddCategoryQuestion = true;
             TreeItem<String> root = new TreeItem<>("Course IT:");
             showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
             parentCategory_tv.setRoot(root);
-            parentCategory_tv.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-                addParentCategory_lb.setText(newValue.getValue());
-                parentCategoryName = newValue.getValue();
+            parentCategory_tv.setOnKeyPressed(keyEvent -> {
+                TreeItem<String> item = parentCategory_tv.getSelectionModel().getSelectedItem();
+                addParentCategory_lb.setText(item.getValue());
+                parentCategoryName = item.getValue();
+                parentCategory_tv.setVisible(false);
+                addParentCategory_lb.setVisible(true);
                 checkAddParent = true;
             });
+
         });
         // Event to press the Button Add Category
         addCategory_Btn.setOnMouseClicked(buttonAddCategoryEvent -> {
             // To check fill the field in Category if fill all the field then add data Category into Database
-            if(nameCategory_tf.getText().trim().equals("") || categoryID_tf.getText().trim().equals("")){
+            if (nameCategory_tf.getText().trim().equals("") || categoryID_tf.getText().trim().equals("")) {
                 AlertOOP.mustFill("Add Category Status", "Add category fail", "You must file the blank field");
             } else if (!checkAddParent) {
                 String[] addCategory = {null, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
                 db.InsertCategory(addCategory);
                 AlertOOP.AddDone("Add Category status", "Add category done", "Add category without parent category");
-                breadCrumb.remove(1,breadCrumb.size());
-                level.remove(1,breadCrumb.size());
-                ChangeScene.mainSceneGUI11(this,buttonAddCategoryEvent);
+                breadCrumb.remove(1, breadCrumb.size());
+                level.remove(1, breadCrumb.size());
+                ChangeScene.mainSceneGUI11(this, buttonAddCategoryEvent);
             } else {
                 String IDParentCategory;
                 try {
@@ -62,9 +67,9 @@ public class GUI33Controller implements Initializable {
                 String[] addCategory = {IDParentCategory, nameCategory_tf.getText(), categoryID_tf.getText(), infoCategory_tf.getText()};
                 db.InsertCategory(addCategory);
                 AlertOOP.AddDone("Add Category status", "Add category done", "Add category with parent Category");
-                breadCrumb.remove(1,breadCrumb.size());
-                level.remove(1,breadCrumb.size());
-                ChangeScene.mainSceneGUI11(this,buttonAddCategoryEvent);
+                breadCrumb.remove(1, breadCrumb.size());
+                level.remove(1, breadCrumb.size());
+                ChangeScene.mainSceneGUI11(this, buttonAddCategoryEvent);
             }
         });
     }
