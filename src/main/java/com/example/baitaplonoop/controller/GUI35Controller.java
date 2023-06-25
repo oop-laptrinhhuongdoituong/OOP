@@ -43,7 +43,7 @@ public class GUI35Controller implements Initializable {
         cancel_btn.setOnMouseClicked(cancelQuizEvent -> {
             breadCrumb.remove(1, breadCrumb.size());
             level.remove(1, breadCrumb.size());
-            ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", cancelQuizEvent);
+            ChangeScene.mainSceneGUI11(this, cancelQuizEvent);
         });
         enableTime_cb.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (enableTime_cb.isSelected()) {

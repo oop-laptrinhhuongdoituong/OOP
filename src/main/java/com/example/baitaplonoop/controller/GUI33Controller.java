@@ -18,9 +18,10 @@ public class GUI33Controller implements Initializable {
     public TextField nameCategory_tf;
     public TextField categoryID_tf;
     public Button addCategory_Btn;
-    public TextField infoCategory_tf;
+
     public TreeView<String> parentCategory_tv;
     public Label addParentCategory_lb;
+    public TextArea infoCategory_tf;
     boolean checkAddParent = false;
     DBConnect db = new DBConnect();
     String parentCategoryName;
