@@ -360,14 +360,14 @@ public class GUI32Controller implements Initializable {
                 throw new RuntimeException(e);
             }
             if(addQuestionDone) {
-                breadCrumb.remove(1,breadCrumb.size());
-                level.remove(1,breadCrumb.size());
+                breadCrumb.clear();
+                level.clear();
                 ChangeScene.mainSceneGUI11(this, saveChangeEvent);
             }
         });
         cancel_btn.setOnMouseClicked(cancelEvent -> {
-            breadCrumb.remove(1,breadCrumb.size());
-            level.remove(1,breadCrumb.size());
+            breadCrumb.clear();
+            level.clear();
             ChangeScene.mainSceneGUI11(this, cancelEvent);
         });
         editing_btn.setOnMouseClicked(saveChangeContinueEditEvent -> {

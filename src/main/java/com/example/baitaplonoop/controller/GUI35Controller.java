@@ -38,12 +38,14 @@ public class GUI35Controller implements Initializable {
             String[] quizInfo = {quizName_tf.getText(), quizDescription_tf.getText(), openQuiz, endQuiz, timeQuiz_tf.getText()};
             db.AddNewQuiz(quizInfo);
             AlertOOP.AddDone("Add quiz status", "Add quiz done", "Done!");
+            breadCrumb.clear();
+            level.clear();
             ChangeScene.mainSceneGUI11(this, createQuizEvent);
         });
         cancel_btn.setOnMouseClicked(cancelQuizEvent -> {
-            breadCrumb.remove(1, breadCrumb.size());
-            level.remove(1, breadCrumb.size());
-            ChangeScene.changeSceneUsingMouseEvent(this, "/com/example/baitaplonoop/GUI11.fxml", cancelQuizEvent);
+            breadCrumb.clear();
+            level.clear();
+            ChangeScene.mainSceneGUI11(this, cancelQuizEvent);
         });
         enableTime_cb.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (enableTime_cb.isSelected()) {

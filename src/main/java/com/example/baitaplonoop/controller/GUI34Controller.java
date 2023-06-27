@@ -118,8 +118,8 @@ public class GUI34Controller implements Initializable {
                     contentText = "Wrong format";
                 }
                 AlertOOP.AddDone("Import File", " ", contentText);
-                breadCrumb.remove(1,breadCrumb.size());
-                level.remove(1,breadCrumb.size());
+                breadCrumb.clear();
+                level.clear();
                 ChangeScene.mainSceneGUI11(this,event);
             }
         });
