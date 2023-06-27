@@ -50,7 +50,7 @@ public class GUI11Controller implements Initializable {
     Button btnTurnEditingOn;
     private final ArrayList<String> listQuiz = new ArrayList<>();
     public static ObservableList<Hyperlink> breadCrumb=FXCollections.observableArrayList();
-    public static ObservableList<String> level=FXCollections.observableArrayList();
+    public static ObservableList<Integer> level=FXCollections.observableArrayList();
     DBConnect db = new DBConnect();
     public static MouseEvent settingEvent;
     public static String quizChosen = "";
@@ -117,7 +117,7 @@ public class GUI11Controller implements Initializable {
        }
        if(tmp==0){
            breadCrumb.add(homeHyperlink);
-           level.add(Integer.toString(0));
+           level.add(0);
        }
        breadcrumb.getChildren().clear();
        breadcrumb.getChildren().addAll(breadCrumb);
