@@ -39,6 +39,7 @@ public class DBConnect {
             statement.setString(2, stringSQL[1]);
             statement.setString(3, stringSQL[2]);
             statement.setString(4, stringSQL[3]);
+            statement.setString(5, stringSQL[4]);
             rowInserted = statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

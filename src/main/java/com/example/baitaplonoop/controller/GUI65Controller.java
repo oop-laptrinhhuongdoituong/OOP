@@ -99,16 +99,20 @@ public class GUI65Controller implements Initializable {
         Default.setText("Default");
         Default.setOnMouseClicked(mouseEvent -> {
 
-
-            TreeItem<String> root = new TreeItem<>("For IT");
-            try {
-                insertCategoryIntoTreeView.insertCategory("select * from dbo.Category where parentID is NULL", root);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            if(category.isVisible()){
+                category.setVisible(false);
             }
-            category.setRoot(root);
-            category.toFront();
-            category.setVisible(true);
+            else {
+                TreeItem<String> root = new TreeItem<>("For IT");
+                try {
+                    insertCategoryIntoTreeView.insertCategory("select * from dbo.Category where parentID is NULL", root);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                category.setRoot(root);
+                category.toFront();
+                category.setVisible(true);
+            }
         });
         gui6_5CheckBox.setSelected(false);
         showQuestion();

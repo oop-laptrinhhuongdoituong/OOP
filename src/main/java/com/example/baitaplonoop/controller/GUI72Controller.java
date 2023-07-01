@@ -39,7 +39,20 @@ public class GUI72Controller implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
         });
-        btnExport.setOnAction(event -> ExportFilePDF.exportPDFFile());
+        btnExport.setOnAction(event -> {
+            ExportFilePDF.exportPDFFile();
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/SetPasswordForPDFFile.fxml"));
+            try {
+                Parent parent = fxmlLoader.load();
+                Scene scene = new Scene(parent);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         btnStart.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
@@ -48,6 +61,8 @@ public class GUI72Controller implements Initializable {
                 Hyperlink openQuiz_hl=new Hyperlink(" / "+"Preview");
                 BreadCrumb.addBreadCrumb(breadCrumb,level,3,openQuiz_hl);
                 Stage oldstage = (Stage) ((Node) StartEvent.getSource()).getScene().getWindow();
+                double currentWidth = oldstage.getScene().getWidth();
+                double currentHeight = oldstage.getScene().getHeight();
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI73.fxml"));
                 Parent parent = null;
@@ -56,7 +71,7 @@ public class GUI72Controller implements Initializable {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                Scene scene = new Scene(parent);
+                Scene scene = new Scene(parent, currentWidth, currentHeight);
                 oldstage.setScene(scene);
             }else{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

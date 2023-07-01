@@ -1,11 +1,7 @@
 package com.example.baitaplonoop.util;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
-import java.text.NumberFormat;
-import java.util.Locale;
+import java.util.Objects;
 
 public class addValueComboBox {
 
@@ -15,7 +11,7 @@ public class addValueComboBox {
     public static double convertStringToDouble(ComboBox<String> stringComboBox){
         String selectedValue = stringComboBox.getValue();
         int NoneGrade = 0;
-        if(selectedValue == "None" || stringComboBox.getValue()==null) return NoneGrade;
+        if(Objects.equals(selectedValue, "None") || stringComboBox.getValue()==null) return NoneGrade;
         else {
             return Double.parseDouble(selectedValue.replace("%", ""))/100.0;
         }

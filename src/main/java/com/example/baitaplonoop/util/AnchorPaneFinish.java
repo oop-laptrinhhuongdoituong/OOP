@@ -25,7 +25,11 @@ public class AnchorPaneFinish extends AnchorPane{
     public void setUpCorrectStatus(String correctAnswer){
         correctStatus = new AnchorPane();
         correctStatus.setMinSize(850, 60);
-        correctStatus.setStyle("-fx-background-color: #FFE4B5");
+        if(correctAnswer.equals("Correct!")){
+            correctStatus.setStyle("-fx-background-color: #33FF99");
+        }else{
+            correctStatus.setStyle("-fx-background-color: #FFE4B5");
+        }
         this.correctAnswer = new Label();
         this.correctAnswer.setText(correctAnswer);
         correctStatus.getChildren().add(this.correctAnswer);

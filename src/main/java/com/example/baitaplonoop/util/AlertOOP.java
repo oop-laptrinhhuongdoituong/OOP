@@ -1,9 +1,7 @@
 package com.example.baitaplonoop.util;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 
 public class AlertOOP {
     public static void  mustFill(String Title, String HeaderText, String Content){

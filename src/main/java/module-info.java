@@ -23,6 +23,7 @@ module com.example.baitaplonoop {
     requires javafx.swingEmpty;
     requires org.controlsfx.controls;
     requires  jfxtras.controls;
+    requires org.bouncycastle.provider;
 
     opens com.example.baitaplonoop to javafx.fxml;
     exports com.example.baitaplonoop;

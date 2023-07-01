@@ -21,6 +21,7 @@ import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.text.Font;
@@ -131,7 +132,13 @@ public class GUI73Controller implements Initializable {
                 Button button = new Button();
                 button.setAlignment(Pos.TOP_CENTER);
                 button.setFont(Font.font(15));
-                button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
+                button.setBorder( new Border(new BorderStroke(
+                        Color.SILVER,                       // Màu viền
+                        BorderStrokeStyle.SOLID,            // Kiểu viền
+                        CornerRadii.EMPTY,                  // Độ bo góc
+                        new BorderWidths(2)))              // Độ dày
+);
+                button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 100%, #C0C0C0 00%)");
                 if (0 <= i && i < 9) button.setText("0" + String.valueOf(i + 1));
                 else button.setText(String.valueOf(i + 1));
                 button.setId("question" + String.valueOf(i + 1));
@@ -158,7 +165,7 @@ public class GUI73Controller implements Initializable {
                         @Override
                         public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
                             question.questionStatus.setText("Answered");
-                            listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #FFFFFF 30%)");
+                            listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
                         }
                     });
                 }else{
@@ -169,12 +176,12 @@ public class GUI73Controller implements Initializable {
                                 if(t1){
                                     question.boxChecked ++;
                                     question.questionStatus.setText("Answered");
-                                    listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #FFFFFF 30%)");
+                                    listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
                                 }else{
                                     question.boxChecked--;
                                     if(question.boxChecked == 0){
                                         question.questionStatus.setText("Not yet answered");
-                                        listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
+                                        listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #FFFFFF 30%)");
                                     }
                                 }
                             }
@@ -256,14 +263,15 @@ public class GUI73Controller implements Initializable {
                     BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
                     BreadCrumb.addBreadCrumb(breadCrumb,level,3,result_hl);
                     Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+                    double currentWidth = stage.getScene().getWidth();
+                    double currentHeight = stage.getScene().getHeight();
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(this.getClass().getResource("/com/example/baitaplonoop/GUI74.fxml"));
                     Parent parent = loader.load();
-                    Scene scene = new Scene(parent);
+                    Scene scene = new Scene(parent, currentWidth, currentHeight);
                     GUI74Controller controller = loader.getController();
                     controller.setUpScene(result, (double) listQuestion.size(), marks);
                     stage.setScene(scene);
-                    stage.setMaximized(true);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -324,14 +332,15 @@ public class GUI73Controller implements Initializable {
                         BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
                         BreadCrumb.addBreadCrumb(breadCrumb,level,3,result_hl);
                         Stage stage = (Stage) timerLabel.getScene().getWindow();
+                        double currentWidth = stage.getScene().getWidth();
+                        double currentHeight = stage.getScene().getHeight();
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(this.getClass().getResource("/com/example/baitaplonoop/GUI74.fxml"));
                         Parent parent = loader.load();
-                        Scene scene = new Scene(parent);
+                        Scene scene = new Scene(parent, currentWidth, currentHeight);
                         GUI74Controller controller = loader.getController();
                         controller.setUpScene(result, (double) listQuestion.size(), marks);
                         stage.setScene(scene);
-                        stage.setMaximized(true);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

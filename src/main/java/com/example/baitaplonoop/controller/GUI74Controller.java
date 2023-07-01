@@ -12,10 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
@@ -128,10 +126,16 @@ public class GUI74Controller implements Initializable {
             Button button = new Button();
             button.setAlignment(Pos.TOP_CENTER);
             button.setFont(Font.font(15));
+            button.setBorder( new Border(new BorderStroke(
+                    Color.SILVER,                       // Màu viền
+                    BorderStrokeStyle.SOLID,            // Kiểu viền
+                    CornerRadii.EMPTY,                  // Độ bo góc
+                    new BorderWidths(2)))              // Độ dày
+            );
             button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
-            if (0 <= i && i < 9) button.setText("0" + String.valueOf(i + 1));
+            if (i < 9) button.setText("0" + (i + 1));
             else button.setText(String.valueOf(i + 1));
-            button.setId("question" + String.valueOf(i + 1));
+            button.setId("question" + (i + 1));
             listButton.add(button);
             GridPane.setConstraints(button, i % 5, i / 5);
             GridPane.setMargin(button, new Insets(2, 1, 2, 1));
@@ -139,9 +143,7 @@ public class GUI74Controller implements Initializable {
             GridPane.setVgrow(button, Priority.ALWAYS); // cho phép button mở rộng theo chiều dọc
             gridPane.getChildren().add(button);
             int finalI = i;
-            button.setOnAction(event -> {
-                scrollToNode(questionView_cr,result.get(finalI));
-            });
+            button.setOnAction(event -> scrollToNode(questionView_cr,result.get(finalI)));
             ///////////////////////////////////Hung
             apQuestion.getChildren().add(result.get(i));
             AnchorPane.setTopAnchor(result.get(i), questionHeight);

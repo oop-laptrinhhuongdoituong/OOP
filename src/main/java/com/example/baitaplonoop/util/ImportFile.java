@@ -1,13 +1,8 @@
 package com.example.baitaplonoop.util;
 
-
-import com.example.baitaplonoop.model.Question;
 import com.example.baitaplonoop.sql.DBConnect;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.*;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -260,29 +255,50 @@ public class ImportFile {
                     FileOutputStream os = new FileOutputStream(new File(imagePath));
                     os.write(bytepic);
                     String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", imagePath};
-                    db.UpdateQuestion(insertQuestion);
+                    int questionRowInserted = db.InsertQuestion(insertQuestion);
                 }else{
                     String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", null};
-                    db.UpdateQuestion(insertQuestion);
+                    int questionRowInserted = db.InsertQuestion(insertQuestion);
                 }
                 String[] answer = part[end.get(j).LineNumber].split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
+                    List<XWPFRun> runChoice = paragraphs.get(k).getRuns();
+                    byte[] bytepicChoice = null;
+                    if(runChoice != null){
+                        for(XWPFRun r : runChoice){
+                            List<XWPFPicture> listPic = r.getEmbeddedPictures();
+                            if(listPic != null && listPic.size() != 0){
+                                bytepicChoice = listPic.get(0).getPictureData().getData();
+                            }
+                        }
+                    }
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);
                     String partChoice[] = part[k].split(". ", 2);
-                    if (partChoice[0].equals(answer[1])) {
-                        String insertChoice[] = {partChoice[1], "1.00", choiceID, questionPart[0], "0", null};
-                        int choiceRowInserted = db.InsertChoice(insertChoice);
-                    } else {
-                        String insertChoice[] = {partChoice[1], "0", choiceID, questionPart[0], "0", null};
-                        int choiceRowInserted = db.InsertChoice(insertChoice);
+                    if(bytepicChoice != null) {
+                        String imagePath = "./src/main/resources/com/example/baitaplonoop/Media/Image/Choice/" + choiceID + ".png";
+                        FileOutputStream os = new FileOutputStream(new File(imagePath));
+                        os.write(bytepicChoice);
+                        if (partChoice[0].equals(answer[1])) {
+                            String insertChoice[] = {partChoice[1], "1.00", choiceID, questionPart[0], "0", imagePath};
+                            int choiceRowInserted = db.InsertChoice(insertChoice);
+                        } else {
+                            String insertChoice[] = {partChoice[1], null, choiceID, questionPart[0], "0", imagePath};
+                            int choiceRowInserted = db.InsertChoice(insertChoice);
+                        }
+                    }else{
+                        if (partChoice[0].equals(answer[1])) {
+                            String insertChoice[] = {partChoice[1], "1.00", choiceID, questionPart[0], "0", null};
+                            int choiceRowInserted = db.InsertChoice(insertChoice);
+                        } else {
+                            String insertChoice[] = {partChoice[1], null, choiceID, questionPart[0], "0", null};
+                            int choiceRowInserted = db.InsertChoice(insertChoice);
+                        }
                     }
                 }
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -314,7 +330,7 @@ public class ImportFile {
             for (int j = 0; j < start.size(); j++) {
                 String[] questionPart = part.get(start.get(j).LineNumber).split(": ", 2);
                 String[] insertQuestion = {categoryID, questionPart[0], questionPart[1], "1.00", null};
-                db.UpdateQuestion(insertQuestion);
+                int questionRowInserted = db.InsertQuestion(insertQuestion);
                 String[] answer = part.get(end.get(j).LineNumber).split(": ", 2);
                 for (int k = start.get(j).LineNumber + 1; k < end.get(j).LineNumber; k++) {
                     String choiceID = questionPart[0] + (k - start.get(j).LineNumber);
@@ -329,8 +345,6 @@ public class ImportFile {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

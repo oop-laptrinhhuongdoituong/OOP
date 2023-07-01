@@ -11,12 +11,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Tab;
 import javafx.stage.Stage;
+import org.apache.poi.hssf.record.cf.ColorGradientFormatting;
 
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.example.baitaplonoop.Main.currentHeight;
+import static com.example.baitaplonoop.Main.currentWidth;
 import static com.example.baitaplonoop.controller.GUI11Controller.*;
 
 
@@ -27,6 +30,8 @@ public class GUI11PopUpController implements Initializable{
     private Hyperlink hlCategory;
     @FXML
     private Hyperlink hlImport;
+    public static double currentWidth;
+    public static double currentHeight;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,6 +46,8 @@ public class GUI11PopUpController implements Initializable{
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             stage.close();
             Stage oldstage = (Stage) ((Node) settingEvent.getSource()).getScene().getWindow();
+            currentWidth = oldstage.getScene().getWidth();
+            currentHeight = oldstage.getScene().getHeight();
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUInew.fxml"));
             Parent parent;
@@ -49,7 +56,7 @@ public class GUI11PopUpController implements Initializable{
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Scene scene = new Scene(parent);
+            Scene scene = new Scene(parent, currentWidth, currentHeight);
             GUI11Controller gui11Controller = fxmlLoader.getController();
             gui11Controller.tabPane.setVisible(true);
             Tab tab = gui11Controller.questionTab_tp;
@@ -67,6 +74,8 @@ public class GUI11PopUpController implements Initializable{
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             stage.close();
             Stage oldstage = (Stage) ((Node) settingEvent.getSource()).getScene().getWindow();
+            currentWidth = oldstage.getScene().getWidth();
+            currentHeight = oldstage.getScene().getHeight();
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUInew.fxml"));
             Parent parent;
@@ -75,7 +84,7 @@ public class GUI11PopUpController implements Initializable{
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Scene scene = new Scene(parent);
+            Scene scene = new Scene(parent, currentWidth, currentHeight);
             GUI11Controller gui11Controller = fxmlLoader.getController();
             gui11Controller.tabPane.setVisible(true);
             Tab tab = gui11Controller.categoryTab_tp;
@@ -92,6 +101,8 @@ public class GUI11PopUpController implements Initializable{
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             stage.close();
             Stage oldstage = (Stage) ((Node) settingEvent.getSource()).getScene().getWindow();
+            currentWidth = oldstage.getScene().getWidth();
+            currentHeight = oldstage.getScene().getHeight();
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUInew.fxml"));
             Parent parent;
@@ -100,7 +111,7 @@ public class GUI11PopUpController implements Initializable{
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Scene scene = new Scene(parent);
+            Scene scene = new Scene(parent, currentWidth, currentHeight);
             GUI11Controller gui11Controller = fxmlLoader.getController();
             gui11Controller.tabPane.setVisible(true);
             Tab tab = gui11Controller.importTab_tp;

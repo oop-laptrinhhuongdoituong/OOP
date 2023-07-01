@@ -4,9 +4,6 @@ package com.example.baitaplonoop.util;
 import com.example.baitaplonoop.model.Choice;
 import com.example.baitaplonoop.model.Question;
 import com.example.baitaplonoop.sql.DBConnect;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -24,7 +21,6 @@ import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import static com.example.baitaplonoop.controller.GUI61Controller.isShuffle;

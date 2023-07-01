@@ -3,22 +3,10 @@ package com.example.baitaplonoop.util;
 import com.example.baitaplonoop.sql.DBConnect;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
 
 import static com.example.baitaplonoop.controller.GUI11Controller.quizChosen;
 
@@ -44,18 +32,27 @@ public class ExportFilePDF {
                 ResultSet rs2 = db.getData("Select * from Choice where questionID = '" + rs.getString("questionID") + "'");
                 Phrase p = new Phrase();
                 if (rs1.next()) {
-                    p.add(rs1.getString("questionID") + ": " + rs1.getString("questionText") + "\n\n");
-                    String imagePath = rs1.getString(4);
-                    if(imagePath != "NULL"){
+                    String imagePath = rs1.getString("questionMedia");
+                    if(imagePath != null){
+                        p.add(rs1.getString("questionID") + ": " + rs1.getString("questionText") + "\n\n");
                         Image image = Image.getInstance(imagePath);
                         image.scaleToFit(150,200);
                         p.add(new Chunk(image, 0, 0, true));
                         p.add("\n");
+                    }else{
+                        p.add(rs1.getString("questionID") + ": " + rs1.getString("questionText") + "\n");
                     }
                 }
                 char c = 'A';
                 while (rs2.next()) {
                     p.add(String.valueOf(c) + ". " + rs2.getString("choiceText") + "\n");
+                    String imagePath = rs2.getString("choiceMedia");
+                    if(imagePath != null){
+                        Image image = Image.getInstance(imagePath);
+                        image.scaleToFit(150,200);
+                        p.add(new Chunk(image, 0, 0, true));
+                        p.add("\n");
+                    }
                     c++;
                 }
                 p.add("\n");
@@ -63,18 +60,27 @@ public class ExportFilePDF {
                     ResultSet rs3 = db.getData("Select * from Question where questionID = '" + rs.getString("questionID") + "'");
                     ResultSet rs4 = db.getData("Select * from Choice where questionID = '" + rs.getString("questionID") + "'");
                     if (rs3.next()) {
-                        p.add(rs3.getString("questionID") + ": " + rs3.getString("questionText") + "\n\n");
-                        String imagePath = rs3.getString(4);
-                        if(imagePath != "NULL"){
+                        String imagePath = rs3.getString("questionMedia");
+                        if(imagePath != null){
+                            p.add(rs3.getString("questionID") + ": " + rs3.getString("questionText") + "\n\n");
                             Image image = Image.getInstance(imagePath);
                             image.scaleToFit(150,200);
                             p.add(new Chunk(image, 0, 0, true));
                             p.add("\n");
+                        }else{
+                            p.add(rs3.getString("questionID") + ": " + rs3.getString("questionText") + "\n");
                         }
                     }
                     char C = 'A';
                     while (rs4.next()) {
                         p.add(String.valueOf(C) + ". " + rs4.getString("choiceText") + "\n");
+                        String imagePath = rs4.getString("choiceMedia");
+                        if(imagePath != null){
+                            Image image1 = Image.getInstance(imagePath);
+                            image1.scaleToFit(150,200);
+                            p.add(new Chunk(image1, 0, 0, true));
+                            p.add("\n");
+                        }
                         C++;
                     }
                     p.add("\n");

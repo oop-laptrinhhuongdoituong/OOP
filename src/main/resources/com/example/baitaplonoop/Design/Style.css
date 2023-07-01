@@ -39,9 +39,15 @@
 }
 
 .button_blue {
-
+    -fx-color: #fff;
+    -fx-background-color: #1177d1;
+    -fx-border-color: #1177d1;
+    -fx-text-color: #fff;
 }
 
 .anchor_pane{
 
+}
+
+.breadcrumb {
 }

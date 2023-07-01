@@ -3,19 +3,13 @@ package com.example.baitaplonoop;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 public class Main extends Application {
+    public static double currentWidth;
+    public static double currentHeight;
     FXMLLoader loader = new FXMLLoader(Main.class.getResource("GUInew.fxml"));
     public static void main(String[] args) {
         launch(args);
@@ -26,5 +20,6 @@ public class Main extends Application {
         primaryStage.setTitle("The Quiz");
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 }

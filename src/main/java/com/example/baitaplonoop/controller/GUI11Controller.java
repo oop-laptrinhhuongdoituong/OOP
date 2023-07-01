@@ -54,6 +54,7 @@ public class GUI11Controller implements Initializable {
     DBConnect db = new DBConnect();
     public static MouseEvent settingEvent;
     public static String quizChosen = "";
+
     public void setListViewQuiz(){
         ResultSet rs = db.getData("Select * from Quiz");
         try{
@@ -127,6 +128,7 @@ public class GUI11Controller implements Initializable {
         setListViewQuiz();
         setEvent();
         setBreadcrumb();
+
        categoryTab_tp.setOnSelectionChanged(event -> {
            Hyperlink category_hl=new Hyperlink(" / "+categoryTab_tp.getText());
            category_hl.setOnMouseClicked(mouseEvent -> {

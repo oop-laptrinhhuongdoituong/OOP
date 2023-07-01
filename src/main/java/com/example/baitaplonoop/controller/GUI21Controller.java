@@ -39,17 +39,23 @@ public class GUI21Controller implements Initializable {
         category.setVisible(false);
         table.setVisible(false);
         Default.setOnMouseClicked(mouseEvent -> {
-            Default.setText("Default");
-            table.setVisible(false);
-            questionsList.clear();
-            TreeItem<String> root = new TreeItem<>("For IT");
-            try {
-                insertCategoryIntoTreeView.insertCategory("select * from dbo.Category where parentID is NULL", root);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            if(category.isVisible()){
+                category.setVisible(false);
             }
-            category.setRoot(root);
-            category.setVisible(true);
+            else {
+                Default.setText("Default");
+                table.setVisible(false);
+                questionsList.clear();
+                TreeItem<String> root = new TreeItem<>("For IT");
+                try {
+                    insertCategoryIntoTreeView.insertCategory("select * from dbo.Category where parentID is NULL", root);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                category.setRoot(root);
+                category.setVisible(true);
+            }
+
         });
         gui2_1CheckBox.setSelected(false);
         category.setOnKeyPressed(keyEvent -> {
