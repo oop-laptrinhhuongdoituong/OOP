@@ -51,9 +51,7 @@ public class GUI34Controller implements Initializable {
                     TreeItem<String> root = new TreeItem<>("Course IT:");
                     treeViewImport.setRoot(root);
                     insertCategoryIntoTreeView.insertCategory("select * from Category where parentID IS NULL", root);
-                    treeViewImport.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-                        lbChooseImportCategory.setText(FindCategoryInfo.findCategoryName(newValue.getValue()));
-                    });
+                    treeViewImport.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> lbChooseImportCategory.setText(FindCategoryInfo.findCategoryName(newValue.getValue())));
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -82,7 +80,7 @@ public class GUI34Controller implements Initializable {
                 AlertOOP.mustFill("Import File", " ", contentText);
             } else {
                 String path = files.get(0).getName();
-                if (path.substring(path.length() - 4, path.length()).equals("docx")) {
+                if (path.endsWith("docx")) {
                     if (ImportFile.checkFileDOCX(files.get(0))) {
                         lbAlert.setText("Correct format");
                         ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");
@@ -100,7 +98,7 @@ public class GUI34Controller implements Initializable {
                         lbAlert.setText("Error at: " + ErrorLine);
                         contentText = "Error at: " + ErrorLine;
                     }
-                } else if (path.substring(path.length() - 3, path.length()).equals("txt")) {
+                } else if (path.endsWith("txt")) {
                     if (ImportFile.checkFileTXT(files.get(0))) {
                         lbAlert.setText("Correct format");
                         ResultSet rs = db.getData("SELECT * from Category where categoryName = N'" + lbChooseImportCategory.getText() + "'");

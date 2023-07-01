@@ -47,7 +47,7 @@ public class SetPasswordForPDFFile implements Initializable {
                 String hardPassword = txtPassword.getText();
                 byte[] hardPasswordByte = hardPassword.getBytes();
 
-                PdfReader reader = null;
+                PdfReader reader;
                 try {
                     File file = new File("./src/main/resources/com/example/baitaplonoop/pdf/" + quizChosen + ".pdf");
                     byte[] bytes = Files.readAllBytes(file.toPath());
@@ -58,9 +58,7 @@ public class SetPasswordForPDFFile implements Initializable {
                     reader.close();
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (DocumentException e) {
+                } catch (IOException | DocumentException e) {
                     throw new RuntimeException(e);
                 }
 

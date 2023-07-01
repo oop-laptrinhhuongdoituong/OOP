@@ -10,10 +10,10 @@ public class DBConnect {
     public DBConnect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://Dat\\MSSQLSERVER01:1433;databaseName=Exam_Management2;"
+            String url = "jdbc:sqlserver://LAPTOP-5RN02RRR\\SQLEXPRESS:1433;databaseName=Exam_Management2;"
                     + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
             String username = "sa";
-            String password = "123";
+            String password = "123123";
             con = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,7 +62,7 @@ public class DBConnect {
 //        return rowInserted;
 //    }
     public int InsertChoice(String[] stringSQL) {
-        int rowInserted = 0;
+        int rowInserted ;
         String sql = "INSERT INTO Choice(choiceText, choiceGrade, choiceID, questionID, isSelected, choiceMedia) values(?,?,?,?,?,?)";
         PreparedStatement statement;
         try {
@@ -80,7 +80,7 @@ public class DBConnect {
         return rowInserted;
     }
     public int InsertQuestionInQuiz(String[] stringSQL) throws SQLException {
-        int rowInserted = 0;
+        int rowInserted ;
         String sql = "insert into QuestionInQuiz(questionID,quizName,yourMark) values(?,?,?)";
         PreparedStatement statement;
         statement = con.prepareStatement(sql);
@@ -100,7 +100,7 @@ public class DBConnect {
         return categoryID;
     }
     public void InsertCategory(String[] stringSQL) {
-        int rowInserted = 0;
+        int rowInserted;
         String sql = "INSERT INTO Category(parentID, categoryName, categoryID, categoryinfo) values (?, ?, ?, ?)";
         PreparedStatement statement;
         try {
@@ -221,7 +221,7 @@ public class DBConnect {
         }
         return result; // Trả về giá trị boolean
     }
-    public int updateQuizMark(double mark, String quizChosen){
+    public void updateQuizMark(double mark, String quizChosen){
         int rowUpdated = 0;
         String sql = "Update Quiz set mark = ? where quizName = N'" + quizChosen + "'";
         try {
@@ -231,9 +231,8 @@ public class DBConnect {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return rowUpdated;
     }
-    public boolean insertIntoHistory(String quizName, double mark, LocalDateTime dateAttempt){
+    public void insertIntoHistory(String quizName, double mark, LocalDateTime dateAttempt){
         boolean rowInserted = false;
         String querry = "Insert into HistoryAttempt (quizName, mark, dateAttempt) values (?, ?, ?)";
         try {
@@ -245,7 +244,6 @@ public class DBConnect {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return rowInserted;
     }
 
 }

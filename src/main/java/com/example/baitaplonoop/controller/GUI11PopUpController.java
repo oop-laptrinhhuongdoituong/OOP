@@ -11,15 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Tab;
 import javafx.stage.Stage;
-import org.apache.poi.hssf.record.cf.ColorGradientFormatting;
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static com.example.baitaplonoop.Main.currentHeight;
-import static com.example.baitaplonoop.Main.currentWidth;
 import static com.example.baitaplonoop.controller.GUI11Controller.*;
 
 

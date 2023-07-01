@@ -241,6 +241,7 @@ public class GUI62Controller implements Initializable {
                 String[] addQuestionInQuiz = {chosenQuestion.getQuestionID(), quizChosen, null};
                 try {
                     int row = db.InsertQuestionInQuiz(addQuestionInQuiz);
+                    System.out.println(row);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }

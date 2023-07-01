@@ -65,7 +65,7 @@ public class GUI72Controller implements Initializable {
                 double currentHeight = oldstage.getScene().getHeight();
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/example/baitaplonoop/GUI73.fxml"));
-                Parent parent = null;
+                Parent parent;
                 try {
                     parent = fxmlLoader.load();
                 } catch (IOException e) {

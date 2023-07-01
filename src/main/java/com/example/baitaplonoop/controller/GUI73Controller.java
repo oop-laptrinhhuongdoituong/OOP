@@ -6,8 +6,6 @@ import com.example.baitaplonoop.util.AnchorPaneGUI7;
 import com.example.baitaplonoop.util.BreadCrumb;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -40,7 +38,6 @@ public class GUI73Controller implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private Label timerLabel;
-    private String quizName;
     public AnchorPane QuestionOverview_ap;
     @FXML
     private AnchorPane apQuestion;
@@ -77,10 +74,10 @@ public class GUI73Controller implements Initializable {
     private void timerAction(int a) {
         seconds = a * 60;
         String hours;
-        if (a / 60 < 10) hours = "0" + Integer.toString(a / 60);
+        if (a / 60 < 10) hours = "0" + a / 60;
         else hours = Integer.toString(a / 60);
         String minutes;
-        if (a % 60 < 10) minutes = "0" + Integer.toString(a % 60);
+        if (a % 60 < 10) minutes = "0" + a % 60;
         else minutes = Integer.toString(a % 60);
         timerLabel.setText("Time left " + hours + ":" + minutes + ":00");
         timeline = new Timeline(
@@ -140,9 +137,9 @@ public class GUI73Controller implements Initializable {
                         new BorderWidths(2)))              // Độ dày
 );
                 button.setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 100%, #C0C0C0 00%)");
-                if (0 <= i && i < 9) button.setText("0" + String.valueOf(i + 1));
+                if (0 <= i && i < 9) button.setText("0" + (i + 1));
                 else button.setText(String.valueOf(i + 1));
-                button.setId("question" + String.valueOf(i + 1));
+                button.setId("question" + (i + 1));
                 listButton.add(button);
                 GridPane.setConstraints(button, i % 5, i / 5);
                 GridPane.setMargin(button, new Insets(2, 1, 2, 1));
@@ -156,34 +153,26 @@ public class GUI73Controller implements Initializable {
                 AnchorPane.setRightAnchor(question, 0.0);
                 AnchorPane.setLeftAnchor(question, 0.0);
                 AnchorPane.setTopAnchor(question, questionHeight);
-                button.setOnAction(event -> {
-                    scrollToNode(questionView_cr, question);
-                });
+                button.setOnAction(event -> scrollToNode(questionView_cr, question));
                 questionHeight += 10.0;
                 questionHeight += question.getPrefHeight();
                 if(question.getNotNullChoice() <= 1) {
-                    question.group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-                        @Override
-                        public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
-                            question.questionStatus.setText("Answered");
-                            listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
-                        }
+                    question.group.selectedToggleProperty().addListener((observableValue, toggle, t1) -> {
+                        question.questionStatus.setText("Answered");
+                        listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
                     });
                 }else{
                     for(int j = 0; j < question.listCheckBox.size(); j++){
-                        question.listCheckBox.get(j).selectedProperty().addListener(new ChangeListener<Boolean>() {
-                            @Override
-                            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                                if(t1){
-                                    question.boxChecked ++;
-                                    question.questionStatus.setText("Answered");
-                                    listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
-                                }else{
-                                    question.boxChecked--;
-                                    if(question.boxChecked == 0){
-                                        question.questionStatus.setText("Not yet answered");
-                                        listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #FFFFFF 30%)");
-                                    }
+                        question.listCheckBox.get(j).selectedProperty().addListener((observableValue, aBoolean, t1) -> {
+                            if(t1){
+                                question.boxChecked ++;
+                                question.questionStatus.setText("Answered");
+                                listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #C0C0C0 30%)");
+                            }else{
+                                question.boxChecked--;
+                                if(question.boxChecked == 0){
+                                    question.questionStatus.setText("Not yet answered");
+                                    listButton.get(question.position-1).setStyle("-fx-background-color: linear-gradient(to bottom, #FFFFFF 70%, #FFFFFF 30%)");
                                 }
                             }
                         });
@@ -191,7 +180,7 @@ public class GUI73Controller implements Initializable {
                 }
                 i++;
             }
-            quizName = quizChosen;
+            String quizName = quizChosen;
             LocalDateTime localDateTime = LocalDateTime.now();
             ResultSet rs1 = db.getData("select * from dbo.Quiz where quizName = N'" + quizName + "'");
             LocalDateTime openTime;
@@ -215,53 +204,53 @@ public class GUI73Controller implements Initializable {
                 stopTimer();
                 finishTime = LocalDateTime.now();
                 double marks = 0;
-                for(int k = 0; k < listQuestion.size(); k++){
+                for (AnchorPaneGUI7 anchorPaneGUI7 : listQuestion) {
                     double questionMark = 0;
-                    if(listQuestion.get(k).getNotNullChoice() <= 1){
+                    if (anchorPaneGUI7.getNotNullChoice() <= 1) {
                         String correctAnswer = "";
-                        for(int j = 0; j < listQuestion.get(k).listRadioButton.size(); j++){
-                            if(listQuestion.get(k).listRadioButton.get(j).isSelected()){
-                                questionMark += listQuestion.get(k).question.getQuestionMark() * listQuestion.get(k).listChoice.get(j).getChoiceGrade();
+                        for (int j = 0; j < anchorPaneGUI7.listRadioButton.size(); j++) {
+                            if (anchorPaneGUI7.listRadioButton.get(j).isSelected()) {
+                                questionMark += anchorPaneGUI7.question.getQuestionMark() * anchorPaneGUI7.listChoice.get(j).getChoiceGrade();
                             }
-                            if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() == 1){
-                                correctAnswer = String.valueOf((char) (j+65));
+                            if (anchorPaneGUI7.listChoice.get(j).getChoiceGrade() == 1) {
+                                correctAnswer = String.valueOf((char) (j + 65));
                             }
                         }
                         marks += questionMark;
-                        if(questionMark == 0){
-                            result.add(new AnchorPaneFinish(listQuestion.get(k), "The correct answer is: " + correctAnswer));
-                        }else{
-                            result.add(new AnchorPaneFinish(listQuestion.get(k), "Correct!"));
+                        if (questionMark == 0) {
+                            result.add(new AnchorPaneFinish(anchorPaneGUI7, "The correct answer is: " + correctAnswer));
+                        } else {
+                            result.add(new AnchorPaneFinish(anchorPaneGUI7, "Correct!"));
                         }
-                    }else{
-                        String correctAnswer = "";
+                    } else {
+                        StringBuilder correctAnswer = new StringBuilder();
                         boolean isHaveMark = true;
-                        for(int j = 0; j < listQuestion.get(k).listCheckBox.size(); j++){
-                            if(listQuestion.get(k).listCheckBox.get(j).isSelected()){
-                                if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() == 0){
+                        for (int j = 0; j < anchorPaneGUI7.listCheckBox.size(); j++) {
+                            if (anchorPaneGUI7.listCheckBox.get(j).isSelected()) {
+                                if (anchorPaneGUI7.listChoice.get(j).getChoiceGrade() == 0) {
                                     isHaveMark = false;
                                 }
-                                questionMark += listQuestion.get(k).question.getQuestionMark() * listQuestion.get(k).listChoice.get(j).getChoiceGrade();
+                                questionMark += anchorPaneGUI7.question.getQuestionMark() * anchorPaneGUI7.listChoice.get(j).getChoiceGrade();
                             }
-                            if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() > 0){
-                                correctAnswer += String.valueOf((char) (j+65)) + " ";
+                            if (anchorPaneGUI7.listChoice.get(j).getChoiceGrade() > 0) {
+                                correctAnswer.append((char) (j + 65)).append(" ");
                             }
                         }
-                        if(isHaveMark == false){
+                        if (!isHaveMark) {
                             questionMark = 0;
                         }
                         marks += questionMark;
-                        if(questionMark == 1){
-                            result.add(new AnchorPaneFinish(listQuestion.get(k), "Correct!"));
-                        }else{
-                            result.add(new AnchorPaneFinish(listQuestion.get(k), "The correct answer is: " + correctAnswer));
+                        if (questionMark == 1) {
+                            result.add(new AnchorPaneFinish(anchorPaneGUI7, "Correct!"));
+                        } else {
+                            result.add(new AnchorPaneFinish(anchorPaneGUI7, "The correct answer is: " + correctAnswer));
                         }
                     }
                 }
 
                 try {
-                    int rowUpdated = db.updateQuizMark(marks, quizChosen);
-                    boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
+                    db.updateQuizMark(marks, quizChosen);
+                    db.insertIntoHistory(quizChosen, marks, finishTime);
 
                     Hyperlink result_hl=new Hyperlink(" / "+"Preview Result");
                     BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
@@ -274,7 +263,7 @@ public class GUI73Controller implements Initializable {
                     Parent parent = loader.load();
                     Scene scene = new Scene(parent, currentWidth, currentHeight);
                     GUI74Controller controller = loader.getController();
-                    controller.setUpScene(result, (double) listQuestion.size(), marks);
+                    controller.setUpScene(result, listQuestion.size(), marks);
                     stage.setScene(scene);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -285,53 +274,53 @@ public class GUI73Controller implements Initializable {
                     stopTimer();
                     finishTime = LocalDateTime.now();
                     double marks = 0;
-                    for(int k = 0; k < listQuestion.size(); k++){
+                    for (AnchorPaneGUI7 anchorPaneGUI7 : listQuestion) {
                         double questionMark = 0;
-                        if(listQuestion.get(k).getNotNullChoice() <= 1){
+                        if (anchorPaneGUI7.getNotNullChoice() <= 1) {
                             String correctAnswer = "";
-                            for(int j = 0; j < listQuestion.get(k).listRadioButton.size(); j++){
-                                if(listQuestion.get(k).listRadioButton.get(j).isSelected()){
-                                    questionMark += listQuestion.get(k).question.getQuestionMark() * listQuestion.get(k).listChoice.get(j).getChoiceGrade();
+                            for (int j = 0; j < anchorPaneGUI7.listRadioButton.size(); j++) {
+                                if (anchorPaneGUI7.listRadioButton.get(j).isSelected()) {
+                                    questionMark += anchorPaneGUI7.question.getQuestionMark() * anchorPaneGUI7.listChoice.get(j).getChoiceGrade();
                                 }
-                                if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() == 1){
-                                    correctAnswer = String.valueOf((char) (j+65));
+                                if (anchorPaneGUI7.listChoice.get(j).getChoiceGrade() == 1) {
+                                    correctAnswer = String.valueOf((char) (j + 65));
                                 }
                             }
                             marks += questionMark;
-                            if(questionMark == 0){
-                                result.add(new AnchorPaneFinish(listQuestion.get(k), "The correct answer is: " + correctAnswer));
-                            }else{
-                                result.add(new AnchorPaneFinish(listQuestion.get(k), "Correct!"));
+                            if (questionMark == 0) {
+                                result.add(new AnchorPaneFinish(anchorPaneGUI7, "The correct answer is: " + correctAnswer));
+                            } else {
+                                result.add(new AnchorPaneFinish(anchorPaneGUI7, "Correct!"));
                             }
-                        }else{
-                            String correctAnswer = "";
+                        } else {
+                            StringBuilder correctAnswer = new StringBuilder();
                             boolean isHaveMark = true;
-                            for(int j = 0; j < listQuestion.get(k).listCheckBox.size(); j++){
-                                if(listQuestion.get(k).listCheckBox.get(j).isSelected()){
-                                    if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() == 0){
+                            for (int j = 0; j < anchorPaneGUI7.listCheckBox.size(); j++) {
+                                if (anchorPaneGUI7.listCheckBox.get(j).isSelected()) {
+                                    if (anchorPaneGUI7.listChoice.get(j).getChoiceGrade() == 0) {
                                         isHaveMark = false;
                                     }
-                                    questionMark += listQuestion.get(k).question.getQuestionMark() * listQuestion.get(k).listChoice.get(j).getChoiceGrade();
+                                    questionMark += anchorPaneGUI7.question.getQuestionMark() * anchorPaneGUI7.listChoice.get(j).getChoiceGrade();
                                 }
-                                if(listQuestion.get(k).listChoice.get(j).getChoiceGrade() > 0){
-                                    correctAnswer += String.valueOf((char) (j+65)) + " ";
+                                if (anchorPaneGUI7.listChoice.get(j).getChoiceGrade() > 0) {
+                                    correctAnswer.append((char) (j + 65)).append(" ");
                                 }
                             }
-                            if(isHaveMark == false){
+                            if (!isHaveMark) {
                                 questionMark = 0;
                             }
                             marks += questionMark;
-                            if(questionMark == 1){
-                                result.add(new AnchorPaneFinish(listQuestion.get(k), "Correct!"));
-                            }else{
-                                result.add(new AnchorPaneFinish(listQuestion.get(k), "The correct answer is: " + correctAnswer));
+                            if (questionMark == 1) {
+                                result.add(new AnchorPaneFinish(anchorPaneGUI7, "Correct!"));
+                            } else {
+                                result.add(new AnchorPaneFinish(anchorPaneGUI7, "The correct answer is: " + correctAnswer));
                             }
                         }
                     }
 
                     try {
-                        int rowUpdated = db.updateQuizMark(marks, quizChosen);
-                        boolean rowInserted = db.insertIntoHistory(quizChosen, marks, finishTime);
+                        db.updateQuizMark(marks, quizChosen);
+                        db.insertIntoHistory(quizChosen, marks, finishTime);
                         Hyperlink result_hl=new Hyperlink(" / "+"Preview Result");
                         BreadCrumb.changeBreadCrumb(breadCrumb,level,result_hl);
                         BreadCrumb.addBreadCrumb(breadCrumb,level,3,result_hl);
@@ -343,7 +332,7 @@ public class GUI73Controller implements Initializable {
                         Parent parent = loader.load();
                         Scene scene = new Scene(parent, currentWidth, currentHeight);
                         GUI74Controller controller = loader.getController();
-                        controller.setUpScene(result, (double) listQuestion.size(), marks);
+                        controller.setUpScene(result, listQuestion.size(), marks);
                         stage.setScene(scene);
                     } catch (IOException e) {
                         throw new RuntimeException(e);

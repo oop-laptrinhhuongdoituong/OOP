@@ -28,23 +28,28 @@ public class GUI33Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+           parentCategory_tv.setVisible(false);
         // Event to show category in TreeView
         addParentCategory_lb.setOnMouseClicked(mouseEvent -> {
-            parentCategory_tv.setVisible(true);
-            addParentCategory_lb.setVisible(false);
-            //checkAddCategoryQuestion = true;
-            TreeItem<String> root = new TreeItem<>("Course IT:");
-            showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
-            parentCategory_tv.setRoot(root);
-            parentCategory_tv.setOnKeyPressed(keyEvent -> {
-                TreeItem<String> item = parentCategory_tv.getSelectionModel().getSelectedItem();
-                addParentCategory_lb.setText(item.getValue());
-                parentCategoryName = item.getValue();
+            if(parentCategory_tv.isVisible()){
                 parentCategory_tv.setVisible(false);
-                addParentCategory_lb.setVisible(true);
-                checkAddParent = true;
-            });
+            }
+            else {
+                parentCategory_tv.setVisible(true);
+                //checkAddCategoryQuestion = true;
+                TreeItem<String> root = new TreeItem<>("Course IT:");
+                showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
+                parentCategory_tv.setRoot(root);
+                parentCategory_tv.setOnKeyPressed(keyEvent -> {
+                    TreeItem<String> item = parentCategory_tv.getSelectionModel().getSelectedItem();
+                    addParentCategory_lb.setText(item.getValue());
+                    parentCategoryName = item.getValue();
+                    parentCategory_tv.setVisible(false);
+                    addParentCategory_lb.setVisible(true);
+                    checkAddParent = true;
+                });
 
+            }
         });
         // Event to press the Button Add Category
         addCategory_Btn.setOnMouseClicked(buttonAddCategoryEvent -> {

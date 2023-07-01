@@ -106,6 +106,7 @@ public class CustomMedia {
         MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
         Duration duration = mediaPlayer.getTotalDuration();
         double seconds = duration.toSeconds();
+        //System.out.println(seconds);
         return 1 <= seconds & seconds <= 10;
     } // Check Duration Video in Question between 1s and 10s
 

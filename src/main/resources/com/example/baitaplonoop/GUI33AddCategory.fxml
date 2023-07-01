@@ -21,7 +21,7 @@
    <TextField fx:id="nameCategory_tf" layoutX="257.0" layoutY="130.0" prefHeight="25.0" prefWidth="245.0" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="236.66666666666666" AnchorPane.topAnchor="120.0" />
    <TextField fx:id="categoryID_tf" layoutX="430.0" layoutY="262.0" prefHeight="25.0" prefWidth="86.0" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="396.0" AnchorPane.topAnchor="250.0" />
    <Button fx:id="addCategory_Btn" layoutX="428.0" layoutY="368.0" mnemonicParsing="false" style="-fx-background-color: #ff1e1e;" text="Add Category" textFill="WHITE" AnchorPane.leftAnchor="428.0" AnchorPane.topAnchor="368.0" />
-   <TreeView fx:id="parentCategory_tv" layoutX="236.0" layoutY="80.0" prefHeight="121.0" prefWidth="245.0" visible="false" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="80.0" />
-   <Label fx:id="addParentCategory_lb" layoutX="250.0" layoutY="80.0" style="-fx-cursor: hand;" text="Add parent Category" AnchorPane.leftAnchor="430.0" />
+   <Label fx:id="addParentCategory_lb" layoutX="250.0" layoutY="80.0" style="-fx-cursor: hand;" text="Add parent Category" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="80.0" />
    <TextArea fx:id="infoCategory_tf" layoutX="135.0" layoutY="235.0" prefHeight="75.0" prefWidth="245.0" wrapText="true" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="236.66666666666666" AnchorPane.topAnchor="160.0" />
+   <TreeView fx:id="parentCategory_tv" layoutX="236.0" layoutY="80.0" prefHeight="121.0" prefWidth="245.0" visible="false" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="100.0" />
 </AnchorPane>

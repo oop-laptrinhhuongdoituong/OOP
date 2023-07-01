@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+
 import com.example.baitaplonoop.util.addValueComboBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -73,14 +74,15 @@ public class GUI32Controller implements Initializable {
     public Button editing_btn;
     public Button cancel_btn;
     public MediaView mediaQuestion_mv;
+    String path1;
 
     boolean checkAddCategoryQuestion;
     String nameCategoryQuestion = "null";
     Double gradeChoice1 = 0.0, gradeChoice2 = 0.0, gradeChoice3 = 0.0, gradeChoice4 = 0.0, gradeChoice5 = 0.0, gradeChoice6 = 0.0;
     DBConnect db = new DBConnect();
     private MediaPlayer mediaPlayer;
-    String pathToQuestionMedia = "";
     Boolean addQuestionDone = false;
+
     public Integer ChoiceNumberInQuestion() {
         int choiceNumber = 0;
         for (TextField textField : Arrays.asList(choice1_tf, choice2_tf, choice3_tf, choice4_tf, choice5_tf, choice6_tf)) {
@@ -114,8 +116,8 @@ public class GUI32Controller implements Initializable {
             paneChoice2_ap.setTranslateY(239);
             buttonPane_ap.setTranslateY(239);
             paneChoice2_ap.setVisible(true);
+            if(questionMedia != null) path1 = questionMedia;
         }
-        pathToQuestionMedia = questionMedia;
     }
 
     private void choiceInfo123(String choiceText1, String choiceGrade1, String choiceMedia1, String choiceText2, String choiceGrade2, String choiceMedia2, String choiceText3, String choiceGrade3, String choiceMedia3, ComboBox<String> gradeChoice1Cb, ImageView imageChoice1Iv, ComboBox<String> gradeChoice2Cb, ImageView imageChoice2Iv, ComboBox<String> gradeChoice3Cb, ImageView imageChoice3Iv) {
@@ -137,7 +139,7 @@ public class GUI32Controller implements Initializable {
     }
 
     public String questionMediaPath() {
-        String path1 = CustomMedia.gifPathQuestion;
+        path1 = CustomMedia.gifPathQuestion;
         if (imageQuestion_iv.getImage() != null)
             return CustomMedia.saveImage(imageQuestion_iv, "./src/main/resources/com/example/baitaplonoop/Media/Image/Question", questionName_tf.getText());
         else if (gifQuestion_iv.getImage() != null)
@@ -169,10 +171,12 @@ public class GUI32Controller implements Initializable {
             }
             if (checkQuestionExist & questionName_tf.isEditable())
                 AlertOOP.mustFill("Add Question Status", "Add Question Fail", "Question Name exists");
-            else {
+            else if (mediaQuestion_mv.isVisible() & !CustomMedia.CheckDuration(mediaQuestion_mv)) {
+                AlertOOP.mustFill("Add Question status", "Add Question Fail", "Video dài hơn 10s");
+
+            } else {
                 String pathMediaQuestion;
-                if(!pathToQuestionMedia.equals("")) pathMediaQuestion = pathToQuestionMedia;
-                else pathMediaQuestion = questionMediaPath();
+                pathMediaQuestion = questionMediaPath();
                 String[] questionInfo = {getCategoryIDQuestion(), questionName_tf.getText().trim(), questionText_tf.getText().trim(), "1", pathMediaQuestion};
                 try {
                     db.UpdateQuestion(questionInfo);
@@ -297,11 +301,11 @@ public class GUI32Controller implements Initializable {
                 showTreeViewCategory.setTreeViewImport("Select * from Category where parentID IS NULL", root);
                 showCategory_tv.setRoot(root);
                 showCategory_tv.setOnKeyPressed(keyEvent -> {
-                    TreeItem<String> item=showCategory_tv.getSelectionModel().getSelectedItem();
-                   categoryName_lb.setText(item.getValue());
-                   nameCategoryQuestion=item.getValue();
-                   showCategory_tv.setVisible(false);
-                   categoryName_lb.setVisible(true);
+                    TreeItem<String> item = showCategory_tv.getSelectionModel().getSelectedItem();
+                    categoryName_lb.setText(item.getValue());
+                    nameCategoryQuestion = item.getValue();
+                    showCategory_tv.setVisible(false);
+                    categoryName_lb.setVisible(true);
                 });
             }
         });
@@ -358,7 +362,7 @@ public class GUI32Controller implements Initializable {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            if(addQuestionDone) {
+            if (addQuestionDone) {
                 breadCrumb.clear();
                 level.clear();
                 ChangeScene.mainSceneGUI11(this, saveChangeEvent);
