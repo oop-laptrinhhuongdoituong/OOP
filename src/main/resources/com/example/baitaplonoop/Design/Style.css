@@ -10,8 +10,8 @@
 }
 
 .tab:hover {
-    -fx-background-color: white; /* Màu nền của tab khi di chuột qua */
-    -fx-text-fill: #fff;
+    -fx-background-color: #fff; /* Màu nền của tab khi di chuột qua */
+    -fx-text-fill: black;
 }
 
 .tab .tab-label {
@@ -71,14 +71,35 @@
     -fx-cursor: hand;
 }
 
-.list-cell {
-    -fx-control-inner-background: #fff ;
-    -fx-control-inner-background-alt: derive(-fx-control-inner-background, 50%);
-    -fx-border-color: transparent   ;
-}
+/*.list-cell {*/
+/*    -fx-control-inner-background: #fff ;*/
+/*    -fx-control-inner-background-alt: derive(-fx-control-inner-background, 50%);*/
+/*    -fx-border-color: transparent   ;*/
+/*}*/
 
 .list-cell:hover {
     -fx-background-color: #1177d1 ;
     -fx-cursor: hand;
     -fx-text-fill: #fff;
 }
+
+/*.table-view {*/
+/*    -fx-background-color: white; !*Đổi màu nền cho table view*!*/
+/*}*/
+
+.table-view .column-header .label {
+    -fx-text-fill: black;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: black;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #005797;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #0099ff;
+}
+

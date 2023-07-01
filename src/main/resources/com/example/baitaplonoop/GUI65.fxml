@@ -10,40 +10,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="gui6_5" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" prefHeight="687.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI65Controller">
+<AnchorPane fx:id="gui6_5" prefHeight="687.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI65Controller">
    <children>
-      <Label layoutX="7.0" layoutY="2.0" prefHeight="51.0" prefWidth="586.0" text="Add a random question to page 1" textAlignment="CENTER" textFill="#b50e0e" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="6.600000000000023" AnchorPane.topAnchor="2.0">
+      <Label layoutX="7.0" layoutY="2.0" prefHeight="40.0" prefWidth="586.0" text="Add a random question to page 1" textAlignment="CENTER" textFill="#b50e0e" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="15.0">
          <font>
-            <Font size="25.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="19.0" layoutY="75.0" prefHeight="40.0" prefWidth="83.0" text="Category" textAlignment="CENTER" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="95.0">
-         <font>
-            <Font size="17.0" />
-         </font></Label>
-      <Label fx:id="Default" layoutX="156.0" layoutY="95.0" prefHeight="40.0" prefWidth="267.0" AnchorPane.leftAnchor="156.0" AnchorPane.topAnchor="95.0">
-         <font>
-            <Font size="17.0" />
-         </font></Label>
-      <TreeView fx:id="category" layoutX="156.0" layoutY="135.0" prefHeight="142.0" prefWidth="267.0" showRoot="false" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="176.8" AnchorPane.topAnchor="135.0" />
-      <ComboBox fx:id="numberOfQuestions" layoutX="194.0" layoutY="295.0" prefHeight="31.0" prefWidth="83.0" AnchorPane.leftAnchor="194.0" AnchorPane.topAnchor="295.0" />
-      <CheckBox fx:id="gui6_5CheckBox" layoutX="156.0" layoutY="156.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="318.0" text="Include questions form subcategories too" AnchorPane.leftAnchor="156.0" AnchorPane.topAnchor="156.0">
-         <font>
-            <Font size="15.0" />
-         </font></CheckBox>
-      <Label layoutX="27.0" layoutY="353.0" prefHeight="40.0" prefWidth="232.0" text="Questions matching this filter" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="353.0">
-         <font>
-            <Font size="17.0" />
-         </font></Label>
+      <Label layoutX="35.0" layoutY="61.0" prefHeight="26.0" prefWidth="83.0" text="Category" textAlignment="CENTER" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="61.0" />
+      <Label fx:id="Default" layoutX="156.0" layoutY="95.0" prefHeight="26.0" prefWidth="267.0" AnchorPane.leftAnchor="156.0" AnchorPane.topAnchor="61.0" />
+      <TreeView fx:id="category" layoutX="156.0" layoutY="74.0" prefHeight="142.0" prefWidth="267.0" showRoot="false" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="176.8" AnchorPane.topAnchor="61.0" />
+      <ComboBox fx:id="numberOfQuestions" layoutX="206.0" layoutY="243.0" prefHeight="26.0" prefWidth="83.0" AnchorPane.leftAnchor="206.0" AnchorPane.topAnchor="250.0" />
+      <CheckBox fx:id="gui6_5CheckBox" layoutX="157.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="318.0" text="Include questions form subcategories too" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="80.0" />
+      <Label layoutX="35.0" layoutY="289.0" prefHeight="26.0" prefWidth="232.0" text="Questions matching this filter" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="280.0" />
       <Pagination fx:id="pagination" layoutX="19.0" layoutY="378.0" prefHeight="252.0" prefWidth="560.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="21.0" />
-      <ToggleButton fx:id="add" layoutX="474.0" layoutY="283.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" text="Add " AnchorPane.rightAnchor="15.599999999999994" AnchorPane.topAnchor="283.0">
-         <font>
-            <Font size="17.0" />
-         </font></ToggleButton>
-      <Text layoutX="27.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of random questions" wrappingWidth="146.936767578125" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="288.6552734375">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
+      <ToggleButton fx:id="add" layoutX="474.0" layoutY="283.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="56.0" styleClass="button_blue" stylesheets="@Design/Style.css" text="Add " AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="283.0" />
+      <Text layoutX="27.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of random questions" wrappingWidth="164.2701416015625" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="250.0" />
    </children>
 </AnchorPane>

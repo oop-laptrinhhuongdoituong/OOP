@@ -120,6 +120,7 @@ public class GUI73Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        timerLabel.setVisible(false);
         flowPane1.getChildren().addAll(breadCrumb);
         insertIntoGridPane();
         ResultSet rs = db.getData("Select questionID from QuestionInQuiz where quizName = N'" + quizChosen + "'");
@@ -201,7 +202,10 @@ public class GUI73Controller implements Initializable {
                     openTime = rs1.getTimestamp("openTime").toLocalDateTime();
                     closeTime = rs1.getTimestamp("closeTime").toLocalDateTime();
                     if (localDateTime.isAfter(openTime) && localDateTime.isBefore(closeTime)) {
-                        timerAction(rs1.getInt("timeLimit"));
+                        if(rs1.getInt("timeLimit") != 0){
+                            timerLabel.setVisible(true);
+                            timerAction(rs1.getInt("timeLimit"));
+                        }
                     }
                 }
             } catch (SQLException e) {

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gui2_1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI21Controller">
+<AnchorPane fx:id="gui2_1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="500.0" styleClass="anchor-pane" stylesheets="@Design/Style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI21Controller">
     <TableView fx:id="table" editable="true" layoutX="14.0" layoutY="269.0" prefHeight="200.0" prefWidth="476.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
       <columns>
           <TableColumn fx:id="question" prefWidth="410.0000305175781" text="Question" />
@@ -27,7 +27,7 @@
         </font>
     </Label>
     <Label layoutX="35.0" layoutY="80.0" text="The default category for questions shared in context" />
-    <Button fx:id="createQuestionButton" layoutX="37.0" layoutY="183.0" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="CREATE A NEW QUESTION..." />
+    <Button fx:id="createQuestionButton" layoutX="37.0" layoutY="183.0" mnemonicParsing="false" styleClass="button_blue" text="CREATE A NEW QUESTION..." />
     <CheckBox fx:id="gui2_1CheckBox" layoutX="37.0" layoutY="105.0" mnemonicParsing="false" text="Also show questions from subcategories" />
     <CheckBox layoutX="35.0" layoutY="136.0" mnemonicParsing="false" text="Also show old questions" />
     <TreeView fx:id="category" layoutX="173.0" layoutY="77.0" prefHeight="178.0" prefWidth="276.0" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="51.0" />

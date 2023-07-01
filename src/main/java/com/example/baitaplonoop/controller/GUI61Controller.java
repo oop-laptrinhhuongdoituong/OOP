@@ -13,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import java.io.IOException;
@@ -30,12 +29,12 @@ import static com.example.baitaplonoop.controller.GUI11Controller.*;
 public class GUI61Controller implements Initializable {
     @FXML
     public Label lbQuiz;
+    public Button imgAddQuestionToQuiz;
     @FXML
     Button btnPreviewQuiz;
     @FXML
     public Label lbTimeLimit;
-    @FXML
-    public ImageView imgAddQuestionToQuiz;
+
     public TableView<Pair<String, String>> tbHistory;
     public TableColumn<Pair<String, String>, String> AttemptColumn;
     public TableColumn<Pair<String, String>, String> StatusColumn;
@@ -53,10 +52,16 @@ public class GUI61Controller implements Initializable {
         ResultSet rs1 = db.getData("Select * from HistoryAttempt where quizName = N'" + quizChosen + "'");
         try {
             while (rs.next()) {
-                timeLimit = rs.getString("timeLimit");
-                lbTimeLimit.setText(timeLimit + " mins");
-                isShuffle = rs.getBoolean("shuffle");
-                isOpenable = !rs.getTimestamp("openTime").toLocalDateTime().isAfter(LocalDateTime.now()) && !rs.getTimestamp("closeTime").toLocalDateTime().isBefore(LocalDateTime.now());
+                if(Double.parseDouble(rs.getString("timeLimit")) != 0){
+                    timeLimit = rs.getString("timeLimit");
+                    lbTimeLimit.setText(timeLimit + " mins");
+                    isShuffle = rs.getBoolean("shuffle");
+                    isOpenable = !rs.getTimestamp("openTime").toLocalDateTime().isAfter(LocalDateTime.now()) && !rs.getTimestamp("closeTime").toLocalDateTime().isBefore(LocalDateTime.now());
+                }else{
+                    lbTimeLimit.setText("Unlimited");
+                    isShuffle = rs.getBoolean("shuffle");
+                    isOpenable = !rs.getTimestamp("openTime").toLocalDateTime().isAfter(LocalDateTime.now()) && !rs.getTimestamp("closeTime").toLocalDateTime().isBefore(LocalDateTime.now());
+                }
             }
             while(rs1.next()){
                 LocalDateTime timeAttempt = rs1.getTimestamp("dateAttempt").toLocalDateTime();

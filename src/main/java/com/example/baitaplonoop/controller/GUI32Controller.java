@@ -170,9 +170,8 @@ public class GUI32Controller implements Initializable {
             if (checkQuestionExist & questionName_tf.isEditable())
                 AlertOOP.mustFill("Add Question Status", "Add Question Fail", "Question Name exists");
             else {
-
                 String pathMediaQuestion;
-                if(!pathToQuestionMedia.trim().equals("")) pathMediaQuestion = pathToQuestionMedia;
+                if(!pathToQuestionMedia.equals("")) pathMediaQuestion = pathToQuestionMedia;
                 else pathMediaQuestion = questionMediaPath();
                 String[] questionInfo = {getCategoryIDQuestion(), questionName_tf.getText().trim(), questionText_tf.getText().trim(), "1", pathMediaQuestion};
                 try {

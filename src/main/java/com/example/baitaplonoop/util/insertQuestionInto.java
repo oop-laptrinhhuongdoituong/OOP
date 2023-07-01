@@ -100,7 +100,8 @@ public class insertQuestionInto {
         ResultSet rs1 = db.getData(questionView);
         try {
             while (rs1.next()) {
-                Button button = new Button("edit");
+                FontAwesomeIconButton button = new FontAwesomeIconButton("Edit",FontAwesomeIcon.PENCIL);
+                button.setStyle("-fx-cursor: hand; -fx-background-color: transparent");
                 addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"),rs1.getString("questionID")+": "+ rs1.getString("questionText"), rs1.getString("questionMedia"), rs1.getDouble("questionMark"), button);
                 questionsList.add(question1);
             }
@@ -115,7 +116,8 @@ public class insertQuestionInto {
         ResultSet rs1 = db.getData(questionView);
         try {
             while (rs1.next()) {
-                Button button=new Button("Edit");
+                FontAwesomeIconButton button = new FontAwesomeIconButton("Edit",FontAwesomeIcon.PENCIL);
+                button.setStyle("-fx-cursor: hand; -fx-background-color: transparent");
                 addQuestion question1 = new addQuestion(rs1.getString("categoryID"), rs1.getString("questionID"),rs1.getString("questionID")+": "+ rs1.getString("questionText"), rs1.getString("questionMedia"), rs1.getDouble("questionMark"), button);
                 questionsList.add(question1);
             }
