@@ -282,7 +282,7 @@ public class ImportFile {
                             String insertChoice[] = {partChoice[1], "1.00", choiceID, questionPart[0], "0", imagePath};
                             int choiceRowInserted = db.InsertChoice(insertChoice);
                         } else {
-                            String insertChoice[] = {partChoice[1], null, choiceID, questionPart[0], "0", imagePath};
+                            String insertChoice[] = {partChoice[1], "0", choiceID, questionPart[0], "0", imagePath};
                             int choiceRowInserted = db.InsertChoice(insertChoice);
                         }
                     }else{
@@ -290,7 +290,7 @@ public class ImportFile {
                             String insertChoice[] = {partChoice[1], "1.00", choiceID, questionPart[0], "0", null};
                             int choiceRowInserted = db.InsertChoice(insertChoice);
                         } else {
-                            String insertChoice[] = {partChoice[1], null, choiceID, questionPart[0], "0", null};
+                            String insertChoice[] = {partChoice[1], "0", choiceID, questionPart[0], "0", null};
                             int choiceRowInserted = db.InsertChoice(insertChoice);
                         }
                     }

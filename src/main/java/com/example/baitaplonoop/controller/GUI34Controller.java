@@ -42,16 +42,21 @@ public class GUI34Controller implements Initializable {
 
     public void setEvent(){
         lbChooseImportCategory.setOnMouseClicked(mouseEvent -> {
-            try {
-                treeViewImport.setVisible(true);
-                TreeItem<String> root = new TreeItem<>("Course IT:");
-                treeViewImport.setRoot(root);
-                insertCategoryIntoTreeView.insertCategory("select * from Category where parentID IS NULL", root);
-                treeViewImport.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-                    lbChooseImportCategory.setText(newValue.getValue());
-                });
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            if(treeViewImport.isVisible()){
+                treeViewImport.setVisible(false);
+            }
+            else {
+                try {
+                    treeViewImport.setVisible(true);
+                    TreeItem<String> root = new TreeItem<>("Course IT:");
+                    treeViewImport.setRoot(root);
+                    insertCategoryIntoTreeView.insertCategory("select * from Category where parentID IS NULL", root);
+                    treeViewImport.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+                        lbChooseImportCategory.setText(FindCategoryInfo.findCategoryName(newValue.getValue()));
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         apDropFile.setOnDragOver(dragEvent -> {

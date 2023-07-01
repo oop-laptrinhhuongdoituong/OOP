@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #E0FFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI33Controller">
+<AnchorPane prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #E0FFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI33Controller">
    <Label layoutX="42.0" layoutY="25.0" prefHeight="36.0" prefWidth="162.0" text="Add Category" textFill="#ff1e1e" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="25.0">
       <font>
          <Font size="25.0" />

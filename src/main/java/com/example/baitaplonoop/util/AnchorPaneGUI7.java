@@ -162,7 +162,7 @@ public class AnchorPaneGUI7 extends AnchorPane {
                 ResultSet rs1 = db.getData("Select * from Choice where questionID = '" + questionID + "'");
 
                 while (rs1.next()){
-                    if(rs1.getString("choiceGrade") == null){
+                    if(rs1.getString("choiceGrade") == "0"){
                         listChoice.add(new Choice(rs1.getString("choiceText"), 0, rs1.getString("choiceID"), rs1.getString("questionID"), false, rs1.getString("choiceMedia")));
                     }else{
                         notNullChoice ++;

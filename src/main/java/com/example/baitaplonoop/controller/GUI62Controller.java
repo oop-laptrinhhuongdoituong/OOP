@@ -161,7 +161,7 @@ public class GUI62Controller implements Initializable {
     }
     private void setStatementShuffle(String quizName) throws SQLException {
         DBConnect db=new DBConnect();
-        ResultSet rs=db.getData("select shuffle from dbo.Quiz where quizName = N'"+quizName+"'");
+        ResultSet rs=db.getData("select shuffle from Quiz where quizName = N'"+quizName+"'");
         while (rs.next()){
             boolean shuffleStatement=rs.getBoolean("shuffle");
             shuffle.setSelected(shuffleStatement);

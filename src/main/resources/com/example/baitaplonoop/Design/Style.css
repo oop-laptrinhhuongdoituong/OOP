@@ -1,53 +1,84 @@
-/* File styles.css */
 .tab-pane {
     -fx-background-color: white; /* Màu nền của tabPane */
+    -fx-text-fill: #fff;
 }
 
 .tab {
-    -fx-background-color: white; /* Màu nền của tab bình thường */
-
+    -fx-background-color: #fff; /* Màu nền của tab bình thường */
+    -fx-text-fill: #fff;
+    -fx-tick-label-fill: #fff;
 }
 
 .tab:hover {
     -fx-background-color: white; /* Màu nền của tab khi di chuột qua */
+    -fx-text-fill: #fff;
+}
+
+.tab .tab-label {
+    -fx-text-fill: white;
+}
+.tab:selected .tab-label {
+    -fx-text-fill: black;
 }
 
 .tab:selected {
-    -fx-background-color: white; /* Màu nền của tab khi được chọn */
-    -fx-border-color: #868e96;
-    -fx-text-fill: white;
+    -fx-background-color: #fff; /* Màu nền của tab khi được chọn */
+    -fx-border-color: #fff;
 }
 
 .tab-header-area {
-    -fx-background-color: white; /* Màu nền của khu vực chứa các tab */
+    -fx-background-color: #1177d1; /* Màu nền của khu vực chứa các tab */
+    -fx-text-fill: #fff;
 }
 
 .tab-header-background {
     -fx-background-color: white; /* Màu nền của khu vực phía sau các tab */
+    -fx-text-fill: #fff;
+    -fx-color-label-visible: white;
 }
 .anchor-pane {
-    /* Thiết lập màu xám cho viền của anchorPane */
-    -fx-border-color: gray;
-    /* Thiết lập độ rộng là 3 pixel cho viền của anchorPane */
-    -fx-border-width: 0.5px;
-    /* Thiết lập kiểu là liền cho viền của anchorPane */
-    -fx-border-style: solid;
-}
-
-.button_red {
-
+    -fx-border-color: #fff;
+    -fx-border-radius: 10px;
 }
 
 .button_blue {
-    -fx-color: #fff;
     -fx-background-color: #1177d1;
     -fx-border-color: #1177d1;
-    -fx-text-color: #fff;
+    -fx-text-fill: #fff;
+    -fx-border-radius: 10px;
 }
 
-.anchor_pane{
-
+.button_blue:hover{
+    -fx-background-color: #0e63ae;
+    -fx-border-color: #0d5ca2;
+    -fx-text-fill: #fff;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
 }
 
-.breadcrumb {
+.button_red {
+    -fx-background-color: #d9534f;
+    -fx-border-color: #d9534f;
+    -fx-text-fill: #fff;
+    -fx-border-radius: 10px;
+}
+
+.button_red:hover{
+    -fx-background-color: #d23430;
+    -fx-border-color: #c9302c;
+    -fx-text-fill: #fff;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+}
+
+.list-cell {
+    -fx-control-inner-background: #fff ;
+    -fx-control-inner-background-alt: derive(-fx-control-inner-background, 50%);
+    -fx-border-color: transparent   ;
+}
+
+.list-cell:hover {
+    -fx-background-color: #1177d1 ;
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
 }
