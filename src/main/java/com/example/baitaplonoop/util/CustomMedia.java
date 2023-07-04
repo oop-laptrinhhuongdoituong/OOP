@@ -103,11 +103,13 @@ public class CustomMedia {
     }
 
     public static boolean CheckDuration(MediaView mediaView) {
-        MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
-        Duration duration = mediaPlayer.getTotalDuration();
-        double seconds = duration.toSeconds();
-        //System.out.println(seconds);
-        return 1 <= seconds & seconds <= 10;
+        if (mediaView.getMediaPlayer() != null) {
+            MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
+            Duration duration = mediaPlayer.getTotalDuration();
+            double seconds = duration.toSeconds();
+            //System.out.println(seconds);
+            return 1 <= seconds & seconds <= 10;
+        } else return true;
     } // Check Duration Video in Question between 1s and 10s
 
     public static String saveImage(ImageView imageView, String pathImage, String imageID) {
@@ -157,20 +159,6 @@ public class CustomMedia {
     }
 
     public static String saveGif(String path1, String path2, String name) {
-//        File inputFile;
-//        try {
-//            inputFile = new File(new URI(path1));
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//        File outputFile = new File(path2 + File.separator + name + ".gif");
-//        System.out.println(path2 + File.separator + name + ".gif");
-//        try {
-//            BufferedImage image = ImageIO.read(inputFile);
-//            ImageIO.write(image, "gif", outputFile);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         copyFile(path1, path2 + File.separator + name + ".gif");
         return path2 + File.separator + name + ".gif";
     }
@@ -185,9 +173,9 @@ public class CustomMedia {
         }
 
         String projectPath = System.getProperty("user.dir");
-        Path destPath = Paths.get(projectPath,path2);
+        Path destPath = Paths.get(projectPath, path2);
         try {
-            Files.copy(Path.of(uri1),destPath,StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(Path.of(uri1), destPath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

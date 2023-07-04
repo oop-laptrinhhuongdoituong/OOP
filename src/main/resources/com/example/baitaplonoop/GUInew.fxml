@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="680.0" prefWidth="1020.0" styleClass="anchor-pane" stylesheets="@Design/Style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.baitaplonoop.controller.GUI11Controller">
-    <AnchorPane fx:id="listQuiz_ap" layoutX="54.0" layoutY="176.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="anchor-pane" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
+    <AnchorPane fx:id="listQuiz_ap" layoutX="54.0" layoutY="176.0" prefHeight="600.0" prefWidth="912.0" styleClass="anchor-pane" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <ListView fx:id="lvQuiz" layoutX="14.0" layoutY="14.0" prefHeight="270.0" prefWidth="473.0" style="-fx-background-color: #F8F8FF;" styleClass="list-cell" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
     </AnchorPane>
     <Label layoutX="36.0" layoutY="33.0" prefHeight="30.0" prefWidth="526.0" style="-fx-background-color: #4169E1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
@@ -43,22 +43,22 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </Tab>
     </TabPane>
-    <AnchorPane fx:id="addQuestion_ap" layoutX="54.0" layoutY="196.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
+    <AnchorPane fx:id="addQuestion_ap" layoutX="54.0" layoutY="196.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="anchor-pane" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <fx:include source="GUI32AddQuestion.fxml" />
     </AnchorPane>
-    <AnchorPane fx:id="addQuiz_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
+    <AnchorPane fx:id="addQuiz_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="anchor-pane" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <fx:include source="GUI35AddingQuiz.fxml" />
     </AnchorPane>
-    <AnchorPane fx:id="GUI61_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
+    <AnchorPane fx:id="GUI61_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="anchor-pane" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <fx:include source="GUI61.fxml" />
     </AnchorPane>
-    <AnchorPane fx:id="GUI62_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
+    <AnchorPane fx:id="GUI62_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="anchor-pane" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <fx:include source="GUI62.fxml" />
     </AnchorPane>
-    <AnchorPane fx:id="GUI63_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
+    <AnchorPane fx:id="GUI63_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="anchor-pane" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <fx:include source="GUI63.fxml" />
     </AnchorPane>
-    <AnchorPane fx:id="GUI65_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="tab" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
+    <AnchorPane fx:id="GUI65_ap" layoutX="64.0" layoutY="190.0" prefHeight="600.0" prefWidth="912.0" style="-fx-background-color: #F8F8FF;" styleClass="anchor-pane" visible="false" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="180.0">
         <fx:include source="GUI65.fxml" />
     </AnchorPane>
 </AnchorPane>
