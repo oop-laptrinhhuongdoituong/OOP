@@ -30,12 +30,17 @@
     -fx-background-color: #1177d1; /* Màu nền của khu vực chứa các tab */
     -fx-text-fill: #fff;
 }
+.tab-header-area:hover {
+    -fx-background-color: #117732; /* Màu nền của khu vực chứa các tab */
+    -fx-text-fill: #fff;
+}
 
 .tab-header-background {
     -fx-background-color: white; /* Màu nền của khu vực phía sau các tab */
     -fx-text-fill: #fff;
     -fx-color-label-visible: white;
 }
+
 .anchor-pane {
     -fx-border-color: #000;
     -fx-border-radius: 10px;
